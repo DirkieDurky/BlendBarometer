@@ -11,6 +11,10 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+:root {
+    --blue: #0d6efd;
+}
+
 .container {
     width: 600px;
     background-color: white;
@@ -66,29 +70,12 @@ h1 {
     width: 100%;
 }
 
-.select-wrapper {
-    position: relative;
-}
-
-.select-arrow {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 7px solid #333;
-    pointer-events: none;
-}
-
 .button-container {
     text-align: right;
 }
 
 .next-button {
-    background-color: #4CAF50;
+    background-color: #0d6efd;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -97,6 +84,13 @@ h1 {
     font-size: 16px;
 }
 
-.next-button:hover {
-    background-color: #45a049;
+.previous-button {
+    color: #007bff;
+    border: 1px solid #007bff;
+    background-color: transparent;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
 }
