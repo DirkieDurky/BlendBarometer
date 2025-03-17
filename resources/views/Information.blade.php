@@ -3,13 +3,13 @@
         <h1>Gegevens</h1>
 
         <form method="post" action="/information/test">
-            @csrf
+            @csrf <!--DON'T FORGET TO ADD THIS COMMAND TO YOUR FORMS, OTHERWISE IT WILL NOT WORK-->
             <section class="section">
                 <h2>Persoonlijke gegevens</h2>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="naam">Naam</label>
-                        <input type="text" name="naam" id="naam" placeholder="Naam van docent/ontwikkelaar" value="<?php echo session('name') ?>">
+                        <label for="name">Naam</label>
+                        <input type="text" name="name" id="name" placeholder="Naam van docent/ontwikkelaar" value="<?php echo session('name') ?>">
                     </div>
                     <div class="form-group">
                         <label for="email">E-mailadres</label>
@@ -22,16 +22,16 @@
                 <h2>Opleiding & Academie gegevens</h2>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="opleiding">Opleiding</label>
-                        <input type="text" name="opleiding" id="opleiding" placeholder="Naam van de opleiding" value="<?php echo session('opleiding') ?>">
+                        <label for="course">Opleiding</label>
+                        <input type="text" name="course" id="course" placeholder="Naam van de opleiding" value="<?php echo session('course') ?>">
                     </div>
                     <div class="form-group">
-                        <label for="academie">Academie</label>
-                        <select name="academie" id="academie">
+                        <label for="academy">Academie</label>
+                        <select name="academy" id="academy">
                             <?php
-                                $academieChoice = session('academie');
-                                if ($academieChoice) {
-                                    echo "<option value=\"$academieChoice\">$academieChoice</option>";
+                                $academyChoice = session('academy');
+                                if ($academyChoice) {
+                                    echo "<option value=\"$academyChoice\">$academyChoice</option>";
                                 } else {
                                     echo "<option value=\"\" disabled selected>Naam van de academie</option>";
                                 }
@@ -56,8 +56,8 @@
             <section class="section">
 
                 <div class="form-group full-width">
-                    <label for="samenvatting">Samenvatting</label>
-                    <textarea name="samenvatting" id="samenvatting" placeholder="Schrijf een korte samenvatting van de module"><?php echo session('samenvatting'); ?></textarea>
+                    <label for="summary">Samenvatting</label>
+                    <textarea name="summary" id="summary" placeholder="Schrijf een korte samenvatting van de module"><?php echo session('summary'); ?></textarea>
                 </div>
             </section>
 

@@ -1,5 +1,5 @@
 <?php 
-    session_start();
+    session_start(); //start a session so you can store things locally
 ?>
 
 <!DOCTYPE html>
