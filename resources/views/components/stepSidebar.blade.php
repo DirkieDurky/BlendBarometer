@@ -23,9 +23,9 @@
             @php // for now the url is the same as the name so change it when a name is chosen
                 $steps = [
                     ['label' => 'Gegevens', 'url' => '/information'],
-                    ['label' => 'Les niveau', 'url' => '/les-niveau'],
-                    ['label' => 'Module niveau', 'url' => '/informati'],
-                    ['label' => 'Overzicht & Resultaten', 'url' => '/overzicht'],
+                    ['label' => 'Les niveau', 'url' => '/lesson-level'],
+                    ['label' => 'Module niveau', 'url' => '/module-level'],
+                    ['label' => 'Overzicht & Resultaten', 'url' => '/results'],
                 ];
                 $status = 'done';
             @endphp
@@ -33,24 +33,24 @@
                 @foreach ($steps as $index => $step)
                 @php
                     if (Request::is(trim($step['url'], '/'))) {
-                        $status = 'active';  // Current step is active
+                        $status = 'active'; 
                     }
                     elseif ($status == 'active') {
                         $status = 'to-do';
                     }
                 @endphp
-                <li class="mb-3 d-flex align-items-center pictogram-item">
+                <li class="mb-3 d-flex align-items-center">
                     @if ($status == 'active')
-                        <div class="container-fluid d-flex ">
-                            <img src="{{ asset('images/doingStep.svg') }}" alt="" class="d-flex align-self-start mt-2" style="width: 30px; height: 35px;">
+                        <div class="container-fluid d-flex align-items-center">
+                            <img src="{{ asset('images/doingStep.svg') }}" alt="" class="" style="width: 30px; height: 35px;">
                             <div class="ms-3">
                                 <p class="fw-bold m-0 fs-5">{{ $step['label'] }}</p>
                                 <p class="text-primary m-0">Bezig</p>
                             </div>
                         </div>
                     @elseif ($status == 'done')
-                        <div class="container-fluid d-flex">
-                            <span class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mt-2" style="width: 30px; height: 30px;">
+                        <div class="container-fluid d-flex align-items-center">
+                            <span class="bg-primary text-white rounded-circle justify-content-center" style="width: 30px; height: 30px;">
                                 <i class="bi bi-check2 fs-4"></i>
                             </span>
                             <div class="ms-3">
@@ -59,8 +59,8 @@
                             </div>
                         </div>
                     @else
-                        <div class="container-fluid d-flex">
-                            <span class="bg-light border border-2 border-secondary rounded-circle d-flex align-items-center justify-content-center mt-2" style="width: 30px; height: 30px;">
+                        <div class="container-fluid d-flex align-items-center">
+                            <span class="bg-light border border-2 border-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">
                                 <span class="bg-secondary rounded-circle" style="width: 15px; height: 15px;"></span>
                             </span>
                             <div class="ms-3">
