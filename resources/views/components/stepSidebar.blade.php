@@ -9,10 +9,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="{{ asset('resources/css/app.css') }}" rel="stylesheet">
 
 </head>
 
+@props(['title', 'smallDescription', 'current_step_name'])
 <body>
     <div class="container-fluid p-0 m-0">
         <div class="bg-white p-4 min-vh-100">
@@ -22,12 +22,13 @@
                 <p class="text-muted">{{ $slot }}</p>
             </div>
 
+            {{-- when making the ui for the other steps just change the name value and pass it on when using the component --}}
             @php
                 $steps = [
-                    ['label' => 'Gegevens', 'url' => '/infrmation'],
-                    ['label' => 'Les niveau', 'url' => '/information'],
-                    ['label' => 'Module niveau', 'url' => '/module-level'],
-                    ['label' => 'Overzicht & Resultaten', 'url' => '/results'],
+                    ['label' => 'Gegevens', 'name' => 'information'],
+                    ['label' => 'Les niveau', 'name' => 'tempname'],
+                    ['label' => 'Module niveau', 'name' => 'tempname'],
+                    ['label' => 'Overzicht & Resultaten', 'name' => 'tempname'],
                 ];
                 $status = 'complete';
             @endphp
@@ -35,7 +36,7 @@
             <div class="steps-vertical">
                 @foreach ($steps as $index => $step)
                     @php
-                        if (Request::is(trim($step['url'], '/'))) {
+                        if ($current_step_name == $step['name']) {
                             $status = 'active';
                         } elseif ($status == 'active') {
                             $status = 'to-do';

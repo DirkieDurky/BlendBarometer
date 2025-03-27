@@ -4,7 +4,7 @@
         <div class="row">
             <!-- Sidebar on the left -->
             <div class="col-md-3">
-                <x-stepSidebar :title="'Gegevens'" :smallDescription="'Wie vult de barometer in'">Personal information and steps.</x-stepSidebar>
+                <x-stepSidebar :title="'Gegevens'" :smallDescription="'Wie vult de barometer in'" :current_step_name="'information'">Personal information and steps.</x-stepSidebar>
             </div>
 
             <!-- Main content on the right -->
