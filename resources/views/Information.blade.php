@@ -18,11 +18,11 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">Naam</label>
-                            <input type="text" name="name" id="name" placeholder="Naam van docent/ontwikkelaar" value="<?php echo session('name') ?>">
+                            <input type="text" name="name" id="name" placeholder="Naam van docent/ontwikkelaar" value={{ session('name') }}>
                         </div>
                         <div class="form-group">
                             <label for="email">E-mailadres</label>
-                            <input type="email" name="email" id="email" placeholder="eerder-al-ingevuld@avans.nl" value="<?php echo session('email') ?>">
+                            <input type="email" name="email" id="email" placeholder="eerder-al-ingevuld@avans.nl" value={{ session('email') }}>
                         </div>
                     </div>
                 </section>
@@ -32,7 +32,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="course">Opleiding</label>
-                            <input type="text" name="course" id="course" placeholder="Naam van de opleiding" value="<?php echo session('course') ?>">
+                            <input type="text" name="course" id="course" placeholder="Naam van de opleiding" value={{session('course')}}>
                         </div>
                         <div class="form-group">
                             <label for="academy">Academie</label>

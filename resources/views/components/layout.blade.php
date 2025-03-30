@@ -1,7 +1,7 @@
-<?php 
-    session_start(); //start a session so you can store things locally
-?>
-
+@if (!Session::isStarted()) {
+    Session::start();
+}
+@endif
 <!DOCTYPE html>
 <html lang="en">
 
