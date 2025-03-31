@@ -15,9 +15,8 @@
     --blue: #0d6efd;
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
+.bg-light-greenish {
+    background-color: #F4F9F7;
 }
 
 .section {
@@ -26,6 +25,16 @@ h1 {
 
 .section h2 {
     margin-bottom: 20px;
+}
+
+.form-information{
+    margin-top: 20px;
+    margin-left: 4%;
+}
+
+.form-section-head{
+    font-size: larger;
+    font-weight: 700;
 }
 
 .form-row {
@@ -38,6 +47,7 @@ h1 {
 }
 
 .form-group label {
+    font-weight: 600;
     display: block;
     margin-bottom: 5px;
 }
@@ -45,12 +55,18 @@ h1 {
 .form-group input,
 .form-group select,
 .form-group textarea {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 16px;
+}
+
+.form-group input,
+.form-group select{
+    width: 90%;
+    padding: 10px;
 }
 
 .form-group textarea {
@@ -88,8 +104,10 @@ h1 {
 }
 
 .steps-vertical {
+    margin: 0;
+    margin-top: 15%;
+    align-items: center;
     position: relative;
-    padding-left: 50px;
 }
 
 .step-vertical {
