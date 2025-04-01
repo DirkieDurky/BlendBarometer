@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(academySeeder::class);
         $this->call(contentSeeder::class);
         $this->call(form_sectionSeeder::class);
         $this->call(question_categorySeeder::class);
