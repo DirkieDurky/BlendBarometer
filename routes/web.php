@@ -13,7 +13,7 @@ Route::get('/information', function () {
     return view('information', ['academies' => $academies]);
 });
 
-Route::post('/information/safe', function () {
+Route::post('/information', function () {
     session()->put('name',request('name')); //get values from the form and put them into the session
     session()->put('email',request('email'));
     session()->put('course',request('course'));

@@ -106,6 +106,7 @@
 .steps-vertical {
     margin: 0;
     margin-top: 15%;
+    min-width: 500px;
     align-items: center;
     position: relative;
 }
@@ -181,4 +182,10 @@
 .step-vertical-content p {
     margin-bottom: 0;
     color: #6c757d;
+}
+
+@media (max-width: 1035px) { 
+    .steps-vertical {
+        display: none !important;
+    }
 }

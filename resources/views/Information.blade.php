@@ -8,7 +8,7 @@
 
             <!-- Main content on the right -->
             <div class="col-md-9 container">
-                <form class="form-information"method="post" action="/information/safe">
+                <form class="form-information"method="post" action="/information">
                     <h1 class="mb-3 mt-5 fs-2 fw-bolder">Gegevens</h1>
                     @csrf <!--DON'T FORGET TO ADD THIS COMMAND TO YOUR FORMS, OTHERWISE IT WILL NOT WORK-->
                     <section class="section">

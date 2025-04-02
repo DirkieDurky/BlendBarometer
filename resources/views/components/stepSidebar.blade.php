@@ -58,15 +58,13 @@
                         </div>
                         <div class="step-vertical-content">
                             <h4>{{ $step['label'] }}</h4>
-                            <p>
-                                @if ($status == 'active')
-                                    Bezig
-                                @elseif ($status == 'complete')
-                                    Afgerond
-                                @else
-                                    Te doen
-                                @endif
-                            </p>
+                            @if ($status == 'active')
+                                <p class="text-primary">Bezig</p>
+                            @elseif ($status == 'complete')
+                                <p class="text-success">Afgerond</p>
+                            @else
+                                <p>Te doen</p>
+                            @endif
                         </div>
                     </div>
                 @endforeach
