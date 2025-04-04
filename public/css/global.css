@@ -1,0 +1,46 @@
+@font-face {
+    font-family: Poppins;
+    src: url('../fonts/Poppins-Regular.ttf');
+}
+
+@font-face {
+    font-family: Poppins;
+    src: url('../fonts/Poppins-Bold.ttf');
+    font-weight: bold;
+}
+
+* {
+    font-family: Poppins;
+}
+
+.content {
+    background-color: #F4F9F7;
+}
+
+main {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh;
+    height: -webkit-fill-available;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.graph-card {
+    border: none;
+    background-color: inherit
+}
+
+.back-button {
+    color: var(--bs-primary)
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
+}
