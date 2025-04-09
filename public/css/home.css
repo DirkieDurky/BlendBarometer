@@ -10,3 +10,7 @@ body {
     background-repeat: no-repeat;
     background-position: top right;
 }
+
+.step {
+    width: 30px;
+}

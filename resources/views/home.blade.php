@@ -35,8 +35,8 @@
             <p>
                 {{ $intro_explanation }}
             </p>
-            <div class="d-flex">
-                <img src="" alt="1" class="me-3">
+            <div class="d-flex align-items-start">
+                <img src="{{ asset('images/one.svg') }}" alt="1" class="me-3 step">
                 <div class="d-flex flex-column">
                     <h5 class="fw-bold">Deel 1: Les niveau</h5>
                     <p>
@@ -44,8 +44,8 @@
                     </p>
                 </div>
             </div>
-            <div class="d-flex">
-                <img src="" alt="2" class="me-3">
+            <div class="d-flex align-items-start">
+                <img src="{{ asset('images/two.svg') }}" alt="2" class="me-3 step">
                 <div class="d-flex flex-column">
                     <h5 class="fw-bold">Deel 2: Module niveau</h5>
                     <p>
@@ -53,8 +53,8 @@
                     </p>
                 </div>
             </div>
-            <div class="d-flex">
-                <img src="" alt="3" class="me-3">
+            <div class="d-flex align-items-start">
+                <img src="{{ asset('images/three.svg') }}" alt="3" class="me-3 step">
                 <div class="d-flex flex-column">
                     <h5 class="fw-bold">Deel 3: Inhoudsrijk gesprek</h5>
                     <p>
@@ -62,8 +62,8 @@
                     </p>
                 </div>
             </div>
-            <div class="d-flex">
-                <img src="" alt="4" class="me-3">
+            <div class="d-flex align-items-start mb-5">
+                <img src="{{ asset('images/four.svg') }}" alt="4" class="me-3 step">
                 <div class="d-flex flex-column">
                     <h5 class="fw-bold">Deel 4: Advies rapportage</h5>
                     <p>
@@ -73,5 +73,4 @@
             </div>
         </section>
     </main>
-
 </x-layout>
