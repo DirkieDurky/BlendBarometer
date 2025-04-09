@@ -6,7 +6,7 @@
     <main class="container mt-5">
         <section class="intro">
             <div class="d-flex align-items-center mb-5">
-                <img src="public/BlendBarometer-logo.svg" alt="BlendBarometer" class="me-2">
+                <img src="{{ asset('images/blendbarometer-logo.svg') }}" alt="BlendBarometer" class="me-2">
                 <strong>BlendBarometer</strong>
             </div>
 
