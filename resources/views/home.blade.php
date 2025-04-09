@@ -2,6 +2,7 @@
     @section('styles')
         <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     @endsection
+
     <main class="container mt-5">
         <section class="intro">
             <div class="d-flex align-items-center mb-5">
@@ -15,15 +16,13 @@
                 <span class="text-primary">Blended module</span> te meten
             </h1>
             <p class="w-50 mb-4">
-                De Blend Barometer is een meetinstrument om de kwaliteit van de Blended module te meten. 
-                Hiermee is inzichtelijk wat de huidige status is en wat er nog nodig is 
-                om uiteindelijk tot een kwalitatieve en harmonieuze mix van leeractiviteiten te komen.
+                {{ $intro_description }}
             </p>
             @php
-                session(['data' => 'cool data']) 
+                session(['progress' => 'step1']) 
             @endphp
             <form action="#" class="d-flex">
-                @if (!session()->has('data')) <!-- temporary -->
+                @if (!session()->has('progress')) <!-- temporary -->
                     <button type="submit" class="btn btn-primary me-2">Start met invullen</button>
                 @else
                     <button type="submit" class="btn btn-primary me-2">Verder met invullen</button>
@@ -34,18 +33,14 @@
         <section>
             <h3 id="explanation" class="fw-bold">Hoe werkt de BlendBarometer?</h2>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore 
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex.
+                {{ $intro_explanation }}
             </p>
             <div class="d-flex">
                 <img src="" alt="1" class="me-3">
                 <div class="d-flex flex-column">
                     <h5 class="fw-bold">Deel 1: Les niveau</h5>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        {{ $intro_part1 }}
                     </p>
                 </div>
             </div>
@@ -54,10 +49,7 @@
                 <div class="d-flex flex-column">
                     <h5 class="fw-bold">Deel 2: Module niveau</h5>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        {{ $intro_part2 }}
                     </p>
                 </div>
             </div>
@@ -66,10 +58,7 @@
                 <div class="d-flex flex-column">
                     <h5 class="fw-bold">Deel 3: Inhoudsrijk gesprek</h5>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        {{ $intro_part3 }}
                     </p>
                 </div>
             </div>
@@ -78,10 +67,7 @@
                 <div class="d-flex flex-column">
                     <h5 class="fw-bold">Deel 4: Advies rapportage</h5>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        {{ $intro_part4 }}
                     </p>
                 </div>
             </div>
