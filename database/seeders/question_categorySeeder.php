@@ -18,17 +18,17 @@ class question_categorySeeder extends Seeder
             [
                 'form_section_id' => 1,
                 'name' => 'Samenhangend',
-                'description' => null,
+                'description' => 'Context van de module',
             ],
             [
                 'form_section_id' => 1,
                 'name' => 'Organisatorisch',
-                'description' => null,
+                'description' => 'Waar en wanneer vindt het onderwijs plaats',
             ],
             [
                 'form_section_id' => 1,
                 'name' => 'Didactisch',
-                'description' => null,
+                'description' => 'Inrichten van de leeractiviteiten',
             ],
         ];
 

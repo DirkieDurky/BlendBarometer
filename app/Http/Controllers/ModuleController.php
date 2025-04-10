@@ -12,10 +12,11 @@ class ModuleController extends Controller
     public function getModuleLevel($categoryNr) {
         $category = Question_category::where('id', $categoryNr)->with('questions')->first();
 
-        $answers = session()->get('answers', []);
-        // dump($answers);
+        $maxCategoryId = Question_category::where('form_section_id', 1)->max('id');
 
-        return view('part2', compact('category', 'answers'));
+        $answers = session()->get('answers', []);
+
+        return view('part2', compact('category', 'answers', 'maxCategoryId'));
     }
 
     public function storeInformation(Request $request, $categoryNr)
@@ -44,8 +45,7 @@ class ModuleController extends Controller
                 $categoryNr++;
                 return redirect('/deel2/'.$categoryNr);
             } else {
-                dump('max catagory: '.$maxCategoryId);
-                dump('catagory: '.$categoryNr);
+                //vervang met link naar volgende pagina
                 return redirect('/deel2/'.$categoryNr);
             }
         }
@@ -55,8 +55,7 @@ class ModuleController extends Controller
                 $categoryNr--;
                 return redirect('/deel2/'.$categoryNr);
             } else {
-                dump('min catagory: '.$minCategoryId);
-                dump('catagory: '.$categoryNr);
+                //vervang met link naar vorige pagina
                 return redirect('/deel2/'.$categoryNr);
             }
         } else {
