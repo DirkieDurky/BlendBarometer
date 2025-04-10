@@ -4,28 +4,63 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use App\Models\Question_category;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ModuleController extends Controller
 {
-    public function start() {
-        $catagoryNr = 1;
-        $catagoryName = Question_category::where('id', 1)->value('name');
-        $questions = Question::where('question_category_id', 1)->get();
+    public function getModuleLevel($categoryNr) {
+        $category = Question_category::where('id', $categoryNr)->with('questions')->first();
 
-        return view('part2', compact('catagoryNr','catagoryName', 'questions'));
+        $answers = session()->get('answers', []);
+        // dump($answers);
+
+        return view('part2', compact('category', 'answers'));
     }
 
-    public function next($catagoryNr) 
+    public function storeInformation(Request $request, $categoryNr)
     {
-        
-
-        $categoryIds = Question_category::where('form_section_id', 1)->pluck('id');
-        return view('part2', ['catagoryNr'=> $catagoryNr]);
+        $answers = session()->get('answers', []);
+    
+        foreach ($request->all() as $key => $value) {
+            if (str_starts_with($key, 'vraag_')) {
+                $questionId = str_replace('vraag_', '', $key);
+                $answers[$categoryNr][$questionId] = $value;
+            }
+        }
+    
+        session()->put('answers', $answers);
     }
 
-    public function back($catagoryNr) 
+    public function navigateModuleLevel(Request $request, $categoryNr) 
     {
-        return view('part2', ['catagoryNr'=> $catagoryNr - 1]);
+        $this->storeInformation($request, $categoryNr);
+
+        $btn_action = $request->input('navigation');
+
+        if ($btn_action === 'next') {
+            $maxCategoryId = Question_category::where('form_section_id', 1)->max('id');
+            if ($categoryNr < $maxCategoryId) {
+                $categoryNr++;
+                return redirect('/deel2/'.$categoryNr);
+            } else {
+                dump('max catagory: '.$maxCategoryId);
+                dump('catagory: '.$categoryNr);
+                return redirect('/deel2/'.$categoryNr);
+            }
+        }
+        elseif ($btn_action === 'previous') {
+            $minCategoryId = Question_category::where('form_section_id', 1)->min('id');
+            if ($categoryNr > $minCategoryId) {
+                $categoryNr--;
+                return redirect('/deel2/'.$categoryNr);
+            } else {
+                dump('min catagory: '.$minCategoryId);
+                dump('catagory: '.$categoryNr);
+                return redirect('/deel2/'.$categoryNr);
+            }
+        } else {
+            dump('geen valide knop actie: '.$btn_action);
+        }
     }
 }

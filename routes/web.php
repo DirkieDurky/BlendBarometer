@@ -7,6 +7,5 @@ Route::get('/', function () {
     return view('tempTesting');
 });
 
-Route::get('/deel2/1', [ModuleController::class, 'start']);
-Route::post('/deel2/{catagoryNr}', [ModuleController::class, 'next']);
-Route::post('/deel2/{catagoryNr}/back', [ModuleController::class, 'back']);
+Route::get('/deel2/{categoryNr}', [ModuleController::class, 'getModuleLevel']);
+Route::post('/deel2/{categoryNr}/navigate', [ModuleController::class, 'navigateModuleLevel']);
