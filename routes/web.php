@@ -4,7 +4,7 @@ use App\Http\Controllers\ModuleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('tempTesting');
+    return view('home');
 });
 
 Route::get('/deel2/{categoryNr}', [ModuleController::class, 'getModuleLevel']);

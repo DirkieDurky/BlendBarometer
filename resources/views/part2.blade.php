@@ -15,16 +15,6 @@
 
             <h1>{{ $category->name }}</h1>
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             @for ($i = 0; $i < count($category->questions); $i++)
                 <x-moduleQuestion :question="$category->questions[$i]['text']" :questionId="$i"
                     :answer="$answers[$category->id][$i] ?? null" :description="$category->questions[$i]->description" />
