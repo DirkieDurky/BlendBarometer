@@ -7,7 +7,7 @@ use Illuminate\Container\Attributes\Database;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class academySeeder extends Seeder
+class AcademySeeder extends Seeder
 {
     /**
      * Run the database seeds.

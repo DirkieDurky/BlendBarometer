@@ -14,7 +14,7 @@ Route::get('/information', function () {
 });
 
 Route::post('/information', function () {
-    session()->put('name',request('name')); //get values from the form and put them into the session
+    session()->put('name',request('name'));
     session()->put('email',request('email'));
     session()->put('course',request('course'));
     session()->put('academy',request('academy'));

@@ -1,40 +1,40 @@
 <x-layout>
-    <div class="container-fluid bg-light-greenish">
+    <div class="container-fluid">
         <div class="row">
             <!-- Sidebar on the left -->
             <div class="col-md-3">
-                <x-stepSidebar :title="'Gegevens'" :smallDescription="'Wie vult de barometer in'" :current_step_name="'information'">We willen graag weten wie dit invult en voor welke module het bedoeld is.</x-stepSidebar>
+                <x-step-sidebar :title="'Gegevens'" :smallDescription="'Wie vult de barometer in'" :current_step_name="'information'">We willen graag weten wie dit invult en voor welke module het bedoeld is.</x-stepSidebar>
             </div>
 
             <!-- Main content on the right -->
-            <div class="col-md-9 container">
-                <form class="form-information"method="post" action="/information">
-                    <h1 class="mb-3 mt-5 fs-2 fw-bolder">Gegevens</h1>
+            <div class="col-md-9 container bg-light-greenish">
+                <form method="post" action="/information">
+                    <h1 class="pb-2 pt-4 w-90 mx-auto mb-2 mt-5 fs-2 fw-bolder">Gegevens</h1>
                     @csrf <!--DON'T FORGET TO ADD THIS COMMAND TO YOUR FORMS, OTHERWISE IT WILL NOT WORK-->
-                    <section class="section">
-                        <h2 class="form-section-head">Persoonlijke gegevens</h2>
-                        <div class="form-row">
-                            <div class="form-group">
+                    <section class="py-4 w-90 mx-auto">
+                        <h2 class="fs-4 fw-bolder">Persoonlijke gegevens</h2>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-column flex-grow-1 me-5">
                                 <label for="name">Naam</label>
-                                <input class="bg-white" type="text" name="name" id="name" required placeholder="Naam van docent/ontwikkelaar" value={{ session('name') }} >
+                                <input class="bg-white form-control" type="text" name="name" id="name" required placeholder="Naam van docent/ontwikkelaar" value={{ session('name') }} >
                             </div>
-                            <div class="form-group">
+                            <div class="d-flex flex-column flex-grow-1 ms-5 w-25">
                                 <label for="email">E-mailadres</label>
-                                <input class="bg-white" type="email" name="email" id="email" required placeholder="eerder-al-ingevuld@avans.nl" value={{ session('email') }} >
+                                <input class="bg-white form-control" type="email" name="email" id="email" required placeholder="eerder-al-ingevuld@avans.nl" value={{ session('email') }} >
                             </div>
                         </div>
                     </section>
 
-                    <section class="section">
-                        <h2>Opleiding & Academie gegevens</h2>
-                        <div class="form-row">
-                            <div class="form-group">
+                    <section class="py-4 w-90 mx-auto">
+                        <h2 class="fs-4 fw-bolder">Opleiding & Academie gegevens</h2>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-column flex-grow-1 me-5">
                                 <label for="course">Opleiding</label>
-                                <input class="bg-white" type="text" name="course" id="course" required placeholder="Naam van de opleiding" value={{session('course')}}>
+                                <input class="bg-white form-control" type="text" name="course" id="course" required placeholder="Naam van de opleiding" value={{session('course')}}>
                             </div>
-                            <div class="form-group">
+                            <div class="d-flex flex-column flex-grow-1 ms-5 w-25">
                                 <label for="academy">Academie</label>
-                                <select class="bg-white" name="academy" id="academy" required>
+                                <select class="bg-white form-control" name="academy" id="academy" required>
                                     @php
                                         $academyChoice = session('academy');
                                     @endphp
@@ -52,26 +52,26 @@
                         </div>
                     </section>
 
-                    <section class="section">
-                        <h2>Module gegevens</h2>
-                        <div class="form-row">
-                            <div class="form-group">
+                    <section class="py-4 w-90 ms-5">
+                        <h2 class="fs-4 fw-bolder ms-4">Module gegevens</h2>
+                        <div class="d-flex justify-content-between ms-4 w-90 pe-5">
+                            <div class="d-flex flex-column flex-grow-1 pe-5">
                                 <label for="module">Module</label>
-                                <input class="bg-white" name="module" type="text" id="module" required placeholder="Naam van de module" value={{ session('module')}} >
+                                <input class="bg-white form-control w-50" name="module" type="text" id="module" required placeholder="Naam van de module" value={{ session('module')}} >
                             </div>
                         </div>
                     </section>
 
-                    <section class="section">
+                    <section class="pb-3 w-90 mx-auto">
 
-                        <div class="form-group full-width">
+                        <div class="d-flex flex-column w-100">
                             <label for="summary">Samenvatting</label>
-                            <textarea class="bg-white" name="summary" id="summary" placeholder="Schrijf een korte samenvatting van de module">{{ session('summary') }}</textarea>
+                            <textarea class="bg-white form-control" rows="4" name="summary" id="summary" placeholder="Schrijf een korte samenvatting van de module">{{ session('summary') }}</textarea>
                         </div>
                     </section>
 
-                    <div class="button-container">
-                        <button type="submit" class="next-button">Volgende →</button>
+                    <div class="d-flex justify-content-end me-5 pe-4">
+                        <button class="btn btn-primary px-4">Volgende →</button>
                     </div>
                 </form>
             </div>
