@@ -54,20 +54,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    .form-check-input:checked+.form-check-label {
-        border-color: rgb(12, 209, 117) !important;
-        border-width: 6px !important;
-    }
-
-    .form-check-input:checked+.form-check-label+svg {
-        display: block !important;
-    }
-
-    .form-check-label {
-        border-width: 2px !important;
-        height: 125px !important;
-        width: 260px !important;
-    }
-</style>

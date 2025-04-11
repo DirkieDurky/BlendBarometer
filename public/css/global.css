@@ -1,0 +1,19 @@
+.form-check-input:checked+.form-check-label {
+    border-color: rgb(12, 209, 117) !important;
+    border-width: 6px !important;
+}
+
+.form-check-input:checked+.form-check-label+svg {
+    display: block !important;
+}
+
+.form-check-label {
+    border-width: 2px !important;
+    height: 125px !important;
+    width: 260px !important;
+}
+
+.form-background {
+    background-color: #F4F9F7;
+    max-width: 925px !important;
+}

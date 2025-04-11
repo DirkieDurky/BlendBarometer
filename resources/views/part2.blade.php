@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container mt-5">
+    <div class="container mt-5 form-background">
 
         <div class="progress rounded-pill">
             <div class="progress-bar bg-success rounded-pill" role="progressbar"
@@ -20,7 +20,7 @@
                     :answer="$answers[$category->id][$i] ?? null" :description="$category->questions[$i]->description" />
             @endfor
 
-            <div class="mt-3 d-flex">
+            <div class="mt-3 d-flex justify-content-end">
                 <button name="navigation" value="previous" type="submit" class="btn btn-outline-primary me-2">&larr;
                     Vorige</button>
                 <button name="navigation" value="next" type="submit" class="btn btn-primary">Volgende &rarr;</button>
