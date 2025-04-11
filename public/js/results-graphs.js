@@ -1,20 +1,14 @@
-const globalGraph = document.getElementById('global');
-const globalDataPhysical = JSON.parse(sessionStorage.getItem("globalDataPhysical"));
-const globalDataOnline = JSON.parse(sessionStorage.getItem("globalDataOnline"));
+const partOnePhysicalGraph = document.getElementById('partOnePhysical');
+const partOneDataPhysical = JSON.parse(sessionStorage.getItem("partOneDataPhysical"));
 
-new Chart(globalGraph, {
-    type: 'radar',
+new Chart(partOnePhysicalGraph, {
+    type: 'bar',
     data: {
         labels: ['Samenwerken', 'Onderzoeken', 'Informatie verwerven', 'Discussieren', 'Oefenen',
-            'Produceren'
-        ],
+            'Produceren'],
         datasets: [{
-                label: 'Fysieke leeractiviteiten',
-                data: globalDataPhysical,
-            },
-            {
-                label: 'Online leeractiviteiten',
-                data: globalDataOnline,
+                label: 'Punten gescoord',
+                data: partOneDataPhysical,
             }
         ]
     },
@@ -23,102 +17,59 @@ new Chart(globalGraph, {
     }
 });
 
-const physicalTeamworkGraph = document.getElementById('physicalTeamwork');
-const physicalTeamworkData = JSON.parse(sessionStorage.getItem("physicalTeamworkData"));
+const partOneOnlineGraph = document.getElementById('partOneOnline');
+const partOneDataOnline = JSON.parse(sessionStorage.getItem("partOneDataOnline"));
 
-new Chart(physicalTeamworkGraph, {
+new Chart(partOneOnlineGraph, {
     type: 'bar',
     data: {
-        labels: ['Post-it-sessie', 'Werkcollege', 'Mindmap op flipovervel', 'Groepsopdracht', 'Anders'],
+        labels: ['Samenwerken', 'Onderzoeken', 'Informatie verwerven', 'Discussieren', 'Oefenen',
+            'Produceren'],
         datasets: [{
-                label: '# ingevuld',
-                data: physicalTeamworkData,
-            }]
+                label: 'Punten gescoord',
+                data: partOneDataOnline,
+            }
+        ]
     },
     options: {
         responsive: true,
     }
 });
 
-const physicalResearchGraph = document.getElementById('physicalResearch');
-const physicalResearchData = JSON.parse(sessionStorage.getItem("physicalResearchData"));
+const partOneGraph = document.getElementById('partOne');
 
-new Chart(physicalResearchGraph, {
-    type: 'bar',
+new Chart(partOneGraph, {
+    type: 'radar',
     data: {
-        labels: ['Informatie vergelijken', 'Expertmethode (Jigsaw)', 'Anders'],
+        labels: ['Samenwerken', 'Onderzoeken', 'Informatie verwerven', 'Discussieren', 'Oefenen',
+            'Produceren'],
         datasets: [{
-                label: '# ingevuld',
-                data: physicalResearchData,
-            }]
+                label: 'Fysieke leeractiviteiten',
+                data: partOneDataPhysical,
+            },
+            {
+                label: 'Online leeractiviteiten',
+                data: partOneDataOnline,
+            }
+        ]
     },
     options: {
         responsive: true,
     }
 });
 
-const physicalInformationGatheringGraph = document.getElementById('physicalInformationGathering');
-const physicalInformationGatheringData = JSON.parse(sessionStorage.getItem("physicalInformationGatheringData"));
+const partTwoGraph = document.getElementById('partTwo');
+const partTwoData = JSON.parse(sessionStorage.getItem("partTwoData"));
 
-new Chart(physicalInformationGatheringGraph, {
+new Chart(partTwoGraph, {
     type: 'bar',
     data: {
-        labels: ['Boek/artikel/Blog lezen', 'Hoorcollege', 'Anders'],
+        labels: ['Samenhangend', 'Organisatorisch', 'Didactisch'],
         datasets: [{
-                label: '# ingevuld',
-                data: physicalInformationGatheringData,
-            }]
-    },
-    options: {
-        responsive: true,
-    }
-});
-
-const physicalDiscussingGraph = document.getElementById('physicalDiscussing');
-const physicalDiscussingData = JSON.parse(sessionStorage.getItem("physicalDiscussingData"));
-
-new Chart(physicalDiscussingGraph, {
-    type: 'bar',
-    data: {
-        labels: ['Peerfeedback', 'Groepsdiscussie', 'Debat', 'Anders'],
-        datasets: [{
-                label: '# ingevuld',
-                data: physicalDiscussingData,
-            }]
-    },
-    options: {
-        responsive: true,
-    }
-});
-
-const physicalTrainingGraph = document.getElementById('physicalTraining');
-const physicalTrainingData = JSON.parse(sessionStorage.getItem("physicalTrainingData"));
-
-new Chart(physicalTrainingGraph, {
-    type: 'bar',
-    data: {
-        labels: ['Puzzel maken', 'Spelform', 'Rollenspel', 'Anders'],
-        datasets: [{
-                label: '# ingevuld',
-                data: physicalTrainingData,
-            }]
-    },
-    options: {
-        responsive: true,
-    }
-});
-
-const physicalProducingGraph = document.getElementById('physicalProducing');
-const physicalProducingData = JSON.parse(sessionStorage.getItem("physicalProducingData"));
-
-new Chart(physicalProducingGraph, {
-    type: 'bar',
-    data: {
-        labels: ['(Poster)presentatie', 'World cafe', 'Anders'],
-        datasets: [{
-                label: '# ingevuld',
-                data: physicalProducingData,
-            }]
+                label: 'Punten gescoord',
+                data: partTwoData,
+            }
+        ]
     },
     options: {
         responsive: true,

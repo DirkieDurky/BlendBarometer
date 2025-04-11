@@ -11,63 +11,30 @@
         <div class="row g-3 mt-3">
             <div class="col-6 col-xl-4 col-xxl-3">
                 <div class="card graph-card">
-                    <canvas id="global" class="bg-white rounded mb-2"></canvas>
-                    <strong>Algemene overzicht</strong>
-                    <p>Deze grafiek geeft een algemeen overzicht hoe "blended" deze module is</p>
+                    <canvas id="partOnePhysical" class="bg-white rounded mb-2"></canvas>
+                    <strong>Lesniveau - Fysiek</strong>
+                    <p>Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 1: Lesniveau op fysiek gebied</p>
                 </div>
             </div>
             <div class="col-6 col-xl-4 col-xxl-3">
                 <div class="card graph-card">
-                    <canvas id="physicalTeamwork" class="bg-white rounded mb-2"></canvas>
-                    <strong>Fysieke leeractiviteiten - Samenwerken</strong>
-                    <p>Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                        et
-                        dolore magna aliqua.</p>
+                    <canvas id="partOneOnline" class="bg-white rounded mb-2"></canvas>
+                    <strong>Lesniveau - Online</strong>
+                    <p>Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 1: Lesniveau op online gebied</p>
                 </div>
             </div>
             <div class="col-6 col-xl-4 col-xxl-3">
                 <div class="card graph-card">
-                    <canvas id="physicalResearch" class="bg-white rounded mb-2"></canvas>
-                    <strong>Fysieke leeractiviteiten - Onderzoeken</strong>
-                    <p>Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                        et
-                        dolore magna aliqua.</p>
+                    <canvas id="partOne" class="bg-white rounded mb-2"></canvas>
+                    <strong>Lesniveau - Algemeen</strong>
+                    <p>Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 1: Lesniveau in het algemeen</p>
                 </div>
             </div>
             <div class="col-6 col-xl-4 col-xxl-3">
                 <div class="card graph-card">
-                    <canvas id="physicalInformationGathering" class="bg-white rounded mb-2"></canvas>
-                    <strong>Fysieke leeractiviteiten - Informatie verwerven</strong>
-                    <p>Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                        et
-                        dolore magna aliqua.</p>
-                </div>
-            </div>
-            <div class="col-6 col-xl-4 col-xxl-3">
-                <div class="card graph-card">
-                    <canvas id="physicalDiscussing" class="bg-white rounded mb-2"></canvas>
-                    <strong>Fysieke leeractiviteiten - Discussieren</strong>
-                    <p>Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                        et
-                        dolore magna aliqua.</p>
-                </div>
-            </div>
-            <div class="col-6 col-xl-4 col-xxl-3">
-                <div class="card graph-card">
-                    <canvas id="physicalTraining" class="bg-white rounded mb-2"></canvas>
-                    <strong>Fysieke leeractiviteiten - Oefenen</strong>
-                    <p>Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                        et
-                        dolore magna aliqua.</p>
-                </div>
-            </div>
-            <div class="col-6 col-xl-4 col-xxl-3">
-                <div class="card graph-card">
-                    <canvas id="physicalProducing" class="bg-white rounded mb-2"></canvas>
-                    <strong>Fysieke leeractiviteiten - Produceren</strong>
-                    <p>Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                        et
-                        dolore magna aliqua.</p>
+                    <canvas id="partTwo" class="bg-white rounded mb-2"></canvas>
+                    <strong>Moduleniveau</strong>
+                    <p>Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 2: Moduleniveau</p>
                 </div>
             </div>
         </div>
@@ -77,14 +44,9 @@
         <a href="overzicht-en-versturen" class="btn btn-primary">Afronden<i class="bi bi-arrow-right ps-2"></i></a>
     </div>
     <script>
-        sessionStorage.setItem("globalDataPhysical", JSON.stringify([12, 19, 3, 5, 2, 3]));
-        sessionStorage.setItem("globalDataOnline", JSON.stringify([7, 15, 2, 0, 9, 3]));
-        sessionStorage.setItem("physicalTeamworkData", JSON.stringify([7, 15, 2, 0, 9]));
-        sessionStorage.setItem("physicalResearchData", JSON.stringify([7, 15, 2]));
-        sessionStorage.setItem("physicalInformationGatheringData", JSON.stringify([7, 15, 2]));
-        sessionStorage.setItem("physicalDiscussingData", JSON.stringify([7, 15, 2, 0]));
-        sessionStorage.setItem("physicalTrainingData", JSON.stringify([7, 15, 2, 0]));
-        sessionStorage.setItem("physicalProducingData", JSON.stringify([7, 15, 2]));
+        sessionStorage.setItem("partOneDataPhysical", JSON.stringify([12, 19, 3, 5, 2, 3]));
+        sessionStorage.setItem("partOneDataOnline", JSON.stringify([7, 15, 2, 0, 9, 3]));
+        sessionStorage.setItem("partTwoData", JSON.stringify([7, 15, 2]));
     </script>
     <script src={{ URL::asset('js/results-graphs.js') }}></script>
 </x-progress-step>
