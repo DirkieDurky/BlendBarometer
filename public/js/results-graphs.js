@@ -4,8 +4,7 @@ const partOneDataPhysical = JSON.parse(sessionStorage.getItem("partOneDataPhysic
 new Chart(partOnePhysicalGraph, {
     type: 'bar',
     data: {
-        labels: ['Samenwerken', 'Onderzoeken', 'Informatie verwerven', 'Discussieren', 'Oefenen',
-            'Produceren'],
+        labels: partOneCategories.map(c => c.name),
         datasets: [{
                 label: 'Punten gescoord',
                 data: partOneDataPhysical,
@@ -23,8 +22,7 @@ const partOneDataOnline = JSON.parse(sessionStorage.getItem("partOneDataOnline")
 new Chart(partOneOnlineGraph, {
     type: 'bar',
     data: {
-        labels: ['Samenwerken', 'Onderzoeken', 'Informatie verwerven', 'Discussieren', 'Oefenen',
-            'Produceren'],
+        labels: partOneCategories.map(c => c.name),
         datasets: [{
                 label: 'Punten gescoord',
                 data: partOneDataOnline,
@@ -41,8 +39,7 @@ const partOneGraph = document.getElementById('partOne');
 new Chart(partOneGraph, {
     type: 'radar',
     data: {
-        labels: ['Samenwerken', 'Onderzoeken', 'Informatie verwerven', 'Discussieren', 'Oefenen',
-            'Produceren'],
+        labels: partOneCategories.map(c => c.name),
         datasets: [{
                 label: 'Fysieke leeractiviteiten',
                 data: partOneDataPhysical,
@@ -64,7 +61,7 @@ const partTwoData = JSON.parse(sessionStorage.getItem("partTwoData"));
 new Chart(partTwoGraph, {
     type: 'bar',
     data: {
-        labels: ['Samenhangend', 'Organisatorisch', 'Didactisch'],
+        labels: partTwoCategories.map(c => c.name),
         datasets: [{
                 label: 'Punten gescoord',
                 data: partTwoData,
