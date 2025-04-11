@@ -20,6 +20,7 @@ Route::post('/information', function () {
     session()->put('academy',request('academy'));
     session()->put('module',request('module'));
     session()->put('summary',request('summary'));
+    // dd(session()->all()); // Check what is being stored in session
     $academies = Academy::all();
     return view('information', ['academies' => $academies]);
 });

@@ -16,11 +16,11 @@
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-column flex-grow-1 me-5">
                                 <label for="name">Naam</label>
-                                <input class="bg-white form-control" type="text" name="name" id="name" required placeholder="Naam van docent/ontwikkelaar" value={{ session('name') }} >
+                                <input class="bg-white form-control" type="text" name="name" id="name" required placeholder="Naam van docent/ontwikkelaar" value='{{ session('name') }}' >
                             </div>
                             <div class="d-flex flex-column flex-grow-1 ms-5 w-25">
                                 <label for="email">E-mailadres</label>
-                                <input class="bg-white form-control" type="email" name="email" id="email" required placeholder="eerder-al-ingevuld@avans.nl" value={{ session('email') }} >
+                                <input class="bg-white form-control" type="email" name="email" id="email" required placeholder="eerder-al-ingevuld@avans.nl" value='{{ session('email') }}' >
                             </div>
                         </div>
                     </section>
@@ -30,7 +30,7 @@
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-column flex-grow-1 me-5">
                                 <label for="course">Opleiding</label>
-                                <input class="bg-white form-control" type="text" name="course" id="course" required placeholder="Naam van de opleiding" value={{session('course')}}>
+                                <input class="bg-white form-control" type="text" name="course" id="course" required placeholder="Naam van de opleiding" value='{{session('course')}}'>
                             </div>
                             <div class="d-flex flex-column flex-grow-1 ms-5 w-25">
                                 <label for="academy">Academie</label>
@@ -57,7 +57,7 @@
                         <div class="d-flex justify-content-between ms-4 w-90 pe-5">
                             <div class="d-flex flex-column flex-grow-1 pe-5">
                                 <label for="module">Module</label>
-                                <input class="bg-white form-control w-50" name="module" type="text" id="module" required placeholder="Naam van de module" value={{ session('module')}} >
+                                <input class="bg-white form-control w-50" name="module" type="text" id="module" required placeholder="Naam van de module" value='{{ session('module')}}' >
                             </div>
                         </div>
                     </section>
