@@ -11,40 +11,40 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('content', function (Blueprint $table) {
+        Schema::create('contents', function (Blueprint $table) {
             $table->id();
             $table->string('section_name');
             $table->mediumText('info');
         });
 
-        Schema::create('form_section', function (Blueprint $table) {
+        Schema::create('form_sections', function (Blueprint $table) {
             $table->id();
             $table->foreignId('content_id')
-                ->constrained()
+                ->constrained('contents')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
             $table->mediumText('description')
                 ->nullable();
         });
 
-        Schema::create('question_category', function (Blueprint $table) {
+        Schema::create('question_categories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('form_section_id')
-                ->constrained()
+                ->constrained('form_sections')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
             $table->mediumText('description')
                 ->nullable();
         });
 
-        Schema::create('question', function (Blueprint $table) {
+        Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('question_category_id')
-                ->constrained()
+                ->constrained('question_categories')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
             $table->foreignId('sub_category_id')
-                ->constrained()
+                ->constrained('sub_categories')
                 ->onUpdate('cascade')
                 ->onDelete('restrict')
                 ->nullable();
@@ -53,31 +53,35 @@ return new class extends Migration
                 ->nullable();
         });
 
-        Schema::create('sub_category', function (Blueprint $table) {
+        Schema::create('sub_categories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('question_category_id')
+                ->constrained('question_categories')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
             $table->string('name');
         });
 
-        Schema::create('receiver', function (Blueprint $table) {
+        Schema::create('receivers', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->boolean('is_default');
         });
 
-        Schema::create('academy', function (Blueprint $table) {
+        Schema::create('academies', function (Blueprint $table) {
             $table->string('name')->primary();
         });
 
-        Schema::create('receiver_of_academy', function (Blueprint $table) {
+        Schema::create('receiver_of_academies', function (Blueprint $table) {
             $table->foreignId('receiver_email')
-                ->constrained()
+                ->constrained('receivers', 'email')
                 ->onUpdate('cascade')
                 ->onDelete('restrict')
                 ->primary();
             $table->foreignId('academy_name')
-                ->constrained()
+                ->constrained('academies', 'name')
                 ->onUpdate('cascade')
                 ->onDelete('restrict')
-                ->primary();
+                ->primary(['receiver_email', 'academy_name']);
         });
     }
 
