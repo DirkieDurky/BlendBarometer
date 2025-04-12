@@ -3,10 +3,9 @@
 use App\Models\academy;
 use Illuminate\Support\Facades\Route;
 use Laravel\Pail\ValueObjects\Origin\Console;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/information', function () {
     $academies = Academy::all();
