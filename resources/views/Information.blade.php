@@ -71,6 +71,7 @@
                     </section>
 
                     <div class="d-flex justify-content-end me-5 pe-4">
+                        <a href='/' class="btn text-primary px-4">← Vorige</a>
                         <button class="btn btn-primary px-4">Volgende →</button>
                     </div>
                 </form>

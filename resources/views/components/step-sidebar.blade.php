@@ -3,6 +3,7 @@
     <div class="container-fluid p-0 m-0">
         <div class="bg-white p-4 min-vh-100">
             <div class="mb-4">
+                <img src="{{ asset('images/Logo.svg') }}" alt="BlendBarometer" class="my-4">
                 <h1 class="text-primary text-start" style="font-size: 1.2rem;">{{ $title }}</h1>
                 <p class="fs-1 fw-bold">{{ $smallDescription }}</p>
                 <p class="text-muted">{{ $slot }}</p>
