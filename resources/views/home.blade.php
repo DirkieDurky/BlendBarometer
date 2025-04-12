@@ -9,7 +9,6 @@
                 <img src="{{ asset('images/blendbarometer-logo.svg') }}" alt="BlendBarometer" class="me-2">
                 <strong>BlendBarometer</strong>
             </div>
-
             <h1 class="fw-bold mb-4">
                 Een <span class="text-primary">meetinstrument</span> om <br>
                 de kwaliteit van een <br>
@@ -18,17 +17,8 @@
             <p class="w-50 mb-4">
                 {{ $intro_description }}
             </p>
-            @php
-                session(['progress' => 'step1']) 
-            @endphp
-            <form action="#" class="d-flex">
-                @if (!session()->has('progress')) <!-- temporary -->
-                    <button type="submit" class="btn btn-primary me-2">Start met invullen</button>
-                @else
-                    <button type="submit" class="btn btn-primary me-2">Verder met invullen</button>
-                @endif
-                <a href="#explanation" class="btn btn-outline-primary">Hoe werkt het?</a>
-            </form>
+            <a href="/verificatie" class="btn btn-primary me-2">Start met invullen</button>
+            <a href="#explanation" class="btn btn-outline-primary">Hoe werkt het?</a>
         </section>
         <section>
             <h3 id="explanation" class="fw-bold">Hoe werkt de BlendBarometer?</h2>
