@@ -53,11 +53,10 @@
                     <div class="mb-3">
                         <label class="form-label"><strong>Gebruik je iets in de categorie {{ $subCategory->questionCategory->description }}, wat niet voorbij gekomen is?</strong></label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="custom_collab">
-                            <button class="btn btn-primary" type="button">Toevoegen</button> {{-- moet werkend gemaakt worden --}}
+                            <input type="text" class="form-control" id="custom_collab" name="custom_collab" placeholder="Vul je vraag in" value="{{ $customQuestions['custom_' . $currentStep] ?? '' }}">
+                            <button class="btn btn-primary" type="button" id="addCustomQuestionBtn">Toevoegen</button>
                         </div>
                     </div>
-            </div>
             
                 <div class="d-flex justify-content-between">
                     @if($currentStep > 1)
@@ -76,4 +75,5 @@
             
         </div>
     </div>
+    <script src="{{ asset('js/customQuestion.js') }}"></script>
 </x-layout>

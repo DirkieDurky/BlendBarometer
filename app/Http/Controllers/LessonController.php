@@ -33,22 +33,25 @@ class LessonController extends Controller{
         $totalSteps = SubCategory::count();
         $currentStep = $subCategoryId;
 
-        return view('part1', compact('subCategory', 'questions', 'totalSteps', 'currentStep', 'answers'));
+        $customQuestion = $answers[$subCategoryId]['custom'] ?? null;
+
+        return view('part1', compact('subCategory', 'questions', 'totalSteps', 'currentStep', 'answers', 'customQuestion'));
     }
 
     public function storeAnswers(Request $request, $subCategoryId)
     {
-        // Retrieve current answers from session
         $answers = session()->get('answers', []);
 
         foreach ($request->all() as $key => $value) {
             if (str_starts_with($key, 'question_')) {
-                // Extract the question id from the input name
                 $questionId = str_replace('question_', '', $key);
-
-                // Store the answer for this question
                 $answers[$subCategoryId][$questionId] = $value;
             }
+        }
+
+        if ($request->has('custom_collab') && !empty($request->custom_collab)) {
+            $customQuestion = $request->custom_collab;
+            $answers[$subCategoryId]['custom'] = $customQuestion;
         }
 
         // Save the answers in the session
