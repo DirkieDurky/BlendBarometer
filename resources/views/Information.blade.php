@@ -8,7 +8,7 @@
 
             <!-- Main content on the right -->
             <div class="col-md-9 container bg-light-greenish">
-                <form method="post" action="/information">
+                <form method="post" action="/information" class="ms-5">
                     <h1 class="pb-2 pt-4 w-90 mx-auto mb-2 mt-5 fs-2 fw-bolder">Gegevens</h1>
                     @csrf <!--DON'T FORGET TO ADD THIS COMMAND TO YOUR FORMS, OTHERWISE IT WILL NOT WORK-->
                     <section class="py-4 w-90 mx-auto">
@@ -52,12 +52,12 @@
                         </div>
                     </section>
 
-                    <section class="py-4 w-90 ms-5">
-                        <h2 class="fs-4 fw-bolder ms-4">Module gegevens</h2>
-                        <div class="d-flex justify-content-between ms-4 w-90 pe-5">
-                            <div class="d-flex flex-column flex-grow-1 pe-5">
+                    <section class="py-4 w-90 mx-auto">
+                        <h2 class="fs-4 fw-bolder">Module gegevens</h2>
+                        <div class="d-flex justify-content-between w-50">
+                            <div class="d-flex flex-column flex-grow-1 pe-4">
                                 <label for="module">Module</label>
-                                <input class="bg-white form-control w-50" name="module" type="text" id="module" required placeholder="Naam van de module" value='{{ session('module')}}' >
+                                <input class="bg-white form-control w-90" name="module" type="text" id="module" required placeholder="Naam van de module" value='{{ session('module')}}' >
                             </div>
                         </div>
                     </section>
@@ -70,7 +70,7 @@
                         </div>
                     </section>
 
-                    <div class="d-flex justify-content-end me-5 pe-4">
+                    <div class="d-flex justify-content-end me-5 mb-5 pe-4">
                         <a href='/' class="btn text-primary px-4">← Vorige</a>
                         <button class="btn btn-primary px-4">Volgende →</button>
                     </div>
