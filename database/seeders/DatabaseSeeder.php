@@ -17,5 +17,12 @@ class DatabaseSeeder extends Seeder
         $this->call(form_sectionSeeder::class);
         $this->call(question_categorySeeder::class);
         $this->call(questionSeeder::class);
+      
+        // User::factory(10)->create();
+
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
     }
 }
