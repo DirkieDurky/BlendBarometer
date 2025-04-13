@@ -3,13 +3,13 @@
         <div class="row">
             <!-- Sidebar on the left -->
             <div class="col-md-3">
-                <x-step-sidebar :title="'Gegevens'" :smallDescription="'Wie vult de barometer in'" :current_step_name="'information'">We willen graag weten wie dit invult en voor welke module het bedoeld is.</x-stepSidebar>
+                <x-step-sidebar :title="'Gegevens'" :smallDescription="'Wie vult de barometer in'" :current_step_name="'information'">We willen graag weten wie dit invult en voor welke module het bedoeld is.</x-step-sidebar>
             </div>
 
             <!-- Main content on the right -->
             <div class="col-md-9 container bg-light-greenish">
                 <form method="post" action="/information" class="ms-5">
-                    <h1 class="pb-2 pt-4 w-90 mx-auto mb-2 mt-5 fs-2 fw-bolder">Gegevens</h1>
+                    <h1 class="pb-2 pt-4 w-90 mx-auto mb-2 mt-4 fs-2 fw-bolder">Gegevens</h1>
                     @csrf <!--DON'T FORGET TO ADD THIS COMMAND TO YOUR FORMS, OTHERWISE IT WILL NOT WORK-->
                     <section class="py-4 w-90 mx-auto">
                         <h2 class="fs-4 fw-bolder">Persoonlijke gegevens</h2>
@@ -34,7 +34,7 @@
                             </div>
                             <div class="d-flex flex-column flex-grow-1 ms-5 w-25">
                                 <label for="academy">Academie</label>
-                                <select class="bg-white form-control" name="academy" id="academy" required>
+                                <select class="bg-white form-select" name="academy" id="academy" required>
                                     @php
                                         $academyChoice = session('academy');
                                     @endphp
@@ -70,9 +70,9 @@
                         </div>
                     </section>
 
-                    <div class="d-flex justify-content-end me-5 mb-5 pe-4">
-                        <a href='/' class="btn text-primary px-4">← Vorige</a>
-                        <button class="btn btn-primary px-4">Volgende →</button>
+                    <div class="d-flex justify-content-end me-5 mb-5">
+                        <a href='/' class="btn text-primary px-4"><i class="bi bi-arrow-left"></i> Vorige</a>
+                        <button class="btn btn-primary px-4">Volgende <i class="bi bi-arrow-right"></i></button>
                     </div>
                 </form>
             </div>
