@@ -16,7 +16,7 @@ class ModuleController extends Controller
 
         $answers = session()->get('answers', []);
 
-        return view('part2', compact('category', 'answers', 'maxCategoryId'));
+        return view('module-section', compact('category', 'answers', 'maxCategoryId'));
     }
 
     public function storeInformation(Request $request, $categoryNr)

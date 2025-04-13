@@ -9,11 +9,10 @@
 
 .form-check-label {
     border-width: 2px !important;
-    height: 125px !important;
-    width: 260px !important;
+    height: 175x !important;
+    width: 390px !important;
 }
 
-.form-background {
+.content {
     background-color: #F4F9F7;
-    max-width: 925px !important;
 }
