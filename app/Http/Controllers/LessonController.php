@@ -33,9 +33,13 @@ class LessonController extends Controller{
         $totalSteps = SubCategory::count();
         $currentStep = $subCategoryId;
 
-        $customQuestion = $answers[$subCategoryId]['custom'] ?? null;
+        $customQuestions = array_filter(
+            $answers[$subCategoryId] ?? [],
+            fn($key) => str_starts_with($key, 'custom_'),
+            ARRAY_FILTER_USE_KEY
+        );
 
-        return view('part1', compact('subCategory', 'questions', 'totalSteps', 'currentStep', 'answers', 'customQuestion'));
+        return view('part1', compact('subCategory', 'questions', 'totalSteps', 'currentStep', 'answers', 'customQuestions'));
     }
 
     public function storeAnswers(Request $request, $subCategoryId)
@@ -47,12 +51,12 @@ class LessonController extends Controller{
                 $questionId = str_replace('question_', '', $key);
                 $answers[$subCategoryId][$questionId] = $value;
             }
-        }
-
-        if ($request->has('custom_collab') && !empty($request->custom_collab)) {
-            $customQuestion = $request->custom_collab;
-            $answers[$subCategoryId]['custom'] = $customQuestion;
-        }
+    
+            // Handle custom questions
+            if (str_starts_with($key, 'custom_')) {
+                $answers[$subCategoryId][$key] = $value;
+            }
+        }    
 
         // Save the answers in the session
         session()->put('answers', $answers);

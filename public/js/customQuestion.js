@@ -9,7 +9,7 @@ document.getElementById('addCustomQuestionBtn').addEventListener('click', functi
     var questionField = document.createElement('div');
     questionField.classList.add('mb-3');
     
-    var fieldName = "question_custom_" + Date.now();
+    var fieldName = "custom_" + customQuestion.toLowerCase().replace(/[^a-z0-9]+/g, '_');
     
     questionField.innerHTML = `
         <label class="form-label fw-bold">${customQuestion}</label>

@@ -26,37 +26,27 @@
                             $fieldName = "question_" . $question->id;
                             $selectedAnswer = $answers[$currentStep][$question->id] ?? null;
                         @endphp
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">{{ $question->text }}</label>
-                            <div class="btn-group w-100" role="group">
-                                <input type="radio" class="btn-check" name="{{ $fieldName }}" id="{{ $fieldName }}_nooit" value="Nooit" autocomplete="off" {{ $selectedAnswer === 'Nooit' ? 'checked' : '' }} required>    
-                                <label class="btn btn-outline-secondary d-flex flex-column align-items-center justify-content-center p-3" for="{{ $fieldName }}_nooit">
-                                    <div style="font-size: 2rem;">😞</div>
-                                    <div class="mt-2 text-nowrap">Nooit</div>
-                                </label>
-                                
-                                <input type="radio" class="btn-check" name="{{ $fieldName }}" id="{{ $fieldName }}_af_en_toe" value="Af en toe" autocomplete="off" {{ $selectedAnswer === 'Af en toe' ? 'checked' : '' }} required>
-                                <label class="btn btn-outline-secondary d-flex flex-column align-items-center justify-content-center p-3" for="{{ $fieldName }}_af_en_toe">
-                                    <div style="font-size: 2rem;">😐</div>
-                                    <div class="mt-2 text-nowrap">Af en toe</div>
-                                </label>
-
-                                <input type="radio" class="btn-check" name="{{ $fieldName }}" id="{{ $fieldName }}_vaak" value="Vaak" autocomplete="off" {{ $selectedAnswer === 'Vaak' ? 'checked' : '' }} required>
-                                <label class="btn btn-outline-secondary d-flex flex-column align-items-center justify-content-center p-3" for="{{ $fieldName }}_vaak">
-                                    <div style="font-size: 2rem;">😊</div>
-                                    <div class="mt-2 text-nowrap">Vaak</div>
-                                </label>
-                            </div>
-                        </div>
+                        <x-lesson-question-component :question="$question" :selectedAnswer="$selectedAnswer" :fieldName="$fieldName" />
                     @endforeach
-            
+
                     <div class="mb-3">
                         <label class="form-label"><strong>Gebruik je iets in de categorie {{ $subCategory->questionCategory->description }}, wat niet voorbij gekomen is?</strong></label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="custom_collab" name="custom_collab" placeholder="Vul je vraag in" value="{{ $customQuestions['custom_' . $currentStep] ?? '' }}">
-                            <button class="btn btn-primary" type="button" id="addCustomQuestionBtn">Toevoegen</button>
+                        <input type="text" class="form-control" id="custom_collab" name="custom_collab" placeholder="Vul je vraag in">
+                        <button class="btn btn-primary" type="button" id="addCustomQuestionBtn">Toevoegen</button>
                         </div>
                     </div>
+
+                    @if(!empty($customQuestions))
+                        @foreach($customQuestions as $key => $customQuestion)
+                            @php
+                                $fieldName = $key;
+                                $selectedAnswer = $answers[$currentStep][$key] ?? null;
+                                $questionText = str_replace('custom_', '', $key);
+                            @endphp
+                            <x-lesson-question-component :question="(object)['id' => $key, 'text' => $questionText]" :selectedAnswer="$selectedAnswer" :fieldName="$fieldName" />
+                        @endforeach
+                    @endif
             
                 <div class="d-flex justify-content-between">
                     @if($currentStep > 1)
