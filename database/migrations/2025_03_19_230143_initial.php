@@ -21,6 +21,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('content_id')
                 ->constrained('contents')
+// =======
+//                 ->constrained('content')
+// >>>>>>> develop
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
             $table->mediumText('description')
@@ -31,8 +34,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('form_section_id')
                 ->constrained('form_sections')
+// =======
+//                 ->constrained('form_section')
+// >>>>>>> develop
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
+            $table->string('name');
             $table->mediumText('description')
                 ->nullable();
         });
@@ -45,9 +52,16 @@ return new class extends Migration
                 ->onDelete('restrict');
             $table->foreignId('sub_category_id')
                 ->constrained('sub_categories')
+// =======
+//                 ->constrained('question_category')
+//                 ->onUpdate('cascade')
+//                 ->onDelete('restrict');
+//             $table->foreignId('sub_category_id')
+//                 ->nullable()
+//                 ->constrained('sub_category')
+// >>>>>>> develop
                 ->onUpdate('cascade')
-                ->onDelete('restrict')
-                ->nullable();
+                ->onDelete('restrict');
             $table->string('text');
             $table->mediumText('description')
                 ->nullable();

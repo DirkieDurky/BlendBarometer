@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
+    protected $table = "question";
+
     protected $fillable = [
         'id',
         'question_category_id',
@@ -22,4 +24,11 @@ class Question extends Model
     {
         return $this->belongsTo(SubCategory::class);
     }
+
+//     public function questionCategory()
+//     {
+//         return $this->belongsTo(Question_category::class);
+// >>>>>>> develop
+//     }
+
 }
