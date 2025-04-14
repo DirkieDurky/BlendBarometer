@@ -13,7 +13,7 @@
 
                     {{-- when making the ui for the other steps just change the name value and pass it on when using the component --}}
                     @php
-                        $steps = [['label' => 'Gegevens', 'name' => 'information'], ['label' => 'Les niveau', 'name' => 'classLevel'], ['label' => 'Module niveau', 'name' => 'moduleLevel'], ['label' => 'Overzicht & Resultaten', 'name' => 'results']];
+                        $steps = [['label' => 'Gegevens', 'name' => 'information'], ['label' => 'Les niveau', 'name' => 'lessonLevel'], ['label' => 'Module niveau', 'name' => 'moduleLevel'], ['label' => 'Overzicht & Resultaten', 'name' => 'results']];
                         $status = 'complete';
                     @endphp
 

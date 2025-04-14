@@ -46,10 +46,11 @@
     </div>
     <script>
         const partOneCategories = {!! json_encode($partOneCategories) !!};
+        const partOneSubcategories = {!! json_encode($partOneSubcategories) !!};
         const partTwoCategories = {!! json_encode($partTwoCategories) !!};
 
-        const partOneDataPhysical = {!! json_encode(session()->get('partOneDataPhysical')) !!};
-        const partOneDataOnline = {!! json_encode(session()->get('partOneDataOnline')) !!};
+        const partOneDataOnline = {!! json_encode($partOneDataOnline) !!};
+        const partOneDataPhysical = {!! json_encode($partOneDataPhysical) !!};
         const partTwoData = {!! json_encode(session()->get('partTwoData')) !!};
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

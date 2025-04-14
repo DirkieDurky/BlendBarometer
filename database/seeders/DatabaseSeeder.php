@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(contentSeeder::class);
         $this->call(form_sectionSeeder::class);
         $this->call(question_categorySeeder::class);
+        $this->call(sub_categorySeeder::class);
         $this->call(questionSeeder::class);
         $this->call(AcademySeeder::class);
       

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Question;
 use App\Models\Question_category;
+use App\Models\Sub_category;
 
 class ResultsController extends Controller
 {
@@ -12,12 +14,34 @@ class ResultsController extends Controller
             return redirect('/');
         }
 
-        $partOneCategories = Question_category::select('name')->where('form_section_id', 0)->get();
-        $partTwoCategories = Question_category::select('name')->where('form_section_id', 1)->get();
+        $partOneCategories = Question_category::select('name')->where('form_section_id', 1)->get();
+        $partOneSubcategories = Sub_category::select('name')->where('question_category_id', 1)->get();
+        $partTwoCategories = Question_category::select('name')->where('form_section_id', 2)->get();
+
+        $partOneDataOnline = [];
+        $partOneDataPhysical = [];
+
+        foreach (session()->get("partOneData") as $answerPage) {
+            $question = Question::where('id', key($answerPage))->select('question_category_id', 'sub_category_id');
+            $total = 0;
+
+            foreach ($answerPage as $answer) {
+                $total += $answer;
+            }
+
+            if ($question->value('question_category_id') == 1) {
+                $partOneDataOnline[] = $total;
+            } elseif ($question->value('question_category_id') == 2) {
+                $partOneDataPhysical[] = $total;
+            }
+        }
 
         return view('results', [
             'partOneCategories' => $partOneCategories,
+            'partOneSubcategories' => $partOneSubcategories,
             'partTwoCategories' => $partTwoCategories,
+            'partOneDataOnline' => $partOneDataOnline,
+            'partOneDataPhysical' => $partOneDataPhysical,
         ]);
     }
 

@@ -7,7 +7,7 @@
         </div>
         <p class="mt-2">{{ $category->id }} van {{ $maxCategoryId }} - {{ $category->description }}</p>
 
-        <form action="/module-section/{{ $category->id }}/navigate" method="post">
+        <form action="/module-level/{{ $category->id }}/navigate" method="post">
             @csrf
 
             <h1>{{ $category->name }}</h1>

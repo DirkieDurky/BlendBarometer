@@ -4,12 +4,15 @@ use App\Http\Controllers\ResultsController;
 use App\Http\Controllers\ModuleController;
 use App\Models\academy;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LessonController;
+use Laravel\Pail\ValueObjects\Origin\Console;
 use App\Http\Controllers\HomeController;
+
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/module-section/{categoryNr}', [ModuleController::class, 'getModuleLevel']);
-Route::post('/module-section/{categoryNr}/navigate', [ModuleController::class, 'navigateModuleLevel']);
+Route::get('/module-level/{categoryNr}', [ModuleController::class, 'getModuleLevel'])->name('moduleLevel');
+Route::post('/module-level/{categoryNr}/navigate', [ModuleController::class, 'navigateModuleLevel'])->name('navigateModuleLevel');
 
 Route::get('/information', function () {
     $academies = Academy::all();
@@ -19,6 +22,10 @@ Route::get('/information', function () {
 Route::get('/uitleg-overzicht-en-resultaten', [ResultsController::class, 'overviewAndResultsInfoView'])->name('overview-and-results-info');
 Route::get('/resultaten', [ResultsController::class, 'view'])->name('results');
 Route::get('/overzicht-en-versturen', [ResultsController::class, 'overviewAndSendView'])->name('overview-and-send');
+Route::get('/lesson-level/1', [LessonController::class, 'start'])->name('lesson-level.start');
+Route::post('/lesson-level/{id}/storeAnswers', [LessonController::class, 'storeAnswers'])->name('lesson-level.storeAnswers');
+Route::get('/lesson-level/next/{id}', [LessonController::class, 'next'])->name('lesson-level.next');
+Route::get('/lesson-level/back/{id}', [LessonController::class, 'back'])->name('lesson-level.back');
 
 Route::post('/information', function () {
     session()->put('name', request('name'));

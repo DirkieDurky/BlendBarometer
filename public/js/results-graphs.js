@@ -37,7 +37,7 @@ const partOneGraph = document.getElementById('partOne');
 new Chart(partOneGraph, {
     type: 'radar',
     data: {
-        labels: partOneCategories.map(c => c.name),
+        labels: partOneSubcategories.map(c => c.name),
         datasets: [{
             label: 'Fysieke leeractiviteiten',
             data: partOneDataPhysical,
@@ -53,8 +53,8 @@ new Chart(partOneGraph, {
     }
 });
 
-const partTwoDataAsArray = [];
 const partTwoGraph = document.getElementById('partTwo');
+const partTwoDataAsArray = [];
 Object.keys(partTwoData).forEach(function (category) {
     // Sum the answers of each category
     partTwoDataAsArray.push(partTwoData[category].reduce((partialSum, a) => partialSum + Number(a), 0));
