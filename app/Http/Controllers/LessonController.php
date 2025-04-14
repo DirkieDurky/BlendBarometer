@@ -23,7 +23,7 @@ class LessonController extends Controller
         $subCategory = Sub_category::with('questionCategory')->findOrFail($id);
         $questions = $subCategory->questions;
 
-        $answers = session()->get('partOneData', []);
+        $answers = session()->get('lessonLevelData', []);
 
         $customQuestions = array_filter(
             $answers[$id] ?? [],
@@ -46,7 +46,7 @@ class LessonController extends Controller
 
     public function submit(Request $request, $subCategoryId)
     {
-        $answers = session()->get('partOneData', []);
+        $answers = session()->get('lessonLevelData', []);
 
         foreach ($request->all() as $key => $value) {
             if (str_starts_with($key, 'question_')) {
@@ -59,7 +59,7 @@ class LessonController extends Controller
             }
         }
 
-        session()->put('partOneData', $answers);
+        session()->put('lessonLevelData', $answers);
 
         return redirect(route('lesson-level.next', $subCategoryId));
     }

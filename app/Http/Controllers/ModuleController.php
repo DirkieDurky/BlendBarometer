@@ -15,14 +15,14 @@ class ModuleController extends Controller
 
         $categoryCount = Question_category::where('form_section_id', 2)->count();
 
-        $answers = session()->get('partTwoData', []);
+        $answers = session()->get('moduleLevelData', []);
 
         return view('module-level', compact('category', 'answers', 'categoryNr', 'categoryCount'));
     }
 
     public function storeInformation(Request $request, $categoryNr)
     {
-        $answers = session()->get('partTwoData', []);
+        $answers = session()->get('moduleLevelData', []);
 
         foreach ($request->all() as $key => $value) {
             if (str_starts_with($key, 'vraag_')) {
@@ -31,7 +31,7 @@ class ModuleController extends Controller
             }
         }
 
-        session()->put('partTwoData', $answers);
+        session()->put('moduleLevelData', $answers);
     }
 
     public function navigateModuleLevel(Request $request, $categoryNr)

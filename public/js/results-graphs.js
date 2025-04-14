@@ -1,12 +1,12 @@
-const partOnePhysicalGraph = document.getElementById('partOnePhysical');
+const lessonLevelPhysicalGraph = document.getElementById('lessonLevelPhysical');
 
-new Chart(partOnePhysicalGraph, {
+new Chart(lessonLevelPhysicalGraph, {
     type: 'bar',
     data: {
-        labels: partOneCategories.map(c => c.name),
+        labels: lessonLevelCategories.map(c => c.name),
         datasets: [{
             label: 'Punten gescoord',
-            data: partOneDataPhysical,
+            data: lessonLevelDataPhysical,
         }
         ]
     },
@@ -15,15 +15,15 @@ new Chart(partOnePhysicalGraph, {
     }
 });
 
-const partOneOnlineGraph = document.getElementById('partOneOnline');
+const lessonLevelOnlineGraph = document.getElementById('lessonLevelOnline');
 
-new Chart(partOneOnlineGraph, {
+new Chart(lessonLevelOnlineGraph, {
     type: 'bar',
     data: {
-        labels: partOneCategories.map(c => c.name),
+        labels: lessonLevelCategories.map(c => c.name),
         datasets: [{
             label: 'Punten gescoord',
-            data: partOneDataOnline,
+            data: lessonLevelDataOnline,
         }
         ]
     },
@@ -32,19 +32,19 @@ new Chart(partOneOnlineGraph, {
     }
 });
 
-const partOneGraph = document.getElementById('partOne');
+const lessonLevelGraph = document.getElementById('lessonLevel');
 
-new Chart(partOneGraph, {
+new Chart(lessonLevelGraph, {
     type: 'radar',
     data: {
-        labels: partOneSubcategories.map(c => c.name),
+        labels: lessonLevelSubcategories.map(c => c.name),
         datasets: [{
             label: 'Fysieke leeractiviteiten',
-            data: partOneDataPhysical,
+            data: lessonLevelDataPhysical,
         },
         {
             label: 'Online leeractiviteiten',
-            data: partOneDataOnline,
+            data: lessonLevelDataOnline,
         }
         ]
     },
@@ -53,20 +53,20 @@ new Chart(partOneGraph, {
     }
 });
 
-const partTwoGraph = document.getElementById('partTwo');
-const partTwoDataAsArray = [];
-Object.keys(partTwoData).forEach(function (category) {
+const moduleLevelGraph = document.getElementById('moduleLevel');
+const moduleLevelDataAsArray = [];
+Object.keys(moduleLevelData).forEach(function (category) {
     // Sum the answers of each category
-    partTwoDataAsArray.push(partTwoData[category].reduce((partialSum, a) => partialSum + Number(a), 0));
+    moduleLevelDataAsArray.push(moduleLevelData[category].reduce((partialSum, a) => partialSum + Number(a), 0));
 });
 
-new Chart(partTwoGraph, {
+new Chart(moduleLevelGraph, {
     type: 'bar',
     data: {
-        labels: partTwoCategories.map(c => c.name),
+        labels: moduleLevelCategories.map(c => c.name),
         datasets: [{
             label: 'Punten gescoord',
-            data: partTwoDataAsArray,
+            data: moduleLevelDataAsArray,
         }
         ]
     },

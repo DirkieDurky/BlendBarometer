@@ -14,14 +14,14 @@ class ResultsController extends Controller
             return redirect(route('home'));
         }
 
-        $partOneCategories = Question_category::select('name')->where('form_section_id', 1)->get();
-        $partOneSubcategories = Sub_category::select('name')->where('question_category_id', 1)->get();
-        $partTwoCategories = Question_category::select('name')->where('form_section_id', 2)->get();
+        $lessonLevelCategories = Question_category::select('name')->where('form_section_id', 1)->get();
+        $lessonLevelSubcategories = Sub_category::select('name')->where('question_category_id', 1)->get();
+        $moduleLevelCategories = Question_category::select('name')->where('form_section_id', 2)->get();
 
-        $partOneDataOnline = [];
-        $partOneDataPhysical = [];
+        $lessonLevelDataOnline = [];
+        $lessonLevelDataPhysical = [];
 
-        foreach (session()->get("partOneData") as $answerPage) {
+        foreach (session()->get("lessonLevelData") as $answerPage) {
             $question = Question::where('id', key($answerPage))->select('question_category_id', 'sub_category_id');
             $total = 0;
 
@@ -30,18 +30,18 @@ class ResultsController extends Controller
             }
 
             if ($question->value('question_category_id') == 1) {
-                $partOneDataOnline[] = $total;
+                $lessonLevelDataOnline[] = $total;
             } elseif ($question->value('question_category_id') == 2) {
-                $partOneDataPhysical[] = $total;
+                $lessonLevelDataPhysical[] = $total;
             }
         }
 
         return view('results', [
-            'partOneCategories' => $partOneCategories,
-            'partOneSubcategories' => $partOneSubcategories,
-            'partTwoCategories' => $partTwoCategories,
-            'partOneDataOnline' => $partOneDataOnline,
-            'partOneDataPhysical' => $partOneDataPhysical,
+            'lessonLevelCategories' => $lessonLevelCategories,
+            'lessonLevelSubcategories' => $lessonLevelSubcategories,
+            'moduleLevelCategories' => $moduleLevelCategories,
+            'lessonLevelDataOnline' => $lessonLevelDataOnline,
+            'lessonLevelDataPhysical' => $lessonLevelDataPhysical,
         ]);
     }
 
@@ -66,13 +66,9 @@ class ResultsController extends Controller
 
     private function hasInsufficientData()
     {
-        session()->put('partOneDataPhysical', [12, 19, 3, 5, 2, 3]);
-        session()->put('partOneDataOnline', [7, 15, 2, 0, 9, 3]);
+        $lessonLevelData = session()->get('lessonLevelData');
+        $moduleLevelData = session()->get('moduleLevelData');
 
-        $partOneDataPhysical = session()->get('partOneDataPhysical', []);
-        $partOneDataOnline = session()->get('partOneDataOnline', []);
-        $partTwoData = session()->get('partTwoData', []);
-
-        return !$partOneDataPhysical || !$partOneDataOnline || !$partTwoData;
+        return !$lessonLevelData || !$moduleLevelData;
     }
 }
