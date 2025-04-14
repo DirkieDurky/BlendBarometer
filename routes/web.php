@@ -11,21 +11,22 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/module-level/{categoryNr}', [ModuleController::class, 'getModuleLevel'])->name('moduleLevel');
-Route::post('/module-level/{categoryNr}/navigate', [ModuleController::class, 'navigateModuleLevel'])->name('navigateModuleLevel');
-
 Route::get('/information', function () {
     $academies = Academy::all();
     return view('information', ['academies' => $academies]);
 });
 
-Route::get('/uitleg-overzicht-en-resultaten', [ResultsController::class, 'overviewAndResultsInfoView'])->name('overview-and-results-info');
-Route::get('/resultaten', [ResultsController::class, 'view'])->name('results');
-Route::get('/overzicht-en-versturen', [ResultsController::class, 'overviewAndSendView'])->name('overview-and-send');
-Route::get('/lesson-level/1', [LessonController::class, 'start'])->name('lesson-level.start');
+Route::get('/module-level/{categoryNr}', [ModuleController::class, 'getModuleLevel'])->name('moduleLevel');
+Route::post('/module-level/{categoryNr}/navigate', [ModuleController::class, 'navigateModuleLevel'])->name('navigateModuleLevel');
+
+Route::get('/lesson-level/{id}', [LessonController::class, 'view'])->name('lesson-level');
 Route::post('/lesson-level/{id}/storeAnswers', [LessonController::class, 'storeAnswers'])->name('lesson-level.storeAnswers');
 Route::get('/lesson-level/next/{id}', [LessonController::class, 'next'])->name('lesson-level.next');
 Route::get('/lesson-level/back/{id}', [LessonController::class, 'back'])->name('lesson-level.back');
+
+Route::get('/uitleg-overzicht-en-resultaten', [ResultsController::class, 'overviewAndResultsInfoView'])->name('overview-and-results-info');
+Route::get('/resultaten', [ResultsController::class, 'view'])->name('results');
+Route::get('/overzicht-en-versturen', [ResultsController::class, 'overviewAndSendView'])->name('overview-and-send');
 
 Route::post('/information', function () {
     session()->put('name', request('name'));

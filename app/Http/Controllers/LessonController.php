@@ -9,42 +9,37 @@ use App\Models\Sub_category;
 
 class LessonController extends Controller
 {
-    public function start()
-    {
-        return $this->loadStep(1);
-    }
-
-    public function next($subCategoryId)
-    {
-        return $this->loadStep($subCategoryId + 1);
-    }
-
-    public function back($subCategoryId)
-    {
-        return $this->loadStep($subCategoryId - 1);
-    }
-
-    private function loadStep($subCategoryId)
+    public function view($id)
     {
         $totalSteps = Sub_category::count();
-        $currentStep = $subCategoryId;
+        $currentStep = $id;
 
         if ($currentStep > $totalSteps) {
             return redirect("module-level/1");
         }
 
-        $subCategory = Sub_category::with('questionCategory')->findOrFail($subCategoryId);
+        $subCategory = Sub_category::with('questionCategory')->findOrFail($id);
         $questions = $subCategory->questions;
 
         $answers = session()->get('partOneData', []);
 
         $customQuestions = array_filter(
-            $answers[$subCategoryId] ?? [],
+            $answers[$id] ?? [],
             fn($key) => str_starts_with($key, 'custom_'),
             ARRAY_FILTER_USE_KEY
         );
 
         return view('lesson-level', compact('subCategory', 'questions', 'totalSteps', 'currentStep', 'answers', 'customQuestions'));
+    }
+
+    public function next($subCategoryId)
+    {
+        return redirect('lesson-level/' . $subCategoryId + 1);
+    }
+
+    public function back($subCategoryId)
+    {
+        return redirect('lesson-level/' . $subCategoryId - 1);
     }
 
     public function storeAnswers(Request $request, $subCategoryId)

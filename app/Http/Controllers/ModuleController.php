@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question_category;
+use App\Models\Sub_category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -53,8 +54,7 @@ class ModuleController extends Controller
                 $categoryNr--;
                 return redirect('/module-level/' . $categoryNr);
             } else {
-                //TODO vervang met link naar vorige pagina
-                return redirect('/module-level/' . $categoryNr);
+                return redirect('/lesson-level/' . Sub_category::count());
             }
         } else {
             dump('geen valide knop actie: ' . $btn_action);
