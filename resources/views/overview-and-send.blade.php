@@ -1,4 +1,8 @@
 <x-progress-step>
+    <div class="alert alert-warning">
+        Uw gegevens zijn nog niet verstuurd. Als u dit venster sluit gaan uw gegevens verloren.
+    </div>
+
     <h1>Overzicht en versturen</h1>
     <p>Je staat op het punt de resultaten van dit formulier definitief te versturen</p>
     <div class="d-flex flex-row gap-3 justify-content-md-end">

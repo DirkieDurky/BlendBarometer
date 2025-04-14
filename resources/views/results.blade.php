@@ -1,11 +1,12 @@
 <x-progress-step>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div class="alert alert-warning">
+        Uw gegevens zijn nog niet verstuurd. Als u dit venster sluit gaan uw gegevens verloren.
+    </div>
 
     <h1>Resultaten</h1>
     <p>
         Hier is het resultaat van de ingevulde vragen. Grafieken die in één oogopslag duidelijk maken hoe "blended"
-        de
-        module is.
+        de module is.
     </p>
     <div class="container-fluid">
         <div class="row g-3 mt-3">
@@ -43,6 +44,7 @@
         <a href="uitleg-overzicht-en-resultaten" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
         <a href="overzicht-en-versturen" class="btn btn-primary">Afronden<i class="bi bi-arrow-right ps-2"></i></a>
     </div>
+
     <script>
         const partOneCategories = {!! json_encode($partOneCategories) !!};
         const partTwoCategories = {!! json_encode($partTwoCategories) !!};
@@ -51,5 +53,6 @@
         sessionStorage.setItem("partOneDataOnline", JSON.stringify([7, 15, 2, 0, 9, 3]));
         sessionStorage.setItem("partTwoData", JSON.stringify([7, 15, 2]));
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src={{ URL::asset('js/results-graphs.js') }}></script>
 </x-progress-step>

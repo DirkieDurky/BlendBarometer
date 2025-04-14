@@ -1,4 +1,8 @@
 <x-progress-step>
+    <div class="alert alert-warning">
+        Uw gegevens zijn nog niet verstuurd. Als u dit venster sluit gaan uw gegevens verloren.
+    </div>
+
     <h1>Uitleg overzicht en versturen</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
