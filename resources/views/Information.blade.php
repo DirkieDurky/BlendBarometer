@@ -1,5 +1,4 @@
 <x-progress-step section="Gegevens" title="Wie vult de barometer in" description="We willen graag weten wie dit invult en voor welke module het bedoeld is." current_step_name="information">
-
     <!-- Main content on the right -->
     <div class="col-md-9 container bg-light-greenish">
         <form method="post" action="/information" class="ms-5">
@@ -66,10 +65,8 @@
 
             <div class="d-flex justify-content-end me-5 mb-5">
                 <a href='/' class="btn text-primary px-4"><i class="bi bi-arrow-left"></i> Vorige</a>
-                <button class="btn btn-primary px-4">Volgende <i class="bi bi-arrow-right"></i></button>
+                <button type="submit" class="btn btn-primary px-4">Volgende <i class="bi bi-arrow-right"></i></button>
             </div>
         </form>
-    </div>
-    </div>
     </div>
     </x-step-sidebar>

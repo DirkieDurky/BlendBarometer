@@ -14,7 +14,9 @@ class LessonController extends Controller
         $totalSteps = Sub_category::count();
         $currentStep = $id;
 
-        if ($currentStep > $totalSteps) {
+        if ($currentStep < 1) {
+            return redirect("information");
+        } else if ($currentStep > $totalSteps) {
             return redirect("module-level/1");
         }
 

@@ -44,9 +44,7 @@
             @endforeach
         @endif
         <div class="d-flex flex-row gap-3 justify-content-md-end">
-            @if ($currentStep > 1)
-                <a href="{{ route('lesson-level.back', $currentStep) }}" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
-            @endif
+            <a href="{{ route('lesson-level.back', $currentStep) }}" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
             <button type="submit" href="overzicht-en-versturen" class="btn btn-primary">Volgende<i class="bi bi-arrow-right ps-2"></i></button>
         </div>
     </form>
