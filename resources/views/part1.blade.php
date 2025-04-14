@@ -58,11 +58,7 @@
                             <div></div>
                         @endif
 
-                        @if ($currentStep < $totalSteps)
-                            <button type="submit" class="btn btn-primary">Volgende →</button>
-                        @else
-                            <a href="{{ route('moduleLevel', 1) }}" class="btn btn-success">Volgende →</a>
-                        @endif
+                        <button type="submit" class="btn btn-primary">Volgende →</button>
                     </div>
                 </form>
             </div>
