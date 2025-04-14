@@ -1,3 +1,18 @@
+@font-face {
+    font-family: Poppins;
+    src: url('../fonts/Poppins-Regular.ttf');
+}
+
+@font-face {
+    font-family: Poppins;
+    src: url('../fonts/Poppins-Bold.ttf');
+    font-weight: bold;
+}
+
+* {
+    font-family: Poppins;
+}
+
 .form-check-input:checked+.form-check-label {
     border-color: rgb(12, 209, 117) !important;
     border-width: 6px !important;
@@ -15,4 +30,22 @@
 
 .content {
     background-color: #F4F9F7;
+}
+
+.graph-card {
+    border: none;
+    background-color: inherit
+}
+
+.back-button {
+    color: var(--bs-primary)
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
 }

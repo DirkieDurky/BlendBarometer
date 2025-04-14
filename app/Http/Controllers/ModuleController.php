@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Question;
 use App\Models\Question_category;
+use App\Models\Sub_category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class ModuleController extends Controller
 {
     public function getModuleLevel($categoryNr)
     {
-        $category = Question_category::where('id', $categoryNr)->with('questions')->first();
+        $category = Question_category::where('form_section_id', 2)->with('questions')->get()[$categoryNr - 1];
 
-        $maxCategoryId = Question_category::where('form_section_id', 2)->max('id');
+        $categoryCount = Question_category::where('form_section_id', 2)->count();
 
-        $answers = session()->get('answers', []);
+        $answers = session()->get('moduleLevelData', []);
 
-        return view('module-level', compact('category', 'answers', 'maxCategoryId'));
+        return view('module-level', compact('category', 'answers', 'categoryNr', 'categoryCount'));
     }
 
     public function storeInformation(Request $request, $categoryNr)
     {
-        $answers = session()->get('answers', []);
+        $answers = session()->get('moduleLevelData', []);
 
         foreach ($request->all() as $key => $value) {
             if (str_starts_with($key, 'vraag_')) {
@@ -31,32 +31,28 @@ class ModuleController extends Controller
             }
         }
 
-        session()->put('answers', $answers);
+        session()->put('moduleLevelData', $answers);
     }
 
     public function navigateModuleLevel(Request $request, $categoryNr)
     {
+        $categoryCount = Question_category::where('form_section_id', 2)->count();
+
         $this->storeInformation($request, $categoryNr);
 
         $btn_action = $request->input('navigation');
 
         if ($btn_action === 'next') {
-            $maxCategoryId = Question_category::where('form_section_id', 2)->max('id');
-            if ($categoryNr < $maxCategoryId) {
-                $categoryNr++;
-                return redirect('/module-level/' . $categoryNr);
+            if ($categoryNr >= $categoryCount) {
+                return redirect(route('overview-and-results-info'));
             } else {
-                //TODO vervang met link naar volgende pagina
-                return redirect('/module-level/' . $categoryNr);
+                return redirect(route('module-level', $categoryNr + 1));
             }
         } elseif ($btn_action === 'previous') {
-            $minCategoryId = Question_category::where('form_section_id', 2)->min('id');
-            if ($categoryNr > $minCategoryId) {
-                $categoryNr--;
-                return redirect('/module-level/' . $categoryNr);
+            if ($categoryNr <= 1) {
+                return redirect(route('lesson-level', Sub_category::count()));
             } else {
-                //TODO vervang met link naar vorige pagina
-                return redirect('/module-level/' . $categoryNr);
+                return redirect(route('module-level', $categoryNr - 1));
             }
         } else {
             dump('geen valide knop actie: ' . $btn_action);
