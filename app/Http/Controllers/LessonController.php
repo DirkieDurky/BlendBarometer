@@ -52,13 +52,11 @@ class LessonController extends Controller{
                 $answers[$subCategoryId][$questionId] = $value;
             }
     
-            // Handle custom questions
-            if (str_starts_with($key, 'custom_')) {
+            if (str_starts_with($key, 'custom_') && !empty($value)) {
                 $answers[$subCategoryId][$key] = $value;
             }
         }    
 
-        // Save the answers in the session
         session()->put('answers', $answers);
 
         return redirect()->route('deel1.next', $subCategoryId);
