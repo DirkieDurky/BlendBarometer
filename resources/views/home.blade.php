@@ -6,8 +6,7 @@
     <main class="container mt-5">
         <section class="intro">
             <div class="d-flex align-items-center mb-5">
-                <img src="{{ asset('images/blendbarometer-logo.svg') }}" alt="BlendBarometer" class="me-2">
-                <strong>BlendBarometer</strong>
+                <img src="{{ asset('images/Logo.svg') }}" alt="BlendBarometer" class="me-2">
             </div>
             <h1 class="fw-bold mb-4">
                 Een <span class="text-primary">meetinstrument</span> om <br>
