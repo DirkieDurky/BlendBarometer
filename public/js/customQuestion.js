@@ -1,4 +1,5 @@
 const customQuestionForm = document.getElementById('custom_input');
+const form = document.querySelector('form');
 
 function addQuestion() {
     var customQuestion = customQuestionForm.value.trim();
@@ -53,7 +54,9 @@ addEventListener("keydown", (e) => {
             addQuestion();
             e.preventDefault();
         } else {
-            document.querySelector('form').submit();
+            if (form.reportValidity()) {
+                form.submit();
+            }
         }
     }
 })
