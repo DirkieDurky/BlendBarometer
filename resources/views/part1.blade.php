@@ -1,6 +1,10 @@
 <x-layout>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
+            <div class="col-md-3">
+                <x-step-sidebar :title="'Les niveau'" :smallDescription="'Welke les methodes gebruik je?'"
+                    :current_step_name="'Les niveau'"></x-step-sidebar>
+            </div>
             <div class="col-md-9">
                 <div class="mb-3">
                     <div class="progress" style="height: 6px;">
