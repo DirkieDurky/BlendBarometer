@@ -43,20 +43,20 @@ class ModuleController extends Controller
             $maxCategoryId = Question_category::where('form_section_id', 1)->max('id');
             if ($categoryNr < $maxCategoryId) {
                 $categoryNr++;
-                return redirect('/deel2/'.$categoryNr);
+                return redirect('/module-section/'.$categoryNr);
             } else {
                 //TODO vervang met link naar volgende pagina
-                return redirect('/deel2/'.$categoryNr);
+                return redirect('/module-section/'.$categoryNr);
             }
         }
         elseif ($btn_action === 'previous') {
             $minCategoryId = Question_category::where('form_section_id', 1)->min('id');
             if ($categoryNr > $minCategoryId) {
                 $categoryNr--;
-                return redirect('/deel2/'.$categoryNr);
+                return redirect('/module-section/'.$categoryNr);
             } else {
                 //TODO vervang met link naar vorige pagina
-                return redirect('/deel2/'.$categoryNr);
+                return redirect('/module-section/'.$categoryNr);
             }
         } else {
             dump('geen valide knop actie: '.$btn_action);
