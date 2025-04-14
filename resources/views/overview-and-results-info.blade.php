@@ -16,8 +16,5 @@
         <li>sunt in culpa qui officia</li>
         <li>eserunt mollit anim id est laborum.</li>
     </ol>
-    <div class="d-flex flex-row gap-3 justify-content-md-end">
-        <a href="{{ route('module-level', $categoryCount) }}" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
-        <a href="{{ route('results') }}" class="btn btn-primary">Volgende<i class="bi bi-arrow-right ps-2"></i></a>
-    </div>
+    <x-navigation-buttons :previous="route('module-level', $categoryCount)" :next="route('results')" />
 </x-progress-step>

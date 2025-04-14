@@ -16,10 +16,7 @@
                 <x-module-question :question="$category->questions[$i]['text']" :questionId="$i" :answer="$answers[$categoryNr][$i] ?? null" :description="$category->questions[$i]->description" />
             @endfor
 
-            <div class="d-flex flex-row gap-3 justify-content-md-end">
-                <a href="{{ route('module-level.previous', $categoryNr) }}" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
-                <button type="submit" class="btn btn-primary">Volgende<i class="bi bi-arrow-right ps-2"></i></button>
-            </div>
+            <x-navigation-buttons-with-submit :previous="route('module-level.previous', $categoryNr)" />
         </form>
     </div>
     </div>

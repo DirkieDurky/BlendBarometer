@@ -1,9 +1,9 @@
 @props(['section', 'title', 'description', 'current_step_name'])
 <x-layout>
-    <div class="d-flex flex-row vw-100">
-        <aside class="d-flex flex-column flex-shrink-0 p-4 bg-white" style="width: 25%;">
+    <div class="d-flex flex-row">
+        <aside class="d-flex flex-column flex-shrink-0 p-4 bg-white w-25">
             <div class="container-fluid p-0 m-0">
-                <div class="bg-white p-4 min-vh-100">
+                <div class="bg-white p-4">
                     <div class="mb-4">
                         <img src="{{ asset('images/Logo.svg') }}" alt="BlendBarometer" class="my-4">
                         <h1 class="text-primary text-start" style="font-size: 1.2rem;">{{ $section }}</h1>
@@ -56,7 +56,7 @@
                 </div>
             </div>
         </aside>
-        <main class="content flex-grow-1 px-5 py-4 h-100 overflow-auto">
+        <main class="content flex-grow-1 px-5 py-4 overflow-auto vh-100">
             {{ $slot }}
         </main>
     </div>
