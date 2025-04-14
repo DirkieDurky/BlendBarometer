@@ -1,7 +1,7 @@
 <x-progress-step section="Gegevens" title="Wie vult de barometer in" description="We willen graag weten wie dit invult en voor welke module het bedoeld is." current_step_name="information">
     <!-- Main content on the right -->
     <div class="col-md-9 container bg-light-greenish">
-        <form method="post" action="/information" class="ms-5">
+        <form method="post" action="{{ route('information') }}" class="ms-5">
             <h1 class="pb-2 pt-4 w-90 mx-auto mb-2 mt-4 fs-2 fw-bolder">Gegevens</h1>
             @csrf <!--DON'T FORGET TO ADD THIS COMMAND TO YOUR FORMS, OTHERWISE IT WILL NOT WORK-->
             <section class="py-4 w-90 mx-auto">

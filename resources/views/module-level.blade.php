@@ -7,7 +7,7 @@
         </div>
         <p class="mt-2">{{ $categoryNr }} van {{ $categoryCount }} - {{ $category->description }}</p>
 
-        <form action="/module-level/{{ $categoryNr }}/navigate" method="post">
+        <form action="{{ route('module-level.navigate', $categoryNr) }}" method="post">
             @csrf
 
             <h1>{{ $category->name }}</h1>
