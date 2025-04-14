@@ -20,7 +20,7 @@ class ModuleController extends Controller
         return view('module-level', compact('category', 'answers', 'categoryNr', 'categoryCount'));
     }
 
-    public function storeInformation(Request $request, $categoryNr)
+    public function submit(Request $request, $categoryNr)
     {
         $answers = session()->get('moduleLevelData', []);
 
@@ -32,30 +32,29 @@ class ModuleController extends Controller
         }
 
         session()->put('moduleLevelData', $answers);
+
+        return redirect(route('module-level.next', $categoryNr));
     }
 
-    public function navigateModuleLevel(Request $request, $categoryNr)
+    public function next(Request $request, $categoryNr)
     {
         $categoryCount = Question_category::where('form_section_id', 2)->count();
 
-        $this->storeInformation($request, $categoryNr);
-
-        $btn_action = $request->input('navigation');
-
-        if ($btn_action === 'next') {
-            if ($categoryNr >= $categoryCount) {
-                return redirect(route('overview-and-results-info'));
-            } else {
-                return redirect(route('module-level', $categoryNr + 1));
-            }
-        } elseif ($btn_action === 'previous') {
-            if ($categoryNr <= 1) {
-                return redirect(route('lesson-level', Sub_category::count()));
-            } else {
-                return redirect(route('module-level', $categoryNr - 1));
-            }
+        if ($categoryNr >= $categoryCount) {
+            return redirect(route('overview-and-results-info'));
         } else {
-            dump('geen valide knop actie: ' . $btn_action);
+            return redirect(route('module-level', $categoryNr + 1));
+        }
+    }
+
+    public function previous(Request $request, $categoryNr)
+    {
+        $this->submit($request, $categoryNr);
+
+        if ($categoryNr <= 1) {
+            return redirect(route('lesson-level', Sub_category::count()));
+        } else {
+            return redirect(route('module-level', $categoryNr - 1));
         }
     }
 }

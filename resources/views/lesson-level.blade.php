@@ -47,8 +47,8 @@
         </div>
 
         <div class="d-flex flex-row gap-3 justify-content-md-end">
-            <a href="{{ route('lesson-level.back', $currentStep) }}" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
-            <button type="submit" href="{{ route('overview-and-send') }}" class="btn btn-primary">Volgende<i class="bi bi-arrow-right ps-2"></i></button>
+            <a href="{{ route('lesson-level.previous', $currentStep) }}" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
+            <button type="submit" class="btn btn-primary">Volgende<i class="bi bi-arrow-right ps-2"></i></button>
         </div>
     </form>
     <script src="{{ asset('js/customQuestion.js') }}"></script>

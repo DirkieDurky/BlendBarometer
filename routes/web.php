@@ -15,12 +15,14 @@ Route::get('/gegevens', [InformationController::class, 'view'])->name('informati
 Route::post('/gegevens', [InformationController::class, 'submit'])->name('information.submit');
 
 Route::get('/moduleniveau/{categoryNr}', [ModuleController::class, 'getModuleLevel'])->name('module-level');
-Route::post('/moduleniveau/{categoryNr}/navigeren', [ModuleController::class, 'navigateModuleLevel'])->name('module-level.navigate');
+Route::post('/moduleniveau/{categoryNr}/versturen', [ModuleController::class, 'submit'])->name('module-level.submit');
+Route::get('/moduleniveau/{categoryNr}/volgende', [ModuleController::class, 'next'])->name('module-level.next');
+Route::get('/moduleniveau/{categoryNr}/vorige', [ModuleController::class, 'previous'])->name('module-level.previous');
 
 Route::get('/lesniveau/{id}', [LessonController::class, 'view'])->name('lesson-level');
 Route::post('/lesniveau/{id}/versturen', [LessonController::class, 'submit'])->name('lesson-level.submit');
 Route::get('/lesniveau/volgende/{id}', [LessonController::class, 'next'])->name('lesson-level.next');
-Route::get('/lesniveau/vorige/{id}', [LessonController::class, 'back'])->name('lesson-level.back');
+Route::get('/lesniveau/vorige/{id}', [LessonController::class, 'previous'])->name('lesson-level.previous');
 
 Route::get('/uitleg-overzicht-en-resultaten', [ResultsController::class, 'overviewAndResultsInfoView'])->name('overview-and-results-info');
 Route::get('/resultaten', [ResultsController::class, 'view'])->name('results');
