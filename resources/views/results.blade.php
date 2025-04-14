@@ -44,14 +44,17 @@
         <a href="uitleg-overzicht-en-resultaten" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
         <a href="overzicht-en-versturen" class="btn btn-primary">Afronden<i class="bi bi-arrow-right ps-2"></i></a>
     </div>
-
+    <?php
+    session()->put('partOneDataPhysical', [12, 19, 3, 5, 2, 3]);
+    session()->put('partOneDataOnline', [7, 15, 2, 0, 9, 3]);
+    ?>
     <script>
         const partOneCategories = {!! json_encode($partOneCategories) !!};
         const partTwoCategories = {!! json_encode($partTwoCategories) !!};
 
-        sessionStorage.setItem("partOneDataPhysical", JSON.stringify([12, 19, 3, 5, 2, 3]));
-        sessionStorage.setItem("partOneDataOnline", JSON.stringify([7, 15, 2, 0, 9, 3]));
-        sessionStorage.setItem("partTwoData", JSON.stringify([7, 15, 2]));
+        const partOneDataPhysical = {!! json_encode(session()->get('partOneDataPhysical')) !!};
+        const partOneDataOnline = {!! json_encode(session()->get('partOneDataOnline')) !!};
+        const partTwoData = {!! json_encode(session()->get('partTwoData')) !!};
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src={{ URL::asset('js/results-graphs.js') }}></script>

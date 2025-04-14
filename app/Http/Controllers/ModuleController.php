@@ -1,39 +1,39 @@
 <?php
- 
+
 namespace App\Http\Controllers;
 
-use App\Models\Question;
 use App\Models\Question_category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class ModuleController extends Controller
 {
-    public function getModuleLevel($categoryNr) {
+    public function getModuleLevel($categoryNr)
+    {
         $category = Question_category::where('id', $categoryNr)->with('questions')->first();
 
         $maxCategoryId = Question_category::where('form_section_id', 1)->max('id');
 
-        $answers = session()->get('answers', []);
+        $answers = session()->get('partTwoData', []);
 
         return view('module-section', compact('category', 'answers', 'maxCategoryId'));
     }
 
     public function storeInformation(Request $request, $categoryNr)
     {
-        $answers = session()->get('answers', []);
-    
+        $answers = session()->get('partTwoData', []);
+
         foreach ($request->all() as $key => $value) {
             if (str_starts_with($key, 'vraag_')) {
                 $questionId = str_replace('vraag_', '', $key);
                 $answers[$categoryNr][$questionId] = $value;
             }
         }
-    
-        session()->put('answers', $answers);
+
+        session()->put('partTwoData', $answers);
     }
 
-    public function navigateModuleLevel(Request $request, $categoryNr) 
+    public function navigateModuleLevel(Request $request, $categoryNr)
     {
         $this->storeInformation($request, $categoryNr);
 
@@ -43,23 +43,21 @@ class ModuleController extends Controller
             $maxCategoryId = Question_category::where('form_section_id', 1)->max('id');
             if ($categoryNr < $maxCategoryId) {
                 $categoryNr++;
-                return redirect('/module-section/'.$categoryNr);
+                return redirect('/module-section/' . $categoryNr);
             } else {
-                //TODO vervang met link naar volgende pagina
-                return redirect('/module-section/'.$categoryNr);
+                return redirect('/uitleg-overzicht-en-resultaten');
             }
-        }
-        elseif ($btn_action === 'previous') {
+        } elseif ($btn_action === 'previous') {
             $minCategoryId = Question_category::where('form_section_id', 1)->min('id');
             if ($categoryNr > $minCategoryId) {
                 $categoryNr--;
-                return redirect('/module-section/'.$categoryNr);
+                return redirect('/module-section/' . $categoryNr);
             } else {
                 //TODO vervang met link naar vorige pagina
-                return redirect('/module-section/'.$categoryNr);
+                return redirect('/module-section/' . $categoryNr);
             }
         } else {
-            dump('geen valide knop actie: '.$btn_action);
+            dump('geen valide knop actie: ' . $btn_action);
         }
     }
 }

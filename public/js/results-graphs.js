@@ -1,14 +1,13 @@
 const partOnePhysicalGraph = document.getElementById('partOnePhysical');
-const partOneDataPhysical = JSON.parse(sessionStorage.getItem("partOneDataPhysical"));
 
 new Chart(partOnePhysicalGraph, {
     type: 'bar',
     data: {
         labels: partOneCategories.map(c => c.name),
         datasets: [{
-                label: 'Punten gescoord',
-                data: partOneDataPhysical,
-            }
+            label: 'Punten gescoord',
+            data: partOneDataPhysical,
+        }
         ]
     },
     options: {
@@ -17,16 +16,15 @@ new Chart(partOnePhysicalGraph, {
 });
 
 const partOneOnlineGraph = document.getElementById('partOneOnline');
-const partOneDataOnline = JSON.parse(sessionStorage.getItem("partOneDataOnline"));
 
 new Chart(partOneOnlineGraph, {
     type: 'bar',
     data: {
         labels: partOneCategories.map(c => c.name),
         datasets: [{
-                label: 'Punten gescoord',
-                data: partOneDataOnline,
-            }
+            label: 'Punten gescoord',
+            data: partOneDataOnline,
+        }
         ]
     },
     options: {
@@ -41,13 +39,13 @@ new Chart(partOneGraph, {
     data: {
         labels: partOneCategories.map(c => c.name),
         datasets: [{
-                label: 'Fysieke leeractiviteiten',
-                data: partOneDataPhysical,
-            },
-            {
-                label: 'Online leeractiviteiten',
-                data: partOneDataOnline,
-            }
+            label: 'Fysieke leeractiviteiten',
+            data: partOneDataPhysical,
+        },
+        {
+            label: 'Online leeractiviteiten',
+            data: partOneDataOnline,
+        }
         ]
     },
     options: {
@@ -55,17 +53,22 @@ new Chart(partOneGraph, {
     }
 });
 
+const partTwoDataAsArray = [];
 const partTwoGraph = document.getElementById('partTwo');
-const partTwoData = JSON.parse(sessionStorage.getItem("partTwoData"));
+Object.keys(partTwoData).forEach(function (category) {
+    console.log(partTwoData[category]);
+    // Sum the answers of each category
+    partTwoDataAsArray.push(partTwoData[category].reduce((partialSum, a) => partialSum + Number(a), 0));
+});
 
 new Chart(partTwoGraph, {
     type: 'bar',
     data: {
         labels: partTwoCategories.map(c => c.name),
         datasets: [{
-                label: 'Punten gescoord',
-                data: partTwoData,
-            }
+            label: 'Punten gescoord',
+            data: partTwoDataAsArray,
+        }
         ]
     },
     options: {
