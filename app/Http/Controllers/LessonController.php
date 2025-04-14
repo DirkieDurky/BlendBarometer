@@ -54,7 +54,7 @@ class LessonController extends Controller
                 $answers[$subCategoryId][$questionId] = $value;
             }
 
-            if (str_starts_with($key, 'custom_') && !empty($value)) {
+            if (str_starts_with($key, 'custom_question_')) {
                 $answers[$subCategoryId][$key] = $value;
             }
         }

@@ -31,7 +31,7 @@
                     @php
                         $fieldName = $key;
                         $selectedAnswer = $answers[$currentStep][$key] ?? null;
-                        $questionText = str_replace('custom_', '', $key);
+                        $questionText = str_replace('custom_question_', '', $key);
                     @endphp
                     <x-lesson-question-component :question="(object) ['id' => $key, 'text' => $questionText]" :selectedAnswer="$selectedAnswer" :fieldName="$fieldName" />
                 @endforeach
@@ -41,7 +41,7 @@
         <div class="mb-3">
             <label class="form-label"><strong>Gebruik je iets in de categorie {{ $subCategory->name }}, wat niet voorbij gekomen is?</strong></label>
             <div class="input-group">
-                <input type="text" class="form-control" id="custom_question_form" name="custom_question_form" placeholder="Vul je vraag in">
+                <input type="text" class="form-control" id="custom_input" name="custom_input" placeholder="Vul je vraag in">
                 <button class="btn btn-primary" type="button" id="addCustomQuestionBtn">Toevoegen</button>
             </div>
         </div>
