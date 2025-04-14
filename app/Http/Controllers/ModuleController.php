@@ -43,18 +43,16 @@ class ModuleController extends Controller
         $btn_action = $request->input('navigation');
 
         if ($btn_action === 'next') {
-            if ($categoryNr < 1) {
-                $categoryNr++;
-                return redirect('/module-level/' . $categoryNr);
+            if ($categoryNr >= $categoryCount) {
+                return redirect(route('overview-and-results-info'));
             } else {
-                return redirect('/uitleg-overzicht-en-resultaten');
+                return redirect(route('module-level', $categoryNr + 1));
             }
         } elseif ($btn_action === 'previous') {
-            if ($categoryNr >= $categoryCount) {
-                $categoryNr--;
-                return redirect('/module-level/' . $categoryNr);
+            if ($categoryNr <= 1) {
+                return redirect(route('lesson-level', Sub_category::count()));
             } else {
-                return redirect('/lesson-level/' . Sub_category::count());
+                return redirect(route('module-level', $categoryNr - 1));
             }
         } else {
             dump('geen valide knop actie: ' . $btn_action);

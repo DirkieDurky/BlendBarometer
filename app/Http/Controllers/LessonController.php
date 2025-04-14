@@ -15,9 +15,9 @@ class LessonController extends Controller
         $currentStep = $id;
 
         if ($currentStep < 1) {
-            return redirect("information");
+            return redirect(route('information'));
         } else if ($currentStep > $totalSteps) {
-            return redirect("module-level/1");
+            return redirect(route('module-level', 1));
         }
 
         $subCategory = Sub_category::with('questionCategory')->findOrFail($id);
@@ -36,12 +36,12 @@ class LessonController extends Controller
 
     public function next($subCategoryId)
     {
-        return redirect('lesson-level/' . $subCategoryId + 1);
+        return redirect(route('lesson-level', $subCategoryId + 1));
     }
 
     public function back($subCategoryId)
     {
-        return redirect('lesson-level/' . $subCategoryId - 1);
+        return redirect(route('lesson-level', $subCategoryId - 1));
     }
 
     public function submit(Request $request, $subCategoryId)
@@ -61,6 +61,6 @@ class LessonController extends Controller
 
         session()->put('partOneData', $answers);
 
-        return redirect()->route('lesson-level.next', $subCategoryId);
+        return redirect(route('lesson-level.next', $subCategoryId));
     }
 }

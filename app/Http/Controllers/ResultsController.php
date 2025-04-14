@@ -11,7 +11,7 @@ class ResultsController extends Controller
     public function view()
     {
         if ($this->hasInsufficientData()) {
-            return redirect('/');
+            return redirect(route('home'));
         }
 
         $partOneCategories = Question_category::select('name')->where('form_section_id', 1)->get();
@@ -48,7 +48,7 @@ class ResultsController extends Controller
     public function overviewAndResultsInfoView()
     {
         if ($this->hasInsufficientData()) {
-            return redirect('/');
+            return redirect(route('home'));
         }
 
         $categoryCount = Question_category::where('form_section_id', 2)->count();
@@ -58,7 +58,7 @@ class ResultsController extends Controller
     public function overviewAndSendView()
     {
         if ($this->hasInsufficientData()) {
-            return redirect('/');
+            return redirect(route('home'));
         }
 
         return view('overview-and-send');

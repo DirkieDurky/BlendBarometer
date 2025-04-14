@@ -64,7 +64,7 @@
             </section>
 
             <div class="d-flex justify-content-end me-5 mb-5">
-                <a href='/' class="btn text-primary px-4"><i class="bi bi-arrow-left"></i> Vorige</a>
+                <a href="{{ route('home') }}" class="btn text-primary px-4"><i class="bi bi-arrow-left"></i> Vorige</a>
                 <button type="submit" class="btn btn-primary px-4">Volgende <i class="bi bi-arrow-right"></i></button>
             </div>
         </form>

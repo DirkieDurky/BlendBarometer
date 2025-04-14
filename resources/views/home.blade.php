@@ -16,7 +16,7 @@
             <p class="w-50 mb-4">
                 {{ $intro_description }}
             </p>
-            {{-- <a href="/verificatie" class="btn btn-primary me-2">Start met invullen</button> --}}
+            {{-- <a href="{{ route('verification') }}" class="btn btn-primary me-2">Start met invullen</button> --}}
             <a href="{{ route('information') }}" class="btn btn-primary me-2">Start met invullen</a>
             <a href="#explanation" class="btn btn-outline-primary">Hoe werkt het?</a>
         </section>

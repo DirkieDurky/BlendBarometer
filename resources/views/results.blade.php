@@ -41,8 +41,8 @@
         </div>
     </div>
     <div class="d-flex flex-row gap-3 justify-content-md-end">
-        <a href="uitleg-overzicht-en-resultaten" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
-        <a href="overzicht-en-versturen" class="btn btn-primary">Afronden<i class="bi bi-arrow-right ps-2"></i></a>
+        <a href="{{ route('overview-and-results-info') }}" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
+        <a href="{{ route('overview-and-send') }}" class="btn btn-primary">Afronden<i class="bi bi-arrow-right ps-2"></i></a>
     </div>
     <script>
         const partOneCategories = {!! json_encode($partOneCategories) !!};
