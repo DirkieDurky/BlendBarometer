@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Question;
-use App\Models\SubCategory;
+use App\Models\Sub_category;
 class LessonController extends Controller{
 
     public function start()
@@ -25,12 +25,12 @@ class LessonController extends Controller{
 
     private function loadStep($subCategoryId)
     {
-        $subCategory = SubCategory::with('questionCategory')->findOrFail($subCategoryId);
+        $subCategory = Sub_category::with('questionCategory')->findOrFail($subCategoryId);
         $questions = $subCategory->questions;
 
         $answers = session()->get('answers', []);
 
-        $totalSteps = SubCategory::count();
+        $totalSteps = Sub_category::count();
         $currentStep = $subCategoryId;
 
         $customQuestions = array_filter(

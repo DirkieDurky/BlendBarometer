@@ -12,7 +12,7 @@ class ModuleController extends Controller
     public function getModuleLevel($categoryNr) {
         $category = Question_category::where('id', $categoryNr)->with('questions')->first();
 
-        $maxCategoryId = Question_category::where('form_section_id', 1)->max('id');
+        $maxCategoryId = Question_category::where('form_section_id', 2)->max('id');
 
         $answers = session()->get('answers', []);
 
@@ -40,7 +40,7 @@ class ModuleController extends Controller
         $btn_action = $request->input('navigation');
 
         if ($btn_action === 'next') {
-            $maxCategoryId = Question_category::where('form_section_id', 1)->max('id');
+            $maxCategoryId = Question_category::where('form_section_id', 2)->max('id');
             if ($categoryNr < $maxCategoryId) {
                 $categoryNr++;
                 return redirect('/module-section/'.$categoryNr);
@@ -50,7 +50,7 @@ class ModuleController extends Controller
             }
         }
         elseif ($btn_action === 'previous') {
-            $minCategoryId = Question_category::where('form_section_id', 1)->min('id');
+            $minCategoryId = Question_category::where('form_section_id', 2)->min('id');
             if ($categoryNr > $minCategoryId) {
                 $categoryNr--;
                 return redirect('/module-section/'.$categoryNr);

@@ -16,17 +16,32 @@ class question_categorySeeder extends Seeder
         Question_category::query()->delete();
         $categories = [
             [
+                'id' => 1,
                 'form_section_id' => 1,
+                'name' => 'Fysieke leeractiviteiten',
+                'description' => null,
+            ],
+            [
+                'id' => 2,
+                'form_section_id' => 1,
+                'name' => 'Online leeractiviteiten',
+                'description' => null,
+            ],
+            [
+                'id' => 3,
+                'form_section_id' => 2,
                 'name' => 'Samenhangend',
                 'description' => 'Context van de module',
             ],
             [
-                'form_section_id' => 1,
+                'id' => 4,
+                'form_section_id' => 2,
                 'name' => 'Organisatorisch',
                 'description' => 'Waar en wanneer vindt het onderwijs plaats',
             ],
             [
-                'form_section_id' => 1,
+                'id' => 5,
+                'form_section_id' => 2,
                 'name' => 'Didactisch',
                 'description' => 'Inrichten van de leeractiviteiten',
             ],

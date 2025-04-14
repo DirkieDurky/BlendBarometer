@@ -11,32 +11,26 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contents', function (Blueprint $table) {
+        Schema::create('content', function (Blueprint $table) {
             $table->id();
             $table->string('section_name');
             $table->mediumText('info');
         });
 
-        Schema::create('form_sections', function (Blueprint $table) {
+        Schema::create('form_section', function (Blueprint $table) {
             $table->id();
             $table->foreignId('content_id')
-                ->constrained('contents')
-// =======
-//                 ->constrained('content')
-// >>>>>>> develop
+                ->constrained('content')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
             $table->mediumText('description')
                 ->nullable();
         });
 
-        Schema::create('question_categories', function (Blueprint $table) {
+        Schema::create('question_category', function (Blueprint $table) {
             $table->id();
             $table->foreignId('form_section_id')
-                ->constrained('form_sections')
-// =======
-//                 ->constrained('form_section')
-// >>>>>>> develop
+                ->constrained('form_section')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
             $table->string('name');
@@ -44,22 +38,15 @@ return new class extends Migration
                 ->nullable();
         });
 
-        Schema::create('questions', function (Blueprint $table) {
+        Schema::create('question', function (Blueprint $table) {
             $table->id();
             $table->foreignId('question_category_id')
-                ->constrained('question_categories')
+                ->constrained('question_category')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
             $table->foreignId('sub_category_id')
-                ->constrained('sub_categories')
-// =======
-//                 ->constrained('question_category')
-//                 ->onUpdate('cascade')
-//                 ->onDelete('restrict');
-//             $table->foreignId('sub_category_id')
-//                 ->nullable()
-//                 ->constrained('sub_category')
-// >>>>>>> develop
+                ->nullable()
+                ->constrained('sub_category')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
             $table->string('text');
@@ -67,32 +54,32 @@ return new class extends Migration
                 ->nullable();
         });
 
-        Schema::create('sub_categories', function (Blueprint $table) {
+        Schema::create('sub_category', function (Blueprint $table) {
             $table->id();
             $table->foreignId('question_category_id')
-                ->constrained('question_categories')
+                ->constrained('question_category')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
             $table->string('name');
         });
 
-        Schema::create('receivers', function (Blueprint $table) {
+        Schema::create('receiver', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->boolean('is_default');
         });
 
-        Schema::create('academies', function (Blueprint $table) {
+        Schema::create('academy', function (Blueprint $table) {
             $table->string('name')->primary();
         });
 
-        Schema::create('receiver_of_academies', function (Blueprint $table) {
+        Schema::create('receiver_of_academy', function (Blueprint $table) {
             $table->foreignId('receiver_email')
-                ->constrained('receivers', 'email')
+                ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict')
                 ->primary();
             $table->foreignId('academy_name')
-                ->constrained('academies', 'name')
+                ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict')
                 ->primary(['receiver_email', 'academy_name']);

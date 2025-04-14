@@ -17,18 +17,11 @@ class Question extends Model
 
     public function questionCategory()
     {
-        return $this->belongsTo(QuestionCategory::class);
+        return $this->belongsTo(Question_category::class);
     }
 
     public function subCategory()
     {
-        return $this->belongsTo(SubCategory::class);
+        return $this->belongsTo(Sub_category::class);
     }
-
-//     public function questionCategory()
-//     {
-//         return $this->belongsTo(Question_category::class);
-// >>>>>>> develop
-//     }
-
 }

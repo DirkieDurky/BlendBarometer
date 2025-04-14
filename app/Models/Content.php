@@ -16,6 +16,6 @@ class Content extends Model
 
     public function formSections()
     {
-        return $this->hasMany(FormSection::class);
+        return $this->hasMany(Form_section::class);
     }
 }
