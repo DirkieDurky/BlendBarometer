@@ -45,7 +45,6 @@
         <a href="{{ route('overview-and-send') }}" class="btn btn-primary">Afronden<i class="bi bi-arrow-right ps-2"></i></a>
     </div>
     <script>
-        const lessonLevelCategories = {!! json_encode($lessonLevelCategories) !!};
         const lessonLevelSubcategories = {!! json_encode($lessonLevelSubcategories) !!};
         const moduleLevelCategories = {!! json_encode($moduleLevelCategories) !!};
 

@@ -3,7 +3,7 @@ const lessonLevelPhysicalGraph = document.getElementById('lessonLevelPhysical');
 new Chart(lessonLevelPhysicalGraph, {
     type: 'bar',
     data: {
-        labels: lessonLevelCategories.map(c => c.name),
+        labels: lessonLevelSubcategories.map(c => c.name),
         datasets: [{
             label: 'Punten gescoord',
             data: lessonLevelDataPhysical,
@@ -20,7 +20,7 @@ const lessonLevelOnlineGraph = document.getElementById('lessonLevelOnline');
 new Chart(lessonLevelOnlineGraph, {
     type: 'bar',
     data: {
-        labels: lessonLevelCategories.map(c => c.name),
+        labels: lessonLevelSubcategories.map(c => c.name),
         datasets: [{
             label: 'Punten gescoord',
             data: lessonLevelDataOnline,

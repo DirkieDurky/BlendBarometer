@@ -14,7 +14,6 @@ class ResultsController extends Controller
             return redirect(route('home'));
         }
 
-        $lessonLevelCategories = Question_category::select('name')->where('form_section_id', 1)->get();
         $lessonLevelSubcategories = Sub_category::select('name')->where('question_category_id', 1)->get();
         $moduleLevelCategories = Question_category::select('name')->where('form_section_id', 2)->get();
 
@@ -37,7 +36,6 @@ class ResultsController extends Controller
         }
 
         return view('results', [
-            'lessonLevelCategories' => $lessonLevelCategories,
             'lessonLevelSubcategories' => $lessonLevelSubcategories,
             'moduleLevelCategories' => $moduleLevelCategories,
             'lessonLevelDataOnline' => $lessonLevelDataOnline,
