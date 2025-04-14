@@ -1,4 +1,4 @@
-<x-progress-step>
+<x-progress-step section="Resultaten" title="Uitleg overzicht en versturen" description="Informatie over versturen" current_step_name="results">
     <div class="alert alert-warning">
         Uw gegevens zijn nog niet verstuurd. Als u dit venster sluit gaan uw gegevens verloren.
     </div>

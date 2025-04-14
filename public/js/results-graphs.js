@@ -56,7 +56,6 @@ new Chart(partOneGraph, {
 const partTwoDataAsArray = [];
 const partTwoGraph = document.getElementById('partTwo');
 Object.keys(partTwoData).forEach(function (category) {
-    console.log(partTwoData[category]);
     // Sum the answers of each category
     partTwoDataAsArray.push(partTwoData[category].reduce((partialSum, a) => partialSum + Number(a), 0));
 });
