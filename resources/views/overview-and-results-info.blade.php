@@ -5,8 +5,8 @@
 
     <h1>Uitleg overzicht en versturen</h1>
     <p>Op de volgende pagina staan grafieken. Deze zijn gemaakt op basis van de ingevulde antwoorden. Per grafiek staat er uitleg over wat deze aangeeft.
-        De grafieken worden na het afronden verstuurd naar een ICTO coach. Deze zal een gesprek inplannen om de resultaten te bespreken en 
-        mogelijk suggesties te geven voor het verbeteren van het onderwijs. Na het gesprek worrdt er een rapport opgesteld waar deze grafieken in terug komen.
+        De grafieken worden na het afronden verstuurd naar een ICTO coach. Deze zal een gesprek inplannen om de resultaten te bespreken en
+        mogelijk suggesties te geven voor het verbeteren van het onderwijs. Na het gesprek wordt er een rapport opgesteld waar deze grafieken in terug komen.
     </p>
     <div class="d-flex flex-row gap-3 justify-content-md-end">
         <a href="{{ route('module-level', $categoryCount) }}" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
