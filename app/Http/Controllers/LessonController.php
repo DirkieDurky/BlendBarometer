@@ -39,7 +39,7 @@ class LessonController extends Controller
         return redirect(route('lesson-level', $subCategoryId + 1));
     }
 
-    public function back($subCategoryId)
+    public function previous($subCategoryId)
     {
         return redirect(route('lesson-level', $subCategoryId - 1));
     }
