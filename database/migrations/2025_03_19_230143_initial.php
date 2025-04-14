@@ -56,6 +56,10 @@ return new class extends Migration
 
         Schema::create('sub_category', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('question_category_id')
+                ->constrained('question_category')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
             $table->string('name');
         });
 
@@ -78,7 +82,7 @@ return new class extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict')
-                ->primary();
+                ->primary(['receiver_email', 'academy_name']);
         });
     }
 
