@@ -9,7 +9,6 @@ use App\Models\Sub_category;
 
 class LessonController extends Controller
 {
-
     public function start()
     {
         return $this->loadStep(1);
