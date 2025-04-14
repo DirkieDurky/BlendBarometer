@@ -1,6 +1,8 @@
-document.getElementById('addCustomQuestionBtn').addEventListener('click', function() {
-    var customQuestion = document.getElementById('custom_collab').value.trim();
-    
+const customQuestionForm = document.getElementById('custom_question_form');
+
+function addQuestion() {
+    var customQuestion = customQuestionForm.value.trim();
+
     if (customQuestion === '') {
         alert('Vul een vraag in!');
         return;
@@ -8,18 +10,18 @@ document.getElementById('addCustomQuestionBtn').addEventListener('click', functi
 
     var questionField = document.createElement('div');
     questionField.classList.add('mb-3');
-    
+
     var fieldName = "custom_" + customQuestion.toLowerCase().replace(/[^a-z0-9]+/g, '_');
-    
+
     questionField.innerHTML = `
         <label class="form-label fw-bold">${customQuestion}</label>
         <div class="btn-group w-100" role="group">
-            <input type="radio" class="btn-check" name="${fieldName}" id="${fieldName}_nooit" value="Nooit" autocomplete="off" required>    
+            <input type="radio" class="btn-check" name="${fieldName}" id="${fieldName}_nooit" value="Nooit" autocomplete="off" required>
             <label class="btn btn-outline-secondary d-flex flex-column align-items-center justify-content-center p-3" for="${fieldName}_nooit">
                 <div style="font-size: 2rem;">😞</div>
                 <div class="mt-2 text-nowrap">Nooit</div>
             </label>
-            
+
             <input type="radio" class="btn-check" name="${fieldName}" id="${fieldName}_af_en_toe" value="Af en toe" autocomplete="off" required>
             <label class="btn btn-outline-secondary d-flex flex-column align-items-center justify-content-center p-3" for="${fieldName}_af_en_toe">
                 <div style="font-size: 2rem;">😐</div>
@@ -34,7 +36,24 @@ document.getElementById('addCustomQuestionBtn').addEventListener('click', functi
         </div>
     `;
 
-    document.querySelector('form').insertBefore(questionField, document.querySelector('form').lastElementChild);
-    
-    document.getElementById('custom_collab').value = '';
-});
+    document.getElementById('custom-question-container').appendChild(questionField);
+
+    customQuestionForm.value = '';
+}
+
+document.getElementById('addCustomQuestionBtn').addEventListener('click', addQuestion);
+
+let customInputSelected = false;
+customQuestionForm.addEventListener("focus", () => { customInputSelected = true; console.log("focus") })
+customQuestionForm.addEventListener("blur", () => { customInputSelected = false; console.log("blur") })
+
+addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        if (customInputSelected) {
+            addQuestion();
+            e.preventDefault();
+        } else {
+            document.querySelector('form').submit();
+        }
+    }
+})

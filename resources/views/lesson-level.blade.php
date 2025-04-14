@@ -25,24 +25,27 @@
             <x-lesson-question-component :question="$question" :selectedAnswer="$selectedAnswer" :fieldName="$fieldName" />
         @endforeach
 
+        <div id="custom-question-container">
+            @if (!empty($customQuestions))
+                @foreach ($customQuestions as $key => $customQuestion)
+                    @php
+                        $fieldName = $key;
+                        $selectedAnswer = $answers[$currentStep][$key] ?? null;
+                        $questionText = str_replace('custom_', '', $key);
+                    @endphp
+                    <x-lesson-question-component :question="(object) ['id' => $key, 'text' => $questionText]" :selectedAnswer="$selectedAnswer" :fieldName="$fieldName" />
+                @endforeach
+            @endif
+        </div>
+
         <div class="mb-3">
             <label class="form-label"><strong>Gebruik je iets in de categorie {{ $subCategory->name }}, wat niet voorbij gekomen is?</strong></label>
             <div class="input-group">
-                <input type="text" class="form-control" id="custom_collab" name="custom_collab" placeholder="Vul je vraag in">
+                <input type="text" class="form-control" id="custom_question_form" name="custom_question_form" placeholder="Vul je vraag in">
                 <button class="btn btn-primary" type="button" id="addCustomQuestionBtn">Toevoegen</button>
             </div>
         </div>
 
-        @if (!empty($customQuestions))
-            @foreach ($customQuestions as $key => $customQuestion)
-                @php
-                    $fieldName = $key;
-                    $selectedAnswer = $answers[$currentStep][$key] ?? null;
-                    $questionText = str_replace('custom_', '', $key);
-                @endphp
-                <x-lesson-question-component :question="(object) ['id' => $key, 'text' => $questionText]" :selectedAnswer="$selectedAnswer" :fieldName="$fieldName" />
-            @endforeach
-        @endif
         <div class="d-flex flex-row gap-3 justify-content-md-end">
             <a href="{{ route('lesson-level.back', $currentStep) }}" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
             <button type="submit" href="{{ route('overview-and-send') }}" class="btn btn-primary">Volgende<i class="bi bi-arrow-right ps-2"></i></button>
