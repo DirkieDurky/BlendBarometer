@@ -39,7 +39,7 @@ class LessonController extends Controller{
             ARRAY_FILTER_USE_KEY
         );
 
-        return view('part1', compact('subCategory', 'questions', 'totalSteps', 'currentStep', 'answers', 'customQuestions'));
+        return view('lesson-section', compact('subCategory', 'questions', 'totalSteps', 'currentStep', 'answers', 'customQuestions'));
     }
 
     public function storeAnswers(Request $request, $subCategoryId)
@@ -59,6 +59,6 @@ class LessonController extends Controller{
 
         session()->put('answers', $answers);
 
-        return redirect()->route('deel1.next', $subCategoryId);
+        return redirect()->route('lesson-section.next', $subCategoryId);
     }
 }
