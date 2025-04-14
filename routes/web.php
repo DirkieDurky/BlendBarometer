@@ -18,10 +18,10 @@ Route::get('/information', function () {
     return view('information', ['academies' => $academies]);
 });
 
-Route::get('/lesson-section/1', [LessonController::class, 'start'])->name('lesson-section.start');
-Route::post('/lesson-section/{id}/storeAnswers', [LessonController::class, 'storeAnswers'])->name('lesson-section.storeAnswers');
-Route::get('/lesson-section/next/{id}', [LessonController::class, 'next'])->name('lesson-section.next');
-Route::get('/lesson-section/back/{id}', [LessonController::class, 'back'])->name('lesson-section.back');
+Route::get('/lesson-level/1', [LessonController::class, 'start'])->name('lesson-level.start');
+Route::post('/lesson-level/{id}/storeAnswers', [LessonController::class, 'storeAnswers'])->name('lesson-level.storeAnswers');
+Route::get('/lesson-level/next/{id}', [LessonController::class, 'next'])->name('lesson-level.next');
+Route::get('/lesson-level/back/{id}', [LessonController::class, 'back'])->name('lesson-level.back');
 
 Route::post('/information', function () {
     session()->put('name', request('name'));

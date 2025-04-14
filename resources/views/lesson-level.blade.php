@@ -14,13 +14,13 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
                         <h5 class="text-muted mb-1">{{ $subCategory->id }} van {{ $totalSteps }} - {{ $subCategory->QuestionCategory->name }}</h5>
-                        <h3  class="fw-bold mb-1">{{ $subCategory->name }}</h3>
+                        <h3 class="fw-bold mb-1">{{ $subCategory->name }}</h3>
                         <p class="text-muted">Hoe vaak gebruik je ...</p>
                     </div>
                     {{-- <button class="btn btn-secondary btn-sm">Hulp nodig?</button> verwijst naar tussenpagina --}}
                 </div>
-               
-                <form method="POST" action="{{ route('lesson-section.storeAnswers', $currentStep) }}">
+
+                <form method="POST" action="{{ route('lesson-level.storeAnswers', $currentStep) }}">
                     @csrf
 
                     @foreach ($questions as $question)
@@ -50,11 +50,11 @@
                         @endforeach
                     @endif
                     <div class="d-flex justify-content-between">
-                    @if($currentStep > 1)
-                        <a href="{{ route('lesson-section.back', $currentStep) }}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"> Vorige</a>
-                    @else
-                        <div></div>
-                    @endif
+                        @if ($currentStep > 1)
+                            <a href="{{ route('lesson-level.back', $currentStep) }}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"> Vorige</a>
+                        @else
+                            <div></div>
+                        @endif
                         <button type="submit" class="btn btn-primary">Volgende <i class="bi bi-arrow-right"></i></button>
                     </div>
                 </form>
