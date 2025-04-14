@@ -30,3 +30,5 @@ Ctrl+F daar naar "variables_order". Die heeft een waarde "EGPCS". Verander die n
 7. Start de server\
 ```composer run dev```
 8. De website zou nu te zien moeten zijn op `http://localhost:8000/`!
+
+Test

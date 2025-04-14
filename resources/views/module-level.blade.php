@@ -7,7 +7,7 @@
         </div>
         <p class="mt-2">{{ $categoryNr }} van {{ $categoryCount }} - {{ $category->description }}</p>
 
-        <form action="{{ route('module-level.navigate', $categoryNr) }}" method="post">
+        <form action="{{ route('module-level.submit', $categoryNr) }}" method="post">
             @csrf
 
             <h1>{{ $category->name }}</h1>
@@ -16,15 +16,9 @@
                 <x-module-question :question="$category->questions[$i]['text']" :questionId="$i" :answer="$answers[$categoryNr][$i] ?? null" :description="$category->questions[$i]->description" />
             @endfor
 
-            <br>
-
-            <div class="mt-3 d-flex justify-content-end">
-                <button name="navigation" value="previous" type="submit" class="btn btn-outline-primary me-2">
-                    <i class="bi bi-arrow-left"></i> Vorige
-                </button>
-                <button name="navigation" value="next" type="submit" class="btn btn-primary">
-                    Volgende <i class="bi bi-arrow-right"></i>
-                </button>
+            <div class="d-flex flex-row gap-3 justify-content-md-end">
+                <a href="{{ route('module-level.previous', $categoryNr) }}" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
+                <button type="submit" class="btn btn-primary">Volgende<i class="bi bi-arrow-right ps-2"></i></button>
             </div>
         </form>
     </div>
