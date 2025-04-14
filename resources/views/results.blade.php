@@ -11,31 +11,31 @@
     <div class="container-fluid">
         <div class="row g-3 mt-3">
             <div class="col-xl-12 col-xxl-6">
-                <div class="card graph-card">
+                <div class="card graph-card p-3">
                     <canvas id="lessonLevelPhysical" class="bg-white rounded mb-2"></canvas>
                     <strong>Lesniveau - Fysiek</strong>
-                    <p>Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 1: Lesniveau op fysiek gebied</p>
+                    <p class="mb-0">Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 1: Lesniveau op fysiek gebied</p>
                 </div>
             </div>
             <div class="col-xl-12 col-xxl-6">
-                <div class="card graph-card">
+                <div class="card graph-card p-3">
                     <canvas id="lessonLevelOnline" class="bg-white rounded mb-2"></canvas>
                     <strong>Lesniveau - Online</strong>
-                    <p>Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 1: Lesniveau op online gebied</p>
+                    <p class="mb-0">Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 1: Lesniveau op online gebied</p>
                 </div>
             </div>
             <div class="col-xl-12 col-xxl-6">
-                <div class="card graph-card">
+                <div class="card graph-card p-3">
                     <canvas id="lessonLevel" class="bg-white rounded mb-2"></canvas>
                     <strong>Lesniveau - Algemeen</strong>
-                    <p>Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 1: Lesniveau in het algemeen</p>
+                    <p class="mb-0">Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 1: Lesniveau in het algemeen</p>
                 </div>
             </div>
             <div class="col-xl-12 col-xxl-6">
-                <div class="card graph-card">
+                <div class="card graph-card p-3">
                     <canvas id="moduleLevel" class="bg-white rounded mb-2"></canvas>
                     <strong>Moduleniveau</strong>
-                    <p>Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 2: Moduleniveau</p>
+                    <p class="mb-0">Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 2: Moduleniveau</p>
                 </div>
             </div>
         </div>
