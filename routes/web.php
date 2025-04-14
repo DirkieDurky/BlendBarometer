@@ -16,15 +16,10 @@ Route::get('/information', function () {
     return view('information', ['academies' => $academies]);
 });
 
-Route::get('/uitleg-overzicht-en-resultaten', function () {
-    return view('overview-and-results-info');
-});
-
+Route::get('/uitleg-overzicht-en-resultaten', [ResultsController::class, 'overviewAndResultsInfoView'])->name('overviewAndResultsInfo');
 Route::get('/resultaten', [ResultsController::class, 'view'])->name('results');
+Route::get('/overzicht-en-versturen', [ResultsController::class, 'overviewAndSendView'])->name('overviewAndSend');
 
-Route::get('/overzicht-en-versturen', function () {
-    return view('overview-and-send');
-});
 Route::post('/information', function () {
     session()->put('name', request('name'));
     session()->put('email', request('email'));
