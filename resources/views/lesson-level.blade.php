@@ -51,7 +51,7 @@
                     @endif
                     <div class="d-flex justify-content-between">
                         @if ($currentStep > 1)
-                            <a href="{{ route('lesson-level.back', $currentStep) }}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"> Vorige</a>
+                            <a href="{{ route('lesson-level.back', $currentStep) }}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Vorige</a>
                         @else
                             <div></div>
                         @endif
