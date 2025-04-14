@@ -1,29 +1,24 @@
 <x-layout>
     <div class="row">
         <div class="col-md-3">
-            <x-step-sidebar :title="'Module niveau'" :smallDescription="'Wat is de kwaliteit van de Blend op moduleniveau?'"
-                :current_step_name="'Module niveau'"></x-step-sidebar>
+            <x-step-sidebar :title="'Module niveau'" :smallDescription="'Wat is de kwaliteit van de Blend op moduleniveau?'" :current_step_name="'Module niveau'"></x-step-sidebar>
         </div>
         <div class="content col-md-9">
             <div class="container mt-5">
                 <div class="progress rounded-pill">
-                    <div class="progress-bar bg-success rounded-pill" role="progressbar"
-                        style="width: {{ ($category->id / $maxCategoryId) * 100 }}%" aria-valuenow="{{ $category->id }}"
-                        aria-valuemin="0" aria-valuemax="{{ $maxCategoryId }}">
+                    <div class="progress-bar bg-success rounded-pill" role="progressbar" style="width: {{ ($category->id / $maxCategoryId) * 100 }}%" aria-valuenow="{{ $category->id }}" aria-valuemin="0" aria-valuemax="{{ $maxCategoryId }}">
                         {{ $category->id }} van {{ $maxCategoryId }}
                     </div>
                 </div>
                 <p class="mt-2">{{ $category->id }} van {{ $maxCategoryId }} - {{ $category->description }}</p>
 
-                <form action="/module-section/{{ $category->id }}/navigate" method="post">
+                <form action="/module-level/{{ $category->id }}/navigate" method="post">
                     @csrf
 
                     <h1>{{ $category->name }}</h1>
 
                     @for ($i = 0; $i < count($category->questions); $i++)
-                        <x-module-question :question="$category->questions[$i]['text']" :questionId="$i"
-                            :answer="$answers[$category->id][$i] ?? null"
-                            :description="$category->questions[$i]->description" />
+                        <x-module-question :question="$category->questions[$i]['text']" :questionId="$i" :answer="$answers[$category->id][$i] ?? null" :description="$category->questions[$i]->description" />
                     @endfor
 
                     <br>

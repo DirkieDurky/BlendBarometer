@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\Sub_category;
-class LessonController extends Controller{
+
+class LessonController extends Controller
+{
 
     public function start()
     {
@@ -25,13 +27,17 @@ class LessonController extends Controller{
 
     private function loadStep($subCategoryId)
     {
+        $totalSteps = Sub_category::count();
+        $currentStep = $subCategoryId;
+
+        if ($currentStep > $totalSteps) {
+            return redirect("module-level/1");
+        }
+
         $subCategory = Sub_category::with('questionCategory')->findOrFail($subCategoryId);
         $questions = $subCategory->questions;
 
         $answers = session()->get('answers', []);
-
-        $totalSteps = Sub_category::count();
-        $currentStep = $subCategoryId;
 
         $customQuestions = array_filter(
             $answers[$subCategoryId] ?? [],
@@ -51,11 +57,11 @@ class LessonController extends Controller{
                 $questionId = str_replace('question_', '', $key);
                 $answers[$subCategoryId][$questionId] = $value;
             }
-    
+
             if (str_starts_with($key, 'custom_') && !empty($value)) {
                 $answers[$subCategoryId][$key] = $value;
             }
-        }    
+        }
 
         session()->put('answers', $answers);
 
