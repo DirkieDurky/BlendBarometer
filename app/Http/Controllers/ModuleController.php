@@ -45,7 +45,7 @@ class ModuleController extends Controller
                 $categoryNr++;
                 return redirect('/deel2/'.$categoryNr);
             } else {
-                //vervang met link naar volgende pagina
+                //TODO vervang met link naar volgende pagina
                 return redirect('/deel2/'.$categoryNr);
             }
         }
@@ -55,7 +55,7 @@ class ModuleController extends Controller
                 $categoryNr--;
                 return redirect('/deel2/'.$categoryNr);
             } else {
-                //vervang met link naar vorige pagina
+                //TODO vervang met link naar vorige pagina
                 return redirect('/deel2/'.$categoryNr);
             }
         } else {
