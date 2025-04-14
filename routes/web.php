@@ -16,9 +16,9 @@ Route::get('/information', function () {
     return view('information', ['academies' => $academies]);
 });
 
-Route::get('/uitleg-overzicht-en-resultaten', [ResultsController::class, 'overviewAndResultsInfoView'])->name('overviewAndResultsInfo');
+Route::get('/uitleg-overzicht-en-resultaten', [ResultsController::class, 'overviewAndResultsInfoView'])->name('overview-and-results-info');
 Route::get('/resultaten', [ResultsController::class, 'view'])->name('results');
-Route::get('/overzicht-en-versturen', [ResultsController::class, 'overviewAndSendView'])->name('overviewAndSend');
+Route::get('/overzicht-en-versturen', [ResultsController::class, 'overviewAndSendView'])->name('overview-and-send');
 
 Route::post('/information', function () {
     session()->put('name', request('name'));

@@ -8,7 +8,9 @@ class ResultsController extends Controller
 {
     public function view()
     {
-        return $this->redirectIfInsufficientData();
+        if ($this->hasInsufficientData()) {
+            return redirect('/');
+        }
 
         $partOneCategories = Question_category::select('name')->where('form_section_id', 0)->get();
         $partTwoCategories = Question_category::select('name')->where('form_section_id', 1)->get();
@@ -21,26 +23,31 @@ class ResultsController extends Controller
 
     public function overviewAndResultsInfoView()
     {
-        return $this->redirectIfInsufficientData();
+        if ($this->hasInsufficientData()) {
+            return redirect('/');
+        }
 
         return view('overview-and-results-info');
     }
 
     public function overviewAndSendView()
     {
-        return $this->redirectIfInsufficientData();
+        if ($this->hasInsufficientData()) {
+            return redirect('/');
+        }
 
         return view('overview-and-send');
     }
 
-    private function redirectIfInsufficientData()
+    private function hasInsufficientData()
     {
+        session()->put('partOneDataPhysical', [12, 19, 3, 5, 2, 3]);
+        session()->put('partOneDataOnline', [7, 15, 2, 0, 9, 3]);
+
         $partOneDataPhysical = session()->get('partOneDataPhysical', []);
         $partOneDataOnline = session()->get('partOneDataOnline', []);
         $partTwoData = session()->get('partTwoData', []);
 
-        if (!$partOneDataPhysical || !$partOneDataOnline || !$partTwoData) {
-            return redirect('/');
-        }
+        return !$partOneDataPhysical || !$partOneDataOnline || !$partTwoData;
     }
 }

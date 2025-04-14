@@ -44,10 +44,6 @@
         <a href="uitleg-overzicht-en-resultaten" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
         <a href="overzicht-en-versturen" class="btn btn-primary">Afronden<i class="bi bi-arrow-right ps-2"></i></a>
     </div>
-    <?php
-    session()->put('partOneDataPhysical', [12, 19, 3, 5, 2, 3]);
-    session()->put('partOneDataOnline', [7, 15, 2, 0, 9, 3]);
-    ?>
     <script>
         const partOneCategories = {!! json_encode($partOneCategories) !!};
         const partTwoCategories = {!! json_encode($partTwoCategories) !!};
