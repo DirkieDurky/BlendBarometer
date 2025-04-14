@@ -4,18 +4,10 @@
     </div>
 
     <h1>Uitleg overzicht en versturen</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat.</p>
-    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-        sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <ol>
-        <li>Duis aute irure dolor in reprehenderit in</li>
-        <li>Voluptate velit esse cillum dolore eu fugiat nulla pariatur.</li>
-        <li>Excepteur sint occaecat cupidatat non proident</li>
-        <li>sunt in culpa qui officia</li>
-        <li>eserunt mollit anim id est laborum.</li>
-    </ol>
+    <p>Op de volgende pagina staan grafieken. Deze zijn gemaakt op basis van de ingevulde antwoorden. Per grafiek staat er uitleg over wat deze aangeeft.
+        De grafieken worden na het afronden verstuurd naar een ICTO coach. Deze zal een gesprek inplannen om de resultaten te bespreken en 
+        mogelijk suggesties te geven voor het verbeteren van het onderwijs. Na het gesprek worrdt er een rapport opgesteld waar deze grafieken in terug komen.
+    </p>
     <div class="d-flex flex-row gap-3 justify-content-md-end">
         <a href="{{ route('module-level', $categoryCount) }}" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
         <a href="{{ route('results') }}" class="btn btn-primary">Volgende<i class="bi bi-arrow-right ps-2"></i></a>
