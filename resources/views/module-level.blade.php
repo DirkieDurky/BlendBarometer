@@ -1,19 +1,19 @@
 <x-progress-step section="Module niveau" title="Vragen op module niveau" description="" current_step_name="moduleLevel">
     <div class="container mt-5">
         <div class="progress rounded-pill">
-            <div class="progress-bar bg-success rounded-pill" role="progressbar" style="width: {{ ($category->id / $maxCategoryId) * 100 }}%" aria-valuenow="{{ $category->id }}" aria-valuemin="0" aria-valuemax="{{ $maxCategoryId }}">
-                {{ $category->id }} van {{ $maxCategoryId }}
+            <div class="progress-bar bg-success rounded-pill" role="progressbar" style="width: {{ ($categoryNr / $categoryCount) * 100 }}%" aria-valuenow="{{ $categoryNr }}" aria-valuemin="0" aria-valuemax="{{ $categoryCount }}">
+                {{ $categoryNr }} van {{ $categoryCount }}
             </div>
         </div>
-        <p class="mt-2">{{ $category->id }} van {{ $maxCategoryId }} - {{ $category->description }}</p>
+        <p class="mt-2">{{ $categoryNr }} van {{ $categoryCount }} - {{ $category->description }}</p>
 
-        <form action="/module-level/{{ $category->id }}/navigate" method="post">
+        <form action="/module-level/{{ $categoryNr }}/navigate" method="post">
             @csrf
 
             <h1>{{ $category->name }}</h1>
 
             @for ($i = 0; $i < count($category->questions); $i++)
-                <x-module-question :question="$category->questions[$i]['text']" :questionId="$i" :answer="$answers[$category->id][$i] ?? null" :description="$category->questions[$i]->description" />
+                <x-module-question :question="$category->questions[$i]['text']" :questionId="$i" :answer="$answers[$categoryNr][$i] ?? null" :description="$category->questions[$i]->description" />
             @endfor
 
             <br>

@@ -17,7 +17,7 @@
         <li>eserunt mollit anim id est laborum.</li>
     </ol>
     <div class="d-flex flex-row gap-3 justify-content-md-end">
-        <a href="module-level/3" class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
+        <a href={{ route('module-level', $categoryCount) }} class="btn back-button"><i class="bi bi-arrow-left pe-2"></i>Vorige</a>
         <a href="resultaten" class="btn btn-primary">Volgende<i class="bi bi-arrow-right ps-2"></i></a>
     </div>
 </x-progress-step>

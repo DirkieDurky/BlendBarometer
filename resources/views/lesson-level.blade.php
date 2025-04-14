@@ -14,7 +14,7 @@
         {{-- <button class="btn btn-secondary btn-sm">Hulp nodig?</button> verwijst naar tussenpagina --}}
     </div>
 
-    <form method="POST" action="{{ route('lesson-level.storeAnswers', $currentStep) }}">
+    <form method="POST" action="{{ route('lesson-level.store-answers', $currentStep) }}">
         @csrf
 
         @foreach ($questions as $question)

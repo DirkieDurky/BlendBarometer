@@ -51,7 +51,8 @@ class ResultsController extends Controller
             return redirect('/');
         }
 
-        return view('overview-and-results-info');
+        $categoryCount = Question_category::where('form_section_id', 2)->count();
+        return view('overview-and-results-info', compact('categoryCount'));
     }
 
     public function overviewAndSendView()

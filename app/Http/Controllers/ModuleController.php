@@ -11,13 +11,13 @@ class ModuleController extends Controller
 {
     public function getModuleLevel($categoryNr)
     {
-        $category = Question_category::where('id', $categoryNr)->with('questions')->first();
+        $category = Question_category::where('form_section_id', 2)->with('questions')->get()[$categoryNr - 1];
 
-        $maxCategoryId = Question_category::where('form_section_id', 2)->max('id');
+        $categoryCount = Question_category::where('form_section_id', 2)->count();
 
         $answers = session()->get('partTwoData', []);
 
-        return view('module-level', compact('category', 'answers', 'maxCategoryId'));
+        return view('module-level', compact('category', 'answers', 'categoryNr', 'categoryCount'));
     }
 
     public function storeInformation(Request $request, $categoryNr)
@@ -36,21 +36,21 @@ class ModuleController extends Controller
 
     public function navigateModuleLevel(Request $request, $categoryNr)
     {
+        $categoryCount = Question_category::where('form_section_id', 2)->count();
+
         $this->storeInformation($request, $categoryNr);
 
         $btn_action = $request->input('navigation');
 
         if ($btn_action === 'next') {
-            $maxCategoryId = Question_category::where('form_section_id', 2)->max('id');
-            if ($categoryNr < $maxCategoryId) {
+            if ($categoryNr < 1) {
                 $categoryNr++;
                 return redirect('/module-level/' . $categoryNr);
             } else {
                 return redirect('/uitleg-overzicht-en-resultaten');
             }
         } elseif ($btn_action === 'previous') {
-            $minCategoryId = Question_category::where('form_section_id', 1)->min('id');
-            if ($categoryNr > $minCategoryId) {
+            if ($categoryNr >= $categoryCount) {
                 $categoryNr--;
                 return redirect('/module-level/' . $categoryNr);
             } else {

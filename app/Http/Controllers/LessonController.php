@@ -44,7 +44,7 @@ class LessonController extends Controller
         return redirect('lesson-level/' . $subCategoryId - 1);
     }
 
-    public function storeAnswers(Request $request, $subCategoryId)
+    public function submit(Request $request, $subCategoryId)
     {
         $answers = session()->get('partOneData', []);
 

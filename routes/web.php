@@ -14,11 +14,11 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/information', [InformationController::class, 'view'])->name("information");
 Route::post('/information', [InformationController::class, 'submit'])->name('information.submit');
 
-Route::get('/module-level/{categoryNr}', [ModuleController::class, 'getModuleLevel'])->name('moduleLevel');
-Route::post('/module-level/{categoryNr}/navigate', [ModuleController::class, 'navigateModuleLevel'])->name('navigateModuleLevel');
+Route::get('/module-level/{categoryNr}', [ModuleController::class, 'getModuleLevel'])->name('module-level');
+Route::post('/module-level/{categoryNr}/navigate', [ModuleController::class, 'navigateModuleLevel'])->name('navigate.module-level');
 
 Route::get('/lesson-level/{id}', [LessonController::class, 'view'])->name('lesson-level');
-Route::post('/lesson-level/{id}/storeAnswers', [LessonController::class, 'storeAnswers'])->name('lesson-level.storeAnswers');
+Route::post('/lesson-level/{id}/submit', [LessonController::class, 'submit'])->name('lesson-level.store-answers');
 Route::get('/lesson-level/next/{id}', [LessonController::class, 'next'])->name('lesson-level.next');
 Route::get('/lesson-level/back/{id}', [LessonController::class, 'back'])->name('lesson-level.back');
 
