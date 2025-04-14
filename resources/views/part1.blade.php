@@ -65,8 +65,8 @@
                         @endif
                     </div>
                 </form>
-
             </div>
         </div>
-        <script src="{{ asset('js/customQuestion.js') }}"></script>
+    </div>
+    <script src="{{ asset('js/customQuestion.js') }}"></script>
 </x-layout>
