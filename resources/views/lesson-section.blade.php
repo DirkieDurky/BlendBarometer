@@ -13,7 +13,7 @@
 
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <h5 class="text-muted mb-1">{{ $subCategory->id }} van {{ $totalSteps }} - {{ $subCategory->QuestionCategory->description }}</h5>
+                        <h5 class="text-muted mb-1">{{ $subCategory->id }} van {{ $totalSteps }} - {{ $subCategory->QuestionCategory->name }}</h5>
                         <h3  class="fw-bold mb-1">{{ $subCategory->name }}</h3>
                         <p class="text-muted">Hoe vaak gebruik je ...</p>
                     </div>
@@ -32,7 +32,7 @@
                     @endforeach
 
                     <div class="mb-3">
-                        <label class="form-label"><strong>Gebruik je iets in de categorie {{ $subCategory->questionCategory->description }}, wat niet voorbij gekomen is?</strong></label>
+                        <label class="form-label"><strong>Gebruik je iets in de categorie {{ $subCategory->name }}, wat niet voorbij gekomen is?</strong></label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="custom_collab" name="custom_collab" placeholder="Vul je vraag in">
                             <button class="btn btn-primary" type="button" id="addCustomQuestionBtn">Toevoegen</button>
