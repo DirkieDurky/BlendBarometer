@@ -20,7 +20,7 @@ return new class extends Migration
         Schema::create('form_section', function (Blueprint $table) {
             $table->id();
             $table->foreignId('content_id')
-                ->constrained()
+                ->constrained('content')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
             $table->mediumText('description')
@@ -30,9 +30,10 @@ return new class extends Migration
         Schema::create('question_category', function (Blueprint $table) {
             $table->id();
             $table->foreignId('form_section_id')
-                ->constrained()
+                ->constrained('form_section')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
+            $table->string('name');
             $table->mediumText('description')
                 ->nullable();
         });
@@ -40,14 +41,14 @@ return new class extends Migration
         Schema::create('question', function (Blueprint $table) {
             $table->id();
             $table->foreignId('question_category_id')
-                ->constrained()
+                ->constrained('question_category')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
             $table->foreignId('sub_category_id')
-                ->constrained()
+                ->nullable()
+                ->constrained('sub_category')
                 ->onUpdate('cascade')
-                ->onDelete('restrict')
-                ->nullable();
+                ->onDelete('restrict');
             $table->string('text');
             $table->mediumText('description')
                 ->nullable();

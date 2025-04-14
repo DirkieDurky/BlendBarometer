@@ -1,0 +1,16 @@
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+.intro {
+    height: 100vh;
+    background-image: 
+        linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0)),
+        url('../images/introduction_image.png');
+    background-repeat: no-repeat;
+    background-position: top -30px right;
+}
+
+.step {
+    width: 30px;
+}
