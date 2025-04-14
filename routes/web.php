@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\ModuleController;
 use App\Models\academy;
 use Illuminate\Support\Facades\Route;
 use Laravel\Pail\ValueObjects\Origin\Console;
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index']);
+
+Route::get('/module-section/{categoryNr}', [ModuleController::class, 'getModuleLevel']);
+Route::post('/module-section/{categoryNr}/navigate', [ModuleController::class, 'navigateModuleLevel']);
 
 Route::get('/information', function () {
     $academies = Academy::all();
