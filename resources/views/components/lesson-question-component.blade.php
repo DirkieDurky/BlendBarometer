@@ -6,7 +6,7 @@
             </span>
         @endif
     </p>
-    <div class="d-flex flex-wrap gap-4" role="group">
+    <div class="d-flex gap-4" role="group">
         <input type="radio" class="form-check-input visually-hidden" name="{{ $fieldName }}" id="{{ $fieldName }}_nooit" value="0" autocomplete="off" {{ $selectedAnswer === '0' ? 'checked' : '' }} required>
         <label class="form-check-label border-2 border rounded shadow-sm flex-fill py-4 d-flex flex-column justify-content-center align-items-center" for="{{ $fieldName }}_nooit">
             <div style="font-size: 2rem;">🫢</div>
