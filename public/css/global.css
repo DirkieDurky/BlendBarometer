@@ -22,7 +22,7 @@
     display: block !important;
 }
 
-.form-check-label {
+.module-question .form-check-label {
     border-width: 2px !important;
     height: 175x !important;
     width: 390px !important;

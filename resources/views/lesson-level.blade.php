@@ -46,7 +46,7 @@
             @endif
         </div>
 
-        <div class="mb-3">
+        <div class="mb-5">
             <label class="form-label"><strong>Gebruik je iets in de categorie {{ $subCategory->name }}, wat niet voorbij gekomen is?</strong></label>
             <div class="input-group">
                 <input type="text" class="form-control" id="custom_input" name="custom_input" placeholder="Vul je vraag in">

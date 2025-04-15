@@ -1,4 +1,4 @@
-<div class="mb-3">
+<div class="module-question mb-3">
     <p class="fw-semibold">{{ $question }} @if ($description)
         <span data-bs-toggle="tooltip" data-bs-title="{{ $description }}" style="cursor: pointer;">
             <i class="bi bi-info-circle-fill"></i>
