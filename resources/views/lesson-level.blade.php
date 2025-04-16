@@ -55,7 +55,7 @@
         <div class="mb-5">
             <label class="form-label"><strong>Gebruik je iets in de categorie {{ $subCategory->name }}, wat niet voorbij
                     gekomen is?</strong></label>
-            <div class="input-group">
+            <div class="input-group" style="width: fit-content">
                 <input type="text" class="form-control" id="custom_input" name="custom_input"
                        placeholder="Vul je vraag in">
                 <button class="btn btn-primary" type="button" id="addCustomQuestionBtn">Toevoegen</button>
