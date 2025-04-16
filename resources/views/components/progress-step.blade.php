@@ -69,7 +69,7 @@
             </div>
         </aside>
 
-        <main class="content flex-grow-1 px-5 py-4 overflow-y-auto overflow-x-hidden vh-100">
+        <main class="content flex-grow-1 px-5 py-4 overflow-x-hidden">
             {{ $slot }}
         </main>
     </div>
