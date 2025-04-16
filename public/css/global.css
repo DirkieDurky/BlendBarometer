@@ -13,18 +13,31 @@
     font-family: Poppins;
 }
 
-.form-check-input:checked+.form-check-label {
+.btn {
+    font-weight: 500 !important;
+}
+
+.btn-flat {
+    color: var(--bs-primary, #0d6efd) !important;
+    border: 1px solid transparent;
+}
+
+.btn-flat:hover, .btn-flat:focus {
+    border-color: var(--bs-primary, #0d6efd) !important;
+}
+
+.form-check-input:checked + .form-check-label {
     border-color: rgb(12, 209, 117) !important;
     border-width: 6px !important;
 }
 
-.form-check-input:checked+.form-check-label+svg {
+.form-check-input:checked + .form-check-label + svg {
     display: block !important;
 }
 
 .module-question .form-check-label {
     border-width: 2px !important;
-    height: 175x !important;
+    height: 175px !important;
     width: 390px !important;
 }
 
@@ -34,11 +47,7 @@
 
 .graph-card {
     border: none;
-    background-color: inherit
-}
-
-.back-button {
-    color: var(--bs-primary)
+    background-color: inherit;
 }
 
 h1,
