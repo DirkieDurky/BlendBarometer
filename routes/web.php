@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResultsController;
 use App\Http\Controllers\ModuleController;
 use App\Models\academy;
@@ -27,3 +28,8 @@ Route::get('/lesniveau/vorige/{id}', [LessonController::class, 'previous'])->nam
 Route::get('/uitleg-overzicht-en-resultaten', [ResultsController::class, 'overviewAndResultsInfoView'])->name('overview-and-results-info');
 Route::get('/resultaten', [ResultsController::class, 'view'])->name('results');
 Route::get('/overzicht-en-versturen', [ResultsController::class, 'overviewAndSendView'])->name('overview-and-send');
+
+Route::get('/inloggen', [AuthController::class, 'login'])->name('login');
+Route::post('/inloggen', [AuthController::class, 'submitLogin'])->name('login.submit');
+Route::get('/verificatie', [AuthController::class, 'verify'])->name('verify');
+Route::post('verificatie', [AuthController::class, 'submitVerify'])->name('verify.submit');
