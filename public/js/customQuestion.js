@@ -47,11 +47,9 @@ document.getElementById('addCustomQuestionBtn').addEventListener('click', addQue
 let customInputSelected = false;
 customQuestionForm.addEventListener("focus", () => {
     customInputSelected = true;
-    console.log("focus")
 })
 customQuestionForm.addEventListener("blur", () => {
     customInputSelected = false;
-    console.log("blur")
 })
 
 addEventListener("keydown", (e) => {
