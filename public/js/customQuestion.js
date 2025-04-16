@@ -10,7 +10,7 @@ function addQuestion() {
     }
 
     const questionField = document.createElement('div');
-    questionField.classList.add('mb-3');
+    questionField.classList.add('mb-5');
 
     const fieldName = "custom_question_" + customQuestion.toLowerCase().replace(/[^a-z0-9]+/g, '_');
 
