@@ -1,4 +1,4 @@
-<div class="d-flex flex-row gap-3 justify-content-md-end mt-4">
+<div class="d-flex gap-3 justify-content-end mt-2">
     <a href="{{ $previous }}" class="btn btn-flat">
         <i class="bi bi-arrow-left pe-2"></i>
         Vorige

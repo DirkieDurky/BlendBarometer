@@ -1,15 +1,20 @@
 <x-progress-step section="Les niveau" title="Vragen op les niveau" description="" current_step_name="lessonLevel">
     <div class="mb-3">
-        <div class="progress" style="height: 6px;">
-            <div class="progress-bar bg-success" style="width: {{ 100 * ($currentStep / $totalSteps) }}%"></div>
+        <div class="progress" style="height: 10px;">
+            <div class="progress-bar bg-success"
+                 style="width: {{ 100 * ($currentStep / $totalSteps) }}%"
+                 aria-valuenow="{{ $currentStep }}"
+                 aria-valuemin="0"
+                 aria-valuemax="{{ $totalSteps }}"
+                 role="progressbar"></div>
         </div>
     </div>
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h5 class="text-muted mb-1">{{ $subCategory->id }} van {{ $totalSteps }}
-                - {{ $subCategory->QuestionCategory->name }}</h5>
-            <h3 class="fw-bold mb-1">{{ $subCategory->name }}</h3>
+            <p class="fs-5 fw-bold text-muted mb-1">{{ $subCategory->id }} van {{ $totalSteps }}
+                - {{ $subCategory->QuestionCategory->name }}</p>
+            <h1 class="fs-3 fw-bold mb-1">{{ $subCategory->name }}</h1>
             <p class="text-muted">Hoe vaak gebruik je ...</p>
         </div>
         {{-- <button class="btn btn-secondary">Hulp nodig?</button> // TODO: redirect to 'tussenpagina' --}}

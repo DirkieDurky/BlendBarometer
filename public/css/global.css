@@ -27,8 +27,22 @@
 }
 
 .form-check-input:checked + .form-check-label {
-    border-color: rgb(12, 209, 117) !important;
-    border-width: 6px !important;
+    position: relative;
+    outline: 5px solid var(--bs-primary, #0d6efd) !important;
+    outline-offset: -2px;
+}
+
+.form-check-input:checked + .form-check-label::after {
+    content: "";
+    background-image: url("../images/check-circle.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    position: absolute;
+    right: .5em;
+    top: .5em;
+    width: 30px;
+    height: 30px;
 }
 
 .form-check-input:checked + .form-check-label + svg {
