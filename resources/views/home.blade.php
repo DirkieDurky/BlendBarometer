@@ -16,51 +16,9 @@
             <p class="w-50 mb-4">
                 {{ $intro_description }}
             </p>
-            {{-- <a href="{{ route('verification') }}" class="btn btn-primary me-2">Start met invullen</button> --}}
-            <a href="{{ route('information') }}" class="btn btn-primary me-2">Start met invullen</a>
-            <a href="#explanation" class="btn btn-outline-primary">Hoe werkt het?</a>
-        </section>
-        <section>
-            <h2 id="explanation" class="fw-bold">Hoe werkt de BlendBarometer?</h2>
-            <p>
-                {{ $intro_explanation }}
-            </p>
-            <div class="d-flex align-items-start">
-                <img src="{{ asset('images/one.svg') }}" alt="1" class="me-3 step">
-                <div class="d-flex flex-column">
-                    <h5 class="fw-bold">Deel 1: Les niveau</h5>
-                    <p>
-                        {{ $intro_part1 }}
-                    </p>
-                </div>
-            </div>
-            <div class="d-flex align-items-start">
-                <img src="{{ asset('images/two.svg') }}" alt="2" class="me-3 step">
-                <div class="d-flex flex-column">
-                    <h5 class="fw-bold">Deel 2: Module niveau</h5>
-                    <p>
-                        {{ $intro_part2 }}
-                    </p>
-                </div>
-            </div>
-            <div class="d-flex align-items-start">
-                <img src="{{ asset('images/three.svg') }}" alt="3" class="me-3 step">
-                <div class="d-flex flex-column">
-                    <h5 class="fw-bold">Deel 3: Inhoudsrijk gesprek</h5>
-                    <p>
-                        {{ $intro_part3 }}
-                    </p>
-                </div>
-            </div>
-            <div class="d-flex align-items-start mb-5">
-                <img src="{{ asset('images/four.svg') }}" alt="4" class="me-3 step">
-                <div class="d-flex flex-column">
-                    <h5 class="fw-bold">Deel 4: Advies rapportage</h5>
-                    <p>
-                        {{ $intro_part4 }}
-                    </p>
-                </div>
-            </div>
-        </section>
+            <a href="{{ $continueRoute }}" class="btn btn-primary me-2">
+                {{ $buttonLabel }}
+            </a>
+        </section>        
     </main>
 </x-layout>
