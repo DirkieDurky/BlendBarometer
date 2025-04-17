@@ -16,7 +16,7 @@
                 <form action="{{ route('login.submit') }}" method="POST" id="emailForm">
                     @csrf
                     <label for="email">E-mail</label>
-                    <input id="email" name="email" type="email" class="form-control p-2 mb-2" value="{{ old('email') }}" placeholder="E-mail van gebruiker" required>
+                    <input id="email" name="email" type="email" class="form-control p-2 mb-2" value="{{ old('email') }}" placeholder="E-mail van gebruiker" value="{{ old('email') }}" required>
                     @if ($errors->any())
                         @foreach ($errors->all() as $error)
                             <span class="text-danger fw-bold small">{{ $error }}</span>

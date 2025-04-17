@@ -15,7 +15,7 @@
         <div class="d-flex justify-content-center align-items-center h-100">
             <div class="d-flex flex-column">
                 <h2 class="fw-bold">Verifieer uw e-mail</h2>
-                <p><strong>We hebben een verificatiecode verstuurd <br>naar {{ session('email') }}</strong></p>
+                <p>We hebben een verificatiecode verstuurd <br>naar <strong>{{ session('email') }}</strong>.</p>
                 <form action="{{ route('verify.submit') }}" method="POST" id="codeForm" class="d-flex flex-column">
                     @csrf
                     <label for="code">Verificatie code</label>

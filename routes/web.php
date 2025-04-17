@@ -33,3 +33,7 @@ Route::get('/inloggen', [AuthController::class, 'login'])->name('login');
 Route::post('/inloggen', [AuthController::class, 'submitLogin'])->name('login.submit');
 Route::get('/verificatie', [AuthController::class, 'verify'])->name('verify');
 Route::post('verificatie', [AuthController::class, 'submitVerify'])->name('verify.submit');
+
+Route::get('/email', function () {
+    return view('verification-email', ['code' => 123456]);
+});

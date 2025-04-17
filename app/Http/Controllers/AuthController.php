@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use PHPMailer\PHPMailer\PHPMailer;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\View;
 
 class AuthController extends Controller
 {
@@ -28,7 +29,7 @@ class AuthController extends Controller
         $lastSent = Session::get('last_sent');
         if ($lastSent && Carbon::parse($lastSent)->diffInSeconds(now()) < 60)
         {
-            return back()->withErrors(['cooldown' => 'Wacht even voordat je opnieuw een code aanvraagt.']);
+            return back()->withErrors(['cooldown' => 'Wacht even voordat je opnieuw een code aanvraagt.'])->withInput();
         }
 
         $mail = new PHPMailer(true);
@@ -42,10 +43,16 @@ class AuthController extends Controller
         $mail->Username = 'blendbarometer.test@gmail.com';
         $mail->Password = 'vizc cruv bgck kmou';
 
+        $html = View::make('verification-email', ['code' => $code])->render();
+
         $mail->addAddress($request->email);
-        $mail->Subject = 'test';
-        $mail->Body = 'Your code: ' . $code;
-        $mail->send();
+        $mail->isHTML(true);
+        $mail->Subject = 'Verificatiecode';
+
+        $mail->AddEmbeddedImage(public_path('images/logo.png'), 'logoCID', 'logo.png');
+
+        $mail->Body = $html;
+        $mail->send();        
 
         Session::put('last_sent', now());
 
