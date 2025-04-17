@@ -12,6 +12,17 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    const MIN_CODE = 0;
+    const MAX_CODE = 999999;
+    const CODE_LENGTH = 6;
+    const CODE_ZERO = '0';
+    const CODE_EXPIRATION_MINUTES = 10;
+
+    const EMAIL_COOLDOWN_MINUTES = 1;
+
+    const MAIL_HOST = 'smtp.gmail.com';
+    const MAIL_PORT = 587;
+
     public function login()
     {
         if (Auth::check())
@@ -27,15 +38,15 @@ class AuthController extends Controller
             'email' => ['required', 'email', 'ends_with:@student.avans.nl'],
         ]);
 
-        $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        $code = str_pad(random_int(self::MIN_CODE, self::MAX_CODE), self::CODE_LENGTH, self::CODE_ZERO, STR_PAD_LEFT);
         $hash = password_hash($code, PASSWORD_DEFAULT);
         Session::put('verification_code', $hash);
-        Session::put('expires_at', now()->addMinutes(10));
+        Session::put('expires_at', now()->addMinutes(self::CODE_EXPIRATION_MINUTES));
 
         Session::put('email', $request->email);
 
         $lastSent = Session::get('last_sent');
-        if ($lastSent && Carbon::parse($lastSent)->diffInSeconds(now()) < 60)
+        if ($lastSent && Carbon::parse($lastSent)->diffInMinutes(now()) < self::EMAIL_COOLDOWN_MINUTES)
         {
             return back()->withErrors(['cooldown' => 'Wacht even voordat je opnieuw een code aanvraagt.'])->withInput();
         }
@@ -44,9 +55,9 @@ class AuthController extends Controller
         $mail->isSMTP();
         $mail->SMTPAuth = true;
 
-        $mail->Host = 'smtp.gmail.com';
+        $mail->Host = self::MAIL_HOST;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+        $mail->Port = self::MAIL_PORT;
 
         $mail->Username = 'blendbarometer.test@gmail.com';
         $mail->Password = 'vizc cruv bgck kmou';
@@ -92,7 +103,7 @@ class AuthController extends Controller
 
         if (Session::get('expires_at') < now())
         {
-            return back()->withErrors(['expired' => 'Deze verificatiecode is verlopen.']);
+            return back()->withErrors(['expired' => 'De verificatiecode is verlopen.']);
         }
 
         if (password_verify($given, $original))
@@ -102,7 +113,7 @@ class AuthController extends Controller
             {
                 $user = User::create([
                     'email' => $request->email,
-                    'email_verified_at' => Carbon::now(),
+                    'email_verified_at' => now(),
                 ]);
             }
             Auth::login($user);
