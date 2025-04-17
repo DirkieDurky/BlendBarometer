@@ -53,7 +53,7 @@
         </div>
 
         <div class="mb-5">
-            <label class="form-label"><strong>Gebruik je iets in de categorie {{ $subCategory->name }}, wat niet voorbij
+            <label class="form-label"><strong>        Gebruik je iets in de categorie '{{ strtolower($subCategory->name) }}' dat niet voorbij
                     gekomen is?</strong></label>
             <div class="input-group" style="width: fit-content">
                 <input type="text" class="form-control" id="custom_input" name="custom_input"
