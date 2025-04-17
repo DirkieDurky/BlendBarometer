@@ -13,13 +13,13 @@
             </div>
         </div>
         <div class="d-flex justify-content-center align-items-center h-100">
-            <div id="help" class="d-flex flex-column">
+            <div class="d-flex flex-column">
                 <h2 class="fw-bold">Verifieer uw e-mail</h2>
-                <p><strong>We hebben een verificatiecode verstuurd <br>naar *****le@avans.nl</strong></p>
-                <form action="{{ route('verify.submit') }}" method="POST" class="d-flex flex-column">
+                <p><strong>We hebben een verificatiecode verstuurd <br>naar {{ session('email') }}</strong></p>
+                <form action="{{ route('verify.submit') }}" method="POST" id="codeForm" class="d-flex flex-column">
                     @csrf
                     <label for="code">Verificatie code</label>
-                    <section class="d-flex justify-content-center gap-2 mt-3">
+                    <section class="d-flex justify-content-center gap-2 mb-2">
                         <input type="text" required maxlength="1" class="form-control text-center rectangle">
                         <input type="text" required maxlength="1" class="form-control text-center rectangle">
                         <input type="text" required maxlength="1" class="form-control text-center rectangle">
@@ -27,24 +27,23 @@
                         <input type="text" required maxlength="1" class="form-control text-center rectangle">
                         <input type="text" required maxlength="1" class="form-control text-center rectangle">
                     </section>
-                    @error('code')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                    <div class="d-flex flex-column align-items-center">
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <span class="text-danger fw-bold small">{{ $error }}</span>
+                        @endforeach
+                    @endif
+                    <div class="d-flex flex-column align-items-center mb-2">
                         <button type="submit" class="btn btn-primary mt-3 w-100">Verifieer</button>
-                        <a href="{{ route('login.submit') }}" class="mt-2 text-reset"><small>Opnieuw sturen</small></a>
+                        <button type="submit" form="resend" class="btn btn-link mt-2 text-reset p-0">
+                            <small>Opnieuw sturen</small>
+                        </button>
                     </div>
                 </form>
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
             </div>
         </div>
     </main>
+    <form action="{{ route('login.submit') }}" method="POST" id="resend">
+        @csrf
+        <input type="hidden" name="email" value="{{ session('email') }}">
+    </form>
 </x-layout>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PHPMailer\PHPMailer\PHPMailer;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Carbon;
 
 class AuthController extends Controller
 {
@@ -15,11 +17,21 @@ class AuthController extends Controller
     public function submitLogin(Request $request)
     {
         $request->validate([
-            'email', 'regex:/@student.avans.nl$/',
+            'email' => ['required', 'email' , 'ends_with:@student.avans.nl'],
         ]);
 
-        $mail = new PHPMailer(true);
+        $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        $hash = password_hash($code, PASSWORD_DEFAULT);
+        Session::put('verification_code', $hash);
+        Session::put('email', $request->email);
 
+        $lastSent = Session::get('last_sent');
+        if ($lastSent && Carbon::parse($lastSent)->diffInSeconds(now()) < 60)
+        {
+            return back()->withErrors(['cooldown' => 'Wacht even voordat je opnieuw een code aanvraagt.']);
+        }
+
+        $mail = new PHPMailer(true);
         $mail->isSMTP();
         $mail->SMTPAuth = true;
 
@@ -32,15 +44,35 @@ class AuthController extends Controller
 
         $mail->addAddress($request->email);
         $mail->Subject = 'test';
-        $mail->Body = 'hello';
-
+        $mail->Body = 'Your code: ' . $code;
         $mail->send();
 
-        return redirect('/verificatie');
+        Session::put('last_sent', now());
+
+        return redirect(route('verify'));
     }
 
     public function verify()
     {
         return view('verify');
+    }
+
+    public function submitVerify(Request $request)
+    {
+        $request->validate([
+            'code' => ['required', 'digits:6'],
+        ]);
+
+        $original = Session::get('verification_code');
+        $given = $request->code;
+
+        if (password_verify($given, $original))
+        {
+
+        }
+        else
+        {
+            return back()->withErrors(['code' => 'De opgegeven code komt niet overeen.']);
+        }
     }
 }
