@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Content;
 use App\Models\Sub_category;
 use App\Models\Question_category;
