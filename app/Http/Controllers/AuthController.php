@@ -95,7 +95,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'code' => ['required', 'digits:6'],
-            'email' => ['required', 'email', 'ends_with:@student.avans.nl'],
+            'email' => ['required', 'email', 'ends_with:@avans.nl'],
         ]);
 
         $original = Session::get('verification_code');
