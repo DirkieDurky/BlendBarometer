@@ -5,5 +5,5 @@
 
     <h1>Overzicht en versturen</h1>
     <p>Je staat op het punt de resultaten van dit formulier definitief te versturen</p>
-    <x-navigation-buttons :previous="route('results')" next="" />
+    <x-navigation-buttons :previous="route('results')" next="{{ route('send') }}" />
 </x-progress-step>

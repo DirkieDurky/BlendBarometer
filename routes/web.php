@@ -8,6 +8,7 @@ use App\Http\Controllers\LessonController;
 use Laravel\Pail\ValueObjects\Origin\Console;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformationController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -27,3 +28,5 @@ Route::get('/lesniveau/vorige/{id}', [LessonController::class, 'previous'])->nam
 Route::get('/uitleg-overzicht-en-resultaten', [ResultsController::class, 'overviewAndResultsInfoView'])->name('overview-and-results-info');
 Route::get('/resultaten', [ResultsController::class, 'view'])->name('results');
 Route::get('/overzicht-en-versturen', [ResultsController::class, 'overviewAndSendView'])->name('overview-and-send');
+
+Route::get('/versturen', [ReportController::class, 'sendReport'])->name('send');
