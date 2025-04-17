@@ -16,7 +16,11 @@
             <p class="w-50 mb-4">
                 {{ $intro_description }}
             </p>
-            <a href="{{ route('login') }}" class="btn btn-primary me-2">Start met invullen</button>
+            @if (Auth::check())
+                <a href="{{ route('information') }}" class="btn btn-primary me-2">Start met invullen</button>
+            @else
+                <a href="{{ route('login') }}" class="btn btn-primary me-2">Start met invullen</button>
+            @endif
             <a href="#explanation" class="btn btn-outline-primary">Hoe werkt het?</a>
         </section>
         <section>

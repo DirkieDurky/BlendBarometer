@@ -9,7 +9,9 @@
     
     <p>Gebruik de onderstaande code om in te loggen bij BlendBarometer:</p>
     
-    <p style="font-size: 24px; font-weight: bold; color: #333; letter-spacing: 0.25rem;">{{ $code }}</p>   
+    <p style="font-size: 24px; font-weight: bold; color: #333; letter-spacing: 0.25rem;">{{ $code }}</p>
+
+    <p>De verificatiecode is 10 minuten geldig.</p>
     
     <p>Heb je deze code niet aangevraagd? Dan kun je deze e-mail negeren.</p>
     

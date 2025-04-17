@@ -7,23 +7,31 @@ use PHPMailer\PHPMailer\PHPMailer;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\View;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     public function login()
     {
+        if (Auth::check())
+        {
+            return redirect()->route('home');
+        }
         return view('login');
     }
 
     public function submitLogin(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'email' , 'ends_with:@student.avans.nl'],
+            'email' => ['required', 'email', 'ends_with:@student.avans.nl'],
         ]);
 
         $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
         $hash = password_hash($code, PASSWORD_DEFAULT);
         Session::put('verification_code', $hash);
+        Session::put('expires_at', now()->addMinutes(10));
+
         Session::put('email', $request->email);
 
         $lastSent = Session::get('last_sent');
@@ -56,11 +64,19 @@ class AuthController extends Controller
 
         Session::put('last_sent', now());
 
-        return redirect(route('verify'));
+        return redirect()->route('verify');
     }
 
     public function verify()
     {
+        if (!Session::get('email'))
+        {
+            return redirect()->route('login');
+        }
+        else if (Auth::check())
+        {
+            return redirect()->route('home');
+        }
         return view('verify');
     }
 
@@ -68,14 +84,29 @@ class AuthController extends Controller
     {
         $request->validate([
             'code' => ['required', 'digits:6'],
+            'email' => ['required', 'email', 'ends_with:@student.avans.nl'],
         ]);
 
         $original = Session::get('verification_code');
         $given = $request->code;
 
+        if (Session::get('expires_at') < now())
+        {
+            return back()->withErrors(['expired' => 'Deze verificatiecode is verlopen.']);
+        }
+
         if (password_verify($given, $original))
         {
-
+            $user = User::where('email', $request->email)->first();
+            if (!$user)
+            {
+                $user = User::create([
+                    'email' => $request->email,
+                    'email_verified_at' => Carbon::now(),
+                ]);
+            }
+            Auth::login($user);
+            return redirect()->route('information');
         }
         else
         {
