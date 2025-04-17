@@ -42,7 +42,7 @@
                     @php
                         $fieldName = $key;
                         $selectedAnswer = $answers[$currentStep][$key] ?? null;
-                        $questionText = str_replace('custom_question_', '', $key);
+                        $questionText = ucfirst(str_replace('_', ' ', preg_replace('/_\\d+$/', '', str_replace('custom_question_', '', $key))));
                     @endphp
                     <x-lesson-question-component
                         :question="(object) ['id' => $key, 'text' => $questionText]"
@@ -64,7 +64,7 @@
 
         <x-navigation-buttons-with-submit :previous="route('lesson-level.previous', $currentStep)"/>
     </form>
-    <script src="{{ asset('js/customQuestion.js') }}"></script>
+    <script src="{{ asset('js/custom-question.js') }}"></script>
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
