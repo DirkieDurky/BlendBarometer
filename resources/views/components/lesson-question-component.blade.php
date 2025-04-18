@@ -12,7 +12,8 @@
         <label
             class="form-check-label border-2 border rounded shadow-sm col py-4 d-flex flex-column justify-content-center align-items-center"
             for="{{ $fieldName }}_nooit">
-            <span style="font-size: 2rem;">🫢</span>
+            <img src="{{ asset('images/emoji/nooit.png') }}" alt="Emoji met hand voor mond"
+                 style="width: 50px; height: 50px;">
             <span class="mt-2 text-nowrap">Nooit</span>
         </label>
 
@@ -22,7 +23,8 @@
         <label
             class="form-check-label border-2 border rounded shadow-sm col py-4 d-flex flex-column justify-content-center align-items-center"
             for="{{ $fieldName }}_af_en_toe">
-            <span style="font-size: 2rem;">🙂</span>
+            <img src="{{ asset('images/emoji/af-en-toe.png') }}" alt="Emoji met lichte glimlach"
+                 style="width: 50px; height: 50px;">
             <span class="mt-2 text-nowrap">Af en toe</span>
         </label>
 
@@ -31,7 +33,8 @@
         <label
             class="form-check-label border-2 border rounded shadow-sm col py-4 d-flex flex-column justify-content-center align-items-center"
             for="{{ $fieldName }}_vaak">
-            <span style="font-size: 2rem;">😃</span>
+            <img src="{{ asset('images/emoji/vaak.png') }}" alt="Emoji met grote glimlach"
+                 style="width: 50px; height: 50px;">
             <span class="mt-2 text-nowrap">Vaak</span>
         </label>
     </div>
