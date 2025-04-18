@@ -23,9 +23,33 @@ function addQuestion() {
     row.setAttribute('role', 'group');
 
     const options = [
-        {id: 'nooit', emoji: '🫢', label: 'Nooit', value: 0},
-        {id: 'af_en_toe', emoji: '🙂', label: 'Af en toe', value: 1},
-        {id: 'vaak', emoji: '😃', label: 'Vaak', value: 2},
+        {
+            id: 'nooit',
+            emoji: {
+                img: 'nooit.png',
+                alt: 'Emoji met hand voor mond'
+            },
+            label: 'Nooit',
+            value: 0
+        },
+        {
+            id: 'af_en_toe',
+            emoji: {
+                img: 'af-en-toe.png',
+                alt: 'Emoji met lichte glimlach'
+            },
+            label: 'Af en toe',
+            value: 1
+        },
+        {
+            id: 'vaak',
+            emoji: {
+                img: 'vaak.png',
+                alt: 'Emoji met grote glimlach'
+            },
+            label: 'Vaak',
+            value: 2
+        },
     ];
 
     options.forEach(opt => {
@@ -42,7 +66,10 @@ function addQuestion() {
         const lbl = document.createElement('label');
         lbl.className = 'form-check-label border-2 border rounded shadow-sm col py-4 d-flex flex-column justify-content-center align-items-center';
         lbl.htmlFor = inp.id;
-        lbl.innerHTML = `<span style="font-size:2rem">${opt.emoji}</span><span class="mt-2 text-nowrap">${opt.label}</span>`;
+        lbl.innerHTML = `
+            <img src="/images/emoji/${opt.emoji.img}" alt="${opt.emoji.alt}" style="width: 50px; height: 50px;">
+            <span class="mt-2 text-nowrap">${opt.label}</span>
+        `;
 
         row.append(inp, lbl);
     });
