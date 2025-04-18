@@ -59,8 +59,8 @@ class AuthController extends Controller
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = self::MAIL_PORT;
 
-        $mail->Username = 'blendbarometer.test@gmail.com';
-        $mail->Password = 'vizc cruv bgck kmou';
+        $mail->Username = env('MAIL_USERNAME');
+        $mail->Password = env('MAIL_PASSWORD');
 
         $html = View::make('verification-email', ['code' => $code])->render();
 
