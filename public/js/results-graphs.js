@@ -50,6 +50,11 @@ new Chart(lessonLevelGraph, {
     },
     options: {
         responsive: true,
+        scale: {
+            r: {
+                min: 0,
+            }
+        }
     }
 });
 
