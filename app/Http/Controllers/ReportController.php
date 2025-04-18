@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\SimpleType\Jc;
+use PhpOffice\PhpWord\Shared\Converter;
 
 class ReportController extends Controller
 {
@@ -14,33 +15,37 @@ class ReportController extends Controller
         $phpWord = new PhpWord();
         $fileName = 'Rapport ' . session('module') . '.docx';
 
-        $phpWord->setDefaultFontName('Inter');
-        $phpWord->setDefaultFontSize(12);
+        // $phpWord->setDefaultFontName();
+        // $phpWord->setDefaultFontSize(12);
 
-        $section = $phpWord->addSection();
-
-        $section->addImage(public_path('images/logo-avans-red.png'), [
-            'width' => 100,
-            'height' => 30,
-            'wrappingStyle' => 'inline',
-            'positioning' => 'absolute',
-            'posHorizontalRel' => 'margin',
-            'marginLeft' => -1000,
-            'posVerticalRel' => 'margin',
+        $section = $phpWord->addSection([
+            'marginTop' => 500,
+            'marginBottom' => 1200,
+            'marginLeft' => 600,
+            'marginRight' => 600,
         ]);
-        
-        $section->addImage(public_path('images/logo-avans-red.png'), [
-            'width' => 100,
-            'height' => 30,
-            'wrappingStyle' => 'inline',
+
+        $section->addImage(public_path('images/report-background.png'), [
+            'width' => 1000,
+            'height' => 600,
             'positioning' => 'absolute',
-            'posHorizontal' => \PhpOffice\PhpWord\Style\Image::POSITION_HORIZONTAL_RIGHT,
             'posHorizontalRel' => 'page',
-            'posVerticalRel' => 'margin',
+            'posHorizontal' => \PhpOffice\PhpWord\Style\Image::POSITION_HORIZONTAL_LEFT,
+            'posVerticalRel' => 'page',
+            'posVertical' => \PhpOffice\PhpWord\Style\Image::POSITION_VERTICAL_TOP,
+            'wrappingStyle' => 'behind',
         ]);
 
-        $section->addText('Tussenrapport - '. session('module'),['size' => 35, 'bold' => true],['alignment' => Jc::CENTER]);
-        $section->addText('Blended Learning '. '[datum todo]',['size' => 15],['alignment' => Jc::CENTER]);
+        $table = $section->addTable();
+        $table->addRow();
+    
+        $table->addCell(20000)->addImage(public_path('images/logo-avans-red.png'), ['align' => Jc::START, 'width' => 100, 'height' => 30]);
+        $table->addCell(20000)->addImage(public_path('images/report-logo.png'), ['align' => Jc::END, 'width' => 140, 'height' => 25]);
+
+        $section->addTextBreak(2);
+
+        $section->addText('Tussenrapport - '. session('module'),['size' => 35, 'bold' => true, 'color' => 'white'],['alignment' => Jc::CENTER]);
+        $section->addText('Blended Learning '. '[datum todo]',['size' => 15, 'color' => 'white'],['alignment' => Jc::CENTER]);
 
         $section->addTextBreak(1);
 
