@@ -19,7 +19,6 @@
                 <form action="{{ route('verify.submit') }}" method="POST" id="codeForm" class="d-flex flex-column">
                     @csrf
 
-                    <input type="hidden" name="email" value="{{ session('email') }}">
                     <label for="code">Verificatie code</label>
                     <section class="d-flex justify-content-center gap-2 mb-2">
                         <input type="text" required maxlength="1" class="form-control text-center rectangle">

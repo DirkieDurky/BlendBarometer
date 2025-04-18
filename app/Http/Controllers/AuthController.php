@@ -35,7 +35,7 @@ class AuthController extends Controller
     public function submitLogin(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'email', 'ends_with:@avans.nl'],
+            'email' => ['required', 'email', 'ends_with:@student.avans.nl'],
         ]);
 
         $code = str_pad(random_int(self::MIN_CODE, self::MAX_CODE), self::CODE_LENGTH, self::CODE_ZERO, STR_PAD_LEFT);
@@ -95,28 +95,38 @@ class AuthController extends Controller
     {
         $request->validate([
             'code' => ['required', 'digits:6'],
-            'email' => ['required', 'email', 'ends_with:@avans.nl'],
         ]);
+
+        $email = Session::get('email');
 
         $original = Session::get('verification_code');
         $given = $request->code;
 
         if (Session::get('expires_at') < now())
         {
+            Session::forget(['verification_code', 'expires_at', 'verify_attempts']);
             return back()->withErrors(['expired' => 'De verificatiecode is verlopen.']);
+        }
+
+        $tries = Session::increment('verify_attempts');
+        if ($tries > 5)
+        {
+            Session::forget(['verification_code', 'expires_at', 'verify_attempts']);
+            return back()->withErrors(['verify' => 'Te vaak geprobeerd, vraag een nieuwe code aan.']);
         }
 
         if (password_verify($given, $original))
         {
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('email', $email)->first();
             if (!$user)
             {
                 $user = User::create([
-                    'email' => $request->email,
+                    'email' => $email,
                     'email_verified_at' => now(),
                 ]);
             }
             Auth::login($user);
+            Session::regenerate();
             return redirect()->route('information');
         }
         else
