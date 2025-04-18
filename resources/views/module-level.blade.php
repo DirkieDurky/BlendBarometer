@@ -28,7 +28,7 @@
                     <div class="col-4"></div>
                     <div class="col d-flex flex-row gap-2">
                         <p class="fw-semibold">Verkennen</p>
-                        @if ($descriptions['explore'])
+                        @if (isset($descriptions['explore']))
                             <span data-bs-toggle="tooltip" data-bs-title="{{ $descriptions['explore'] }}">
                                 <i class="bi bi-info-circle-fill"></i>
                             </span>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="col d-flex flex-row gap-2">
                         <p class="fw-semibold">Toepassen</p>
-                        @if ($descriptions['apply'])
+                        @if (isset($descriptions['apply']))
                             <span data-bs-toggle="tooltip" data-bs-title="{{ $descriptions['apply'] }}">
                                 <i class="bi bi-info-circle-fill"></i>
                             </span>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="col d-flex flex-row gap-2">
                         <p class="fw-semibold">Duidelijk plan</p>
-                        @if ($descriptions['plan'])
+                        @if (isset($descriptions['plan']))
                             <span data-bs-toggle="tooltip" data-bs-title="{{ $descriptions['plan'] }}">
                                 <i class="bi bi-info-circle-fill"></i>
                             </span>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="col d-flex flex-row gap-2">
                         <p class="fw-semibold">Verankerd</p>
-                        @if ($descriptions['anchored'])
+                        @if (isset($descriptions['anchored']))
                             <span data-bs-toggle="tooltip" data-bs-title="{{ $descriptions['anchored'] }}">
                                 <i class="bi bi-info-circle-fill"></i>
                             </span>
