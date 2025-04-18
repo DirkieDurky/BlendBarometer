@@ -15,19 +15,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Schema::disableForeignKeyConstraints();
+
         $this->call(ContentSeeder::class);
         $this->call(QuestionSeeder::class);
         $this->call(AcademySeeder::class);
         $this->call(FormSectionSeeder::class);
         $this->call(SubCategorySeeder::class);
         $this->call(QuestionCategorySeeder::class);
-
-        // User::factory(10)->create();
-        User::query()->delete();
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $this->call(UserSeeder::class);
 
         Schema::enableForeignKeyConstraints();
     }
