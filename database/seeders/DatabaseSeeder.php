@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,19 +14,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(contentSeeder::class);
-        $this->call(form_sectionSeeder::class);
-        $this->call(question_categorySeeder::class);
-        $this->call(sub_categorySeeder::class);
-        $this->call(questionSeeder::class);
+        Schema::disableForeignKeyConstraints();
+        $this->call(ContentSeeder::class);
+        $this->call(QuestionSeeder::class);
         $this->call(AcademySeeder::class);
-      
-        // User::factory(10)->create();
+        $this->call(FormSectionSeeder::class);
+        $this->call(SubCategorySeeder::class);
+        $this->call(QuestionCategorySeeder::class);
+        $this->call(ModuleLevelAnswerSeeder::class);
 
+        // User::factory(10)->create();
+        User::query()->delete();
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
 
+        Schema::enableForeignKeyConstraints();
     }
 }

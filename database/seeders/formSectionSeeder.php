@@ -6,7 +6,7 @@ use App\Models\Form_section;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class form_sectionSeeder extends Seeder
+class FormSectionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
