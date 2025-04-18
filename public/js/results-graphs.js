@@ -55,9 +55,14 @@ new Chart(lessonLevelGraph, {
 
 const moduleLevelGraph = document.getElementById('moduleLevel');
 const moduleLevelDataAsArray = [];
+
 Object.keys(moduleLevelData).forEach(function (category) {
     // Sum the answers of each category
-    moduleLevelDataAsArray.push(moduleLevelData[category].reduce((partialSum, a) => partialSum + Number(a), 0));
+    let sum = 0;
+    Object.keys(moduleLevelData[category]).forEach(function (key) {
+        sum += parseInt(moduleLevelData[category][key]);
+    });
+    moduleLevelDataAsArray.push(sum);
 });
 
 new Chart(moduleLevelGraph, {
