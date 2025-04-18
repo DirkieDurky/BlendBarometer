@@ -19,7 +19,7 @@
                 <div class="col">
                     <label for="email">E-mailadres</label>
                     <input class="form-control" type="email" name="email" id="email" required
-                           placeholder="eerder-al-ingevuld@avans.nl" value='{{ session('email') }}'>
+                           placeholder="eerder-al-ingevuld@avans.nl" value='{{ session('email') }}' disabled>
                 </div>
             </div>
         </section>
