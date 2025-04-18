@@ -8,7 +8,9 @@
     max-width: min-content;
 }
 
-#emailForm {
-    min-width: fit-content;
-    max-width: 20vw;
-}
+span {
+    text-overflow: wrap;
+    display: block;
+    max-width: 25vw;
+  }
+  
