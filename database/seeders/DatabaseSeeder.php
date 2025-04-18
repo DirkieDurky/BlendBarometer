@@ -13,19 +13,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(contentSeeder::class);
-        $this->call(form_sectionSeeder::class);
-        $this->call(question_categorySeeder::class);
-        $this->call(sub_categorySeeder::class);
-        $this->call(questionSeeder::class);
+        $this->call(ContentSeeder::class);
+        $this->call(FormSectionSeeder::class);
+        $this->call(QuestionCategorySeeder::class);
+        $this->call(SubCategorySeeder::class);
+        $this->call(QuestionSeeder::class);
         $this->call(AcademySeeder::class);
-      
+        $this->call(ModuleLevelAnswerSeeder::class);
+
         // User::factory(10)->create();
 
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
-
     }
 }
