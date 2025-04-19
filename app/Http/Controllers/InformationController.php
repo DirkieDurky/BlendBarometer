@@ -15,7 +15,6 @@ class InformationController extends Controller
     public function submit()
     {
         session()->put('name', request('name'));
-        session()->put('email', request('email'));
         session()->put('course', request('course'));
         session()->put('academy', request('academy'));
         session()->put('module', request('module'));

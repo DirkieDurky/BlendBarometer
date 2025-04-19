@@ -1,0 +1,16 @@
+
+.rectangle {
+    width: 50px;
+    height: 54px;
+}
+
+#codeForm {
+    max-width: min-content;
+}
+
+span {
+    text-overflow: wrap;
+    display: block;
+    max-width: 25vw;
+  }
+  
