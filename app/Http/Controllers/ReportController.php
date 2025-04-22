@@ -43,7 +43,7 @@ class ReportController extends Controller
         $imgtable->addCell(20000)->addImage(public_path('images/logo-avans-red.png'), ['align' => Jc::START, 'width' => 100, 'height' => 30]);
         $imgtable->addCell(20000)->addImage(public_path('images/report-logo.png'), ['align' => Jc::END, 'width' => 140, 'height' => 25]);
 
-        $section->addTextBreak(2);
+        $section->addTextBreak(1);
 
         $month = \Carbon\Carbon::now()->locale('nl')->isoFormat('MMMM YYYY');
 
@@ -54,8 +54,8 @@ class ReportController extends Controller
 
         $section->addImage(public_path('images/introduction_image.png'), [
         'alignment' => Jc::CENTER,
-        'width' => 450, 
-        'height' => 450, 
+        'width' => 460, 
+        'height' => 460, 
         ]);
 
         // $section->addTextBreak(2);
