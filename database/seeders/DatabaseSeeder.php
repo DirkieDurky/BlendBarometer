@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SubCategorySeeder::class);
         $this->call(QuestionCategorySeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(ModuleLevelAnswerSeeder::class);
 
         Schema::enableForeignKeyConstraints();
     }

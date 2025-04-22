@@ -1,0 +1,33 @@
+.module-label {
+    background-color: white;
+    cursor: pointer;
+}
+
+.module-input:hover+.module-label {
+    background-color: rgb(245, 245, 245);
+}
+
+.module-input:focus+.module-label {
+    outline-width: 2px;
+    outline-style: solid;
+    outline-color: var(--bs-blue);
+}
+
+.module-input:checked+.module-label {
+    background-color: var(--bs-blue);
+}
+
+.module-input:checked+.module-label::after {
+    content: "";
+    background-image: url("../images/checkmark.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+
+.module-level-form {
+    max-width: 1000px;
+}
