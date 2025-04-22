@@ -14,7 +14,7 @@
 }
 
 .module-input:checked+.module-label {
-    background-color: var(--bs-green);
+    background-color: var(--bs-blue);
 }
 
 .module-input:checked+.module-label::after {

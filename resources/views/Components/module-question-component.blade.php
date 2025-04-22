@@ -1,5 +1,5 @@
 {{-- <div class="mb-5"> --}}
-<div class="row flex-nowrap gap-4 mx-0" role="group">
+<div class="row flex-nowrap gap-4 mx-0 align-items-center" role="group">
     <div class="col-4 d-flex flex-row">
         <p class="mb-0 ">{{ $question->text }}
         </p>

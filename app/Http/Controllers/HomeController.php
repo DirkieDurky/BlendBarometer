@@ -8,6 +8,8 @@ use App\Models\Question_category;
 
 class HomeController extends Controller
 {
+    const MODULE_INDEX = 2;
+
     public function index()
     {
         $text = [
@@ -33,7 +35,7 @@ class HomeController extends Controller
                 if ($hasModule) {
                     $moduleData = session('moduleLevelData');
                     $lastModule = max(array_keys($moduleData));
-                    $totalModules = Question_category::where('form_section_id', 2)->count();
+                    $totalModules = Question_category::where('form_section_id', self::MODULE_INDEX)->count();
 
                     if ($lastModule < $totalModules) {
                         $continueRoute = route('module-level', $lastModule + 1);
