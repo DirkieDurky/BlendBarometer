@@ -12,9 +12,9 @@ class ModuleController extends Controller
 {
     public function getModuleLevel($currentStep)
     {
-        $category = Question_category::where('form_section_id', 2)->with('questions')->get()[$currentStep - 1];
+        $category = Question_category::where('form_section_id', HomeController::MODULE_INDEX)->with('questions')->get()[$currentStep - 1];
 
-        $totalSteps = Question_category::where('form_section_id', 2)->count();
+        $totalSteps = Question_category::where('form_section_id', HomeController::MODULE_INDEX)->count();
 
         $descriptions = Module_level_answer::pluck('description', 'answer');
 

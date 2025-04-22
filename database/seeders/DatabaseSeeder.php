@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
 
+        $this->call(ContentSeeder::class);
         $this->call(QuestionSeeder::class);
         $this->call(AcademySeeder::class);
         $this->call(FormSectionSeeder::class);
