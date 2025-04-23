@@ -6,7 +6,7 @@ use App\Models\Question_category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class question_categorySeeder extends Seeder
+class QuestionCategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -1,62 +1,68 @@
 @props(['section', 'title', 'description', 'current_step_name'])
 <x-layout>
-    <div class="d-flex flex-row">
-        <aside class="d-flex flex-column flex-shrink-0 p-4 bg-white w-25">
-            <div class="container-fluid p-0 m-0">
-                <div class="bg-white p-4">
-                    <div class="mb-4">
-                        <img src="{{ asset('images/Logo.svg') }}" alt="BlendBarometer" class="my-4">
-                        <h1 class="text-primary text-start" style="font-size: 1.2rem;">{{ $section }}</h1>
-                        <p class="fs-1 fw-bold">{{ $title }}</p>
-                        <p class="text-muted">{{ $description }}</p>
-                    </div>
+    <div class="d-flex">
+        <aside class="sidebar d-none d-xl-block p-4 bg-white">
+            <a href="{{ route('home') }}" class="d-block mb-4">
+                <img src="{{ asset('images/logo.svg') }}" alt="BlendBarometer">
+            </a>
 
-                    {{-- when making the ui for the other steps just change the name value and pass it on when using the component --}}
+            <div class="mb-5">
+                <p class="text-primary fw-bold mb-0">{{ $section }}</p>
+                <h1>{{ $title }}</h1>
+                <p class="text-muted">{{ $description }}</p>
+            </div>
+
+
+            @php
+                // Update the steps array with the desired step names and labels if needed
+                $steps = [['label' => 'Gegevens', 'name' => 'information'], ['label' => 'Les niveau', 'name' => 'lessonLevel'], ['label' => 'Module niveau', 'name' => 'moduleLevel'], ['label' => 'Overzicht & Resultaten', 'name' => 'results']];
+                $status = 'complete';
+            @endphp
+
+            <div>
+                @foreach ($steps as $index => $step)
                     @php
-                        $steps = [['label' => 'Gegevens', 'name' => 'information'], ['label' => 'Les niveau', 'name' => 'lessonLevel'], ['label' => 'Module niveau', 'name' => 'moduleLevel'], ['label' => 'Overzicht & Resultaten', 'name' => 'results']];
-                        $status = 'complete';
+                        if ($current_step_name == $step['name']) {
+                            $status = 'active';
+                        } elseif ($status == 'active') {
+                            $status = 'to-do';
+                        }
                     @endphp
 
-                    <div class="steps-vertical">
-                        @foreach ($steps as $index => $step)
-                            @php
-                                if ($current_step_name == $step['name']) {
-                                    $status = 'active';
-                                } elseif ($status == 'active') {
-                                    $status = 'to-do';
-                                }
-                            @endphp
-                            <div class="step-vertical {{ $status }} d-flex flex-row">
-                                <div class="step-vertical-icon">
-                                    @if ($status == 'active')
-                                        <img src="{{ asset('images/doing-step.svg') }}" alt="Active Step" style="width: 35px; height: 35px;">
-                                    @elseif ($status == 'complete')
-                                        <span class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">
-                                            <i class="bi bi-check2 fs-4"></i>
-                                        </span>
-                                    @else
-                                        <span class="bg-light border border-2 border-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;">
-                                            <span class="bg-secondary rounded-circle" style="width: 15px; height: 15px;"></span>
-                                        </span>
-                                    @endif
+                    <div class="step-vertical {{ $status }}">
+                        <div class="step-vertical-icon">
+                            @if ($status == 'active')
+                                <div class="bg-white">
+                                    <img src="{{ asset('images/doing-step.svg') }}" alt="Huidige stap" />
                                 </div>
-                                <div class="step-vertical-content d-flex flex-column">
-                                    <h4>{{ $step['label'] }}</h4>
-                                    @if ($status == 'active')
-                                        <p class="text-primary">Bezig</p>
-                                    @elseif ($status == 'complete')
-                                        <p class="text-success">Afgerond</p>
-                                    @else
-                                        <p>Te doen</p>
-                                    @endif
-                                </div>
-                            </div>
-                        @endforeach
+                            @elseif ($status == 'complete')
+                                <span class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-check2 fs-4 lh-1"></i>
+                                </span>
+                            @else
+                                <span class="bg-light border border-2 border-secondary rounded-circle d-flex align-items-center justify-content-center p-2">
+                                    <span class="bg-secondary rounded-circle p-2"></span>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="step-vertical-content">
+                            <h4>{{ $step['label'] }}</h4>
+
+                            @if ($status == 'active')
+                                <p class="text-primary">Bezig</p>
+                            @elseif ($status == 'complete')
+                                <p class="text-success">Afgerond</p>
+                            @else
+                                <p>Te doen</p>
+                            @endif
+                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </aside>
-        <main class="content flex-grow-1 px-5 py-4 overflow-auto vh-100">
+
+        <main class="content flex-grow-1 px-5 py-4 overflow-x-hidden">
             {{ $slot }}
         </main>
     </div>

@@ -8,17 +8,20 @@ class LessonQuestionComponent extends Component
     public $question;
     public $selectedAnswer;
     public $fieldName;
+    public $description;
+    
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($question, $selectedAnswer, $fieldName)
+    public function __construct($question, $selectedAnswer, $fieldName, $description = null)
     {
         $this->question = $question;
         $this->selectedAnswer = $selectedAnswer;
         $this->fieldName = $fieldName;
+        $this->description = $description;
     }
 
     /**
