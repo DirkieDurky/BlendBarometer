@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\SimpleType\Jc;
-use PhpOffice\PhpWord\Shared\Converter;
-use PhpOffice\PhpWord\SimpleType\JcTable;
 
 class ReportController extends Controller
 {
@@ -16,12 +14,12 @@ class ReportController extends Controller
         $phpWord = new PhpWord();
         $fileName = 'Rapport ' . session('module') . '.docx';
 
-        // $phpWord->setDefaultFontName();
-        // $phpWord->setDefaultFontSize(12);
+        $titleFontSize = strlen(session('module')) > 30 ? 28 : 35; //so layout stays intact with text wrapping
 
+        //first page
         $section = $phpWord->addSection([
             'marginTop' => 500,
-            'marginBottom' => 1200,
+            'marginBottom' => 0,
             'marginLeft' => 600,
             'marginRight' => 600,
         ]);
@@ -37,6 +35,7 @@ class ReportController extends Controller
             'wrappingStyle' => 'behind',
         ]);
 
+
         $imgtable = $section->addTable();
         $imgtable->addRow();
     
@@ -47,7 +46,7 @@ class ReportController extends Controller
 
         $month = \Carbon\Carbon::now()->locale('nl')->isoFormat('MMMM YYYY');
 
-        $section->addText('Tussenrapport - '. session('module'),['size' => 35, 'bold' => true, 'color' => 'white'],['alignment' => Jc::CENTER]);
+        $section->addText('Tussenrapport - '. session('module'),['size' => $titleFontSize, 'bold' => true, 'color' => 'white'],['alignment' => Jc::CENTER]);
         $section->addText('Blended Learning • '. $month,['size' => 15, 'color' => 'white'],['alignment' => Jc::CENTER]);
 
         $section->addTextBreak(1);
@@ -58,14 +57,12 @@ class ReportController extends Controller
         'height' => 460, 
         ]);
 
-        // $section->addTextBreak(2);
-
         $infotable = $section->addTable([
             'alignment' => Jc::END,
         ]);
         
-        $labelStyle = ['color' => '888888']; // Light gray label style
-        $valueStyle = ['bold' => true, 'spacing' => 0, 'spaceAfter' => 0, 'spaceBefore' => 0, 'indent' => 0, 'right' => 300];
+        $labelStyle = ['color' => '888888'];
+        $valueStyle = ['bold' => true];
         
         $labelWidth = 1500;
         $valueWidth = 3000;
@@ -85,7 +82,7 @@ class ReportController extends Controller
         $infotable->addCell($valueWidth)->addText(session('course'), $valueStyle);
         $infotable->addCell($paddingWidth);
         $infotable->addCell($labelWidth)->addText('ICTO Coach', $labelStyle);
-        $infotable->addCell($valueWidth)->addText('vul hier in', $valueStyle);
+        $infotable->addCell($valueWidth)->addText('&lt;vul hier in&gt;', $valueStyle);
         
         // Third row
         $infotable->addRow();
@@ -95,6 +92,23 @@ class ReportController extends Controller
         $infotable->addCell($labelWidth)->addText('Datum', $labelStyle);
         $infotable->addCell($valueWidth)->addText(now()->format('d-m-Y'), $valueStyle);
 
+        //end first page
+
+        //TODO make separate functions for this
+
+
+        //second page
+
+        $infopage = $phpWord->addSection([
+            'marginTop' => 400,
+            'marginBottom' => 0,
+            'marginLeft' => 900,
+            'marginRight' => 900,
+        ]);
+
+        $this->addStandardHeaderFooter($infopage);
+        
+
         $writer = IOFactory::createWriter($phpWord, 'Word2007');
 
         $tempFile = tempnam(sys_get_temp_dir(), $fileName);
@@ -102,4 +116,64 @@ class ReportController extends Controller
 
         return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
     }
+
+    function addStandardHeaderFooter($section)
+    {
+        // --- HEADER ---
+        $header = $section->addHeader();
+        $table = $header->addTable([
+            'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER,
+            'width' => 100 * 50 // 100% width
+        ]);
+        $table->addRow();
+
+        // Shared text style
+        $headerTextStyle = [
+            'bold' => true,
+            'size' => 10,
+        ];
+
+        $table->addCell(5500)->addText('Blended Learning Rapport', array_merge($headerTextStyle, [
+            'color' => '888888',
+        ]), [
+            'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::START,
+        ]);
+
+        $table->addCell(5500)->addText(session('module'), array_merge($headerTextStyle, [
+            'color' => '888888',
+        ]), [
+            'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END,
+        ]);
+
+        $section->addTextBreak(1);
+
+
+        // --- FOOTER ---
+        $footer = $section->addFooter();
+        $footerTable = $footer->addTable(['alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER, 'width' => 100 * 50]);
+        $footerTable->addRow();
+
+        // Bottom Left: Logo
+        $footerTable->addCell(4000)->addImage(public_path('images/logo.png'), [
+            'width' => 80,
+            'height' => 17,
+            'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::START,
+        ]);
+
+        // Bottom Center: Date
+        $date = now()->format('d-m-Y');
+        $footerTable->addCell(3000)->addText($date, [
+            'size' => 10,
+        ], [
+            'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER,
+        ]);
+
+        // Bottom Right: Page numbering
+        $footerTable->addCell(4000)->addPreserveText('Pagina {PAGE} van {NUMPAGES}', [
+            'size' => 10,
+        ], [
+            'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END,
+        ]);
+    }
+
 }
