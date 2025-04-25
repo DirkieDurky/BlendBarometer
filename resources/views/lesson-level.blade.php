@@ -12,7 +12,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <p class="fs-5 fw-bold text-muted mb-1">{{ $subCategory->id }} van {{ $totalSteps }}
+            <p class="fs-2 fw-bold text-muted mb-1">{{ $subCategory->id }} van {{ $totalSteps }}
                 - {{ $subCategory->QuestionCategory->name }}</p>
             <h1 class="fs-3 fw-bold mb-1">{{ $subCategory->name }}</h1>
             <p class="text-muted">Hoe vaak gebruik je ...</p>
