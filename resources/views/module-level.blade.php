@@ -11,7 +11,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <p class="fs-5 fw-bold text-muted mb-1">{{ $currentStep }} van {{ $totalSteps }}
+            <p class="fs-2 fw-bold text-muted mb-1">{{ $currentStep }} van {{ $totalSteps }}
                 - {{ $category->name }}</p>
             <h1 class="fs-3 fw-bold mb-1">{{ $category->name }}</h1>
         </div>
