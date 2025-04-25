@@ -139,8 +139,9 @@ class ReportController extends Controller
             'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::START,
         ]);
 
-        $table->addCell(5500)->addText(session('module'), array_merge($headerTextStyle, [
+        $table->addCell(5500)->addText(session('course') . ' - ' . session('module'), array_merge($headerTextStyle, [
             'color' => '888888',
+            'bold' => true,
         ]), [
             'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END,
         ]);
@@ -155,7 +156,7 @@ class ReportController extends Controller
 
         // Bottom Left: Logo
         $footerTable->addCell(4000)->addImage(public_path('images/logo.png'), [
-            'width' => 80,
+            'width' => 90,
             'height' => 17,
             'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::START,
         ]);
