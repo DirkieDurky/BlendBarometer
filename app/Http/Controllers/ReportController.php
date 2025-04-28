@@ -5,15 +5,34 @@ namespace App\Http\Controllers;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\SimpleType\Jc;
+use App\Models\Content;
 
 class ReportController extends Controller
 {
-
+    private int $titleSize = 20;
+    private int $articleTitleSize = 15;
     public function sendReport()
     {
         $phpWord = new PhpWord();
         $fileName = 'Rapport ' . session('module') . '.docx';
 
+        $this->addFrontPage($phpWord);
+
+        $this->addInformationPage($phpWord);
+        $this->addTableOfContents($phpWord);
+        $this->addResults($phpWord);
+        $this->addFillableNotes($phpWord);
+
+        $writer = IOFactory::createWriter($phpWord, 'Word2007');
+
+        $tempFile = tempnam(sys_get_temp_dir(), $fileName);
+        $writer->save($tempFile);
+
+        return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
+    }
+
+    private function addFrontPage($phpWord)
+    {
         $titleFontSize = strlen(session('module')) > 30 ? 28 : 35; //so layout stays intact with text wrapping
 
         //first page
@@ -91,14 +110,61 @@ class ReportController extends Controller
         $infotable->addCell($paddingWidth);
         $infotable->addCell($labelWidth)->addText('Datum', $labelStyle);
         $infotable->addCell($valueWidth)->addText(now()->format('d-m-Y'), $valueStyle);
+    }
 
-        //end first page
+    private function addInformationPage($phpWord)
+    {
+        $page = $this->createpage($phpWord);
+        $this->addStandardHeaderFooter($page);
 
-        //TODO make separate functions for this
+        $page->addTextBreak(1);
 
+        $page->addtext('De BlendBarometer',['bold' => true, 'size' => $this->titleSize]);
 
-        //second page
+        $table = $page->addTable([
+            'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER,
+        ]);
+        $table->addRow();
 
+        $text1 = preg_replace('/\s+/', ' ', Content::where('section_name', 'intro_description')->first()->info);
+        $text2 = preg_replace('/\s+/', ' ', Content::where('section_name', 'intro_explanation')->first()->info); // old piece that isnt used anymore but else the text was too short
+
+        $table->addCell(6500)->addText($text1 . ' ' . $text2, [
+            'color' => '888888',
+            'lineHeight' => 1.5, 
+        ]);
+
+        $table->addCell(3500)->addImage(public_path('images/barometer-report.png'), [
+            'alignment' => Jc::CENTER,
+            'width' => 100, 
+            'height' => 100, 
+            ]);
+
+        $page->addtext('Over module',['bold' => true, 'size' => $this->titleSize]);
+        $date = now()->translatedFormat('j F Y');
+        $moduleText = sprintf("Op %s heeft %s de barometer ingevuld voor de module %s van opleiding %s aan de %s.", $date, session('name'),session('module'),session('course'),session('academy'));
+        $page->addText($moduleText, [
+            'color' => '888888',
+            'lineHeight' => 1.5, 
+        ]);
+
+        $page->addtext('Over module',['bold' => true, 'size' => $this->titleSize]);
+
+        $page->addText(session('summary'), [
+            'color' => '888888',
+            'lineHeight' => 1.5, 
+        ]);
+    }
+
+    private function addTableOfContents($phpWord)
+    {
+        $page = $this->createPage($phpWord);
+
+        $this->addStandardHeaderFooter($page);
+    }
+
+    private function addResults($phpWord)
+    {
         $infopage = $phpWord->addSection([
             'marginTop' => 400,
             'marginBottom' => 0,
@@ -107,14 +173,27 @@ class ReportController extends Controller
         ]);
 
         $this->addStandardHeaderFooter($infopage);
-        
+    }
 
-        $writer = IOFactory::createWriter($phpWord, 'Word2007');
+    private function addFillableNotes($phpWord)
+    {
+        $page = $phpWord->addSection([
+            'marginTop' => 400,
+            'marginBottom' => 0,
+            'marginLeft' => 900,
+            'marginRight' => 900,
+        ]);
 
-        $tempFile = tempnam(sys_get_temp_dir(), $fileName);
-        $writer->save($tempFile);
+        $this->addStandardHeaderFooter($page);
+    }
 
-        return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
+    private function createPage($phpWord){
+        return $phpWord->addSection([
+            'marginTop' => 400,
+            'marginBottom' => 0,
+            'marginLeft' => 900,
+            'marginRight' => 900,
+        ]);
     }
 
     function addStandardHeaderFooter($section)
@@ -123,7 +202,6 @@ class ReportController extends Controller
         $header = $section->addHeader();
         $table = $header->addTable([
             'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER,
-            'width' => 100 * 50 // 100% width
         ]);
         $table->addRow();
 
@@ -145,8 +223,6 @@ class ReportController extends Controller
         ]), [
             'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END,
         ]);
-
-        $section->addTextBreak(1);
 
 
         // --- FOOTER ---
