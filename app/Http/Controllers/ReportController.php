@@ -224,7 +224,7 @@ class ReportController extends Controller
             }
             $this->newGraphRow($table, $name1, $name2);
             $i ++;
-            if($i >= 6)
+            if($i >= $list1->count() && $i >= $list2->count())
             {
                 $looping = false;
             }
