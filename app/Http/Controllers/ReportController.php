@@ -6,14 +6,32 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use App\Models\Content;
+use PhpOffice\PhpWord\Style\Image;
 
 class ReportController extends Controller
 {
-    private int $titleSize = 20;
-    private int $articleTitleSize = 15;
+    private int $pageNumber = 0;
+
+    private $labelStyle = ['color' => '888888'];
+    private $valueStyle = ['bold' => true];
+        
+    private $labelWidth = 1500;
+    private $valueWidth = 3000;
+
+    // for adding a title so it gets added to TOC
+        // $page->addTitle('<Title text>', <heading number> , $this->pageNumber); 
     public function sendReport()
     {
         $phpWord = new PhpWord();
+        $phpWord->addTitleStyle(
+            1, // Heading level
+            ['bold' => true, 'size' => 20, 'name' => 'Arial'], // Font style
+        );
+        $phpWord->addTitleStyle(
+            2, // Heading level
+            ['bold' => true, 'size' => 15, 'name' => 'Arial'], // Font style
+        );
+
         $fileName = 'Rapport ' . session('module') . '.docx';
 
         $this->addFrontPage($phpWord);
@@ -35,7 +53,7 @@ class ReportController extends Controller
     {
         $titleFontSize = strlen(session('module')) > 30 ? 28 : 35; //so layout stays intact with text wrapping
 
-        //first page
+        $this->pageNumber += 1;
         $section = $phpWord->addSection([
             'marginTop' => 500,
             'marginBottom' => 0,
@@ -48,9 +66,9 @@ class ReportController extends Controller
             'height' => 600,
             'positioning' => 'absolute',
             'posHorizontalRel' => 'page',
-            'posHorizontal' => \PhpOffice\PhpWord\Style\Image::POSITION_HORIZONTAL_LEFT,
+            'posHorizontal' => Image::POSITION_HORIZONTAL_LEFT,
             'posVerticalRel' => 'page',
-            'posVertical' => \PhpOffice\PhpWord\Style\Image::POSITION_VERTICAL_TOP,
+            'posVertical' => Image::POSITION_VERTICAL_TOP,
             'wrappingStyle' => 'behind',
         ]);
 
@@ -80,38 +98,35 @@ class ReportController extends Controller
             'alignment' => Jc::END,
         ]);
         
-        $labelStyle = ['color' => '888888'];
-        $valueStyle = ['bold' => true];
         
-        $labelWidth = 1500;
-        $valueWidth = 3000;
         $paddingWidth = 300;
         
         // First row
         $infotable->addRow();
-        $infotable->addCell($labelWidth)->addText('Academie', $labelStyle);
-        $infotable->addCell($valueWidth)->addText(session('academy'), $valueStyle);
+        $infotable->addCell($this->labelWidth)->addText('Academie', $this->labelStyle);
+        $infotable->addCell($this->valueWidth)->addText(session('academy'), $this->valueStyle);
         $infotable->addCell($paddingWidth);
-        $infotable->addCell($labelWidth)->addText('Docent', $labelStyle);
-        $infotable->addCell($valueWidth)->addText(session('name'), $valueStyle);
+        $infotable->addCell($this->labelWidth)->addText('Docent', $this->labelStyle);
+        $infotable->addCell($this->valueWidth)->addText(session('name'), $this->valueStyle);
         
         // Second row
         $infotable->addRow();
-        $infotable->addCell($labelWidth)->addText('Opleiding', $labelStyle);
-        $infotable->addCell($valueWidth)->addText(session('course'), $valueStyle);
+        $infotable->addCell($this->labelWidth)->addText('Opleiding', $this->labelStyle);
+        $infotable->addCell($this->valueWidth)->addText(session('course'), $this->valueStyle);
         $infotable->addCell($paddingWidth);
-        $infotable->addCell($labelWidth)->addText('ICTO Coach', $labelStyle);
-        $infotable->addCell($valueWidth)->addText('&lt;vul hier in&gt;', $valueStyle);
+        $infotable->addCell($this->labelWidth)->addText('ICTO Coach', $this->labelStyle);
+        $infotable->addCell($this->valueWidth)->addText('&lt;vul hier in&gt;', $this->valueStyle);
         
         // Third row
         $infotable->addRow();
-        $infotable->addCell($labelWidth)->addText('Module', $labelStyle);
-        $infotable->addCell($valueWidth)->addText(session('module'), $valueStyle);
+        $infotable->addCell($this->labelWidth)->addText('Module', $this->labelStyle);
+        $infotable->addCell($this->valueWidth)->addText(session('module'), $this->valueStyle);
         $infotable->addCell($paddingWidth);
-        $infotable->addCell($labelWidth)->addText('Datum', $labelStyle);
-        $infotable->addCell($valueWidth)->addText(now()->format('d-m-Y'), $valueStyle);
+        $infotable->addCell($this->labelWidth)->addText('Datum', $this->labelStyle);
+        $infotable->addCell($this->valueWidth)->addText(now()->format('d-m-Y'), $this->valueStyle);
     }
 
+    // TODO for layout: setting max length for information about barometer
     private function addInformationPage($phpWord)
     {
         $page = $this->createpage($phpWord);
@@ -119,10 +134,10 @@ class ReportController extends Controller
 
         $page->addTextBreak(1);
 
-        $page->addtext('De BlendBarometer',['bold' => true, 'size' => $this->titleSize]);
+        $page->addTitle('De BlendBarometer',1, $this->pageNumber);
 
         $table = $page->addTable([
-            'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER,
+            'alignment' => Jc::CENTER,
         ]);
         $table->addRow();
 
@@ -130,7 +145,7 @@ class ReportController extends Controller
         $text2 = preg_replace('/\s+/', ' ', Content::where('section_name', 'intro_explanation')->first()->info); // old piece that isnt used anymore but else the text was too short
 
         $table->addCell(6500)->addText($text1 . ' ' . $text2, [
-            'color' => '888888',
+            'color' => '888888', //i will ask a question about this color so this is a marker for this
             'lineHeight' => 1.5, 
         ]);
 
@@ -140,7 +155,7 @@ class ReportController extends Controller
             'height' => 100, 
             ]);
 
-        $page->addtext('Over module',['bold' => true, 'size' => $this->titleSize]);
+        $page->addTitle('Over module',1, $this->pageNumber);
         $date = now()->translatedFormat('j F Y');
         $moduleText = sprintf("Op %s heeft %s de barometer ingevuld voor de module %s van opleiding %s aan de %s.", $date, session('name'),session('module'),session('course'),session('academy'));
         $page->addText($moduleText, [
@@ -148,7 +163,7 @@ class ReportController extends Controller
             'lineHeight' => 1.5, 
         ]);
 
-        $page->addtext('Over module',['bold' => true, 'size' => $this->titleSize]);
+        $page->addTitle('Samenvatting module',2, $this->pageNumber);
 
         $page->addText(session('summary'), [
             'color' => '888888',
@@ -159,35 +174,61 @@ class ReportController extends Controller
     private function addTableOfContents($phpWord)
     {
         $page = $this->createPage($phpWord);
-
         $this->addStandardHeaderFooter($page);
+
+        $page->addTitle('Inhoudsopgave', 1 , $this->pageNumber); 
+        $page->addTOC();
+
+        $page->addImage(public_path('images/barometer-report-2.png'), [
+            'width' => 220,
+            'height' => 220,
+            'alignment' => Jc::CENTER,
+        ]);
     }
 
     private function addResults($phpWord)
     {
-        $infopage = $phpWord->addSection([
-            'marginTop' => 400,
-            'marginBottom' => 0,
-            'marginLeft' => 900,
-            'marginRight' => 900,
-        ]);
+        $page = $this->createPage($phpWord);
+        $this->addStandardHeaderFooter($page);
 
-        $this->addStandardHeaderFooter($infopage);
+
     }
 
     private function addFillableNotes($phpWord)
     {
-        $page = $phpWord->addSection([
-            'marginTop' => 400,
-            'marginBottom' => 0,
-            'marginLeft' => 900,
-            'marginRight' => 900,
-        ]);
-
+        $page = $this->createPage($phpWord);
         $this->addStandardHeaderFooter($page);
+
+        $page->addTitle('Verslag gesprek', 1 , $this->pageNumber);
+        $textrun = $page->addTextRun();
+        $textrun->addText('Docent: ', $this->labelStyle);
+        $textrun->addText('&lt;vul hier in&gt;', $this->valueStyle);
+
+        $textrun = $page->addTextRun();
+        $textrun->addText('Icto Coach: ', $this->labelStyle);
+        $textrun->addText('&lt;vul hier in&gt;', $this->valueStyle);
+
+        $textrun = $page->addTextRun();  
+        $textrun->addText('Datum gesprek: ', $this->labelStyle);
+        $textrun->addText('&lt;vul hier in&gt;', $this->valueStyle);
+
+        $page->addTitle('Verslag', 2 , $this->pageNumber);
+        $page->addText('&lt;vul hier in&gt;');
+
+        $page = $this->createPage($phpWord);
+        $this->addStandardHeaderFooter($page);
+
+        $page->addTitle('Advies en Actiepunten', 1 , $this->pageNumber);
+
+        $page->addTitle('Advies', 2 , $this->pageNumber);
+        $page->addText('&lt;vul hier in&gt;');
+
+        $page->addTitle('Actiepunten', 2 , $this->pageNumber);
+        $page->addText('&lt;vul hier in&gt;');
     }
 
     private function createPage($phpWord){
+        $this->pageNumber += 1;
         return $phpWord->addSection([
             'marginTop' => 400,
             'marginBottom' => 0,
@@ -201,7 +242,7 @@ class ReportController extends Controller
         // --- HEADER ---
         $header = $section->addHeader();
         $table = $header->addTable([
-            'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER,
+            'alignment' => Jc::CENTER,
         ]);
         $table->addRow();
 
@@ -214,27 +255,27 @@ class ReportController extends Controller
         $table->addCell(5500)->addText('Blended Learning Rapport', array_merge($headerTextStyle, [
             'color' => '888888',
         ]), [
-            'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::START,
+            'alignment' => Jc::START,
         ]);
 
         $table->addCell(5500)->addText(session('course') . ' - ' . session('module'), array_merge($headerTextStyle, [
             'color' => '888888',
             'bold' => true,
         ]), [
-            'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END,
+            'alignment' => Jc::END,
         ]);
 
 
         // --- FOOTER ---
         $footer = $section->addFooter();
-        $footerTable = $footer->addTable(['alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::CENTER, 'width' => 100 * 50]);
+        $footerTable = $footer->addTable(['alignment' => Jc::CENTER]);
         $footerTable->addRow();
 
         // Bottom Left: Logo
         $footerTable->addCell(4000)->addImage(public_path('images/logo.png'), [
             'width' => 90,
-            'height' => 17,
-            'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::START,
+            'height' => 16,
+            'alignment' => Jc::START,
         ]);
 
         // Bottom Center: Date
@@ -242,14 +283,14 @@ class ReportController extends Controller
         $footerTable->addCell(3000)->addText($date, [
             'size' => 10,
         ], [
-            'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER,
+            'alignment' => Jc::CENTER,
         ]);
 
         // Bottom Right: Page numbering
         $footerTable->addCell(4000)->addPreserveText('Pagina {PAGE} van {NUMPAGES}', [
             'size' => 10,
         ], [
-            'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::END,
+            'alignment' => Jc::END,
         ]);
     }
 
