@@ -7,6 +7,7 @@ use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use App\Models\Content;
 use PhpOffice\PhpWord\Style\Image;
+use App\Models\Sub_category;
 
 class ReportController extends Controller
 {
@@ -188,10 +189,92 @@ class ReportController extends Controller
 
     private function addResults($phpWord)
     {
+        //first page
         $page = $this->createPage($phpWord);
         $this->addStandardHeaderFooter($page);
 
+        $page->addTitle('Resultaten', 1 , $this->pageNumber);
 
+        //second page
+        $page = $this->createPage($phpWord);
+        $this->addStandardHeaderFooter($page);
+
+        $table = $page->addTable([
+            'alignment' => Jc::CENTER,
+        ]);
+
+        $list1 = Sub_category::where('question_category_id', 1)->pluck('name');
+        $list2 = Sub_category::where('question_category_id', 2)->pluck('name');
+
+        $table->addRow();
+        $table->addCell(6000)->addText('Fysieke leeractiviteiten', ['alignment' => Jc::START, 'bold' => true, 'size' => 15]);
+        $table->addCell(6000)->addText('Online leeractiviteiten', ['alignment' => Jc::END, 'bold' => true, 'size' => 15]);
+
+        $i = 0;
+        $looping = true;
+        while($looping)
+        {
+            $name1 = null;
+            $name2 = null;
+            if($i < $list1->count()){
+                $name1 = $list1[$i];
+            }
+            if($i < $list2->count()){
+                $name2 = $list2[$i];
+            }
+            $this->newGraphRow($table, $name1, $name2);
+            $i ++;
+            if($i >= 6)
+            {
+                $looping = false;
+            }
+        }
+    }
+
+    private function newGraphRow($table, $name1, $name2){
+        $table->addRow();
+        $cell1 = $table->addCell(6000);
+        $cell2 = $table->addCell(6000);
+        if($name1 != null)
+        {
+            $cell1->addImage(public_path('images/barometer-report-2.png'), [
+                'width' => 200,
+                'height' => 160,
+                'alignment' => Jc::START,
+            ]);
+        }
+        if($name2 != null)
+        {
+            $cell2->addImage(public_path('images/barometer-report-2.png'), [
+                'width' => 200,
+                'height' => 160,
+                'alignment' => Jc::START,
+            ]);
+        }
+
+        $table->addRow();
+        $cell1 = $table->addCell(6000);
+        $cell2 = $table->addCell(6000);
+        if($name1 != null)
+        {
+            $cell1->addText($name1,['alignment' => Jc::START, 'bold' => true, 'size' => 13]);
+        }
+        if($name2 != null)
+        {
+            $cell2->addText($name2,['alignment' => Jc::END, 'bold' => true, 'size' => 13]);
+        }
+
+        $table->addRow();
+        $cell1 = $table->addCell(6000);
+        $cell2 = $table->addCell(6000);
+        if($name1 != null)
+        {
+            $cell1->addText('Notities: .........................................................',['alignment' => Jc::START]);
+        }
+        if($name2 != null)
+        {
+            $cell2->addText('Notities: .........................................................',['alignment' => Jc::END]);
+        }
     }
 
     private function addFillableNotes($phpWord)
