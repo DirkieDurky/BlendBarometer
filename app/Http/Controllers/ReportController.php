@@ -6,8 +6,13 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use App\Models\Content;
+use App\Models\Receiver;
+use App\Models\Receiver_of_academy;
 use PhpOffice\PhpWord\Style\Image;
 use App\Models\Sub_category;
+use Illuminate\Support\Facades\Session;
+use PHPMailer\PHPMailer\PHPMailer;
+use Illuminate\Support\Facades\View;
 
 class ReportController extends Controller
 {
@@ -18,6 +23,9 @@ class ReportController extends Controller
         
     private $labelWidth = 1500;
     private $valueWidth = 3000;
+
+    const MAIL_HOST = 'smtp.gmail.com';
+    const MAIL_PORT = 587;
 
     // for adding a title so it gets added to TOC
         // $page->addTitle('<Title text>', <heading number> , $this->pageNumber); 
@@ -46,6 +54,41 @@ class ReportController extends Controller
 
         $tempFile = tempnam(sys_get_temp_dir(), $fileName);
         $writer->save($tempFile);
+
+        dd(session('academy'));
+
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+
+        $mail->Host = self::MAIL_HOST;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = self::MAIL_PORT;
+
+        $mail->Username = env('MAIL_USERNAME');
+        $mail->Password = env('MAIL_PASSWORD');
+
+        //TODO maak de html body van de mail
+        // $html = View::make('verification-email', ['code' => $code])->render();
+
+        $receiver = Receiver_of_academy::where('academy_name', session('academy'))->first();
+
+        if ($receiver) 
+        {
+            $email = $receiver->receiver_email;
+        } else 
+        {
+            $email = Receiver::where('is_default', true)->value('email');
+        }
+
+        $mail->addAddress($email);
+        $mail->isHTML(true);
+        $mail->Subject = 'Tussenrapport';
+
+        $mail->AddEmbeddedImage(public_path('images/logo.png'), 'logoCID', 'logo.png');
+
+        $mail->Body = $html;
+        $mail->send();
 
         return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
     }
