@@ -55,8 +55,6 @@ class ReportController extends Controller
         $tempFile = tempnam(sys_get_temp_dir(), $fileName);
         $writer->save($tempFile);
 
-        dd(session('academy'));
-
         $mail = new PHPMailer(true);
         $mail->isSMTP();
         $mail->SMTPAuth = true;
@@ -67,9 +65,15 @@ class ReportController extends Controller
 
         $mail->Username = env('MAIL_USERNAME');
         $mail->Password = env('MAIL_PASSWORD');
+        
+        $name = session('name');
+        $emailParticipant = session('email');
+        $academy = session('academy');
+        $module = session('module');
+        $date = now()->format('d-m-Y');
+        $summary = session('summary');
 
-        //TODO maak de html body van de mail
-        // $html = View::make('verification-email', ['code' => $code])->render();
+        $html = View::make('tussen-rapport-email', compact('name', 'emailParticipant', 'academy', 'module', 'date', 'summary'))->render();
 
         $receiver = Receiver_of_academy::where('academy_name', session('academy'))->first();
 
@@ -85,12 +89,16 @@ class ReportController extends Controller
         $mail->isHTML(true);
         $mail->Subject = 'Tussenrapport';
 
-        $mail->AddEmbeddedImage(public_path('images/logo.png'), 'logoCID', 'logo.png');
+        $mail->CharSet = 'UTF-8';
+        $mail->addAttachment($tempFile, $fileName);
+        $mail->AddEmbeddedImage(public_path('images/blendbarometer-logo.png'), 'logoCID', 'logo.png');
 
         $mail->Body = $html;
         $mail->send();
 
-        return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
+        
+        return View('tussen-rapport-email', compact('name', 'emailParticipant', 'academy', 'module', 'date', 'summary'));
+        // return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
     }
 
     private function addFrontPage($phpWord)
