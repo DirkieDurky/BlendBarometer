@@ -3,8 +3,8 @@
         @csrf
 
         <div class="mb-3">
-            <h1 class="fs-3 fw-bold mb-1">Uitleg {{ $content->section_name }}</h1>
-            <p class="text-muted">{{ $content->info }}</p>
+            <h1 class="fs-3 fw-bold mb-3">Uitleg {{ $content->section_name }}</h1>
+            <?= $content->info ?>
         </div>
 
         <x-navigation-buttons :previous="$previous" :next="$next" next-label="Volgende"/>
