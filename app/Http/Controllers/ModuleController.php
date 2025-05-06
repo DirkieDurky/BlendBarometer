@@ -44,7 +44,7 @@ class ModuleController extends Controller
         $totalSteps = Question_category::where('form_section_id', 2)->count();
 
         if ($currentStep >= $totalSteps) {
-            return redirect(route('overview-and-results-info'));
+            return redirect(route('intermediate.view', 'overzicht en resultaten'));
         } else {
             return redirect(route('module-level', $currentStep + 1));
         }
@@ -55,7 +55,7 @@ class ModuleController extends Controller
         $this->submit($request, $currentStep);
 
         if ($currentStep <= 1) {
-            return redirect(route('lesson-level', Sub_category::count()));
+            return redirect(route('intermediate.view', 'module niveau'));
         } else {
             return redirect(route('module-level', $currentStep - 1));
         }

@@ -1,4 +1,8 @@
-<x-progress-step section="Les niveau" title="Vragen op les niveau" description="" current_step_name="lessonLevel">
+<x-progress-step section="Les niveau" 
+                 title="Vragen op les niveau" 
+                 description="" 
+                 current_step_name="lessonLevel">
+                 
     <div class="mb-3">
         <div class="progress" style="height: 10px;">
             <div class="progress-bar bg-success"

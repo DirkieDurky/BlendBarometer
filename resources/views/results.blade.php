@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-    <x-navigation-buttons :previous="route('overview-and-results-info')" :next="route('overview-and-send')"/>
+    <x-navigation-buttons :previous="route('intermediate.view', 'overzicht en resultaten')" :next="route('overview-and-send')"/>
     <script>
         const lessonLevelSubcategories = {!! json_encode($lessonLevelSubcategories) !!};
         const moduleLevelCategories = {!! json_encode($moduleLevelCategories) !!};

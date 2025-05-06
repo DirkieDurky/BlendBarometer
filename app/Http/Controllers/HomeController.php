@@ -41,19 +41,19 @@ class HomeController extends Controller
                         $continueRoute = route('module-level', $lastModule + 1);
                     } else {
                         // everything comlete -> to results
-                        $continueRoute = route('overview-and-results-info');
+                        $continueRoute = route('intermediate.view', 'overzicht en resultaten');
                     }
                 } else {
                     // module-niveau not started, first question page
-                    $continueRoute = route('module-level', 1);
+                    $continueRoute = route('intermediate.view', 'module niveau');
                 }
             }
         } elseif ($hasInfo) {
             // info completed, les-niveau not started, first question page
-            $continueRoute = route('lesson-level', 1);
+            $continueRoute = route('intermediate.view', 'online en fysieke leeractiviteiten');
         } else {
             // no data in session -> to information
-            $continueRoute = route('information');
+            $continueRoute = route('intermediate.view', 'BlendBarometer');
         }
 
         // decide button tekst

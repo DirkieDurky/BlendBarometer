@@ -15,9 +15,9 @@ class LessonController extends Controller
         $currentStep = $id;
 
         if ($currentStep < 1) {
-            return redirect(route('information'));
+            return redirect(route('intermediate.view', 'online en fysieke leeractiviteiten'));
         } else if ($currentStep > $totalSteps) {
-            return redirect(route('module-level', 1));
+            return redirect(route('intermediate.view', 'module niveau'));
         }
 
         $subCategory = Sub_category::with('questionCategory')->findOrFail($id);
