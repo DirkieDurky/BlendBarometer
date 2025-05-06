@@ -1,3 +1,4 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <x-progress-step section="Resultaten" title="Resultaten" description="Het resultaat van de ingevulde vragen."
                  current_step_name="results">
     <div class="alert alert-warning">

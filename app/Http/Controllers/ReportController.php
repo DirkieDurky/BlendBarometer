@@ -232,21 +232,25 @@ class ReportController extends Controller
     }
 
     private function newGraphRow($table, $name1, $name2){
+        $name1Here = $name1 != null;
+        $name2Here = $name2 != null;
+
         $table->addRow();
         $cell1 = $table->addCell(6000);
         $cell2 = $table->addCell(6000);
-        if($name1 != null)
+        $imagePath = storage_path('app/public/images/temp/chart.png');
+        if($name1Here && file_exists($imagePath))
         {
-            $cell1->addImage(public_path('images/barometer-report-2.png'), [
-                'width' => 200,
+            $cell1->addImage($imagePath, [
+                'width' => 245,
                 'height' => 160,
                 'alignment' => Jc::START,
             ]);
         }
-        if($name2 != null)
+        if($name2Here && file_exists($imagePath))
         {
-            $cell2->addImage(public_path('images/barometer-report-2.png'), [
-                'width' => 200,
+            $cell2->addImage($imagePath, [
+                'width' => 245,
                 'height' => 160,
                 'alignment' => Jc::START,
             ]);
@@ -255,11 +259,11 @@ class ReportController extends Controller
         $table->addRow();
         $cell1 = $table->addCell(6000);
         $cell2 = $table->addCell(6000);
-        if($name1 != null)
+        if($name1Here)
         {
             $cell1->addText($name1,['alignment' => Jc::START, 'bold' => true, 'size' => 13]);
         }
-        if($name2 != null)
+        if($name2Here)
         {
             $cell2->addText($name2,['alignment' => Jc::END, 'bold' => true, 'size' => 13]);
         }
@@ -267,7 +271,7 @@ class ReportController extends Controller
         $table->addRow();
         $cell1 = $table->addCell(6000);
         $cell2 = $table->addCell(6000);
-        if($name1 != null)
+        if($name1Here)
         {
             $cell1->addText('Notities: .........................................................',['alignment' => Jc::START]);
         }

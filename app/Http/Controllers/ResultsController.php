@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use App\Models\Question_category;
 use App\Models\Sub_category;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class ResultsController extends Controller
 {
@@ -68,5 +70,40 @@ class ResultsController extends Controller
         $moduleLevelData = session()->get('moduleLevelData');
 
         return !$lessonLevelData || !$moduleLevelData;
+    }
+
+    public function saveChart(Request $request)
+    {
+        // Retrieve the base64 image data from the incoming request
+        $base64 = $request->input('image');
+        
+        if ($base64) {
+            // Remove the data URL part (e.g., "data:image/png;base64,")
+            $base64 = str_replace('data:image/png;base64,', '', $base64);
+            $base64 = str_replace(' ', '+', $base64);  // Replace spaces with '+' as per the base64 standard
+            
+            // Decode the base64 string into image data
+            $imageData = base64_decode($base64);
+            
+            // Check if base64 decoding succeeded
+            if ($imageData === false) {
+                return response()->json(['error' => 'Base64 decoding failed'], 400);
+            }
+
+            // Define the path where the image will be saved
+            $imagePath = 'images/temp/' . 'chart' . '.png';  // Example: charts/uniqueid.png
+            
+            // Use Laravel's Storage facade to save the image data
+            $saved = Storage::disk('public')->put($imagePath, $imageData);
+
+            // Check if the image was saved successfully
+            if ($saved) {
+                // Return a success response with the image path
+                return response()->json(['message' => 'Image saved successfully', 'path' => $imagePath]);
+            } else {
+                return response()->json(['error' => 'Failed to save image'], 500);
+            }
+        }
+        return response()->json(['error' => 'No image data received'], 400);
     }
 }

@@ -39,3 +39,4 @@ Route::middleware([Authenticate::class])->group(function () {
 
     Route::get('/versturen', [ReportController::class, 'sendReport'])->name('send');
 });
+Route::post('/SaveChart', [ResultsController::class, 'saveChart']);

@@ -17,7 +17,7 @@ new Chart(lessonLevelPhysicalGraph, {
 
 const lessonLevelOnlineGraph = document.getElementById('lessonLevelOnline');
 
-new Chart(lessonLevelOnlineGraph, {
+new Chart(lessonLevelOnlineGraph,{
     type: 'bar',
     data: {
         labels: lessonLevelSubcategories.map(c => c.name),
@@ -29,6 +29,28 @@ new Chart(lessonLevelOnlineGraph, {
     },
     options: {
         responsive: true,
+        animation: {
+            onComplete: function () {
+                const base64Image = this.toBase64Image();
+                console.log(base64Image);  // Log the base64 string
+
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                // Send the image to the backend with the CSRF token
+                fetch('/SaveChart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken, // Include the CSRF token
+                },
+                body: JSON.stringify({ image: base64Image })
+                }).then(response => {
+                console.log('Image sent to server');
+                }).catch(error => {
+                console.log('Error:', error);
+                });
+            }
+        },
     }
 });
 
