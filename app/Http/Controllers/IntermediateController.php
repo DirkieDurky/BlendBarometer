@@ -38,7 +38,7 @@ class IntermediateController extends Controller
             'description' => '',
             'currentStepName' => 'moduleLevel',
             'content' => $content,
-            'previous' => route('lesson-level', Sub_category::count()), // Assuming 12 is the last lesson level
+            'previous' => route('lesson-level', Sub_category::count()),
             'next' => route('module-level', 1),
         ],
         'overzicht en resultaten' => [
@@ -47,7 +47,7 @@ class IntermediateController extends Controller
             'description' => '',
             'currentStepName' => 'results',
             'content' => $content,
-            'previous' => route('module-level', Question_category::where('form_section_id', 2)->count()), // Assuming 3 is the last module level
+            'previous' => route('module-level', Question_category::where('form_section_id', 2)->count()),
             'next' => route('results'),
         ],
     ];
