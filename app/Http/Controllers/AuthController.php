@@ -127,7 +127,7 @@ class AuthController extends Controller
             }
             Auth::login($user);
             Session::regenerate();
-            return redirect()->route('information');
+            return redirect()->route('intermediate.view', 'BlendBarometer');
         }
         else
         {
