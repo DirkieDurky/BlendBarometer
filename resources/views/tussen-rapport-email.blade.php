@@ -101,8 +101,8 @@
                 <br>
                 <p>Het rapport staat in de bijlage van deze email.</p>
                 <hr>
-                <p>Groet,</p>
-                <p>Het BlendBarometer team</p>
+                <p>Met vriendelijke groet,</p>
+                <p>De BlendBarometer website</p>
             </div>
         </div>
     </div>
