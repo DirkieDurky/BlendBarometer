@@ -96,9 +96,8 @@ class ReportController extends Controller
         $mail->Body = $html;
         $mail->send();
 
-        
-        return View('tussen-rapport-email', compact('name', 'emailParticipant', 'academy', 'module', 'date', 'summary'));
-        // return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
+        session::flush();
+        return redirect()->route('home');
     }
 
     private function addFrontPage($phpWord)
