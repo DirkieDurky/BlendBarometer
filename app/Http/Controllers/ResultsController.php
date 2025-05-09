@@ -31,6 +31,7 @@ class ResultsController extends Controller
         $lessonLevelGeneralDescription = GraphDescription::select('description')->where('graph_type', 'lesson-level-general')->get();
         $lessonLevelPhysicalDescriptions = GraphDescription::select('sub_category_id', 'description')->where('graph_type', 'physical')->get()->keyBy('sub_category_id');
         $lessonLevelOnlineDescriptions = GraphDescription::select('sub_category_id', 'description')->where('graph_type', 'physical')->get()->keyBy('sub_category_id');
+        $moduleLevelGeneralDescription = GraphDescription::select('description')->where('graph_type', 'module-level-general')->get();
 
         $lessonLevelDataOnline = [];
         $lessonLevelDataPhysical = [];
@@ -51,7 +52,16 @@ class ResultsController extends Controller
             }
         }
 
-        $moduleLevelCategories = Question_category::select('name')->where('form_section_id', 2)->get();
+        // $moduleLevelCategories = Question_category::select('name')->where('form_section_id', 2)->get();
+        // $moduleLevelQuestions = Question::select('question_category_id', 'text')->where()
+        $moduleLevelCategories = Question_category::join('question', 'question_category.id', '=', 'question.question_category_id')
+            ->select('question_category.name', 'question.text')
+            ->where('form_section_id', 2)
+            ->get();
+
+        $moduleLevelCategories = $moduleLevelCategories->mapToGroups(function ($item, $key) {
+            return [$item['name'] => $item->text];
+        });
 
         return view('results', [
             'lessonLevelPhysicalSubcategories' => $lessonLevelPhysicalSubcategories,
@@ -59,6 +69,7 @@ class ResultsController extends Controller
             'lessonLevelPhysicalQuestions' => $lessonLevelPhysicalQuestions,
             'lessonLevelOnlineQuestions' => $lessonLevelOnlineQuestions,
             'lessonLevelGeneralDescription' => $lessonLevelGeneralDescription,
+            'moduleLevelGeneralDescription' => $moduleLevelGeneralDescription,
             'lessonLevelPhysicalDescriptions' => $lessonLevelPhysicalDescriptions,
             'lessonLevelOnlineDescriptions' => $lessonLevelOnlineDescriptions,
             'lessonLevelDataOnline' => $lessonLevelDataOnline,

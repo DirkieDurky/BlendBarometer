@@ -21,6 +21,11 @@ class GraphDescriptionSeeder extends Seeder
                 'description' => 'Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 1: Lesniveau in het algemeen',
             ],
             [
+                'graph_type' => 'module-level-general',
+                'sub_category_id' => null,
+                'description' => 'Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 2: Moduleniveau',
+            ],
+            [
                 'graph_type' => 'physical',
                 'sub_category_id' => 1,
                 'description' => 'Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua.',

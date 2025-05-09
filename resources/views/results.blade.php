@@ -41,6 +41,13 @@
             @endforeach
         </div>
     </div>
+    <hr class="my-5" />
+    <div class="card graph-card p-3">
+        <canvas id="moduleLevelCategoriesGraph" class="bg-white rounded mb-2"></canvas>
+        <canvas id="moduleLevelDataGraph" class="bg-white rounded mb-2"></canvas>
+        <strong>Moduleniveau</strong>
+        <p class="mb-0">{{ $moduleLevelGeneralDescription[0]->description }}</p>
+    </div>
     <x-navigation-buttons :previous="route('overview-and-results-info')" :next="route('overview-and-send')" />
     <script>
         const lessonLevelSubcategories = {!! json_encode($lessonLevelPhysicalSubcategories) !!};
@@ -56,5 +63,7 @@
         const moduleLevelData = {!! json_encode(session()->get('moduleLevelData')) !!};
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
     <script src={{ URL::asset('js/results-graphs.js') }}></script>
 </x-progress-step>
