@@ -192,7 +192,7 @@ new Chart(moduleLevelCategoriesGraph, {
             }
         },
         cutout: '75%',
-        radius: '80%',
+        radius: '76%',
     },
     plugins: [ChartDataLabels],
 });
