@@ -91,7 +91,7 @@ class ReportController extends Controller
 
         $mail->CharSet = 'UTF-8';
         $mail->addAttachment($tempFile, $fileName);
-        $mail->AddEmbeddedImage(public_path('images/blendbarometer-logo.png'), 'logoCID', 'logo.png');
+        $mail->AddEmbeddedImage(public_path('images/blendbarometer-icon.png'), 'logoCID', 'logo.png');
 
         $mail->Body = $html;
         $mail->send();
