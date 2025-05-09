@@ -24,7 +24,14 @@ new Chart(lessonLevelGraph, {
     }
 });
 
-console.log(lessonLevelPhysicalQuestions);
+// console.log(Object.values(lessonLevelPhysicalQuestions));
+console.log(Object.values(lessonLevelDataAll));
+const lessonLevelDataAllArray = [];
+for (let lessonLevelDataItem in Object.values(lessonLevelDataAll)) {
+    lessonLevelDataAllArray.push(lessonLevelDataItem);
+}
+console.log(lessonLevelDataAllArray);
+
 const lessonLevelPhysicalGraph = document.getElementById('lessonLevelPhysical');
 
 new Chart(lessonLevelPhysicalGraph, {
