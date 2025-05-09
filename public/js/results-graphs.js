@@ -24,27 +24,86 @@ new Chart(lessonLevelGraph, {
     }
 });
 
-// console.log(Object.values(lessonLevelPhysicalQuestions));
-console.log(Object.values(lessonLevelDataAll));
+// console.log(lessonLevelDataAll);
 const lessonLevelDataAllArray = [];
-for (let lessonLevelDataItem in Object.values(lessonLevelDataAll)) {
-    lessonLevelDataAllArray.push(lessonLevelDataItem);
-}
-console.log(lessonLevelDataAllArray);
-
-const lessonLevelPhysicalGraph = document.getElementById('lessonLevelPhysical');
-
-new Chart(lessonLevelPhysicalGraph, {
-    type: 'bar',
-    data: {
-        labels: lessonLevelSubcategories.map(c => c.name),
-        datasets: [{
-            label: 'Punten gescoord',
-            data: lessonLevelDataPhysical,
-        }
-        ]
-    },
-    options: {
-        responsive: true,
+for (const [_, item] of Object.entries(lessonLevelDataAll)) {
+    let section = [];
+    for (const [_, item2] of Object.entries(item)) {
+        section.push(parseInt(item2));
     }
-});
+    lessonLevelDataAllArray.push(section);
+}
+// console.log(lessonLevelDataAllArray);
+
+for (let i = 0; i < lessonLevelSubcategories.length; i++) {
+    const category = lessonLevelSubcategories[i];
+    const categoryLabels = Object.values(lessonLevelPhysicalQuestions)[i];
+    const categoryData = lessonLevelDataAllArray[i];
+    // console.log(category);
+    // console.log(categoryLabels);
+    // console.log(categoryData);
+
+    const graph = document.getElementById('physical-' + category.id);
+
+    new Chart(graph, {
+        type: 'bar',
+        data: {
+            labels: categoryLabels,
+            datasets: [{
+                label: 'Punten gescoord',
+                data: categoryData,
+            }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+            },
+            scales: {
+                y: {
+                    suggestedMin: 0,
+                    suggestedMax: 2
+                }
+            }
+        }
+    });
+}
+
+for (let i = 0; i < lessonLevelSubcategories.length; i++) {
+    const category = lessonLevelSubcategories[i];
+    const categoryLabels = Object.values(lessonLevelOnlineQuestions)[i];
+    const categoryData = lessonLevelDataAllArray[lessonLevelSubcategories.length + i];
+    // console.log(category);
+    // console.log(categoryLabels);
+    // console.log(categoryData);
+
+    const graph = document.getElementById('online-' + category.id);
+
+    new Chart(graph, {
+        type: 'bar',
+        data: {
+            labels: categoryLabels,
+            datasets: [{
+                label: 'Punten gescoord',
+                data: categoryData,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+            },
+            scales: {
+                y: {
+                    suggestedMin: 0,
+                    suggestedMax: 2
+                }
+            }
+        }
+    });
+}

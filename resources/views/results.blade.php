@@ -5,28 +5,41 @@
 
     <h1>Resultaten</h1>
     <p>
-        Hier is het resultaat van de ingevulde vragen. Grafieken die in één oogopslag duidelijk maken hoe "blended"
-        de module is.
+        Bedankt voor het invullen. Op deze pagina zie je grafieken met de resultaten. We zullen deze resultaten in een gesprek bespreken en de grafieken dan toelichten. Klik op gelijk afronden om door te gaan, of bekijk de resultaten en klik onderaan op afronden.
     </p>
     <div class="card graph-card p-3">
-        <canvas id="lessonLevel" class="bg-white rounded mb-2"></canvas>
-        <strong>Lesniveau - Algemeen</strong>
-        <p class="mb-0">Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 1:
-            Lesniveau in het algemeen</p>
+        <div class="row">
+            <div class="col">
+                <canvas id="lessonLevel" class="bg-white rounded mb-2"></canvas>
+            </div>
+            <div class="col">
+                <strong>Lesniveau - Algemeen</strong>
+                <p class="mb-0">Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 1:
+                    Lesniveau in het algemeen</p>
+            </div>
+        </div>
     </div>
     <hr class="my-5" />
-    <div class="d-flex flex-row gap-3">
+    <div class="d-flex flex-row gap-4">
         <div class="d-flex flex-column gap-3">
             <h2>Fysieke leeractiviteiten</h2>
-            <canvas id="collaboration" class="bg-white rounded mb-2"></canvas>
-            <strong>Samenwerken</strong>
-            <p class="mb-0">Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua.</p>
+            @foreach ($lessonLevelSubcategories as $category)
+                <div class="card graph-card p-3">
+                    <canvas id="physical-{{ $category->id }}" class="bg-white rounded mb-2"></canvas>
+                    <strong>{{ $category->name }}</strong>
+                    <p class="mb-0">Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            @endforeach
         </div>
         <div class="d-flex flex-column gap-3">
             <h2>Online leeractiviteiten</h2>
-            <canvas id="collaboration" class="bg-white rounded mb-2"></canvas>
-            <strong>Samenwerken</strong>
-            <p class="mb-0">Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua.</p>
+            @foreach ($lessonLevelSubcategories as $category)
+                <div class="card graph-card p-3">
+                    <canvas id="online-{{ $category->id }}" class="bg-white rounded mb-2"></canvas>
+                    <strong>{{ $category->name }}</strong>
+                    <p class="mb-0">Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            @endforeach
         </div>
     </div>
     <x-navigation-buttons :previous="route('overview-and-results-info')" :next="route('overview-and-send')" />

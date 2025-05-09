@@ -14,16 +14,16 @@ class ResultsController extends Controller
             return redirect(route('home'));
         }
 
-        $lessonLevelSubcategories = Sub_category::select('name')->where('question_category_id', 1)->get();
+        $lessonLevelSubcategories = Sub_category::select('id', 'name')->where('question_category_id', 1)->get();
 
         $lessonLevelPhysicalQuestions = Question::select('sub_category_id', 'text')->where('question_category_id', 1)->get();
         $lessonLevelPhysicalQuestions = $lessonLevelPhysicalQuestions->mapToGroups(function ($item, $key) {
-            return [$item['sub_category_id'] => $item];
+            return [$item['sub_category_id'] => $item->text];
         });
 
         $lessonLevelOnlineQuestions = Question::select('sub_category_id', 'text')->where('question_category_id', 2)->get();
         $lessonLevelOnlineQuestions = $lessonLevelOnlineQuestions->mapToGroups(function ($item, $key) {
-            return [$item['sub_category_id'] => $item];
+            return [$item['sub_category_id'] => $item->text];
         });
 
         $moduleLevelCategories = Question_category::select('name')->where('form_section_id', 2)->get();
