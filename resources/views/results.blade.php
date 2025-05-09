@@ -43,8 +43,11 @@
     </div>
     <hr class="my-5" />
     <div class="card graph-card p-3">
-        <canvas id="moduleLevelCategoriesGraph" class="bg-white rounded mb-2"></canvas>
-        <canvas id="moduleLevelDataGraph" class="bg-white rounded mb-2"></canvas>
+        <div class="d-flex justify-content-center">
+            <img src="/images/barometer.png" alt="de barometer" width="60%" />
+            <canvas id="moduleLevelDataGraph" class="rounded mb-2 position-absolute"></canvas>
+            <canvas id="moduleLevelCategoriesGraph" class="rounded mb-2 position-absolute"></canvas>
+        </div>
         <strong>Moduleniveau</strong>
         <p class="mb-0">{{ $moduleLevelGeneralDescription[0]->description }}</p>
     </div>

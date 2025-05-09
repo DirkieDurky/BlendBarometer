@@ -109,54 +109,18 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
 //     moduleLevelDataArray.push(section);
 // }
 
-console.log(moduleLevelCategories);
+// console.log(moduleLevelCategories);
 
 const moduleLevelCategoriesGraph = document.getElementById('moduleLevelCategoriesGraph');
 
-let labels = [];
-let data = [];
-let colors = [];
+let outerLabels = [];
+let outerData = [];
+let outerColors = [];
 for (const [key, value] of Object.entries(moduleLevelCategories)) {
-    labels.push(key);
-    data.push(value.length);
-    colors.push('rgb(153, 153, 153)');
+    outerLabels.push(key);
+    outerData.push(value.length);
+    outerColors.push('rgb(209, 209, 209)');
 }
-
-new Chart(moduleLevelCategoriesGraph, {
-    type: 'doughnut',
-    data: {
-        labels: labels,
-        datasets: [{
-            data: data,
-            backgroundColor: colors,
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: false
-            },
-            datalabels: {
-                color: 'white',
-                labels: {
-                    title: {
-                        font: {
-                            weight: 'bold'
-                        }
-                    },
-                },
-                formatter: function (value, context) {
-                    return context.chart.data.labels[context.dataIndex];
-                }
-            },
-            tooltip: {
-                enabled: false
-            }
-        },
-    },
-    plugins: [ChartDataLabels],
-});
 
 const moduleLevelDataArray = [];
 for (const [_, item] of Object.entries(moduleLevelData)) {
@@ -167,17 +131,17 @@ for (const [_, item] of Object.entries(moduleLevelData)) {
 
 const moduleLevelDataGraph = document.getElementById('moduleLevelDataGraph');
 
-labels = [];
+innerLabels = [];
 // for (const [key, value] of Object.entries(moduleLevelCategories)) {
 //     labels = labels.concat(value);
 // }
 for (let i = 0; i < moduleLevelDataArray.length; i++) {
-    labels.push(i + 1);
+    innerLabels.push(i + 1);
 }
-data = [];
-colors = [];
+innerData = [];
+innerColors = [];
 for (let i = 0; i < moduleLevelDataArray.length; i++) {
-    data.push(1);
+    innerData.push(1);
     let color;
     switch (moduleLevelDataArray[i]) {
         case 0:
@@ -193,16 +157,54 @@ for (let i = 0; i < moduleLevelDataArray.length; i++) {
             color = 'rgb(56, 167, 114)';
             break;
     }
-    colors.push(color);
+    innerColors.push(color);
 }
+
+new Chart(moduleLevelCategoriesGraph, {
+    type: 'doughnut',
+    data: {
+        labels: outerLabels,
+        datasets: [{
+            data: outerData,
+            backgroundColor: outerColors,
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            datalabels: {
+                color: 'black',
+                labels: {
+                    title: {
+                        font: {
+                            weight: 'bold'
+                        }
+                    },
+                },
+                formatter: function (value, context) {
+                    return context.chart.data.labels[context.dataIndex];
+                }
+            },
+            tooltip: {
+                enabled: false
+            }
+        },
+        cutout: '75%',
+        radius: '80%',
+    },
+    plugins: [ChartDataLabels],
+});
 
 new Chart(moduleLevelDataGraph, {
     type: 'pie',
     data: {
-        labels: labels,
+        labels: innerLabels,
         datasets: [{
-            data: data,
-            backgroundColor: colors,
+            data: innerData,
+            backgroundColor: innerColors,
         }]
     },
     options: {
@@ -226,8 +228,9 @@ new Chart(moduleLevelDataGraph, {
             },
             tooltip: {
                 enabled: false
-            }
+            },
         },
+        radius: '60%',
     },
     plugins: [ChartDataLabels],
 });
