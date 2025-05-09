@@ -15,6 +15,17 @@ class ResultsController extends Controller
         }
 
         $lessonLevelSubcategories = Sub_category::select('name')->where('question_category_id', 1)->get();
+
+        $lessonLevelPhysicalQuestions = Question::select('sub_category_id', 'text')->where('question_category_id', 1)->get();
+        $lessonLevelPhysicalQuestions = $lessonLevelPhysicalQuestions->mapToGroups(function ($item, $key) {
+            return [$item['sub_category_id'] => $item];
+        });
+
+        $lessonLevelOnlineQuestions = Question::select('sub_category_id', 'text')->where('question_category_id', 2)->get();
+        $lessonLevelOnlineQuestions = $lessonLevelOnlineQuestions->mapToGroups(function ($item, $key) {
+            return [$item['sub_category_id'] => $item];
+        });
+
         $moduleLevelCategories = Question_category::select('name')->where('form_section_id', 2)->get();
 
         $lessonLevelDataOnline = [];
@@ -37,6 +48,8 @@ class ResultsController extends Controller
 
         return view('results', [
             'lessonLevelSubcategories' => $lessonLevelSubcategories,
+            'lessonLevelPhysicalQuestions' => $lessonLevelPhysicalQuestions,
+            'lessonLevelOnlineQuestions' => $lessonLevelOnlineQuestions,
             'moduleLevelCategories' => $moduleLevelCategories,
             'lessonLevelDataOnline' => $lessonLevelDataOnline,
             'lessonLevelDataPhysical' => $lessonLevelDataPhysical,
