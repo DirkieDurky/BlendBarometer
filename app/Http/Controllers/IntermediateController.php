@@ -51,7 +51,8 @@ class IntermediateController extends Controller
             ],
         ];
 
-        if (array_key_exists($sectionName, $staticContent)) {
+        if (array_key_exists($sectionName, $staticContent)) 
+        {
             return view('intermediate', $staticContent[$sectionName]);
         }
 

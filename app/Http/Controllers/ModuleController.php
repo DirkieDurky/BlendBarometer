@@ -28,7 +28,8 @@ class ModuleController extends Controller
         $answers = session()->get('moduleLevelData', []);
 
         foreach ($request->all() as $key => $value) {
-            if (str_starts_with($key, 'question_')) {
+            if (str_starts_with($key, 'question_')) 
+            {
                 $questionId = str_replace('question_', '', $key);
                 $answers[$currentStep][$questionId] = $value;
             }
@@ -43,9 +44,12 @@ class ModuleController extends Controller
     {
         $totalSteps = Question_category::where('form_section_id', 2)->count();
 
-        if ($currentStep >= $totalSteps) {
+        if ($currentStep >= $totalSteps) 
+        {
             return redirect(route('intermediate.view', 'overzicht en resultaten'));
-        } else {
+        } 
+        else 
+        {
             return redirect(route('module-level', $currentStep + 1));
         }
     }
@@ -54,9 +58,12 @@ class ModuleController extends Controller
     {
         $this->submit($request, $currentStep);
 
-        if ($currentStep <= 1) {
+        if ($currentStep <= 1) 
+        {
             return redirect(route('intermediate.view', 'module niveau'));
-        } else {
+        } 
+        else 
+        {
             return redirect(route('module-level', $currentStep - 1));
         }
     }
