@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GraphDescription;
 use App\Models\Question;
 use App\Models\Question_category;
 use App\Models\Sub_category;
@@ -14,7 +15,8 @@ class ResultsController extends Controller
             return redirect(route('home'));
         }
 
-        $lessonLevelSubcategories = Sub_category::select('id', 'name')->where('question_category_id', 1)->get();
+        $lessonLevelPhysicalSubcategories = Sub_category::select('id', 'name')->where('question_category_id', 1)->get();
+        $lessonLevelOnlineSubcategories = Sub_category::select('id', 'name')->where('question_category_id', 1)->get();
 
         $lessonLevelPhysicalQuestions = Question::select('sub_category_id', 'text')->where('question_category_id', 1)->get();
         $lessonLevelPhysicalQuestions = $lessonLevelPhysicalQuestions->mapToGroups(function ($item, $key) {
@@ -26,7 +28,9 @@ class ResultsController extends Controller
             return [$item['sub_category_id'] => $item->text];
         });
 
-        $moduleLevelCategories = Question_category::select('name')->where('form_section_id', 2)->get();
+        $lessonLevelGeneralDescription = GraphDescription::select('description')->where('graph_type', 'lesson-level-general')->get();
+        $lessonLevelPhysicalDescriptions = GraphDescription::select('sub_category_id', 'description')->where('graph_type', 'physical')->get()->keyBy('sub_category_id');
+        $lessonLevelOnlineDescriptions = GraphDescription::select('sub_category_id', 'description')->where('graph_type', 'physical')->get()->keyBy('sub_category_id');
 
         $lessonLevelDataOnline = [];
         $lessonLevelDataPhysical = [];
@@ -47,14 +51,20 @@ class ResultsController extends Controller
             }
         }
 
+        $moduleLevelCategories = Question_category::select('name')->where('form_section_id', 2)->get();
+
         return view('results', [
-            'lessonLevelSubcategories' => $lessonLevelSubcategories,
+            'lessonLevelPhysicalSubcategories' => $lessonLevelPhysicalSubcategories,
+            'lessonLevelOnlineSubcategories' => $lessonLevelOnlineSubcategories,
             'lessonLevelPhysicalQuestions' => $lessonLevelPhysicalQuestions,
             'lessonLevelOnlineQuestions' => $lessonLevelOnlineQuestions,
-            'moduleLevelCategories' => $moduleLevelCategories,
+            'lessonLevelGeneralDescription' => $lessonLevelGeneralDescription,
+            'lessonLevelPhysicalDescriptions' => $lessonLevelPhysicalDescriptions,
+            'lessonLevelOnlineDescriptions' => $lessonLevelOnlineDescriptions,
             'lessonLevelDataOnline' => $lessonLevelDataOnline,
             'lessonLevelDataPhysical' => $lessonLevelDataPhysical,
             'lessonLevelDataAll' => $answers,
+            'moduleLevelCategories' => $moduleLevelCategories,
         ]);
     }
 

@@ -14,8 +14,7 @@
             </div>
             <div class="col">
                 <strong>Lesniveau - Algemeen</strong>
-                <p class="mb-0">Deze grafiek geeft een overzicht van de hoeveelheid punten gescoord voor Deel 1:
-                    Lesniveau in het algemeen</p>
+                <p class="mb-0">{{ $lessonLevelGeneralDescription[0]->description }}</p>
             </div>
         </div>
     </div>
@@ -23,28 +22,28 @@
     <div class="d-flex flex-row gap-4">
         <div class="d-flex flex-column gap-3">
             <h2>Fysieke leeractiviteiten</h2>
-            @foreach ($lessonLevelSubcategories as $category)
+            @foreach ($lessonLevelPhysicalSubcategories as $category)
                 <div class="card graph-card p-3">
                     <canvas id="physical-{{ $category->id }}" class="bg-white rounded mb-2"></canvas>
                     <strong>{{ $category->name }}</strong>
-                    <p class="mb-0">Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua.</p>
+                    <p class="mb-0">{{ $lessonLevelPhysicalDescriptions[$category->id]->description }}</p>
                 </div>
             @endforeach
         </div>
         <div class="d-flex flex-column gap-3">
             <h2>Online leeractiviteiten</h2>
-            @foreach ($lessonLevelSubcategories as $category)
+            @foreach ($lessonLevelOnlineSubcategories as $category)
                 <div class="card graph-card p-3">
                     <canvas id="online-{{ $category->id }}" class="bg-white rounded mb-2"></canvas>
                     <strong>{{ $category->name }}</strong>
-                    <p class="mb-0">Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua.</p>
+                    <p class="mb-0">{{ $lessonLevelOnlineDescriptions[$category->id]->description }}</p>
                 </div>
             @endforeach
         </div>
     </div>
     <x-navigation-buttons :previous="route('overview-and-results-info')" :next="route('overview-and-send')" />
     <script>
-        const lessonLevelSubcategories = {!! json_encode($lessonLevelSubcategories) !!};
+        const lessonLevelSubcategories = {!! json_encode($lessonLevelPhysicalSubcategories) !!};
 
         const lessonLevelPhysicalQuestions = {!! json_encode($lessonLevelPhysicalQuestions) !!};
         const lessonLevelOnlineQuestions = {!! json_encode($lessonLevelOnlineQuestions) !!};
