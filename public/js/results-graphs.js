@@ -115,11 +115,10 @@ const moduleLevelCategoriesGraph = document.getElementById('moduleLevelCategorie
 
 let outerLabels = [];
 let outerData = [];
-let outerColors = [];
+let outerColors = ['rgb(221, 221, 221)', 'rgb(235, 235, 235)', 'rgb(248, 248, 248)'];
 for (const [key, value] of Object.entries(moduleLevelCategories)) {
     outerLabels.push(key);
     outerData.push(value.length);
-    outerColors.push('rgb(209, 209, 209)');
 }
 
 const moduleLevelDataArray = [];

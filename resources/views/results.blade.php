@@ -50,6 +50,18 @@
         </div>
         <strong>Moduleniveau</strong>
         <p class="mb-0">{{ $moduleLevelGeneralDescription[0]->description }}</p>
+        <div class="d-flex justify-content-center row">
+            <b class="mt-3 mb-1">Legenda</b>
+            <?php $index = 1; ?>
+            @foreach ($moduleLevelCategories as $category => $descriptionArray)
+                @foreach ($descriptionArray as $description)
+                    <div class="col-5">
+                        <b>{{ $index }}.</b> {{ $description }}
+                    </div>
+                    <?php $index++; ?>
+                @endforeach
+            @endforeach
+        </div>
     </div>
     <x-navigation-buttons :previous="route('overview-and-results-info')" :next="route('overview-and-send')" />
     <script>
