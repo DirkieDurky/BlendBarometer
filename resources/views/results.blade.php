@@ -40,6 +40,7 @@
 
         const lessonLevelDataOnline = {!! json_encode($lessonLevelDataOnline) !!};
         const lessonLevelDataPhysical = {!! json_encode($lessonLevelDataPhysical) !!};
+        const lessonLevelDataAll = {!! json_encode($lessonLevelDataAll) !!};
         const moduleLevelData = {!! json_encode(session()->get('moduleLevelData')) !!};
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

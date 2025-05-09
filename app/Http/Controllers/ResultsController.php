@@ -31,7 +31,8 @@ class ResultsController extends Controller
         $lessonLevelDataOnline = [];
         $lessonLevelDataPhysical = [];
 
-        foreach (session()->get("lessonLevelData") as $answerPage) {
+        $answers = session()->get("lessonLevelData");
+        foreach ($answers as $answerPage) {
             $question = Question::where('id', key($answerPage))->select('question_category_id', 'sub_category_id');
             $total = 0;
 
@@ -53,6 +54,7 @@ class ResultsController extends Controller
             'moduleLevelCategories' => $moduleLevelCategories,
             'lessonLevelDataOnline' => $lessonLevelDataOnline,
             'lessonLevelDataPhysical' => $lessonLevelDataPhysical,
+            'lessonLevelDataAll' => $answers,
         ]);
     }
 

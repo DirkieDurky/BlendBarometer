@@ -1,6 +1,3 @@
-console.log(lessonLevelPhysicalQuestions);
-console.log(lessonLevelOnlineQuestions);
-
 const lessonLevelGraph = document.getElementById('lessonLevel');
 
 new Chart(lessonLevelGraph, {
@@ -27,6 +24,7 @@ new Chart(lessonLevelGraph, {
     }
 });
 
+console.log(lessonLevelPhysicalQuestions);
 const lessonLevelPhysicalGraph = document.getElementById('lessonLevelPhysical');
 
 new Chart(lessonLevelPhysicalGraph, {
