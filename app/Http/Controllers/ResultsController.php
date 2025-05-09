@@ -74,15 +74,12 @@ class ResultsController extends Controller
 
     public function saveChart(Request $request)
     {
-        // Retrieve the base64 image data from the incoming request
         $base64 = $request->input('image');
         
         if ($base64) {
-            // Remove the data URL part (e.g., "data:image/png;base64,")
             $base64 = str_replace('data:image/png;base64,', '', $base64);
-            $base64 = str_replace(' ', '+', $base64);  // Replace spaces with '+' as per the base64 standard
+            $base64 = str_replace(' ', '+', $base64);
             
-            // Decode the base64 string into image data
             $imageData = base64_decode($base64);
             
             // Check if base64 decoding succeeded
@@ -91,14 +88,11 @@ class ResultsController extends Controller
             }
 
             // Define the path where the image will be saved
-            $imagePath = 'images/temp/' . 'chart' . '.png';  // Example: charts/uniqueid.png
+            $imagePath = 'images/temp/' . 'chart' . '.png';
             
-            // Use Laravel's Storage facade to save the image data
             $saved = Storage::disk('public')->put($imagePath, $imageData);
 
-            // Check if the image was saved successfully
             if ($saved) {
-                // Return a success response with the image path
                 return response()->json(['message' => 'Image saved successfully', 'path' => $imagePath]);
             } else {
                 return response()->json(['error' => 'Failed to save image'], 500);
