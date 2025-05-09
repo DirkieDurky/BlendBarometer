@@ -226,7 +226,12 @@ new Chart(moduleLevelDataGraph, {
                 }
             },
             tooltip: {
-                enabled: false
+                enabled: false,
+                position: 'nearest',
+                external: externalTooltipHandler
+                // callbacks: {
+                //     footer: footer,
+                // }
             },
         },
         radius: '60%',
