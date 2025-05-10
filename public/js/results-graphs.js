@@ -100,17 +100,6 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
     });
 }
 
-// const moduleLevelDataArray = [];
-// for (const [_, item] of Object.entries(moduleLevelData)) {
-//     let section = [];
-//     for (const [_, item2] of Object.entries(item)) {
-//         section.push(parseInt(item2));
-//     }
-//     moduleLevelDataArray.push(section);
-// }
-
-// console.log(moduleLevelCategories);
-
 const moduleLevelCategoriesGraph = document.getElementById('moduleLevelCategoriesGraph');
 
 let outerLabels = [];
@@ -131,9 +120,6 @@ for (const [_, item] of Object.entries(moduleLevelData)) {
 const moduleLevelDataGraph = document.getElementById('moduleLevelDataGraph');
 
 innerLabels = [];
-// for (const [key, value] of Object.entries(moduleLevelCategories)) {
-//     labels = labels.concat(value);
-// }
 for (let i = 0; i < moduleLevelDataArray.length; i++) {
     innerLabels.push(i + 1);
 }
@@ -229,9 +215,6 @@ new Chart(moduleLevelDataGraph, {
                 enabled: false,
                 position: 'nearest',
                 external: externalTooltipHandler
-                // callbacks: {
-                //     footer: footer,
-                // }
             },
         },
         radius: '60%',

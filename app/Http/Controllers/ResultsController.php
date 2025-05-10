@@ -52,8 +52,6 @@ class ResultsController extends Controller
             }
         }
 
-        // $moduleLevelCategories = Question_category::select('name')->where('form_section_id', 2)->get();
-        // $moduleLevelQuestions = Question::select('question_category_id', 'text')->where()
         $moduleLevelCategories = Question_category::join('question', 'question_category.id', '=', 'question.question_category_id')
             ->select('question_category.name', 'question.text')
             ->where('form_section_id', 2)
