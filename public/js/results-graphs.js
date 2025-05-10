@@ -44,7 +44,10 @@ new Chart(lessonLevelOnlineGraph,{
                     'X-CSRF-TOKEN': csrfToken, // Include the CSRF token
                 },
                 body: JSON.stringify({ image: base64Image })
+                }).then(response => {
+                console.log('Image sent to server');
                 }).catch(error => {
+                console.log('Error:', error);
                 });
             }
         },

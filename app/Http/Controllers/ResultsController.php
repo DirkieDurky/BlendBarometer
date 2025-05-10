@@ -74,11 +74,12 @@ class ResultsController extends Controller
 
     public function saveChart(Request $request)
     {
+        // Retrieve the base64 image data from the incoming request
         $base64 = $request->input('image');
         
         if ($base64) {
             $base64 = str_replace('data:image/png;base64,', '', $base64);
-            $base64 = str_replace(' ', '+', $base64);
+            $base64 = str_replace(' ', '+', $base64);  // Replace spaces with '+' as per the base64 standard
             
             $imageData = base64_decode($base64);
             
