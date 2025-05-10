@@ -1,26 +1,5 @@
 const lessonLevelGraph = document.getElementById('lessonLevel');
 
-// onComplete: function () {
-//     const base64Image = this.toBase64Image();
-//     console.log(base64Image);  // Log the base64 string
-
-//     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-//     // Send the image to the backend with the CSRF token
-//     fetch('/SaveChart', {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'X-CSRF-TOKEN': csrfToken, // Include the CSRF token
-//     },
-//     body: JSON.stringify({ image: base64Image })
-//     }).then(response => {
-//     console.log('Image sent to server');
-//     }).catch(error => {
-//     console.log('Error:', error);
-//     });
-// }
-
 new Chart(lessonLevelGraph, {
     type: 'radar',
     data: {
@@ -116,6 +95,27 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
                     suggestedMin: 0,
                     suggestedMax: 2
                 }
+            },
+            animation:{
+                onComplete: function () {
+                const base64Image = this.toBase64Image();
+
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                // Send the image to the backend with the CSRF token
+                fetch('/SaveChart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken, 
+                    },
+                    body: JSON.stringify({ image: base64Image, name: 'chart' + category.id })
+                }).then(response => {
+                console.log('Image sent to server');
+                }).catch(error => {
+                console.log('Error:', error);
+                });
+            }
             }
         }
     });

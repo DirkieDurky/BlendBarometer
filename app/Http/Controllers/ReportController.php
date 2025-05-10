@@ -8,6 +8,7 @@ use PhpOffice\PhpWord\SimpleType\Jc;
 use App\Models\Content;
 use PhpOffice\PhpWord\Style\Image;
 use App\Models\Sub_category;
+use Illuminate\Support\Facades\Storage;
 
 class ReportController extends Controller
 {
@@ -47,6 +48,7 @@ class ReportController extends Controller
         $tempFile = tempnam(sys_get_temp_dir(), $fileName);
         $writer->save($tempFile);
 
+        $this->unlinkImages(); // here because else the images dont work
         return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
     }
 
@@ -238,7 +240,9 @@ class ReportController extends Controller
         $table->addRow();
         $cell1 = $table->addCell(6000);
         $cell2 = $table->addCell(6000);
-        $imagePath = storage_path('app/public/images/temp/chart.png');
+
+        $imageRelativePath = 'images/temp/chart1.png';
+        $imagePath = Storage::disk('public')->path($imageRelativePath); 
         if($name1Here && file_exists($imagePath))
         {
             $cell1->addImage($imagePath, [
@@ -379,6 +383,12 @@ class ReportController extends Controller
         ], [
             'alignment' => Jc::END,
         ]);
+    }
+
+    //TODO make function
+    function unlinkImages()
+    {
+
     }
 
 }

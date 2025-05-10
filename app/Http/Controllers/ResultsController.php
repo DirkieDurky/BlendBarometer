@@ -110,6 +110,7 @@ class ResultsController extends Controller
     {
         // Retrieve the base64 image data from the incoming request
         $base64 = $request->input('image');
+        $name = $request->input('name');
         
         if ($base64) {
             $base64 = str_replace('data:image/png;base64,', '', $base64);
@@ -123,7 +124,7 @@ class ResultsController extends Controller
             }
 
             // Define the path where the image will be saved
-            $imagePath = 'images/temp/' . 'chart' . '.png';
+            $imagePath = 'images/temp/' . $name . '.png';
             
             $saved = Storage::disk('public')->put($imagePath, $imageData);
 
