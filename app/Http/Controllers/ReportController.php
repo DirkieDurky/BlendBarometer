@@ -73,7 +73,7 @@ class ReportController extends Controller
         $date = now()->format('d-m-Y');
         $summary = session('summary');
 
-        $html = View::make('tussen-rapport-email', compact('name', 'emailParticipant', 'academy', 'module', 'date', 'summary'))->render();
+        $html = View::make('intermediate-report-email', compact('name', 'emailParticipant', 'academy', 'module', 'date', 'summary'))->render();
 
         $receiver = Receiver_of_academy::where('academy_name', session('academy'))->first();
 
