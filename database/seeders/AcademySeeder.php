@@ -18,7 +18,7 @@ class AcademySeeder extends Seeder
         Academy::query()->delete();
         $academies = [
             ['name' => 'Academie voor Management en Finance'],
-            ['name' => 'Academie voor business en Entrepeneurship'],
+            ['name' => 'Academie voor Business en Entrepeneurship'],
             ['name' => 'Academie voor Welzijn, Educatie en Gezondheid'],
             ['name' => 'Academie voor Technologie en Innovatie'],
             ['name' => 'Academie voor Technologie en Design'],
@@ -28,7 +28,7 @@ class AcademySeeder extends Seeder
             ['name' => 'Academie voor Management, Bestuur en Finance'],
             ['name' => 'Academie voor Welzijn en Gezondheid'],
             ['name' => 'Academie voor Waardecreatie en Ondernemerschap'],
-            ['name' => 'Avand Creative Innovation'],
+            ['name' => 'Avans Creative Innovation'],
             ['name' => 'Academie voor Life Schiences en Technologie'],
         ];
 
