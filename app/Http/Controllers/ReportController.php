@@ -213,25 +213,27 @@ class ReportController extends Controller
             $page->addText('Grafiek niet gevonden.');
         }
 
-        //second page
-        $page = $this->createPage($phpWord);
-        $this->addStandardHeaderFooter($page);
-
-        $table = $page->addTable([
-            'alignment' => Jc::CENTER,
-        ]);
-
         $list1 = Sub_category::where('question_category_id', 1)->pluck('name');
         $list2 = Sub_category::where('question_category_id', 2)->pluck('name');
-
-        $table->addRow();
-        $table->addCell(6000)->addText('Fysieke leeractiviteiten', ['alignment' => Jc::START, 'bold' => true, 'size' => 15]);
-        $table->addCell(6000)->addText('Online leeractiviteiten', ['alignment' => Jc::END, 'bold' => true, 'size' => 15]);
 
         $i = 0;
         $looping = true;
         while($looping)
         {
+            if(($i) % 2 == 0)
+            {
+                $page = $this->createPage($phpWord);
+                $this->addStandardHeaderFooter($page);
+                $table = $page->addTable([
+                    'alignment' => Jc::CENTER,
+                ]);
+                $table->addRow();
+                if($i == 0)
+                {
+                    $table->addCell(6000)->addText('Fysieke leeractiviteiten', ['alignment' => Jc::START, 'bold' => true, 'size' => 15]);
+                    $table->addCell(6000)->addText('Online leeractiviteiten', ['alignment' => Jc::END, 'bold' => true, 'size' => 15]);
+                }
+            }
             $name1 = null;
             $name2 = null;
             if($i < $list1->count())
@@ -377,11 +379,13 @@ class ReportController extends Controller
 
         if($name1Here)
         {
+            $cell1->addTextBreak(1);
             $this->addGraph($imagePath1, $cell1);
         }
 
         if($name2Here)
         {
+            $cell2->addTextBreak(1);
             $this->addGraph($imagePath2, $cell2);
         }
 
@@ -403,10 +407,12 @@ class ReportController extends Controller
         if($name1Here)
         {
             $cell1->addText('Notities: .........................................................',['alignment' => Jc::START]);
+            $cell1->addTextBreak(3);
         }
         if($name2 != null)
         {
             $cell2->addText('Notities: .........................................................',['alignment' => Jc::END]);
+            $cell2->addTextBreak(3);
         }
     }
 
