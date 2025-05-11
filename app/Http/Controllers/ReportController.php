@@ -380,13 +380,13 @@ class ReportController extends Controller
 
         if($name1Here)
         {
-            $cell1->addTextBreak(1);
+            $cell1->addTextBreak(2);
             $this->addGraph($imagePath1, $cell1);
         }
 
         if($name2Here)
         {
-            $cell2->addTextBreak(1);
+            $cell2->addTextBreak(2);
             $this->addGraph($imagePath2, $cell2);
         }
 
