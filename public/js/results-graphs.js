@@ -36,9 +36,9 @@ new Chart(lessonLevelGraph, {
                     },
                     body: JSON.stringify({ image: base64Image, name: 'radar' })
                 }).then(response => {
-                console.log('Image sent to server');
+
                 }).catch(error => {
-                console.log('Error:', error);
+
                 });
             }
         }
@@ -99,9 +99,9 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
                         },
                         body: JSON.stringify({ image: base64Image, name: 'physical' + category.name })
                     }).then(response => {
-                    console.log('Image sent to server');
+
                     }).catch(error => {
-                    console.log('Error:', error);
+
                     });
                 }
             }
@@ -153,9 +153,9 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
                     },
                     body: JSON.stringify({ image: base64Image, name: 'online' + category.name })
                 }).then(response => {
-                console.log('Image sent to server');
+
                 }).catch(error => {
-                console.log('Error:', error);
+
                 });
             }
             }
@@ -258,9 +258,7 @@ new Chart(moduleLevelCategoriesGraph, {
                     },
                     body: JSON.stringify({ image: base64Image, name: 'wheelOutside' })
                 }).then(response => {
-                console.log('Image sent to server');
                 }).catch(error => {
-                console.log('Error:', error);
                 });
             }
         }
@@ -317,9 +315,9 @@ new Chart(moduleLevelDataGraph, {
                     },
                     body: JSON.stringify({ image: base64Image, name: 'wheelInside' })
                 }).then(response => {
-                console.log('Image sent to server');
+
                 }).catch(error => {
-                console.log('Error:', error);
+
                 });
             }
         }
