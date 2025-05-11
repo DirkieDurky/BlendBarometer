@@ -305,8 +305,8 @@ class ReportController extends Controller
             imagedestroy($finalImage);
 
             $page->addImage($combinedPath, [
-                'width' => 500,
-                'height' => 500,
+                'width' => 350,
+                'height' => 350,
                 'alignment' => Jc::CENTER,
             ]);
             $page->addText('Moduleniveau', ['alignment' => Jc::START, 'bold' => true, 'size' => 13]);
@@ -319,7 +319,6 @@ class ReportController extends Controller
             ->pluck('question.text')
             ->all();
 
-            $page = $this->createPage($phpWord);
             $page->addText('Legenda', ['alignment' => Jc::START, 'bold' => true, 'size' => 13]);
             $legend = $page->addTable();
 
@@ -512,7 +511,6 @@ class ReportController extends Controller
         ]);
     }
 
-    //TODO make function
     function unlinkImages()
     {
         $folderPath = storage_path('app/public/images/temp');
