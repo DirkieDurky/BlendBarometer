@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Question_category;
 use App\Models\GraphDescription;
 use Illuminate\Support\Facades\File;
+use Carbon\Carbon;
 
 class ReportController extends Controller
 {
@@ -88,7 +89,7 @@ class ReportController extends Controller
 
         $section->addTextBreak(1);
 
-        $month = \Carbon\Carbon::now()->locale('nl')->isoFormat('MMMM YYYY');
+        $month = Carbon::now()->locale('nl')->isoFormat('MMMM YYYY');
 
         $section->addText('Tussenrapport - '. session('module'),['size' => $titleFontSize, 'bold' => true, 'color' => 'white'],['alignment' => Jc::CENTER]);
         $section->addText('Blended Learning • '. $month,['size' => 15, 'color' => 'white'],['alignment' => Jc::CENTER]);
@@ -156,7 +157,7 @@ class ReportController extends Controller
 
         $page->addTitle('Over module',1, $this->pageNumber);
         $date = now()->translatedFormat('j F Y');
-        $moduleText = sprintf("Op %s heeft %s de barometer ingevuld voor de module %s van opleiding %s aan de %s.", $date, session('name'),session('module'),session('course'),session('academy'));
+        $moduleText = sprintf("Op %s heeft %s de barometer ingevuld voor de module %s van opleiding %s aan de %s.", Carbon::now()->locale('nl')->isoFormat('DD MMMM YYYY'), session('name'),session('module'),session('course'),session('academy'));
         $page->addText($moduleText, [
             'color' => '888888',
             'lineHeight' => 1.5, 
