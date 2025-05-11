@@ -6,7 +6,7 @@ use App\Models\Receiver;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class receiverSeeder extends Seeder
+class ReceiverSeeder extends Seeder
 {
     /**
      * Run the database seeds.
