@@ -234,10 +234,12 @@ class ReportController extends Controller
         {
             $name1 = null;
             $name2 = null;
-            if($i < $list1->count()){
+            if($i < $list1->count())
+            {
                 $name1 = $list1[$i];
             }
-            if($i < $list2->count()){
+            if($i < $list2->count())
+            {
                 $name2 = $list2[$i];
             }
             $this->newGraphRow($table, $name1, $name2);
@@ -323,7 +325,8 @@ class ReportController extends Controller
 
             $legend = $page->addTable();
 
-            for ($j = 0; $j < count($items); $j += 2) {
+            for ($j = 0; $j < count($items); $j += 2) 
+            {
                 $legend->addRow();
 
                 // First cell
@@ -334,10 +337,13 @@ class ReportController extends Controller
                 $legend->addCell($this->paddingWidth)->addText('', []);
 
                 // Second cell
-                if (isset($items[$j + 1])) {
+                if (isset($items[$j + 1])) 
+                {
                     $legend->addCell(300)->addText((string)$j + 2, $this->labelStyle);
                     $legend->addCell(4000)->addText($this->sanitizeText($items[$j + 1]), $this->valueStyle);
-                } else {
+                } 
+                else 
+                {
                     $legend->addCell(200)->addText('', $this->labelStyle);
                     $legend->addCell(5000)->addText('', $this->valueStyle);
                 }
@@ -349,12 +355,14 @@ class ReportController extends Controller
         }
     }
 
-    private function sanitizeText($text) {
+    private function sanitizeText($text) 
+    {
         if (!is_string($text)) return '';
         return preg_replace('/[[:^print:]]/', '', $text); // Removes control characters
     }
 
-    private function newGraphRow($table, $name1, $name2){
+    private function newGraphRow($table, $name1, $name2)
+    {
         $name1Here = $name1 != null;
         $name2Here = $name2 != null;
 
@@ -436,7 +444,8 @@ class ReportController extends Controller
         $page->addText('&lt;vul hier in&gt;');
     }
 
-    private function createPage($phpWord){
+    private function createPage($phpWord)
+    {
         $this->pageNumber += 1;
         return $phpWord->addSection([
             'marginTop' => 400,
@@ -508,10 +517,12 @@ class ReportController extends Controller
     {
         $folderPath = storage_path('app/public/images/temp');
 
-        if (File::exists($folderPath)) {
+        if (File::exists($folderPath)) 
+        {
             $files = File::files($folderPath);
     
-            foreach ($files as $file) {
+            foreach ($files as $file) 
+            {
                 File::delete($file);
             }
         }
