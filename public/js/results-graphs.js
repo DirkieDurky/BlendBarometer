@@ -20,6 +20,27 @@ new Chart(lessonLevelGraph, {
             r: {
                 min: 0,
             }
+        },
+        animation:{
+            onComplete: function () {
+                const base64Image = this.toBase64Image();
+
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                // Send the image to the backend with the CSRF token
+                fetch('/SaveChart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken, 
+                    },
+                    body: JSON.stringify({ image: base64Image, name: 'radar' })
+                }).then(response => {
+                console.log('Image sent to server');
+                }).catch(error => {
+                console.log('Error:', error);
+                });
+            }
         }
     }
 });
@@ -61,6 +82,27 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
                 y: {
                     suggestedMin: 0,
                     suggestedMax: 2
+                }
+            },
+            animation:{
+                onComplete: function () {
+                    const base64Image = this.toBase64Image();
+
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                    // Send the image to the backend with the CSRF token
+                    fetch('/SaveChart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken, 
+                        },
+                        body: JSON.stringify({ image: base64Image, name: 'physical' + category.name })
+                    }).then(response => {
+                    console.log('Image sent to server');
+                    }).catch(error => {
+                    console.log('Error:', error);
+                    });
                 }
             }
         }
@@ -109,7 +151,7 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken, 
                     },
-                    body: JSON.stringify({ image: base64Image, name: 'chart' + category.id })
+                    body: JSON.stringify({ image: base64Image, name: 'online' + category.name })
                 }).then(response => {
                 console.log('Image sent to server');
                 }).catch(error => {
@@ -175,6 +217,7 @@ new Chart(moduleLevelCategoriesGraph, {
             backgroundColor: outerColors,
         }]
     },
+    plugins: [ChartDataLabels],
     options: {
         responsive: true,
         plugins: {
@@ -200,8 +243,28 @@ new Chart(moduleLevelCategoriesGraph, {
         },
         cutout: '75%',
         radius: '76%',
+        animation:{
+            onComplete: function () {
+                const base64Image = this.toBase64Image();
+
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                // Send the image to the backend with the CSRF token
+                fetch('/SaveChart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken, 
+                    },
+                    body: JSON.stringify({ image: base64Image, name: 'wheelOutside' })
+                }).then(response => {
+                console.log('Image sent to server');
+                }).catch(error => {
+                console.log('Error:', error);
+                });
+            }
+        }
     },
-    plugins: [ChartDataLabels],
 });
 
 new Chart(moduleLevelDataGraph, {
@@ -239,6 +302,27 @@ new Chart(moduleLevelDataGraph, {
             },
         },
         radius: '60%',
+        animation:{
+            onComplete: function () {
+                const base64Image = this.toBase64Image();
+
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                // Send the image to the backend with the CSRF token
+                fetch('/SaveChart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken, 
+                    },
+                    body: JSON.stringify({ image: base64Image, name: 'wheelInside' })
+                }).then(response => {
+                console.log('Image sent to server');
+                }).catch(error => {
+                console.log('Error:', error);
+                });
+            }
+        }
     },
     plugins: [ChartDataLabels],
 });

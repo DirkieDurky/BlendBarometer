@@ -9,6 +9,9 @@ use App\Models\Content;
 use PhpOffice\PhpWord\Style\Image;
 use App\Models\Sub_category;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Question_category;
+use App\Models\GraphDescription;
+use Illuminate\Support\Facades\File;
 
 class ReportController extends Controller
 {
@@ -19,6 +22,7 @@ class ReportController extends Controller
         
     private $labelWidth = 1500;
     private $valueWidth = 3000;
+    private $paddingWidth = 300;
 
     // for adding a title so it gets added to TOC
         // $page->addTitle('<Title text>', <heading number> , $this->pageNumber); 
@@ -101,35 +105,28 @@ class ReportController extends Controller
             'alignment' => Jc::END,
         ]);
         
-        
-        $paddingWidth = 300;
-        
-        // First row
         $infotable->addRow();
         $infotable->addCell($this->labelWidth)->addText('Academie', $this->labelStyle);
         $infotable->addCell($this->valueWidth)->addText(session('academy'), $this->valueStyle);
-        $infotable->addCell($paddingWidth);
+        $infotable->addCell($this->paddingWidth);
         $infotable->addCell($this->labelWidth)->addText('Docent', $this->labelStyle);
         $infotable->addCell($this->valueWidth)->addText(session('name'), $this->valueStyle);
-        
-        // Second row
+
         $infotable->addRow();
         $infotable->addCell($this->labelWidth)->addText('Opleiding', $this->labelStyle);
         $infotable->addCell($this->valueWidth)->addText(session('course'), $this->valueStyle);
-        $infotable->addCell($paddingWidth);
+        $infotable->addCell($this->paddingWidth);
         $infotable->addCell($this->labelWidth)->addText('ICTO Coach', $this->labelStyle);
         $infotable->addCell($this->valueWidth)->addText('&lt;vul hier in&gt;', $this->valueStyle);
         
-        // Third row
         $infotable->addRow();
         $infotable->addCell($this->labelWidth)->addText('Module', $this->labelStyle);
         $infotable->addCell($this->valueWidth)->addText(session('module'), $this->valueStyle);
-        $infotable->addCell($paddingWidth);
+        $infotable->addCell($this->paddingWidth);
         $infotable->addCell($this->labelWidth)->addText('Datum', $this->labelStyle);
         $infotable->addCell($this->valueWidth)->addText(now()->format('d-m-Y'), $this->valueStyle);
     }
 
-    // TODO for layout: setting max length for information about barometer
     private function addInformationPage($phpWord)
     {
         $page = $this->createpage($phpWord);
@@ -145,10 +142,9 @@ class ReportController extends Controller
         $table->addRow();
 
         $text1 = preg_replace('/\s+/', ' ', Content::where('section_name', 'intro_description')->first()->info);
-        $text2 = preg_replace('/\s+/', ' ', Content::where('section_name', 'intro_explanation')->first()->info); // old piece that isnt used anymore but else the text was too short
 
-        $table->addCell(6500)->addText($text1 . ' ' . $text2, [
-            'color' => '888888', //i will ask a question about this color so this is a marker for this
+        $table->addCell(6500)->addText($text1, [
+            'color' => '888888',
             'lineHeight' => 1.5, 
         ]);
 
@@ -191,11 +187,31 @@ class ReportController extends Controller
 
     private function addResults($phpWord)
     {
+        $lessonLevelGeneralDescription = GraphDescription::select('description')->where('graph_type', 'lesson-level-general')->pluck('description');
+        $moduleLevelGeneralDescription = GraphDescription::select('description')->where('graph_type', 'module-level-general')->pluck('description');
         //first page
         $page = $this->createPage($phpWord);
         $this->addStandardHeaderFooter($page);
 
         $page->addTitle('Resultaten', 1 , $this->pageNumber);
+
+        $imageRelativePathRadar = 'images/temp/radar.png';
+        $imagePathRadar = Storage::disk('public')->path($imageRelativePathRadar);
+
+        if(file_exists($imagePathRadar))
+        {
+            $page->addImage($imagePathRadar, [
+                'width' => 500,
+                'height' => 500,
+                'alignment' => Jc::CENTER,
+            ]);
+            $page->addText('Lesniveau - Algemeen', ['alignment' => Jc::START, 'bold' => true, 'size' => 13]);
+            $page->addText($lessonLevelGeneralDescription[0]);
+        }
+        else
+        {
+            $page->addText('Grafiek niet gevonden.');
+        }
 
         //second page
         $page = $this->createPage($phpWord);
@@ -231,33 +247,135 @@ class ReportController extends Controller
                 $looping = false;
             }
         }
+
+        //third page
+        $page = $this->createPage($phpWord);
+
+        $imageRelativePathWheelInside = 'images/temp/wheelInside.png';
+        $imagePathWheelInside = Storage::disk('public')->path($imageRelativePathWheelInside);
+        
+        $imageRelativePathWheelOutside = 'images/temp/wheelOutside.png';
+        $imagePathWheelOutside = Storage::disk('public')->path($imageRelativePathWheelOutside);
+
+        $imageRelativePathWheelBarometerOutside = 'images/barometer-transparent.png';
+        $imagePathWheelBarometerOutside = public_path($imageRelativePathWheelBarometerOutside);
+
+        if(file_exists($imagePathWheelInside) && file_exists($imagePathWheelOutside) && file_exists($imagePathWheelBarometerOutside))
+        {
+
+            $foreground = imagecreatefrompng($imagePathWheelInside);  // Inner image
+            $background = imagecreatefrompng($imagePathWheelOutside); // Middle image
+            $border = imagecreatefrompng($imagePathWheelBarometerOutside); // Outer border
+
+            $bgWidth = imagesx($background);
+            $bgHeight = imagesy($background);
+
+            $finalImage = imagecreatetruecolor($bgWidth, $bgHeight);
+            $white = imagecolorallocate($finalImage, 255, 255, 255);
+            imagefill($finalImage, 0, 0, $white);
+
+            imagealphablending($finalImage, true);
+
+            imagecopy($finalImage, $background, 0, 0, 0, 0, $bgWidth, $bgHeight);
+
+            $foregroundWidth = imagesx($foreground);
+            $foregroundHeight = imagesy($foreground);
+            $foregroundX = ($bgWidth - $foregroundWidth) / 2;
+            $foregroundY = ($bgHeight - $foregroundHeight) / 2;
+            imagecopy($finalImage, $foreground, $foregroundX, $foregroundY, 0, 0, $foregroundWidth, $foregroundHeight);
+
+            $borderWidth = imagesx($border);
+            $borderHeight = imagesy($border);
+            $scaledBorder = imagecreatetruecolor($bgWidth, $bgHeight);
+            imagealphablending($scaledBorder, false);
+            imagesavealpha($scaledBorder, true);
+            imagecopyresampled($scaledBorder, $border, 0, 0, 0, 0, $bgWidth, $bgHeight, $borderWidth, $borderHeight);
+
+            imagecopy($finalImage, $scaledBorder, 0, 0, 0, 0, $bgWidth, $bgHeight);
+
+            $combinedPath = storage_path('app/public/images/temp/combined_with_white_background.png');
+            imagepng($finalImage, $combinedPath);
+
+            imagedestroy($foreground);
+            imagedestroy($background);
+            imagedestroy($border);
+            imagedestroy($scaledBorder);
+            imagedestroy($finalImage);
+
+            $page->addImage($combinedPath, [
+                'width' => 500,
+                'height' => 500,
+                'alignment' => Jc::CENTER,
+            ]);
+            $page->addText('Moduleniveau', ['alignment' => Jc::START, 'bold' => true, 'size' => 13]);
+            $page->addText($moduleLevelGeneralDescription[0]);
+
+
+            $items = Question_category::join('question', 'question_category.id', '=', 'question.question_category_id')
+            ->select('question.text')
+            ->whereIn('question.question_category_id',[3,4,5])
+            ->pluck('question.text')
+            ->all();
+
+            $page = $this->createPage($phpWord);
+            $page->addText('Legenda', ['alignment' => Jc::START, 'bold' => true, 'size' => 13]);
+            $legend = $page->addTable();
+
+            $legend = $page->addTable();
+
+            for ($j = 0; $j < count($items); $j += 2) {
+                $legend->addRow();
+
+                // First cell
+                $legend->addCell(300)->addText((string)$j + 1, $this->labelStyle);
+                $legend->addCell(4000)->addText($this->sanitizeText($items[$j]), $this->valueStyle);
+
+                // Spacer
+                $legend->addCell($this->paddingWidth)->addText('', []);
+
+                // Second cell
+                if (isset($items[$j + 1])) {
+                    $legend->addCell(300)->addText((string)$j + 2, $this->labelStyle);
+                    $legend->addCell(4000)->addText($this->sanitizeText($items[$j + 1]), $this->valueStyle);
+                } else {
+                    $legend->addCell(200)->addText('', $this->labelStyle);
+                    $legend->addCell(5000)->addText('', $this->valueStyle);
+                }
+            }
+        }
+        else
+        {
+            $page->addText('Grafiek niet gevonden.');
+        }
+    }
+
+    private function sanitizeText($text) {
+        if (!is_string($text)) return '';
+        return preg_replace('/[[:^print:]]/', '', $text); // Removes control characters
     }
 
     private function newGraphRow($table, $name1, $name2){
         $name1Here = $name1 != null;
         $name2Here = $name2 != null;
 
+        $imageRelativePath1 = 'images/temp/physical'. $name1 . '.png';
+        $imagePath1 = Storage::disk('public')->path($imageRelativePath1); 
+
+        $imageRelativePath2 = 'images/temp/online'. $name2 .'.png';
+        $imagePath2 = Storage::disk('public')->path($imageRelativePath2);
+
         $table->addRow();
         $cell1 = $table->addCell(6000);
         $cell2 = $table->addCell(6000);
 
-        $imageRelativePath = 'images/temp/chart1.png';
-        $imagePath = Storage::disk('public')->path($imageRelativePath); 
-        if($name1Here && file_exists($imagePath))
+        if($name1Here)
         {
-            $cell1->addImage($imagePath, [
-                'width' => 245,
-                'height' => 160,
-                'alignment' => Jc::START,
-            ]);
+            $this->addGraph($imagePath1, $cell1);
         }
-        if($name2Here && file_exists($imagePath))
+
+        if($name2Here)
         {
-            $cell2->addImage($imagePath, [
-                'width' => 245,
-                'height' => 160,
-                'alignment' => Jc::START,
-            ]);
+            $this->addGraph($imagePath2, $cell2);
         }
 
         $table->addRow();
@@ -388,7 +506,31 @@ class ReportController extends Controller
     //TODO make function
     function unlinkImages()
     {
+        $folderPath = storage_path('app/public/images/temp');
 
+        if (File::exists($folderPath)) {
+            $files = File::files($folderPath);
+    
+            foreach ($files as $file) {
+                File::delete($file);
+            }
+        }
+    }
+
+    function addGraph($imagePath, $cell)
+    {
+        if(file_exists($imagePath))
+        {
+            $cell->addImage($imagePath, [
+                'width' => 245,
+                'height' => 160,
+                'alignment' => Jc::START,
+            ]);
+        }
+        else
+        {
+            $cell->addText('Grafiek niet gevonden.');
+        }
     }
 
 }
