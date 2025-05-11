@@ -25,21 +25,19 @@ class ReportController extends Controller
     private $valueWidth = 3000;
     private $paddingWidth = 300;
 
-    // for adding a title so it gets added to TOC
-        // $page->addTitle('<Title text>', <heading number> , $this->pageNumber); 
     public function sendReport()
     {
         $phpWord = new PhpWord();
         $phpWord->addTitleStyle(
-            1, // Heading level
-            ['bold' => true, 'size' => 20, 'name' => 'Arial'], // Font style
+            1, 
+            ['bold' => true, 'size' => 20, 'name' => 'Arial'], 
         );
         $phpWord->addTitleStyle(
-            2, // Heading level
-            ['bold' => true, 'size' => 15, 'name' => 'Arial'], // Font style
+            2,
+            ['bold' => true, 'size' => 15, 'name' => 'Arial'],
         );
 
-        $fileName = 'Rapport ' . session('module') . '.docx';
+        $fileName = 'BlendBarometer rapport ' . session('module') . ' ' . now()->format('d-m-Y') . '.docx';
 
         $this->addFrontPage($phpWord);
 
@@ -53,13 +51,13 @@ class ReportController extends Controller
         $tempFile = tempnam(sys_get_temp_dir(), $fileName);
         $writer->save($tempFile);
 
-        $this->unlinkImages(); // here because else the images dont work
+        $this->unlinkImages();
         return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
     }
 
     private function addFrontPage($phpWord)
     {
-        $titleFontSize = strlen(session('module')) > 30 ? 28 : 35; //so layout stays intact with text wrapping
+        $titleFontSize = strlen(session('module')) > 30 ? 28 : 35;
 
         $this->pageNumber += 1;
         $section = $phpWord->addSection([
@@ -84,7 +82,7 @@ class ReportController extends Controller
         $imgtable = $section->addTable();
         $imgtable->addRow();
     
-        $imgtable->addCell(20000)->addImage(public_path('images/logo-avans-red.png'), ['align' => Jc::START, 'width' => 100, 'height' => 30]);
+        $imgtable->addCell(20000)->addImage(public_path('images/logo-avans-white.png'), ['align' => Jc::START, 'width' => 100, 'height' => 30]);
         $imgtable->addCell(20000)->addImage(public_path('images/report-logo.png'), ['align' => Jc::END, 'width' => 140, 'height' => 25]);
 
         $section->addTextBreak(1);
@@ -190,7 +188,7 @@ class ReportController extends Controller
     {
         $lessonLevelGeneralDescription = GraphDescription::select('description')->where('graph_type', 'lesson-level-general')->pluck('description');
         $moduleLevelGeneralDescription = GraphDescription::select('description')->where('graph_type', 'module-level-general')->pluck('description');
-        //first page
+
         $page = $this->createPage($phpWord);
         $this->addStandardHeaderFooter($page);
 
@@ -253,7 +251,6 @@ class ReportController extends Controller
             }
         }
 
-        //third page
         $page = $this->createPage($phpWord);
 
         $imageRelativePathWheelInside = 'images/temp/wheelInside.png';
@@ -268,9 +265,9 @@ class ReportController extends Controller
         if(file_exists($imagePathWheelInside) && file_exists($imagePathWheelOutside) && file_exists($imagePathWheelBarometerOutside))
         {
 
-            $foreground = imagecreatefrompng($imagePathWheelInside);  // Inner image
-            $background = imagecreatefrompng($imagePathWheelOutside); // Middle image
-            $border = imagecreatefrompng($imagePathWheelBarometerOutside); // Outer border
+            $foreground = imagecreatefrompng($imagePathWheelInside);
+            $background = imagecreatefrompng($imagePathWheelOutside);
+            $border = imagecreatefrompng($imagePathWheelBarometerOutside);
 
             $bgWidth = imagesx($background);
             $bgHeight = imagesy($background);
@@ -331,14 +328,11 @@ class ReportController extends Controller
             {
                 $legend->addRow();
 
-                // First cell
                 $legend->addCell(300)->addText((string)$j + 1, $this->labelStyle);
                 $legend->addCell(4000)->addText($this->sanitizeText($items[$j]), $this->valueStyle);
 
-                // Spacer
                 $legend->addCell($this->paddingWidth)->addText('', []);
 
-                // Second cell
                 if (isset($items[$j + 1])) 
                 {
                     $legend->addCell(300)->addText((string)$j + 2, $this->labelStyle);
@@ -360,7 +354,8 @@ class ReportController extends Controller
     private function sanitizeText($text) 
     {
         if (!is_string($text)) return '';
-        return preg_replace('/[[:^print:]]/', '', $text); // Removes control characters
+        $text = preg_replace('/\&/', 'en', $text);
+        return preg_replace('/[[:^print:]]/', '', $text);
     }
 
     private function newGraphRow($table, $name1, $name2)
@@ -463,14 +458,13 @@ class ReportController extends Controller
 
     function addStandardHeaderFooter($section)
     {
-        // --- HEADER ---
+        // --- Header ---
         $header = $section->addHeader();
         $table = $header->addTable([
             'alignment' => Jc::CENTER,
         ]);
         $table->addRow();
 
-        // Shared text style
         $headerTextStyle = [
             'bold' => true,
             'size' => 10,
@@ -495,14 +489,12 @@ class ReportController extends Controller
         $footerTable = $footer->addTable(['alignment' => Jc::CENTER]);
         $footerTable->addRow();
 
-        // Bottom Left: Logo
         $footerTable->addCell(4000)->addImage(public_path('images/logo.png'), [
             'width' => 90,
             'height' => 16,
             'alignment' => Jc::START,
         ]);
 
-        // Bottom Center: Date
         $date = now()->format('d-m-Y');
         $footerTable->addCell(3000)->addText($date, [
             'size' => 10,
@@ -510,7 +502,6 @@ class ReportController extends Controller
             'alignment' => Jc::CENTER,
         ]);
 
-        // Bottom Right: Page numbering
         $footerTable->addCell(4000)->addPreserveText('Pagina {PAGE} van {NUMPAGES}', [
             'size' => 10,
         ], [
