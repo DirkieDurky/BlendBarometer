@@ -12,7 +12,7 @@ class IntermediateController extends Controller
     {
         
         $sectionMapping = [
-            'informatie' => 'intermediate_information',
+            'gegevens' => 'intermediate_information',
             'lesniveau' => 'intermediate_lesson',
             'moduleniveau' => 'intermediate_module',
             'resultaten' => 'intermediate_results',
