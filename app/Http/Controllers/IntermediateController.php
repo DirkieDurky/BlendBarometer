@@ -10,10 +10,26 @@ class IntermediateController extends Controller
 {
     public function view($sectionName)
     {
+        
+        $sectionMapping = [
+            'informatie' => 'intermediate_information',
+            'lesniveau' => 'intermediate_lesson',
+            'moduleniveau' => 'intermediate_module',
+            'resultaten' => 'intermediate_results',
+        ];
+
+        if (array_key_exists($sectionName, $sectionMapping)) {
+            $sectionName = $sectionMapping[$sectionName];
+        } else {
+            return redirect()->route('home')->with('error', 'Invalid section name.');
+        }
+
+
         $content = Content::where('section_name', $sectionName)->firstOrFail();
 
         $staticContent = [
-            'BlendBarometer' => [
+            'intermediate_information' => [
+                'name' => 'BlendBarometer',
                 'title' => 'Hoe werkt de Blend-Barometer?',
                 'section' => 'Gegevens',
                 'description' => '',
@@ -22,7 +38,8 @@ class IntermediateController extends Controller
                 'previous' => route('home'),
                 'next' => route('information'),
             ],
-            'online en fysieke leeractiviteiten' => [
+            'intermediate_lesson' => [
+                'name' => 'online en fysieke leeractiviteiten',
                 'title' => 'Wat is de volgende stap?',
                 'section' => 'Les niveau',
                 'description' => '',
@@ -31,7 +48,8 @@ class IntermediateController extends Controller
                 'previous' => route('information'),
                 'next' => route('lesson-level', 1),
             ],
-            'module niveau' => [
+            'intermediate_module' => [
+                'name' => 'module niveau',
                 'title' => 'Wat is de volgende stap?',
                 'section' => 'Module Niveau',
                 'description' => '',
@@ -40,7 +58,8 @@ class IntermediateController extends Controller
                 'previous' => route('lesson-level', Sub_category::count()),
                 'next' => route('module-level', 1),
             ],
-            'overzicht en resultaten' => [
+            'intermediate_results' => [
+                'name' => 'overzicht en resultaten',
                 'title' => 'Wat is de volgende stap?',
                 'section' => 'Resultaten',
                 'description' => '',

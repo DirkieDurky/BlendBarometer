@@ -46,7 +46,7 @@ class ModuleController extends Controller
 
         if ($currentStep >= $totalSteps) 
         {
-            return redirect(route('intermediate.view', 'overzicht en resultaten'));
+            return redirect(route('intermediate.view', 'resultaten'));
         } 
         else 
         {
@@ -60,7 +60,7 @@ class ModuleController extends Controller
 
         if ($currentStep <= 1) 
         {
-            return redirect(route('intermediate.view', 'module niveau'));
+            return redirect(route('intermediate.view', 'moduleniveau'));
         } 
         else 
         {

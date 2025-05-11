@@ -21,6 +21,6 @@ class InformationController extends Controller
         session()->put('summary', request('summary'));
 
         $academies = Academy::all();
-        return redirect(route('intermediate.view', 'online en fysieke leeractiviteiten'));
+        return redirect(route('intermediate.view', 'lesniveau'));
     }
 }

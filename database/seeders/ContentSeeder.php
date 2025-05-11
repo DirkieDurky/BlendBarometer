@@ -21,12 +21,16 @@ class ContentSeeder extends Seeder
                 om uiteindelijk tot een kwalitatieve en harmonieuze mix van leeractiviteiten te komen.',
             ],
             [
-                'section_name' => 'BlendBarometer',
-                'info' => 'De <strong>BlendBarometer</strong> geeft aan de hand van onderstaande onderdelen een indicatie van de kwaliteit van de Blended module<br><br>
+                'section_name' => 'intermediate_information',
+                'info' => 'De <strong>BlendBarometer</strong> geeft aan de hand van onderstaande onderdelen een indicatie van de kwaliteit van de Blended module:<br><br>
+                <ul>
+                    <li>lesniveau</li>
+                    <li>moduleniveau</li>
+                </ul>
                 Dit gebeurt door middel van inzichtelijke grafieken.',
             ],
             [
-                'section_name' => 'online en fysieke leeractiviteiten',
+                'section_name' => 'intermediate_lesson',
                 'info' => 'Inventariseer welke online tools en welke fysieke werkvormen je gebruikt in je onderwijsmodule op het gebied van:<br>
                 <ul>
                     <li>samenwerken</li>
@@ -41,37 +45,23 @@ class ContentSeeder extends Seeder
                 <strong>Werkwijze:</strong> Geef per leeractiviteit aan of je dit:
                 <ul>
                     <li>niet gebruikt</li>
-                    <li>af en toe (docentafhankelijk)</li>
-                    <li>vaak (ingericht voor alle docenten)</li>
-                </ul>
-                De grafieken verschijnen op het volgende tabblad.',
-            ],
-            [
-                'section_name' => 'module niveau',
-                'info' => 'Hier worden vragen gesteld over de verhoudingen binnen je huidige Blended Learning leerarrangement,<br>
-                op module niveau. Er is een onderverdeling gemaakt met vragen vanuit drie verschillende invalshoeken:<br>
-                <strong>de samenhang, de organiseerbaarheid en de didactische uitvoering</strong>.<br><br>
-                <strong>Werkwijze:</strong> Beoordeel de blokken met:
-                <ul>
-                    <li>groen (ja dit doen we)</li>
-                    <li>oranje (dit kan beter)</li>
-                    <li>rood (dit doen we niet tot weinig)</li>
+                    <li>af en toe</li>
+                    <li>vaak</li>
                 </ul>',
             ],
             [
-                'section_name' => 'overzicht en resultaten',
-                'info' => 'Tijdens het inhoudsrijke gesprek gaan we bespreken wat de status is van de huidige Blend.<br><br>
-                Waarom zijn er bepaalde keuzes gemaakt?<br>
-                Welke kansen zie je die je kunt oppakken?<br>
-                Wat vind je dat er goed gaat en waar zie je mogelijkheden tot verbetering?<br><br>
-                De uitkomst met de bijbehorende actiepunten worden vormgegeven in een <strong>adviesrapportage</strong>.',
+                'section_name' => 'intermediate_module',
+                'info' => '<strong>Werkwijze:</strong> Beoordeel elk onderdeel van je huidige Blended Learning leerarrangement op module niveau. Kies per onderdeel één van de vier opties:<br>
+                <ul>
+                    <li>Verkennen</li>
+                    <li>Toepassen</li>
+                    <li>Duidelijk plan</li>
+                    <li>Verankerd</li>
+                </ul>',
             ],
             [
-                'section_name' => 'adviesrapport',
-                'info' => 'In dit adviesrapport staat beschreven wat de huidige status is van de kwaliteit van de Blend,
-                zowel tekstueel als visueel zodat in 1 oogopslag duidelijk is wat de uitkomst is van de meting.
-                Tevens worden er adviespunten meegegeven om tot een optimate Blend te komen die aansluit
-                bij de leeruitkomsten.',
+                'section_name' => 'intermediate_results',
+                'info' => '<strong>Let op:</strong> Op de volgende pagina worden de grafieken weergegeven die de resultaten van de ingevulde onderdelen visualiseren. Deze grafieken bieden een overzicht van de huidige status en helpen bij het bepalen van de vervolgstappen.',
             ],
         ]);
     }

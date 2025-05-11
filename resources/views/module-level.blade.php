@@ -19,7 +19,7 @@
                 - {{ $category->name }}</p>
             <h1 class="fs-3 fw-bold mb-1">{{ $category->name }}</h1>
         </div>
-        {{-- <button class="btn btn-secondary">Hulp nodig?</button> // TODO: redirect to 'tussenpagina' --}}
+        <button class="btn btn-secondary"onclick="window.location.href='{{ route('intermediate.view', 'moduleniveau') }}'">Hulp nodig?</button>
     </div>
 
     <hr />
