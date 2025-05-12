@@ -1,5 +1,6 @@
 const lessonLevelGraph = document.getElementById('lessonLevel');
 
+Chart.defaults.font.size = 16;
 new Chart(lessonLevelGraph, {
     type: 'radar',
     data: {
@@ -21,7 +22,7 @@ new Chart(lessonLevelGraph, {
                 min: 0,
             }
         },
-        animation:{
+        animation: {
             onComplete: function () {
                 const base64Image = this.toBase64Image();
 
@@ -32,7 +33,7 @@ new Chart(lessonLevelGraph, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken, 
+                        'X-CSRF-TOKEN': csrfToken,
                     },
                     body: JSON.stringify({ image: base64Image, name: 'radar' })
                 }).then(response => {
@@ -41,7 +42,27 @@ new Chart(lessonLevelGraph, {
 
                 });
             }
-        }
+        },
+        scales: {
+            r: {
+                pointLabels: {
+                    font: {
+                        size: 16
+                    }
+                },
+                angleLines: {
+                    lineWidth: 2,
+                },
+                grid: {
+                    lineWidth: 2,
+                }
+            }
+        },
+        scale: {
+            ticks: {
+                precision: 0
+            }
+        },
     }
 });
 
@@ -82,9 +103,14 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
                 y: {
                     suggestedMin: 0,
                     suggestedMax: 2
+                },
+            },
+            scale: {
+                ticks: {
+                    precision: 0
                 }
             },
-            animation:{
+            animation: {
                 onComplete: function () {
                     const base64Image = this.toBase64Image();
 
@@ -95,7 +121,7 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken, 
+                            'X-CSRF-TOKEN': csrfToken,
                         },
                         body: JSON.stringify({ image: base64Image, name: 'physical' + category.name })
                     }).then(response => {
@@ -138,26 +164,31 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
                     suggestedMax: 2
                 }
             },
-            animation:{
+            scale: {
+                ticks: {
+                    precision: 0
+                }
+            },
+            animation: {
                 onComplete: function () {
-                const base64Image = this.toBase64Image();
+                    const base64Image = this.toBase64Image();
 
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                // Send the image to the backend with the CSRF token
-                fetch('/SaveChart', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken, 
-                    },
-                    body: JSON.stringify({ image: base64Image, name: 'online' + category.name })
-                }).then(response => {
+                    // Send the image to the backend with the CSRF token
+                    fetch('/SaveChart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify({ image: base64Image, name: 'online' + category.name })
+                    }).then(response => {
 
-                }).catch(error => {
+                    }).catch(error => {
 
-                });
-            }
+                    });
+                }
             }
         }
     });
@@ -243,7 +274,7 @@ new Chart(moduleLevelCategoriesGraph, {
         },
         cutout: '75%',
         radius: '76%',
-        animation:{
+        animation: {
             onComplete: function () {
                 const base64Image = this.toBase64Image();
 
@@ -254,7 +285,7 @@ new Chart(moduleLevelCategoriesGraph, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken, 
+                        'X-CSRF-TOKEN': csrfToken,
                     },
                     body: JSON.stringify({ image: base64Image, name: 'wheelOutside' })
                 }).then(response => {
@@ -300,7 +331,7 @@ new Chart(moduleLevelDataGraph, {
             },
         },
         radius: '60%',
-        animation:{
+        animation: {
             onComplete: function () {
                 const base64Image = this.toBase64Image();
 
@@ -311,7 +342,7 @@ new Chart(moduleLevelDataGraph, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken, 
+                        'X-CSRF-TOKEN': csrfToken,
                     },
                     body: JSON.stringify({ image: base64Image, name: 'wheelInside' })
                 }).then(response => {
