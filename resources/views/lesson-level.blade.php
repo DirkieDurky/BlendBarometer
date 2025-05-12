@@ -1,4 +1,8 @@
-<x-progress-step section="Les niveau" title="Vragen op les niveau" description="" current_step_name="lessonLevel">
+<x-progress-step section="Les niveau" 
+                 title="Vragen op les niveau" 
+                 description="" 
+                 current_step_name="lessonLevel">
+                 
     <div class="mb-3">
         <div class="progress" style="height: 10px;">
             <div class="progress-bar bg-success"
@@ -17,7 +21,7 @@
             <h1 class="fs-3 fw-bold mb-1">{{ $subCategory->name }}</h1>
             <p class="text-muted">Hoe vaak gebruik je ...</p>
         </div>
-        {{-- <button class="btn btn-secondary">Hulp nodig?</button> // TODO: redirect to 'tussenpagina' --}}
+        <button class="btn btn-secondary" onclick="window.location.href='{{ route('intermediate.view', 'lesniveau') }}'">Hulp nodig?</button>
     </div>
 
     <form method="POST" action="{{ route('lesson-level.submit', $currentStep) }}">

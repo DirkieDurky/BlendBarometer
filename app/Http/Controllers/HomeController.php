@@ -22,38 +22,52 @@ class HomeController extends Controller
         $hasModule = session()->has('moduleLevelData') && is_array(session('moduleLevelData')) && count(session('moduleLevelData')) > 0;
 
         // decide the route of the "ga verder" button
-        if ($hasLesson) {
+        if ($hasLesson) 
+        {
             $lessonData = session('lessonLevelData');
             $lastLesson = max(array_keys($lessonData));
             $totalLessons = Sub_category::count();
 
-            if ($lastLesson < $totalLessons) {
+            if ($lastLesson < $totalLessons) 
+            {
                 // not all les-niveau steps completed
                 $continueRoute = route('lesson-level', $lastLesson + 1);
-            } else {
+            } 
+            else 
+            {
                 // les-niveau complete, look at module-niveau
-                if ($hasModule) {
+                if ($hasModule) 
+                {
                     $moduleData = session('moduleLevelData');
                     $lastModule = max(array_keys($moduleData));
                     $totalModules = Question_category::where('form_section_id', self::MODULE_INDEX)->count();
 
-                    if ($lastModule < $totalModules) {
+                    if ($lastModule < $totalModules) 
+                    {
                         $continueRoute = route('module-level', $lastModule + 1);
-                    } else {
+                    } 
+                    else 
+                    {
                         // everything comlete -> to results
-                        $continueRoute = route('overview-and-results-info');
+                        $continueRoute = route('intermediate.view', 'resultaten');
                     }
-                } else {
+                } 
+                else 
+                {
                     // module-niveau not started, first question page
-                    $continueRoute = route('module-level', 1);
+                    $continueRoute = route('intermediate.view', 'moduleniveau');
                 }
             }
-        } elseif ($hasInfo) {
+        } 
+        else if ($hasInfo) 
+        {
             // info completed, les-niveau not started, first question page
-            $continueRoute = route('lesson-level', 1);
-        } else {
+            $continueRoute = route('intermediate.view', 'lesniveau');
+        } 
+        else 
+        {
             // no data in session -> to information
-            $continueRoute = route('information');
+            $continueRoute = route('intermediate.view', 'gegevens');
         }
 
         // decide button tekst

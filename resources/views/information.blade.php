@@ -69,6 +69,6 @@
             </div>
         </section>
 
-        <x-navigation-buttons-with-submit :previous="route('home')"/>
+        <x-navigation-buttons-with-submit :previous="route('intermediate.view', 'gegevens')"/>
     </form>
 </x-progress-step>

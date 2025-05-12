@@ -11,7 +11,8 @@ class ResultsController extends Controller
 {
     public function view()
     {
-        if ($this->hasInsufficientData()) {
+        if ($this->hasInsufficientData()) 
+        {
             return redirect(route('home'));
         }
 
@@ -37,17 +38,22 @@ class ResultsController extends Controller
         $lessonLevelDataPhysical = [];
 
         $answers = session()->get("lessonLevelData");
-        foreach ($answers as $answerPage) {
+        foreach ($answers as $answerPage) 
+        {
             $question = Question::where('id', key($answerPage))->select('question_category_id', 'sub_category_id');
             $total = 0;
 
-            foreach ($answerPage as $answer) {
+            foreach ($answerPage as $answer) 
+            {
                 $total += $answer;
             }
 
-            if ($question->value('question_category_id') == 1) {
+            if ($question->value('question_category_id') == 1) 
+            {
                 $lessonLevelDataOnline[] = $total;
-            } elseif ($question->value('question_category_id') == 2) {
+            } 
+            else if ($question->value('question_category_id') == 2) 
+            {
                 $lessonLevelDataPhysical[] = $total;
             }
         }
@@ -79,7 +85,8 @@ class ResultsController extends Controller
 
     public function overviewAndResultsInfoView()
     {
-        if ($this->hasInsufficientData()) {
+        if ($this->hasInsufficientData()) 
+        {
             return redirect(route('home'));
         }
 
@@ -89,7 +96,8 @@ class ResultsController extends Controller
 
     public function overviewAndSendView()
     {
-        if ($this->hasInsufficientData()) {
+        if ($this->hasInsufficientData()) 
+        {
             return redirect(route('home'));
         }
 
