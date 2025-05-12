@@ -1,4 +1,8 @@
-<x-progress-step section="Les niveau" title="Vragen op les niveau" description="" current_step_name="lessonLevel">
+<x-progress-step section="Les niveau" 
+                 title="Vragen op les niveau" 
+                 description="" 
+                 current_step_name="lessonLevel">
+                 
     <div class="mb-3">
         <div class="progress" style="height: 10px;">
             <div class="progress-bar bg-success"
@@ -17,7 +21,7 @@
             <h1 class="fs-3 fw-bold mb-1">{{ $subCategory->name }}</h1>
             <p class="text-muted">Hoe vaak gebruik je ...</p>
         </div>
-        {{-- <button class="btn btn-secondary">Hulp nodig?</button> // TODO: redirect to 'tussenpagina' --}}
+        <button class="btn btn-secondary" onclick="window.location.href='{{ route('intermediate.view', 'lesniveau') }}'">Hulp nodig?</button>
     </div>
 
     <form method="POST" action="{{ route('lesson-level.submit', $currentStep) }}">
@@ -53,11 +57,14 @@
         </div>
 
         <div class="mb-5">
-            <label class="form-label"><strong>Gebruik je iets in de categorie '{{ strtolower($subCategory->name) }}' dat niet voorbij
-                    gekomen is?</strong></label>
+            <label class="form-label">
+                <strong>
+                    Gebruik je een leeractiviteit die hier niet genoemd is?
+                </strong>
+            </label>
             <div class="input-group" style="width: fit-content">
                 <input type="text" class="form-control" id="custom_input" name="custom_input"
-                       placeholder="Vul je vraag in">
+                       placeholder="Vul de leeractiviteit in">
                 <button class="btn btn-primary" type="button" id="addCustomQuestionBtn">Toevoegen</button>
             </div>
         </div>

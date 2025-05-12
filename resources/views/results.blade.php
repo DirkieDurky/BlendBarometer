@@ -65,7 +65,7 @@
             @endforeach
         </div>
     </div>
-    <x-navigation-buttons :previous="route('overview-and-results-info')" :next="route('overview-and-send')" />
+    <x-navigation-buttons :previous="route('intermediate.view', 'resultaten')" :next="route('overview-and-send')"/>
     <script>
         const lessonLevelSubcategories = {!! json_encode($lessonLevelPhysicalSubcategories) !!};
 
