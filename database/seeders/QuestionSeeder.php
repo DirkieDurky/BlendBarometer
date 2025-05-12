@@ -327,7 +327,7 @@ class QuestionSeeder extends Seeder
                 'id' => 45,
                 'question_category_id' => 5,
                 'sub_category_id' => null,
-                'text' => 'Worden de tools & applicaties door elke docent didactisch verantwoord ingezet?',
+                'text' => 'Worden de tools en applicaties door elke docent didactisch verantwoord ingezet?',
                 'description' => 'Bv rekening houdend met de leerfasen.',
             ],
             [
