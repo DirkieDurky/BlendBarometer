@@ -5,7 +5,7 @@
                 <table class="w-100">
                     <tr>
                         <td class="align-middle">
-                            <img src="cid:logoCID" alt="Logo" class="d-block">
+                            <img src="cid:logoCID" alt="Logo" class="d-block" height="40px" width="40px">
                         </td>
                         <td class="align-middle ps-3 pt-1">
                             <h1 class="mb-2">Nieuwe BlendBarometer enquête</h1>
@@ -14,7 +14,7 @@
                 </table>
                 <hr>
                 <p class="mb-2">Beste Icto coach,</p>
-                <p class="mb-2">Een nieuwe enquête over de kwaliteit van de cursus is ingediend op BlendBarometer.nl. Hieronder staan de details:</p>
+                <p class="mb-2">Een nieuwe enquête over de kwaliteit van de cursus is ingediend op BlendBarometer. Hieronder staan de details:</p>
                 <ul class="custom-list">
                     <li><strong>Naam:</strong> {{ $name }}</li>
                     <li><strong>Email:</strong> {{ $emailParticipant }}</li>
