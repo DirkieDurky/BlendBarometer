@@ -1,9 +1,17 @@
 .intro {
-    background-image: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0)),
-    url('../images/introduction_image.png');
+    position: relative;
+}
+
+.intro::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0)), url(../images/introduction_image.png);
     background-repeat: no-repeat;
     background-position: center right;
     background-size: contain;
+    max-height: 50rem;
 }
 
 .step {
