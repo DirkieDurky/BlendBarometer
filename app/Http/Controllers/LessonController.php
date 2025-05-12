@@ -14,10 +14,13 @@ class LessonController extends Controller
         $totalSteps = Sub_category::count();
         $currentStep = $id;
 
-        if ($currentStep < 1) {
-            return redirect(route('information'));
-        } else if ($currentStep > $totalSteps) {
-            return redirect(route('module-level', 1));
+        if ($currentStep < 1) 
+        {
+            return redirect(route('intermediate.view', 'lesniveau'));
+        } 
+        else if ($currentStep > $totalSteps) 
+        {
+            return redirect(route('intermediate.view', 'moduleniveau'));
         }
 
         $subCategory = Sub_category::with('questionCategory')->findOrFail($id);
@@ -49,12 +52,14 @@ class LessonController extends Controller
         $answers = session()->get('lessonLevelData', []);
 
         foreach ($request->all() as $key => $value) {
-            if (str_starts_with($key, 'question_')) {
+            if (str_starts_with($key, 'question_')) 
+            {
                 $questionId = str_replace('question_', '', $key);
                 $answers[$subCategoryId][$questionId] = $value;
             }
 
-            if (str_starts_with($key, 'custom_question_')) {
+            if (str_starts_with($key, 'custom_question_')) 
+            {
                 $answers[$subCategoryId][$key] = $value;
             }
         }

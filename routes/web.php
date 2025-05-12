@@ -10,6 +10,7 @@ use Laravel\Pail\ValueObjects\Origin\Console;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\IntermediateController;
 use App\Http\Middleware\Authenticate;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -38,4 +39,6 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::get('/overzicht-en-versturen', [ResultsController::class, 'overviewAndSendView'])->name('overview-and-send');
 
     Route::get('/versturen', [ReportController::class, 'sendReport'])->name('send');
+    Route::get('/tussenpagina/{sectionName}', [IntermediateController::class, 'view'])->name('intermediate.view');
 });
+Route::post('/SaveChart', [ResultsController::class, 'saveChart']);

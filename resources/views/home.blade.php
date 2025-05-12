@@ -3,11 +3,9 @@
         <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     @endsection
 
-    <main class="container mt-5">
-        <section class="intro">
-            <div class="d-flex align-items-center mb-5">
-                <img src="{{ asset('images/logo.svg') }}" alt="BlendBarometer" class="me-2">
-            </div>
+    <main class="container">
+        <section class="intro min-vh-100">
+            <img src="{{ asset('images/logo.svg') }}" alt="BlendBarometer" class="my-5"/>
             <h1 class="fw-bold mb-4">
                 Een <span class="text-primary">meetinstrument</span> om <br>
                 de kwaliteit van een <br>
@@ -19,6 +17,6 @@
             <a href="{{ $continueRoute }}" class="btn btn-primary me-2">
                 {{ $buttonLabel }}
             </a>
-        </section>        
+        </section>
     </main>
 </x-layout>

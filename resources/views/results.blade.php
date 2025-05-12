@@ -1,3 +1,5 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <x-progress-step section="Resultaten" title="Resultaten" description="Het resultaat van de ingevulde vragen." current_step_name="results">
     <div class="alert alert-warning">
         Uw gegevens zijn nog niet verstuurd. Als u dit venster sluit gaan uw gegevens verloren.
@@ -63,7 +65,7 @@
             @endforeach
         </div>
     </div>
-    <x-navigation-buttons :previous="route('overview-and-results-info')" :next="route('overview-and-send')" />
+    <x-navigation-buttons :previous="route('intermediate.view', 'resultaten')" :next="route('overview-and-send')"/>
     <script>
         const lessonLevelSubcategories = {!! json_encode($lessonLevelPhysicalSubcategories) !!};
 

@@ -6,12 +6,15 @@ use App\Models\GraphDescription;
 use App\Models\Question;
 use App\Models\Question_category;
 use App\Models\Sub_category;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class ResultsController extends Controller
 {
     public function view()
     {
-        if ($this->hasInsufficientData()) {
+        if ($this->hasInsufficientData()) 
+        {
             return redirect(route('home'));
         }
 
@@ -37,17 +40,22 @@ class ResultsController extends Controller
         $lessonLevelDataPhysical = [];
 
         $answers = session()->get("lessonLevelData");
-        foreach ($answers as $answerPage) {
+        foreach ($answers as $answerPage) 
+        {
             $question = Question::where('id', key($answerPage))->select('question_category_id', 'sub_category_id');
             $total = 0;
 
-            foreach ($answerPage as $answer) {
+            foreach ($answerPage as $answer) 
+            {
                 $total += $answer;
             }
 
-            if ($question->value('question_category_id') == 1) {
+            if ($question->value('question_category_id') == 1) 
+            {
                 $lessonLevelDataOnline[] = $total;
-            } elseif ($question->value('question_category_id') == 2) {
+            } 
+            else if ($question->value('question_category_id') == 2) 
+            {
                 $lessonLevelDataPhysical[] = $total;
             }
         }
@@ -79,7 +87,8 @@ class ResultsController extends Controller
 
     public function overviewAndResultsInfoView()
     {
-        if ($this->hasInsufficientData()) {
+        if ($this->hasInsufficientData()) 
+        {
             return redirect(route('home'));
         }
 
@@ -89,7 +98,8 @@ class ResultsController extends Controller
 
     public function overviewAndSendView()
     {
-        if ($this->hasInsufficientData()) {
+        if ($this->hasInsufficientData()) 
+        {
             return redirect(route('home'));
         }
 
@@ -102,5 +112,36 @@ class ResultsController extends Controller
         $moduleLevelData = session()->get('moduleLevelData');
 
         return !$lessonLevelData || !$moduleLevelData;
+    }
+
+    public function saveChart(Request $request)
+    {
+        // Retrieve the base64 image data from the incoming request
+        $base64 = $request->input('image');
+        $name = $request->input('name');
+        
+        if ($base64) {
+            $base64 = str_replace('data:image/png;base64,', '', $base64);
+            $base64 = str_replace(' ', '+', $base64);  // Replace spaces with '+' as per the base64 standard
+            
+            $imageData = base64_decode($base64);
+            
+            // Check if base64 decoding succeeded
+            if ($imageData === false) {
+                return response()->json(['error' => 'Base64 decoding failed'], 400);
+            }
+
+            // Define the path where the image will be saved
+            $imagePath = 'images/temp/' . $name . '.png';
+            
+            $saved = Storage::disk('public')->put($imagePath, $imageData);
+
+            if ($saved) {
+                return response()->json(['message' => 'Image saved successfully', 'path' => $imagePath]);
+            } else {
+                return response()->json(['error' => 'Failed to save image'], 500);
+            }
+        }
+        return response()->json(['error' => 'No image data received'], 400);
     }
 }
