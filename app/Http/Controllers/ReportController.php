@@ -6,8 +6,13 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use App\Models\Content;
+use App\Models\Receiver;
+use App\Models\Receiver_of_academy;
 use PhpOffice\PhpWord\Style\Image;
 use App\Models\Sub_category;
+use Illuminate\Support\Facades\Session;
+use PHPMailer\PHPMailer\PHPMailer;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Question_category;
 use App\Models\GraphDescription;
@@ -25,6 +30,11 @@ class ReportController extends Controller
     private $valueWidth = 3000;
     private $paddingWidth = 300;
 
+    const MAIL_HOST = 'smtp.gmail.com';
+    const MAIL_PORT = 587;
+
+    // for adding a title so it gets added to TOC
+        // $page->addTitle('<Title text>', <heading number> , $this->pageNumber); 
     public function sendReport()
     {
         $phpWord = new PhpWord();
@@ -51,8 +61,50 @@ class ReportController extends Controller
         $tempFile = tempnam(sys_get_temp_dir(), $fileName);
         $writer->save($tempFile);
 
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+
+        $mail->Host = self::MAIL_HOST;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = self::MAIL_PORT;
+
+        $mail->Username = env('MAIL_USERNAME');
+        $mail->Password = env('MAIL_PASSWORD');
+        
+        $name = session('name');
+        $emailParticipant = session('email');
+        $academy = session('academy');
+        $module = session('module');
+        $date = now()->format('d-m-Y');
+        $summary = session('summary');
+
+        $html = View::make('intermediate-report-email', compact('name', 'emailParticipant', 'academy', 'module', 'date', 'summary'))->render();
+
+        $receiver = Receiver_of_academy::where('academy_name', session('academy'))->first();
+
+        if ($receiver) 
+        {
+            $email = $receiver->receiver_email;
+        } else 
+        {
+            $email = Receiver::where('is_default', true)->value('email');
+        }
+
+        $mail->addAddress($email);
+        $mail->isHTML(true);
+        $mail->Subject = 'Tussenrapport';
+
+        $mail->CharSet = 'UTF-8';
+        $mail->addAttachment($tempFile, $fileName);
+        $mail->AddEmbeddedImage(public_path('images/blendbarometer-icon.png'), 'logoCID', 'logo.png');
+
+        $mail->Body = $html;
+        $mail->send();
+
+        session::flush();
         $this->unlinkImages();
-        return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
+        return redirect()->route('home');
     }
 
     private function addFrontPage($phpWord)

@@ -9,7 +9,9 @@
 
     <div class="mb-3">
         <div class="progress" style="height: 10px;">
-            <div class="progress-bar bg-success" style="width: {{ 100 * ($currentStep / $totalSteps) }}%" aria-valuenow="{{ $currentStep }}" aria-valuemin="0" aria-valuemax="{{ $totalSteps }}" role="progressbar"></div>
+            <div class="progress-bar bg-success" style="width: {{ 100 * ($currentStep / $totalSteps) }}%"
+                aria-valuenow="{{ $currentStep }}" aria-valuemin="0" aria-valuemax="{{ $totalSteps }}"
+                role="progressbar"></div>
         </div>
     </div>
 
@@ -70,7 +72,8 @@
                         $selectedAnswer = $answers[$currentStep][$question->id] ?? null;
                         $description = $question->description ?? null;
                     @endphp
-                    <x-module-question-component :question="$question" :selectedAnswer="$selectedAnswer" :fieldName="$fieldName" :description="$description" />
+                    <x-module-question-component :question="$question" :selectedAnswer="$selectedAnswer"
+                        :fieldName="$fieldName" :description="$description" />
                 @endforeach
             </div>
         </div>
@@ -80,5 +83,15 @@
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                const submitButton = document.querySelector('button.btn-primary');
+
+                if (submitButton) {
+                    submitButton.click();
+                }
+            }
+        })
     </script>
 </x-progress-step>
