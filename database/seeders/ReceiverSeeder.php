@@ -17,7 +17,7 @@ class ReceiverSeeder extends Seeder
 
         $receivers = [
             [
-                'email' => 'blendbarometer.test@gmail.com',
+                'email' => 'ik.dejong@student.avans.nl',
                 'is_default' => true,
             ],
         ];
