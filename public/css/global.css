@@ -10,12 +10,50 @@
 }
 
 * {
-    font-family: Poppins;
+    font-family: Poppins, sans-serif;
+}
+
+.btn {
+    font-weight: 500 !important;
+}
+
+.btn-flat {
+    color: var(--bs-primary, #0d6efd) !important;
+    border: 1px solid transparent;
+}
+
+.btn-flat:hover,
+.btn-flat:focus {
+    border-color: var(--bs-primary, #0d6efd) !important;
+}
+
+.form-check-label {
+    cursor: pointer;
+}
+
+.form-check-input:focus+.form-check-label {
+    outline-width: 2px;
+    outline-style: solid;
+    outline-color: var(--bs-blue);
 }
 
 .form-check-input:checked+.form-check-label {
-    border-color: rgb(12, 209, 117) !important;
-    border-width: 6px !important;
+    position: relative;
+    outline: 5px solid var(--bs-primary, #0d6efd) !important;
+    outline-offset: -2px;
+}
+
+.form-check-input:checked+.form-check-label::after {
+    content: "";
+    background-image: url("../images/check-circle.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    position: absolute;
+    right: .5em;
+    top: .5em;
+    width: 30px;
+    height: 30px;
 }
 
 .form-check-input:checked+.form-check-label+svg {
@@ -24,7 +62,7 @@
 
 .module-question .form-check-label {
     border-width: 2px !important;
-    height: 175x !important;
+    height: 175px !important;
     width: 390px !important;
 }
 
@@ -34,11 +72,7 @@
 
 .graph-card {
     border: none;
-    background-color: inherit
-}
-
-.back-button {
-    color: var(--bs-primary)
+    background-color: inherit;
 }
 
 h1,
@@ -47,5 +81,5 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: bold;
+    font-weight: bold !important;
 }

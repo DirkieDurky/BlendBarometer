@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Academy;
+use Illuminate\Http\Request;
 
 class InformationController extends Controller
 {
@@ -12,16 +13,20 @@ class InformationController extends Controller
         return view('information', ['academies' => $academies]);
     }
 
-    public function submit()
+    public function submit(Request $request)
     {
+        $request->validate([
+            'summary' => 'max:2000',
+        ], [
+            'summary.max' => 'De samenvatting mag niet langer zijn dan 2000 tekens.',
+        ]);
         session()->put('name', request('name'));
-        session()->put('email', request('email'));
         session()->put('course', request('course'));
         session()->put('academy', request('academy'));
         session()->put('module', request('module'));
         session()->put('summary', request('summary'));
 
         $academies = Academy::all();
-        return redirect(route('lesson-level', 1));
+        return redirect(route('intermediate.view', 'lesniveau'));
     }
 }
