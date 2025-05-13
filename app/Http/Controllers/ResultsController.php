@@ -40,13 +40,32 @@ class ResultsController extends Controller
         $lessonLevelDataPhysical = [];
 
         $answers = session()->get("lessonLevelData");
-        foreach ($answers as $answerPage) 
+        foreach ($answers as $subCat => $answerPage) 
         {
             $question = Question::where('id', key($answerPage))->select('question_category_id', 'sub_category_id');
             $total = 0;
 
-            foreach ($answerPage as $answer) 
+            foreach ($answerPage as $key => $answer) 
             {
+                if(str_starts_with($key, "custom_question_"))
+                {
+                    $parts = explode('_', $key);
+                    $questionName = $parts[2];
+                    if($subCat <= 6)
+                    {
+                        $lessonLevelPhysicalQuestions = $lessonLevelPhysicalQuestions->put(
+                            $subCat,
+                            $lessonLevelPhysicalQuestions->get($subCat, collect())->push($questionName)
+                        );
+                    }
+                    else
+                    {
+                        $lessonLevelOnlineQuestions = $lessonLevelOnlineQuestions->put(
+                            $subCat,
+                            $lessonLevelOnlineQuestions->get($subCat, collect())->push($questionName)
+                        );                    
+                    }
+                }
                 $total += $answer;
             }
 
