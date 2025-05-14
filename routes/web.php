@@ -47,15 +47,15 @@ Route::post('/SaveChart', [ResultsController::class, 'saveChart']);
 // TODO: add middleware for admin role
 Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminAuthController::class, 'index'])->name('login');
-    Route::get('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+    Route::get('/uitloggen', [AdminAuthController::class, 'logout'])->name('logout');
 
-    Route::get('/email-rules', function () {
+    Route::get('/email-regels', function () {
         return view('admin.email-rules'); // TODO: get view via controller
     })->name('email-rules');
 
-    Route::get('/edit-questions', function () {
+    Route::get('/vragen-bewerken', function () {
         return view('admin.edit-questions'); // TODO: get view via controller
     })->name('edit-questions');
 
-    Route::get('/edit-content', [EditContentController::class, 'index'])->name('edit-content');
+    Route::get('/content-bewerken', [EditContentController::class, 'index'])->name('edit-content');
 });
