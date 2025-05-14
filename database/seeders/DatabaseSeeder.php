@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(QuestionCategorySeeder::class);
         $this->call(UserSeeder::class);
         $this->call(ModuleLevelAnswerSeeder::class);
+        $this->call(ReceiverSeeder::class);
+        $this->call(GraphDescriptionSeeder::class);
 
         Schema::enableForeignKeyConstraints();
     }

@@ -4,7 +4,7 @@
         Vorige
     </a>
     <a href="{{ $next }}" class="btn btn-primary">
-        Afronden
+        {{ $nextLabel ?? 'Afronden' }}
         <i class="bi bi-arrow-right ps-2"></i>
     </a>
 </div>
