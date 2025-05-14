@@ -1,17 +1,17 @@
 <?php
 
+use App\Http\Controllers\admin\AuthController as AdminAuthController;
+use App\Http\Controllers\admin\EditContentController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ResultsController;
-use App\Http\Controllers\ModuleController;
-use App\Models\academy;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LessonController;
-use Laravel\Pail\ValueObjects\Origin\Console;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformationController;
-use App\Http\Controllers\ReportController;
 use App\Http\Controllers\IntermediateController;
+use App\Http\Controllers\LessonController;
+use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ResultsController;
 use App\Http\Middleware\Authenticate;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -41,4 +41,21 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::get('/versturen', [ReportController::class, 'sendReport'])->name('send');
     Route::get('/tussenpagina/{sectionName}', [IntermediateController::class, 'view'])->name('intermediate.view');
 });
+
 Route::post('/SaveChart', [ResultsController::class, 'saveChart']);
+
+// TODO: add middleware for admin role
+Route::name('admin.')->prefix('admin')->group(function () {
+    Route::get('/', [AdminAuthController::class, 'index'])->name('login');
+    Route::get('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+
+    Route::get('/email-rules', function () {
+        return view('admin.email-rules'); // TODO: get view via controller
+    })->name('email-rules');
+
+    Route::get('/edit-questions', function () {
+        return view('admin.edit-questions'); // TODO: get view via controller
+    })->name('edit-questions');
+
+    Route::get('/edit-content', [EditContentController::class, 'index'])->name('edit-content');
+});
