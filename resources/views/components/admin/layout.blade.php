@@ -10,7 +10,7 @@
     @section('scripts')
         <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.5/dist/purify.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js" defer></script>
-        <script src="../js/text-editor.js" defer></script>
+        <script src="../js/text-editor-home.js" defer></script>
     @endsection
     <header>
         <nav class="navbar navbar-expand-lg shadow-sm bg-white mb-4">

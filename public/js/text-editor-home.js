@@ -1,6 +1,6 @@
 
-const editor = document.querySelector('#editor');
-const quill = new Quill(editor, {
+const home_editor = document.querySelector('#home-editor');
+const home_quill = new Quill(home_editor, {
     modules: {
         toolbar: [
             [{ header: [1, 2, false] }],
@@ -15,29 +15,29 @@ const quill = new Quill(editor, {
 });
 
 // Show save button on keypress
-let save = document.querySelector('#save');
-let reset = document.querySelector('#reset');
-save.style.display = 'none';
-reset.style.display = 'none';
+let home_save = document.querySelector('#home-save');
+let home_reset = document.querySelector('#home-reset');
+home_save.style.display = 'none';
+home_reset.style.display = 'none';
 
-editor.addEventListener('keydown', () => {
-    save.style.display = 'block';
-    reset.style.display = 'block';
+home_editor.addEventListener('keydown', () => {
+    home_save.style.display = 'block';
+    home_reset.style.display = 'block';
 });
-editor.addEventListener('click', () => {
-    save.style.display = 'block';
-    reset.style.display = 'block';
+home_editor.addEventListener('click', () => {
+    home_save.style.display = 'block';
+    home_reset.style.display = 'block';
 });
 
 // Add content to request on submit
-const form = document.querySelector('#form');
+const home_form = document.querySelector('#home-form');
 
-form.addEventListener('submit', () => {
+home_form.addEventListener('submit', () => {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = 'content';
     input.value = DOMPurify.sanitize(quill.getSemanticHTML());
-    form.append(input);
+    home_form.append(input);
 })
 
 function reloadPage()
