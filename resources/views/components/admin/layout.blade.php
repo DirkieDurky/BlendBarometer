@@ -1,10 +1,15 @@
 <x-layout>
     @section('styles')
+        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
         <style>
             body {
                 background-color: #F4F9F7;
             }
         </style>
+    @endsection
+    @section('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js" defer></script>
+        <script src="../js/text-editor.js" defer></script>
     @endsection
     <header>
         <nav class="navbar navbar-expand-lg shadow-sm bg-white mb-4">

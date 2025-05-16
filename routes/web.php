@@ -58,4 +58,5 @@ Route::name('admin.')->prefix('admin')->group(function () {
     })->name('edit-questions');
 
     Route::get('/content-bewerken', [EditContentController::class, 'index'])->name('edit-content');
+    Route::post('/content-bewerken/homepagina-opslaan', [EditContentController::class, 'saveHomeContent'])->name('edit-content.home-save');
 });
