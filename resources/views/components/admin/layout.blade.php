@@ -8,6 +8,7 @@
         </style>
     @endsection
     @section('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.5/dist/purify.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js" defer></script>
         <script src="../js/text-editor.js" defer></script>
     @endsection

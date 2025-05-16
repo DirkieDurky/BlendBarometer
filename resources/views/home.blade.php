@@ -2,12 +2,16 @@
     @section('styles')
         <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     @endsection
+    @section('scripts')
 
+    @endsection
     <main class="container">
         <section class="intro min-vh-100">
             <img src="{{ asset('images/logo.svg') }}" alt="BlendBarometer" class="my-5"/>
-            <div></div>
-            <a href="{{ $continueRoute }}" class="btn btn-primary me-2">
+            <br>
+            {!! $intro_description !!}
+            <br>
+            <a href="{{ $continueRoute }}" class="btn btn-primary me-2 mt-3">
                 {{ $buttonLabel }}
             </a>
         </section>

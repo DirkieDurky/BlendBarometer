@@ -14,6 +14,6 @@ class EditContentController
 
     public function saveHomeContent(Request $request)
     {
-        
+        // $request->html
     }
 }

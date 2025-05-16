@@ -28,6 +28,7 @@ const form = document.querySelector('#form');
 form.addEventListener('submit', () => {
     let input = document.createElement('input');
     input.type = 'hidden';
-    input.value = quill.getSemanticHTML();
+    input.name = 'html';
+    input.value = DOMPurify.sanitize(quill.getSemanticHTML());
     form.append(input);
 })
