@@ -1,9 +1,11 @@
 
-<div class="d-flex justify-content-between align-items-end mb-2">
-    <h5>Content</h5>
-    <form id="form" action="{{ route('admin.edit-content.home-save') }}" method="POST">
-        @csrf
-        <button id="save" type="submit" class="btn btn-primary">Opslaan</button>
-    </form>
+<h5>Content</h5>
+<div id="editor" class="mb-3">
+   {!! $home !!}
 </div>
-<div id="editor"></div>
+<form id="form" action="{{ route('admin.edit-content.home-update') }}" method="POST" class="w-100 d-flex justify-content-end">
+    @csrf
+    @method('PUT')
+    <button id="reset" type="reset" class="btn btn-outline-primary mb-5 me-2" onclick="reloadPage()">Annuleren</button>
+    <button id="save" type="submit" class="btn btn-primary mb-5">Opslaan</button>
+</form>
