@@ -25,7 +25,8 @@ class AuthController extends Controller
 
     public function login()
     {
-        if (Auth::check()) {
+        if (Auth::check())
+        {
             return redirect()->route('home');
         }
         return view('login');
@@ -33,9 +34,9 @@ class AuthController extends Controller
 
     public function submitLogin(Request $request)
     {
-        // $request->validate([
-        //     'email' => ['required', 'email', 'ends_with:@avans.nl'],
-        // ]);
+        $request->validate([
+            'email' => ['required', 'email', 'ends_with:@avans.nl'],
+        ]);
 
         $code = str_pad(random_int(self::MIN_CODE, self::MAX_CODE), self::CODE_LENGTH, self::CODE_ZERO, STR_PAD_LEFT);
         $hash = password_hash($code, PASSWORD_DEFAULT);
@@ -45,7 +46,8 @@ class AuthController extends Controller
         Session::put('email', $request->email);
 
         $lastSent = Session::get('last_sent');
-        if ($lastSent && Carbon::parse($lastSent)->diffInMinutes(now()) < self::EMAIL_COOLDOWN_MINUTES) {
+        if ($lastSent && Carbon::parse($lastSent)->diffInMinutes(now()) < self::EMAIL_COOLDOWN_MINUTES)
+        {
             return back()->withErrors(['cooldown' => 'Wacht even voordat je opnieuw een code aanvraagt.'])->withInput();
         }
 
@@ -69,7 +71,7 @@ class AuthController extends Controller
         $mail->AddEmbeddedImage(public_path('images/logo.png'), 'logoCID', 'logo.png');
 
         $mail->Body = $html;
-        $mail->send();
+        $mail->send();        
 
         Session::put('last_sent', now());
 
@@ -78,9 +80,12 @@ class AuthController extends Controller
 
     public function verify()
     {
-        if (!Session::get('email')) {
+        if (!Session::get('email'))
+        {
             return redirect()->route('login');
-        } else if (Auth::check()) {
+        }
+        else if (Auth::check())
+        {
             return redirect()->route('home');
         }
         return view('verify');
@@ -97,20 +102,24 @@ class AuthController extends Controller
         $original = Session::get('verification_code');
         $given = $request->code;
 
-        if (Session::get('expires_at') < now()) {
+        if (Session::get('expires_at') < now())
+        {
             Session::forget(['verification_code', 'expires_at', 'verify_attempts']);
             return back()->withErrors(['expired' => 'De verificatiecode is verlopen.']);
         }
 
         $tries = Session::increment('verify_attempts');
-        if ($tries > 5) {
+        if ($tries > 5)
+        {
             Session::forget(['verification_code', 'expires_at', 'verify_attempts']);
             return back()->withErrors(['verify' => 'Te vaak geprobeerd, vraag een nieuwe code aan.']);
         }
 
-        if (password_verify($given, $original)) {
+        if (password_verify($given, $original))
+        {
             $user = User::where('email', $email)->first();
-            if (!$user) {
+            if (!$user)
+            {
                 $user = User::create([
                     'email' => $email,
                     'email_verified_at' => now(),
@@ -119,7 +128,9 @@ class AuthController extends Controller
             Auth::login($user);
             Session::regenerate();
             return redirect()->route('intermediate.view', 'gegevens');
-        } else {
+        }
+        else
+        {
             return back()->withErrors(['code' => 'De opgegeven code komt niet overeen.']);
         }
     }
