@@ -12,9 +12,9 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <p class="fs-2 fw-bold text-muted mb-1">{{ $currentStep }} van {{ $totalSteps }}
-                - {{ $category->name }}</p>
-            <h1 class="fs-3 fw-bold mb-1">{{ $category->name }}</h1>
+            <h1 class="fs-2 fw-bold text-muted mb-1">{{ $currentStep }} van {{ $totalSteps }}
+                - {{ $category->name }}</h1>
+            <h2 class="fs-3 fw-bold mb-1">{{ $category->name }}</h2>
         </div>
         <button class="btn btn-secondary"onclick="window.location.href='{{ route('intermediate.view', 'moduleniveau') }}'">Hulp nodig?</button>
     </div>
