@@ -40,7 +40,7 @@ class ContentSeeder extends Seeder
                     <li>oefenen</li>
                     <li>produceren</li>
                 </ul>
-                Dit zijn de 6 leertypes uit het <strong>ABC learning Design Model</strong>.<br><br>
+                Dit zijn de 6 leertypes uit het <span lang="en"><strong>ABC learning Design Model</strong></span>.<br><br>
                 Deze inventarisatie geeft een beeld van de kwantiteit van je Blend. Er is geen goed of fout.<br><br>
                 <strong>Werkwijze:</strong> Geef per leeractiviteit aan of je dit:
                 <ul>
