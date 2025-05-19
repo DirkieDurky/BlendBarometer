@@ -65,30 +65,39 @@
             @endforeach
         </div>
     </div>
-    <x-navigation-buttons :previous="route('intermediate.view', 'resultaten')" :next="route('overview-and-send')"/>
-    <script>
-        const lessonLevelSubcategories = {!! json_encode($lessonLevelPhysicalSubcategories) !!};
+    <x-navigation-buttons :previous="route('intermediate.view', 'resultaten')" :next="route('overview-and-send')" />
 
-        const lessonLevelPhysicalQuestions = {!! json_encode($lessonLevelPhysicalQuestions) !!};
-        const lessonLevelOnlineQuestions = {!! json_encode($lessonLevelOnlineQuestions) !!};
-
-        const moduleLevelCategories = {!! json_encode($moduleLevelCategories) !!};
-
-        const moduleLevelCategoriesArray = [];
-        for (const [_, item] of Object.entries(moduleLevelCategories)) {
-            for (const [_, item2] of Object.entries(item)) {
-                moduleLevelCategoriesArray.push(item2);
-            }
-        }
-
-        const lessonLevelDataOnline = {!! json_encode($lessonLevelDataOnline) !!};
-        const lessonLevelDataPhysical = {!! json_encode($lessonLevelDataPhysical) !!};
-        const lessonLevelDataAll = {!! json_encode($lessonLevelDataAll) !!};
-        const moduleLevelData = {!! json_encode(session()->get('moduleLevelData')) !!};
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-    <script src={{ URL::asset('js/custom-tooltip.js') }}></script>
-    <script src={{ URL::asset('js/results-graphs.js') }}></script>
 </x-progress-step>
+<script>
+    const lessonLevelSubcategories = {!! json_encode($lessonLevelPhysicalSubcategories) !!};
+
+    const lessonLevelPhysicalQuestions = {!! json_encode($lessonLevelPhysicalQuestions) !!};
+    const lessonLevelOnlineQuestions = {!! json_encode($lessonLevelOnlineQuestions) !!};
+
+    const moduleLevelCategories = {!! json_encode($moduleLevelCategories) !!};
+
+    const moduleLevelCategoriesArray = [];
+    for (const [_, item] of Object.entries(moduleLevelCategories)) {
+        for (const [_, item2] of Object.entries(item)) {
+            moduleLevelCategoriesArray.push(item2);
+        }
+    }
+
+    const lessonLevelDataOnline = {!! json_encode($lessonLevelDataOnline) !!};
+    const lessonLevelDataPhysical = {!! json_encode($lessonLevelDataPhysical) !!};
+    const lessonLevelDataAll = {!! json_encode($lessonLevelDataAll) !!};
+    const moduleLevelData = {!! json_encode(session()->get('moduleLevelData')) !!};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous"
+    referrerpolicy="no-referrer"></script>
+<script src={{ URL::asset('js/custom-tooltip.js') }}></script>
+<script src={{ URL::asset('js/results-graphs.js') }}></script>
+
+<script>
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            document.querySelector('#next').click();
+        }
+    })
+</script>
