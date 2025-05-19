@@ -6,7 +6,9 @@
     <main class="position-relative vh-100">
         <div class="position-absolute top-0 start-0 w-100">
             <div class="container mt-5">
-                <img src="{{ asset('images/logo.svg') }}" alt="BlendBarometer" class="me-2">
+                <a href="{{ route('home') }}" class="d-block mb-4">
+                    <img src="{{ asset('images/logo.svg') }}" alt="BlendBarometer">
+                </a>
             </div>
         </div>
         <div class="d-flex justify-content-center align-items-center h-100">

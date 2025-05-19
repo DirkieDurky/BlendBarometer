@@ -73,7 +73,11 @@
 <script>
     document.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
-            document.querySelector('form').submit();
+            form = document.querySelector('form');
+
+            if (form.reportValidity()) {
+                form.submit();
+            }
         }
     })
 </script>
