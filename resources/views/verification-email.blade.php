@@ -1,3 +1,5 @@
+<html lang="nl">
+
 <body style="padding: 2rem; font-family: Arial, sans-serif; background-color: #F4F9F7">
     <img src="cid:logoCID" alt="BlendBarometer" style="width: 300px; margin-top: 1rem">
 
@@ -21,3 +23,5 @@
 
     <p>De BlendBarometer website</p>
 </body>
+
+</html>
