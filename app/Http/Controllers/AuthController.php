@@ -36,6 +36,7 @@ class AuthController extends Controller
             }
             Auth::login($user);
             Session::regenerate();
+            Session::put('email', $email);
             return redirect()->route('intermediate.view', 'gegevens');
         }
 
