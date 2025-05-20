@@ -16,10 +16,6 @@ class EditContentController
 
     public function updateHomeContent(Request $request)
     {
-        $request->validate([
-            'content' => ['required'],
-        ]);
-
         Content::where('section_name', 'intro_description')->update(['info' => $request->content]);
         return redirect()->route('admin.edit-content');
     }

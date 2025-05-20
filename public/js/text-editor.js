@@ -1,10 +1,10 @@
 
 const forms = document.querySelectorAll('.form');
 forms.forEach((form) => {
-    let container = form.querySelector('.editor');
+    const container = form.querySelector('.editor');
     form.insertAdjacentElement('beforebegin', container);
     
-    new Quill(container, {
+    const quill = new Quill(container, {
         modules: {
             toolbar: [
                 [{ header: [1, 2, false] }],
@@ -41,6 +41,13 @@ forms.forEach((form) => {
     });
 
     form.append(resetButton, saveButton);
+    form.addEventListener('submit', () => {
+        let input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'content';
+        input.value = DOMPurify.sanitize(quill.getSemanticHTML());
+        form.append(input);
+    });
 });
 
 let toolbars = document.querySelectorAll('.ql-toolbar');
