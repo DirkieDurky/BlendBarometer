@@ -1,44 +1,55 @@
 
-const home_editor = document.querySelector('#home-editor');
-const home_quill = new Quill(home_editor, {
-    modules: {
-        toolbar: [
-            [{ header: [1, 2, false] }],
-            ['bold', 'italic', 'underline', 'strike'],
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-            [{ 'color': [] }, { 'background': [] }],
-            ['link', 'image'],
-        ],
-    },
-    placeholder: 'Het volgende deel gaat over...',
-    theme: 'snow',
+const forms = document.querySelectorAll('.form');
+forms.forEach((form) => {
+    let container = document.createElement('div');
+    container.classList.add('mb-3');
+    container.style.backgroundColor = 'white';
+
+    form.insertAdjacentElement('beforebegin', container);
+    
+    new Quill(container, {
+        modules: {
+            toolbar: [
+                [{ header: [1, 2, false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                [{ 'color': [] }, { 'background': [] }],
+                ['link', 'image'],
+            ],
+        },
+        placeholder: 'Het volgende deel gaat over...',
+        theme: 'snow',
+    });
+
+    let resetButton = document.createElement('button');
+    resetButton.type = 'reset';
+    resetButton.className = 'btn btn-outline-primary mb-5 me-2';
+    resetButton.innerText = 'Annuleren';
+    resetButton.style.display = 'none';
+    let saveButton = document.createElement('button');
+    saveButton.type = 'submit';
+    saveButton.className = 'btn btn-primary mb-5 me-2';
+    saveButton.innerText = 'Opslaan';
+    saveButton.style.display = 'none';
+
+    resetButton.addEventListener('click', () => reloadPage());
+
+    container.addEventListener('click', () => {
+        resetButton.style.display = 'block';
+        saveButton.style.display = 'block';
+    });
+    container.addEventListener('keydown', () => {
+        resetButton.style.display = 'block';
+        saveButton.style.display = 'block';
+    });
+
+    form.append(resetButton, saveButton);
 });
 
-// Show save button on keypress
-let home_save = document.querySelector('#home-save');
-let home_reset = document.querySelector('#home-reset');
-home_save.style.display = 'none';
-home_reset.style.display = 'none';
-
-home_editor.addEventListener('keydown', () => {
-    home_save.style.display = 'block';
-    home_reset.style.display = 'block';
+let toolbars = document.querySelectorAll('.ql-toolbar');
+toolbars.forEach((toolbar) => {
+    toolbar.style.backgroundColor = 'white';
 });
-home_editor.addEventListener('click', () => {
-    home_save.style.display = 'block';
-    home_reset.style.display = 'block';
-});
-
-// Add content to request on submit
-const home_form = document.querySelector('#home-form');
-
-home_form.addEventListener('submit', () => {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'content';
-    input.value = DOMPurify.sanitize(quill.getSemanticHTML());
-    home_form.append(input);
-})
 
 function reloadPage()
 {
