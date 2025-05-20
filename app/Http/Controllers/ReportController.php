@@ -81,15 +81,16 @@ class ReportController extends Controller
 
         $html = View::make('intermediate-report-email', compact('name', 'emailParticipant', 'academy', 'module', 'date', 'summary'))->render();
 
-        $receiver = Receiver_of_academy::where('academy_name', session('academy'))->first();
+        // $receiver = Receiver_of_academy::where('academy_name', session('academy'))->first();
 
-        if ($receiver) 
-        {
-            $email = $receiver->receiver_email;
-        } else 
-        {
-            $email = Receiver::where('is_default', true)->value('email');
-        }
+        // if ($receiver) 
+        // {
+        //     $email = $receiver->receiver_email;
+        // } else 
+        // {
+            // $email = Receiver::where('is_default', true)->value('email');
+            $email = session('email');  
+        // }
 
         $mail->addAddress($email);
         $mail->isHTML(true);
