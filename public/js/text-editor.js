@@ -1,10 +1,7 @@
 
 const forms = document.querySelectorAll('.form');
 forms.forEach((form) => {
-    let container = document.createElement('div');
-    container.classList.add('mb-3');
-    container.style.backgroundColor = 'white';
-
+    let container = form.querySelector('.editor');
     form.insertAdjacentElement('beforebegin', container);
     
     new Quill(container, {
