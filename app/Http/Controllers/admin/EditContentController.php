@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers\admin;
 
-use Illuminate\View\View;
-use Illuminate\Http\Request;
 use App\Models\Content;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class EditContentController
 {
     public function index(): View
     {
         $home = Content::where('section_name', 'intro_description')->value('info');
-        return view('admin.edit-content', ['home' => $home]);
+
+        $intermediateContent = [
+            "information" => Content::where('section_name', 'intermediate_information')->value('info'),
+            "lesson" => Content::where('section_name', 'intermediate_lesson')->value('info'),
+            "module" => Content::where('section_name', 'intermediate_module')->value('info'),
+            "results" => Content::where('section_name', 'intermediate_results')->value('info'),
+        ];
+
+        return view('admin.edit-content', ['home' => $home, 'intermediateContent' => $intermediateContent]);
     }
 
     public function updateHomeContent(Request $request)
