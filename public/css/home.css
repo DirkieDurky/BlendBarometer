@@ -18,6 +18,10 @@
     width: 30px;
 }
 
+.description h1, h2 {
+    margin: 0;
+}
+
 .description {
     width: 50vw;
     overflow-wrap: break-word;

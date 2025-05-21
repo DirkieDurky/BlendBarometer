@@ -8,7 +8,7 @@
             <div class="description">
                 {!! str_replace('&nbsp;', ' ', $intro_description) !!}
             </div>
-            <a href="{{ $continueRoute }}" class="btn btn-primary me-2">
+            <a href="{{ $continueRoute }}" class="btn btn-primary me-2 mt-3">
                 {{ $buttonLabel }}
             </a>
         </section>
