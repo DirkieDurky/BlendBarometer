@@ -35,7 +35,7 @@ class AuthController extends Controller
     public function submitLogin(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'email', 'ends_with:@student.avans.nl,@avans.nl'],
+            'email' => ['required', 'email'],
         ]);
 
         $code = str_pad(random_int(self::MIN_CODE, self::MAX_CODE), self::CODE_LENGTH, self::CODE_ZERO, STR_PAD_LEFT);
