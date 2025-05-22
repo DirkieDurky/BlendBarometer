@@ -16,9 +16,14 @@ class ContentSeeder extends Seeder
         DB::table('content')->insert([
             [
                 'section_name' => 'intro_description',
-                'info' => 'De BlendBarometer is een meetinstrument om de kwaliteit van de Blended module te meten.
-                Hiermee is inzichtelijk wat de huidige status is en wat er nog nodig is
-                om uiteindelijk tot een kwalitatieve en harmonieuze mix van leeractiviteiten te komen.',
+                'info' => '<h1>Een&nbsp;<span style="color: rgb(0, 102, 204);">meetinstrument</span>&nbsp;om&nbsp;</h1>
+                <h1>de&nbsp;kwaliteit&nbsp;van&nbsp;een&nbsp;</h1>
+                <h1><span style="color: rgb(0, 102, 204);">Blended&nbsp;module</span>&nbsp;te&nbsp;meten</h1>
+                <p></p>
+                <p>De&nbsp;BlendBarometer&nbsp;is&nbsp;een&nbsp;meetinstrument&nbsp;om&nbsp;de&nbsp;kwaliteit&nbsp;
+                van&nbsp;de&nbsp;Blended&nbsp;module&nbsp;te&nbsp;meten.&nbsp;Hiermee&nbsp;is&nbsp;inzichtelijk&nbsp;wat&nbsp;de&nbsp;
+                huidige&nbsp;status&nbsp;is&nbsp;en&nbsp;wat&nbsp;er&nbsp;nog&nbsp;nodig&nbsp;is&nbsp;om&nbsp;uiteindelijk&nbsp;tot&nbsp;
+                een&nbsp;kwalitatieve&nbsp;en&nbsp;harmonieuze&nbsp;mix&nbsp;van&nbsp;leeractiviteiten&nbsp;te&nbsp;komen.</p>',
             ],
             [
                 'section_name' => 'intermediate_information',
