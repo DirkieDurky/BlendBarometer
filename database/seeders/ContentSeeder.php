@@ -16,10 +16,7 @@ class ContentSeeder extends Seeder
         DB::table('content')->insert([
             [
                 'section_name' => 'intro_description',
-                'info' => '<h1>Een&nbsp;<span style="color: rgb(0, 102, 204);">meetinstrument</span>&nbsp;om&nbsp;</h1>
-                <h1>de&nbsp;kwaliteit&nbsp;van&nbsp;een&nbsp;</h1>
-                <h1><span style="color: rgb(0, 102, 204);">Blended&nbsp;module</span>&nbsp;te&nbsp;meten</h1>
-                <p></p>
+                'info' => '<h1>Een&nbsp;<span style="color: rgb(0, 102, 204);">meetinstrument</span>&nbsp;om&nbsp;de&nbsp;kwaliteit&nbsp;van&nbsp;een&nbsp;<span style="color: rgb(0, 102, 204);">Blended&nbsp;module</span>&nbsp;te&nbsp;meten</h1>
                 <p>De&nbsp;BlendBarometer&nbsp;is&nbsp;een&nbsp;meetinstrument&nbsp;om&nbsp;de&nbsp;kwaliteit&nbsp;
                 van&nbsp;de&nbsp;Blended&nbsp;module&nbsp;te&nbsp;meten.&nbsp;Hiermee&nbsp;is&nbsp;inzichtelijk&nbsp;wat&nbsp;de&nbsp;
                 huidige&nbsp;status&nbsp;is&nbsp;en&nbsp;wat&nbsp;er&nbsp;nog&nbsp;nodig&nbsp;is&nbsp;om&nbsp;uiteindelijk&nbsp;tot&nbsp;
@@ -45,7 +42,7 @@ class ContentSeeder extends Seeder
                     <li>oefenen</li>
                     <li>produceren</li>
                 </ul>
-                Dit zijn de 6 leertypes uit het <strong>ABC learning Design Model</strong>.<br><br>
+                Dit zijn de 6 leertypes uit het <span lang="en"><strong>ABC learning Design Model</strong></span>.<br><br>
                 Deze inventarisatie geeft een beeld van de kwantiteit van je Blend. Er is geen goed of fout.<br><br>
                 <strong>Werkwijze:</strong> Geef per leeractiviteit aan of je dit:
                 <ul>

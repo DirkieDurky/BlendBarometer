@@ -12,10 +12,11 @@ function addQuestion() {
     wrapper.classList.add('mb-5');
 
     // question title
-    const p = document.createElement('p');
-    p.className = 'fw-semibold';
-    p.textContent = txt;
-    wrapper.appendChild(p);
+    const label = document.createElement('label');
+    label.htmlFor = idBase;
+    label.className = 'fw-semibold';
+    label.textContent = txt;
+    wrapper.appendChild(label);
 
     // options container
     const row = document.createElement('div');
@@ -61,10 +62,10 @@ function addQuestion() {
         inp.value = opt.value;
         inp.required = true;
         inp.autocomplete = 'off';
-        inp.setAttribute('aria-label', opt.label);
+        inp.setAttribute('aria-label', opt.label + " - " + txt);
 
         const lbl = document.createElement('label');
-        lbl.className = 'form-check-label border-2 border rounded shadow-sm col py-4 d-flex flex-column justify-content-center align-items-center';
+        lbl.className = 'form-check-label border-2 border rounded col py-4 d-flex flex-column justify-content-center align-items-center explicit-focus-visible';
         lbl.htmlFor = inp.id;
         lbl.innerHTML = `
             <img src="/images/emoji/${opt.emoji.img}" alt="${opt.emoji.alt}" style="width: 50px; height: 50px;">

@@ -12,7 +12,7 @@
     <div class="card graph-card p-3">
         <div class="row">
             <div class="col">
-                <canvas id="lessonLevel" class="bg-white rounded mb-2"></canvas>
+                <canvas id="lessonLevel" class="bg-white rounded mb-2" role="img"></canvas>
             </div>
             <div class="col">
                 <strong>Lesniveau - Algemeen</strong>
@@ -26,7 +26,7 @@
             <h2>Fysieke leeractiviteiten</h2>
             @foreach ($lessonLevelPhysicalSubcategories as $category)
                 <div class="card graph-card p-3">
-                    <canvas id="physical-{{ $category->id }}" class="bg-white rounded mb-2"></canvas>
+                    <canvas id="physical-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
                     <strong>{{ $category->name }}</strong>
                     <p class="mb-0">{{ $lessonLevelPhysicalDescriptions[$category->id]->description }}</p>
                 </div>
@@ -36,7 +36,7 @@
             <h2>Online leeractiviteiten</h2>
             @foreach ($lessonLevelOnlineSubcategories as $category)
                 <div class="card graph-card p-3">
-                    <canvas id="online-{{ $category->id }}" class="bg-white rounded mb-2"></canvas>
+                    <canvas id="online-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
                     <strong>{{ $category->name }}</strong>
                     <p class="mb-0">{{ $lessonLevelOnlineDescriptions[$category->id]->description }}</p>
                 </div>
@@ -65,30 +65,39 @@
             @endforeach
         </div>
     </div>
-    <x-navigation-buttons :previous="route('intermediate.view', 'resultaten')" :next="route('overview-and-send')"/>
-    <script>
-        const lessonLevelSubcategories = {!! json_encode($lessonLevelPhysicalSubcategories) !!};
+    <x-navigation-buttons :previous="route('intermediate.view', 'resultaten')" :next="route('overview-and-send')" />
 
-        const lessonLevelPhysicalQuestions = {!! json_encode($lessonLevelPhysicalQuestions) !!};
-        const lessonLevelOnlineQuestions = {!! json_encode($lessonLevelOnlineQuestions) !!};
-
-        const moduleLevelCategories = {!! json_encode($moduleLevelCategories) !!};
-
-        const moduleLevelCategoriesArray = [];
-        for (const [_, item] of Object.entries(moduleLevelCategories)) {
-            for (const [_, item2] of Object.entries(item)) {
-                moduleLevelCategoriesArray.push(item2);
-            }
-        }
-
-        const lessonLevelDataOnline = {!! json_encode($lessonLevelDataOnline) !!};
-        const lessonLevelDataPhysical = {!! json_encode($lessonLevelDataPhysical) !!};
-        const lessonLevelDataAll = {!! json_encode($lessonLevelDataAll) !!};
-        const moduleLevelData = {!! json_encode(session()->get('moduleLevelData')) !!};
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-    <script src={{ URL::asset('js/custom-tooltip.js') }}></script>
-    <script src={{ URL::asset('js/results-graphs.js') }}></script>
 </x-progress-step>
+<script>
+    const lessonLevelSubcategories = {!! json_encode($lessonLevelPhysicalSubcategories) !!};
+
+    const lessonLevelPhysicalQuestions = {!! json_encode($lessonLevelPhysicalQuestions) !!};
+    const lessonLevelOnlineQuestions = {!! json_encode($lessonLevelOnlineQuestions) !!};
+
+    const moduleLevelCategories = {!! json_encode($moduleLevelCategories) !!};
+
+    const moduleLevelCategoriesArray = [];
+    for (const [_, item] of Object.entries(moduleLevelCategories)) {
+        for (const [_, item2] of Object.entries(item)) {
+            moduleLevelCategoriesArray.push(item2);
+        }
+    }
+
+    const lessonLevelDataOnline = {!! json_encode($lessonLevelDataOnline) !!};
+    const lessonLevelDataPhysical = {!! json_encode($lessonLevelDataPhysical) !!};
+    const lessonLevelDataAll = {!! json_encode($lessonLevelDataAll) !!};
+    const moduleLevelData = {!! json_encode(session()->get('moduleLevelData')) !!};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous"
+    referrerpolicy="no-referrer"></script>
+<script src={{ URL::asset('js/custom-tooltip.js') }}></script>
+<script src={{ URL::asset('js/results-graphs.js') }}></script>
+
+<script>
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            document.querySelector('#next').click();
+        }
+    })
+</script>
