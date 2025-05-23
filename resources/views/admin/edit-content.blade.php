@@ -48,7 +48,7 @@
         <div class="tab-content mt-4" id="tabContent">
             <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
                  tabindex="-1">
-                <x-admin.edit-content.home/>
+                <x-admin.edit-content.home :home="$home"/>
             </div>
             <div class="tab-pane fade" id="explanation-tab-pane" role="tabpanel" aria-labelledby="uitleg-tab"
                  tabindex="-1">
