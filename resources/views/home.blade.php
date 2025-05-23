@@ -5,7 +5,7 @@
     <main class="container">
         <section class="intro min-vh-100">
             <img src="{{ asset('images/logo.svg') }}" alt="BlendBarometer" class="my-5" />
-            <div class="description">
+            <div class="description w-50">
                 {!! str_replace('&nbsp;', ' ', $intro_description) !!}
             </div>
             <a href="{{ $continueRoute }}" class="btn btn-primary me-2 mt-3">
