@@ -12,7 +12,7 @@
     <div class="card graph-card p-3">
         <div class="row">
             <div class="col">
-                <canvas id="lessonLevel" class="bg-white rounded mb-2"></canvas>
+                <canvas id="lessonLevel" class="bg-white rounded mb-2" role="img"></canvas>
             </div>
             <div class="col">
                 <strong>Lesniveau - Algemeen</strong>
@@ -26,7 +26,7 @@
             <h2>Fysieke leeractiviteiten</h2>
             @foreach ($lessonLevelPhysicalSubcategories as $category)
                 <div class="card graph-card p-3">
-                    <canvas id="physical-{{ $category->id }}" class="bg-white rounded mb-2"></canvas>
+                    <canvas id="physical-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
                     <strong>{{ $category->name }}</strong>
                     <p class="mb-0">{{ $lessonLevelPhysicalDescriptions[$category->id]->description }}</p>
                 </div>
@@ -36,7 +36,7 @@
             <h2>Online leeractiviteiten</h2>
             @foreach ($lessonLevelOnlineSubcategories as $category)
                 <div class="card graph-card p-3">
-                    <canvas id="online-{{ $category->id }}" class="bg-white rounded mb-2"></canvas>
+                    <canvas id="online-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
                     <strong>{{ $category->name }}</strong>
                     <p class="mb-0">{{ $lessonLevelOnlineDescriptions[$category->id]->description }}</p>
                 </div>
