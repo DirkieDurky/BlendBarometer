@@ -23,4 +23,14 @@ class EditContentController
         Content::where('section_name', 'intro_description')->update(['info' => $request->content]);
         return redirect()->route('admin.edit-content');
     }
+
+    public function updateChartContent(Request $request)
+    {
+        $request->validate([
+            'content' => ['required'],
+        ]);
+
+        Content::where('section_name', 'intro_description')->update(['info' => $request->content]);
+        return redirect()->route('admin.edit-content');
+    }
 }
