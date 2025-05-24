@@ -66,6 +66,23 @@ new Chart(lessonLevelGraph, {
     }
 });
 
+let lessonLevelAriaLabel = ""
+lessonLevelAriaLabel = "Algemene grafiek op lesniveau. Opgedeeld in fysieke leeractiviteiten en online leeractiviteiten. ";
+lessonLevelAriaLabel += "Scores op gebied van fysieke leeractiviteiten: ";
+for (let i = 0; i < lessonLevelSubcategories.length; i++) {
+    const label = lessonLevelSubcategories.map(c => c.name)[i];
+    const data = lessonLevelDataPhysical[i];
+    lessonLevelAriaLabel += label + ": " + data + ". ";
+}
+lessonLevelAriaLabel += "Scores op gebied van online leeractiviteiten: ";
+for (let i = 0; i < lessonLevelSubcategories.length; i++) {
+    const label = lessonLevelSubcategories.map(c => c.name)[i];
+    const data = lessonLevelDataOnline[i];
+
+    lessonLevelAriaLabel += label + ": " + data + ". ";
+}
+lessonLevelGraph.ariaLabel = lessonLevelAriaLabel;
+
 const lessonLevelDataAllArray = [];
 for (const [_, item] of Object.entries(lessonLevelDataAll)) {
     let section = [];
@@ -133,6 +150,17 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
             }
         }
     });
+    let graphAriaLabel = "Fysieke leeractiviteiten - ";
+    graphAriaLabel += category.name + ". Scores: ";
+
+    for (let i = 0; i < categoryLabels.length; i++) {
+        const label = categoryLabels[i];
+        const data = categoryData[i];
+
+        graphAriaLabel += label + ": " + data + ". ";
+    }
+
+    graph.ariaLabel = graphAriaLabel;
 }
 
 for (let i = 0; i < lessonLevelSubcategories.length; i++) {
@@ -192,6 +220,17 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
             }
         }
     });
+    let graphAriaLabel = "Online leeractiviteiten - ";
+    graphAriaLabel += category.name + ". Scores: ";
+
+    for (let i = 0; i < categoryLabels.length; i++) {
+        const label = categoryLabels[i];
+        const data = categoryData[i];
+
+        graphAriaLabel += label + ": " + data + ". ";
+    }
+
+    graph.ariaLabel = graphAriaLabel;
 }
 
 const moduleLevelCategoriesGraph = document.getElementById('moduleLevelCategoriesGraph');

@@ -1,25 +1,20 @@
-<x-progress-step section="Moduleniveau" 
-                 title="Vragen op moduleniveau" 
-                 description="" 
-                 current_step_name="moduleLevel">
-                 
+<x-progress-step section="Moduleniveau" title="Vragen op moduleniveau" description="" current_step_name="moduleLevel">
+
     @section('styles')
         <link rel="stylesheet" href="{{ asset('css/module-level.css') }}">
     @endsection
 
     <div class="mb-3">
         <div class="progress" style="height: 10px;">
-            <div class="progress-bar bg-success" style="width: {{ 100 * ($currentStep / $totalSteps) }}%"
-                aria-valuenow="{{ $currentStep }}" aria-valuemin="0" aria-valuemax="{{ $totalSteps }}"
-                role="progressbar"></div>
+            <div class="progress-bar bg-success" style="width: {{ 100 * ($currentStep / $totalSteps) }}%" aria-valuenow="{{ $currentStep }}" aria-valuemin="0" aria-valuemax="{{ $totalSteps }}" role="progressbar"></div>
         </div>
     </div>
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <p class="fs-2 fw-bold text-muted mb-1">{{ $currentStep }} van {{ $totalSteps }}
-                - {{ $category->name }}</p>
-            <h1 class="fs-3 fw-bold mb-1">{{ $category->name }}</h1>
+            <h1 class="fs-2 fw-bold text-muted mb-1">{{ $currentStep }} van {{ $totalSteps }}
+                - {{ $category->name }}</h1>
+            <h2 class="fs-3 fw-bold mb-1">{{ $category->name }}</h2>
         </div>
         <button class="btn btn-secondary"onclick="window.location.href='{{ route('intermediate.view', 'moduleniveau') }}'">Hulp nodig?</button>
     </div>
@@ -72,8 +67,7 @@
                         $selectedAnswer = $answers[$currentStep][$question->id] ?? null;
                         $description = $question->description ?? null;
                     @endphp
-                    <x-module-question-component :question="$question" :selectedAnswer="$selectedAnswer"
-                        :fieldName="$fieldName" :description="$description" />
+                    <x-module-question-component :question="$question" :selectedAnswer="$selectedAnswer" :fieldName="$fieldName" :description="$description" />
                 @endforeach
             </div>
         </div>
@@ -86,10 +80,10 @@
 
         document.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
-                const submitButton = document.querySelector('button.btn-primary');
+                form = document.querySelector('form');
 
-                if (submitButton) {
-                    submitButton.click();
+                if (form.reportValidity()) {
+                    form.submit();
                 }
             }
         })

@@ -59,5 +59,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
     Route::get('/content-bewerken', [EditContentController::class, 'index'])->name('edit-content');
 
-    Route::get('/grafiekbeschrijving-bewerken', [EditContentController::class, 'index'])->name('edit-content');
+    // Route::get('/grafiekbeschrijving-bewerken', [EditContentController::class, 'index'])->name('edit-content');
+    Route::put('/content-bewerken/homepagina-opslaan', [EditContentController::class, 'updateHomeContent'])->name('edit-content.home-update');
 });
