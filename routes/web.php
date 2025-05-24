@@ -58,4 +58,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
     })->name('edit-questions');
 
     Route::get('/content-bewerken', [EditContentController::class, 'index'])->name('edit-content');
+
+    Route::get('/grafiekbeschrijving-bewerken', [EditContentController::class, 'index'])->name('edit-content');
 });
