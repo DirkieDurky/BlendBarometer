@@ -34,7 +34,7 @@ class AuthController extends Controller
                     'email_verified_at' => now(),
                 ]);
             }
-            Auth::login($user);
+            Auth::guard('web')->login($user);
             Session::regenerate();
             Session::put('email', $email);
             return redirect()->route('intermediate.view', 'gegevens');
@@ -131,7 +131,7 @@ class AuthController extends Controller
                     'email_verified_at' => now(),
                 ]);
             }
-            Auth::login($user);
+            Auth::guard('web')->login($user);
             Session::regenerate();
             return redirect()->route('intermediate.view', 'gegevens');
         } else {

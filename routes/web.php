@@ -8,6 +8,7 @@ use App\Http\Controllers\InformationController;
 use App\Http\Controllers\IntermediateController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ResultsController;
 use App\Http\Middleware\Authenticate;
@@ -44,9 +45,14 @@ Route::middleware([Authenticate::class])->group(function () {
 
 Route::post('/SaveChart', [ResultsController::class, 'saveChart']);
 
-// TODO: add middleware for admin role
-Route::name('admin.')->prefix('admin')->group(function () {
-    Route::get('/', [AdminAuthController::class, 'index'])->name('login');
+Route::get('/admin/login', [AdminAuthController::class, 'index'])->name('admin.login');
+
+Route::middleware(Authenticate::class)->name('admin.')->prefix('admin')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // old
     Route::get('/uitloggen', [AdminAuthController::class, 'logout'])->name('logout');
 
     Route::get('/email-regels', function () {
@@ -60,3 +66,5 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/content-bewerken', [EditContentController::class, 'index'])->name('edit-content');
     Route::put('/content-bewerken/homepagina-opslaan', [EditContentController::class, 'updateHomeContent'])->name('edit-content.home-update');
 });
+
+require __DIR__ . '/auth.php';
