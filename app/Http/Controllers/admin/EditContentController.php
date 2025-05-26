@@ -13,10 +13,10 @@ class EditContentController
     {
         $home = Content::where('section_name', 'intro_description')->value('info');
         $intermediateContent = [
-            "information" => Content::where('section_name', 'intermediate_information')->value('info'),
-            "lesson" => Content::where('section_name', 'intermediate_lesson')->value('info'),
-            "module" => Content::where('section_name', 'intermediate_module')->value('info'),
-            "results" => Content::where('section_name', 'intermediate_results')->value('info'),
+            "information" => Content::where('section_name', 'intermediate_information')->select('info', 'show')->first(),
+            "lesson" => Content::where('section_name', 'intermediate_lesson')->select('info', 'show')->first(),
+            "module" => Content::where('section_name', 'intermediate_module')->select('info', 'show')->first(),
+            "results" => Content::where('section_name', 'intermediate_results')->select('info', 'show')->first(),
         ];
 
         try {

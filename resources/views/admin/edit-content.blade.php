@@ -62,7 +62,8 @@
                  aria-labelledby="uitleg-tab"
                  tabindex="-1">
                 <x-admin.edit-content.intermediate
-                    content="{!! $intermediateContent['information'] ?? null !!}"
+                    content="{!! $intermediateContent['information']->info ?? null !!}"
+                    show="{{ $intermediateContent['information']->show }}"
                     section="information"
                 />
             </div>
@@ -71,7 +72,8 @@
                  aria-labelledby="tussenpagina 1-tab"
                  tabindex="-1">
                 <x-admin.edit-content.intermediate
-                    content="{!! $intermediateContent['lesson'] ?? null !!}"
+                    content="{!! $intermediateContent['lesson']->info ?? null !!}"
+                    show="{{ $intermediateContent['lesson']->show }}"
                     section="lesson"
                 />
             </div>
@@ -80,7 +82,8 @@
                  aria-labelledby="tussenpagina 2-tab"
                  tabindex="-1">
                 <x-admin.edit-content.intermediate
-                    content="{!! $intermediateContent['module'] ?? null !!}"
+                    content="{!! $intermediateContent['module']->info ?? null !!}"
+                    show="{{ $intermediateContent['module']->show }}"
                     section="module"
                 />
             </div>
@@ -89,7 +92,8 @@
                  aria-labelledby="tussenpagina 3-tab"
                  tabindex="-1">
                 <x-admin.edit-content.intermediate
-                    content="{!! $intermediateContent['results'] ?? null !!}"
+                    content="{!! $intermediateContent['results']->info ?? null !!}"
+                    show="{{ $intermediateContent['results']->show }}"
                     section="results"
                 />
             </div>
