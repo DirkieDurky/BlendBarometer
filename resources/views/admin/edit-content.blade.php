@@ -15,31 +15,31 @@
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link {{ !(isset($tab) && $tab === 'explanation') ?: 'active' }}" data-bs-toggle="tab"
-                        data-bs-target="#explanation-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'information') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#information-tab-pane"
                         type="button" role="tab" aria-selected="true">
                     Uitleg pagina
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link {{ !(isset($tab) && $tab === 'tp1') ?: 'active' }}" data-bs-toggle="tab"
-                        data-bs-target="#tp1-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'lesson') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#lesson-tab-pane"
                         type="button" role="tab" aria-selected="false">
-                    Tussenpagina deel 1
+                    Tussenpagina lesniveau
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link {{ !(isset($tab) && $tab === 'tp2') ?: 'active' }}" data-bs-toggle="tab"
-                        data-bs-target="#tp2-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'module') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#module-tab-pane"
                         type="button" role="tab" aria-selected="false">
-                    Tussenpagina deel 2
+                    Tussenpagina moduleniveau
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link {{ !(isset($tab) && $tab === 'tp3') ?: 'active' }}" data-bs-toggle="tab"
-                        data-bs-target="#tp3-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'results') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#results-tab-pane"
                         type="button" role="tab" aria-selected="false">
-                    Tussenpagina deel 3
+                    Tussenpagina resultaten
                 </button>
             </li>
             <li class="nav-item" role="presentation">
@@ -57,8 +57,8 @@
                  tabindex="-1">
                 <x-admin.edit-content.home :home="$home"/>
             </div>
-            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'explanation') ?: 'show active' }}"
-                 id="explanation-tab-pane" role="tabpanel"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'information') ?: 'show active' }}"
+                 id="information-tab-pane" role="tabpanel"
                  aria-labelledby="uitleg-tab"
                  tabindex="-1">
                 <x-admin.edit-content.intermediate
@@ -67,7 +67,7 @@
                     section="information"
                 />
             </div>
-            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'tp1') ?: 'show active' }}" id="tp1-tab-pane"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'lesson') ?: 'show active' }}" id="lesson-tab-pane"
                  role="tabpanel"
                  aria-labelledby="tussenpagina 1-tab"
                  tabindex="-1">
@@ -77,7 +77,7 @@
                     section="lesson"
                 />
             </div>
-            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'tp2') ?: 'show active' }}" id="tp2-tab-pane"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'module') ?: 'show active' }}" id="module-tab-pane"
                  role="tabpanel"
                  aria-labelledby="tussenpagina 2-tab"
                  tabindex="-1">
@@ -87,7 +87,7 @@
                     section="module"
                 />
             </div>
-            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'tp3') ?: 'show active' }}" id="tp3-tab-pane"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'results') ?: 'show active' }}" id="results-tab-pane"
                  role="tabpanel"
                  aria-labelledby="tussenpagina 3-tab"
                  tabindex="-1">

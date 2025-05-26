@@ -40,7 +40,7 @@ class EditContentController
             'content' => ['required'],
         ]);
 
-        Content::where('section_name', 'intro_description')->update(['info' => $request->content]);
+        Content::where('section_name', 'intro_description')->update(['info' => $request->input('content')]);
         return redirect()->route('admin.edit-content');
     }
 
@@ -51,7 +51,11 @@ class EditContentController
             'show' => ['required', 'string', 'in:true,false'],
         ]);
 
-        Content::where('section_name', 'intermediate_' . $sectionName)->update(['info' => $request->content]);
-        return redirect()->route('admin.edit-content');
+        Content::where('section_name', 'intermediate_' . $sectionName)
+            ->update([
+                'info' => $request->input('content'),
+                'show' => $request->input('show') === 'true',
+            ]);
+        return redirect()->route('admin.edit-content', ['tab' => $sectionName]);
     }
 }
