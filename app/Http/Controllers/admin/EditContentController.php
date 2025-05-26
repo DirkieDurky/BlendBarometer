@@ -48,6 +48,7 @@ class EditContentController
     {
         $request->validate([
             'content' => ['required'],
+            'show' => ['required', 'string', 'in:true,false'],
         ]);
 
         Content::where('section_name', 'intermediate_' . $sectionName)->update(['info' => $request->content]);
