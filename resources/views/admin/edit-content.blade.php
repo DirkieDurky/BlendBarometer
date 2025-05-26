@@ -8,37 +8,43 @@
 
         <ul class="nav nav-underline tablist rounded shadow-sm" id="tabList" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+                <button class="nav-link {{ !(!isset($tab) || $tab === 'home') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#home-tab-pane"
                         type="button" role="tab" aria-selected="true">
                     Home pagina
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#explanation-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'explanation') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#explanation-tab-pane"
                         type="button" role="tab" aria-selected="true">
                     Uitleg pagina
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tp1-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'tp1') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#tp1-tab-pane"
                         type="button" role="tab" aria-selected="false">
                     Tussenpagina deel 1
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tp2-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'tp2') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#tp2-tab-pane"
                         type="button" role="tab" aria-selected="false">
                     Tussenpagina deel 2
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tp3-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'tp3') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#tp3-tab-pane"
                         type="button" role="tab" aria-selected="false">
                     Tussenpagina deel 3
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#chart-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'chart') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#chart-tab-pane"
                         type="button" role="tab" aria-selected="false">
                     Grafieken
                 </button>
@@ -46,44 +52,63 @@
         </ul>
 
         <div class="tab-content mt-4" id="tabContent">
-            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+            <div class="tab-pane fade {{ !(!isset($tab) || $tab === 'home') ?: 'show active' }}" id="home-tab-pane"
+                 role="tabpanel" aria-labelledby="home-tab"
                  tabindex="-1">
                 <x-admin.edit-content.home :home="$home"/>
             </div>
-            <div class="tab-pane fade" id="explanation-tab-pane" role="tabpanel" aria-labelledby="uitleg-tab"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'explanation') ?: 'show active' }}"
+                 id="explanation-tab-pane" role="tabpanel"
+                 aria-labelledby="uitleg-tab"
                  tabindex="-1">
                 <x-admin.edit-content.intermediate
                     content="{!! $intermediateContent['information'] ?? null !!}"
                     section="information"
                 />
             </div>
-            <div class="tab-pane fade" id="tp1-tab-pane" role="tabpanel" aria-labelledby="tussenpagina 1-tab"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'tp1') ?: 'show active' }}" id="tp1-tab-pane"
+                 role="tabpanel"
+                 aria-labelledby="tussenpagina 1-tab"
                  tabindex="-1">
                 <x-admin.edit-content.intermediate
                     content="{!! $intermediateContent['lesson'] ?? null !!}"
                     section="lesson"
                 />
             </div>
-            <div class="tab-pane fade" id="tp2-tab-pane" role="tabpanel" aria-labelledby="tussenpagina 2-tab"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'tp2') ?: 'show active' }}" id="tp2-tab-pane"
+                 role="tabpanel"
+                 aria-labelledby="tussenpagina 2-tab"
                  tabindex="-1">
                 <x-admin.edit-content.intermediate
                     content="{!! $intermediateContent['module'] ?? null !!}"
                     section="module"
                 />
             </div>
-            <div class="tab-pane fade" id="tp3-tab-pane" role="tabpanel" aria-labelledby="tussenpagina 3-tab"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'tp3') ?: 'show active' }}" id="tp3-tab-pane"
+                 role="tabpanel"
+                 aria-labelledby="tussenpagina 3-tab"
                  tabindex="-1">
                 <x-admin.edit-content.intermediate
                     content="{!! $intermediateContent['results'] ?? null !!}"
                     section="results"
                 />
             </div>
-            <div class="tab-pane fade" id="chart-tab-pane" role="tabpanel" aria-labelledby="grafieken-tab"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'chart') ?: 'show active' }}" id="chart-tab-pane"
+                 role="tabpanel"
+                 aria-labelledby="grafieken-tab"
                  tabindex="-1">
                 <x-admin.edit-content.chart/>
             </div>
         </div>
     </div>
+    <script>
+        document.querySelectorAll('#tabList button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.getAttribute('data-bs-target').replace('#', '').replace('-tab-pane', '').trim();
+                const url = new URL(window.location.href);
+                url.searchParams.set('tab', tab);
+                window.history.pushState({}, '', url);
+            });
+        });
+    </script>
 </x-admin.layout>
-
-{{-- TODO return to tab toevoegen --}}

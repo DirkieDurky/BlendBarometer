@@ -19,7 +19,19 @@ class EditContentController
             "results" => Content::where('section_name', 'intermediate_results')->value('info'),
         ];
 
-        return view('admin.edit-content', ['home' => $home, 'intermediateContent' => $intermediateContent]);
+        try {
+            $tab = request()->get('tab', 'home');
+        } catch (\Exception $e) {
+            $tab = 'home';
+        }
+
+        return view('admin.edit-content',
+            [
+                'tab' => $tab,
+                'home' => $home,
+                'intermediateContent' => $intermediateContent,
+            ]
+        );
     }
 
     public function updateHomeContent(Request $request): RedirectResponse
