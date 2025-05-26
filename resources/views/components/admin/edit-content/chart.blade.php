@@ -1,13 +1,31 @@
-<h2>
-    Hier komt de grafiek content bewerken
-</h2>
-<form action="{{ route('admin.edit-content.chart') }}" method="POST" class="form w-100 d-flex justify-content-end" onreset="hideButtons()">
+<form action="{{ route('admin.edit-content.chart') }}" method="POST" class="form w-100" onreset="hideButtons()">
     @csrf
     @method('PUT')
-    <input type="text" onclick="showButtons()">
+    <div class="d-flex pb-4">
+        <div class="d-flex flex-column gap-5 w-100 px-3">
+            @foreach ($lessonLevelPhysicalSubcategories as $category)
+                <div>
+                    <h3 class="h5">Grafiek fysiek - {{ $category->name }}</h3>
+                    <p>Uitleg</p>
+                    <input type="hidden" name="items[{{ $loop->index }}][id]" value="{{ $category->id }}">
+                    <textarea onclick="showButtons()" class="w-100 h-75 pb-5 border rounded p-2" name="items[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
+                </div>
+            @endforeach
+        </div>
+        <div class="d-flex flex-column gap-5 w-100 ps-3">
+            @foreach ($lessonLevelOnlineSubcategories as $category)
+                <div>
+                    <h3 class="h5">Grafiek online - {{ $category->name }}</h3>
+                    <p>Uitleg</p>
+                    <input type="hidden" name="items[{{ $loop->index }}][id]" value="{{ $category->id }}">
+                    <textarea onclick="showButtons()" class="w-100 h-75 pb-5 border rounded p-2" name="items[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
+                </div>
+            @endforeach
+        </div>
+    </div>
 
 
-    <div class="d-flex justify-content-end gap-2 mt-3" id="form-buttons" style="display: none;">
+    <div class="d-flex flex-row justify-content-end mt-3" id="form-buttons">
         <button id="reset-button" type="reset" class="btn btn-outline-primary mb-5 me-2 d-none">Annuleren</button>
         <button id="save-button" type="submit" class="btn btn-primary mb-5 me-2 d-none">Opslaan</button>
     </div>
@@ -30,24 +48,3 @@
         saveButton.classList.add('d-none');
     }
 </script>
-{{-- <div class="d-flex flex-row gap-4">
-        <div class="d-flex flex-column gap-3">
-            <h2>Fysieke leeractiviteiten</h2>
-            @foreach ($lessonLevelPhysicalSubcategories as $category)
-                <div class="card graph-card p-3">
-                    <canvas id="physical-{{ $category->id }}" class="bg-white rounded mb-2"></canvas>
-                    <strong>{{ $category->name }}</strong>
-                    <p class="mb-0">{{ $lessonLevelPhysicalDescriptions[$category->id]->description }}</p>
-                </div>
-            @endforeach
-        </div>
-        <div class="d-flex flex-column gap-3">
-            <h2>Online leeractiviteiten</h2>
-            @foreach ($lessonLevelOnlineSubcategories as $category)
-                <div class="card graph-card p-3">
-                    <canvas id="online-{{ $category->id }}" class="bg-white rounded mb-2"></canvas>
-                    <strong>{{ $category->name }}</strong>
-                    <p class="mb-0">{{ $lessonLevelOnlineDescriptions[$category->id]->description }}</p>
-                </div>
-            @endforeach
-        </div> --}}

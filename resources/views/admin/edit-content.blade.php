@@ -68,7 +68,9 @@
             </div>
             <div class="tab-pane fade" id="chart-tab-pane" role="tabpanel" aria-labelledby="grafieken-tab"
                  tabindex="-1">
-                <x-admin.edit-content.chart/>
+                 {{-- @dd($lessonLevelPhysicalSubcategories) --}}
+                <x-admin.edit-content.chart :lessonLevelPhysicalSubcategories="$lessonLevelPhysicalSubcategories"
+                    :lessonLevelOnlineSubcategories="$lessonLevelOnlineSubcategories" />
             </div>
         </div>
     </div>
