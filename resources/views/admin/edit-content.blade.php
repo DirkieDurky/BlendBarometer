@@ -52,19 +52,31 @@
             </div>
             <div class="tab-pane fade" id="explanation-tab-pane" role="tabpanel" aria-labelledby="uitleg-tab"
                  tabindex="-1">
-                <x-admin.edit-content.explanation/>
+                <x-admin.edit-content.intermediate
+                    content="{!! $intermediateContent['information'] ?? null !!}"
+                    section="information"
+                />
             </div>
             <div class="tab-pane fade" id="tp1-tab-pane" role="tabpanel" aria-labelledby="tussenpagina 1-tab"
                  tabindex="-1">
-                <x-admin.edit-content.intermediate/>
+                <x-admin.edit-content.intermediate
+                    content="{!! $intermediateContent['lesson'] ?? null !!}"
+                    section="lesson"
+                />
             </div>
             <div class="tab-pane fade" id="tp2-tab-pane" role="tabpanel" aria-labelledby="tussenpagina 2-tab"
                  tabindex="-1">
-                <x-admin.edit-content.intermediate/>
+                <x-admin.edit-content.intermediate
+                    content="{!! $intermediateContent['module'] ?? null !!}"
+                    section="module"
+                />
             </div>
             <div class="tab-pane fade" id="tp3-tab-pane" role="tabpanel" aria-labelledby="tussenpagina 3-tab"
                  tabindex="-1">
-                <x-admin.edit-content.intermediate/>
+                <x-admin.edit-content.intermediate
+                    content="{!! $intermediateContent['results'] ?? null !!}"
+                    section="results"
+                />
             </div>
             <div class="tab-pane fade" id="chart-tab-pane" role="tabpanel" aria-labelledby="grafieken-tab"
                  tabindex="-1">
@@ -73,3 +85,5 @@
         </div>
     </div>
 </x-admin.layout>
+
+{{-- TODO return to tab toevoegen --}}
