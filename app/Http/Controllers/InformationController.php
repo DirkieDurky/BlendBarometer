@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Academy;
+use App\Models\Content;
 use Illuminate\Http\Request;
 
 class InformationController extends Controller
@@ -10,7 +11,12 @@ class InformationController extends Controller
     public function view()
     {
         $academies = Academy::all();
-        return view('information', ['academies' => $academies]);
+        $intermediate = Content::where('section_name', 'intermediate_information')->firstOrFail();
+        $previous = $intermediate->show ? route('intermediate.view', 'gegevens') : route('home');
+        return view('information', [
+            'academies' => $academies,
+            'previous' => $previous,
+        ]);
     }
 
     public function submit(Request $request)

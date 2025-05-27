@@ -74,6 +74,7 @@ class IntermediateController extends Controller
         }
 
         if (!$staticContent[$sectionName]['content']->show) {
+
             return redirect($staticContent[$sectionName]['next']);
         }
 
