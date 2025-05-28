@@ -31,7 +31,7 @@ class LessonController extends Controller
         );
 
         $intermediate = Content::where('section_name', 'intermediate_lesson')->firstOrFail();
-        $previous = $intermediate->show ? route('lesson-level.previous', $currentStep) : route('information');
+        $previous = ($currentStep > 1 || $intermediate->show) ? route('lesson-level.previous', $currentStep) : route('information');
 
         return view('lesson-level',
             compact('subCategory', 'questions', 'totalSteps', 'currentStep', 'answers', 'customQuestions', 'previous')
