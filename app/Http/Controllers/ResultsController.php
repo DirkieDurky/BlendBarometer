@@ -39,6 +39,8 @@ class ResultsController extends Controller
         $lessonLevelDataOnline = [];
         $lessonLevelDataPhysical = [];
 
+        $subCategoryPhysicalIds = Sub_category::select('id')->where('question_category_id' == 1);
+
         $answers = session()->get("lessonLevelData");
         foreach ($answers as $subCat => $answerPage) 
         {
@@ -51,7 +53,7 @@ class ResultsController extends Controller
                 {
                     $parts = explode('_', $key);
                     $questionName = $parts[2];
-                    if($subCat <= 6)
+                    if(in_array($subCat, $subCategoryPhysicalIds))
                     {
                         $lessonLevelPhysicalQuestions = $lessonLevelPhysicalQuestions->put(
                             $subCat,
@@ -71,11 +73,11 @@ class ResultsController extends Controller
 
             if ($question->value('question_category_id') == 1) 
             {
-                $lessonLevelDataOnline[] = $total;
+                $lessonLevelDataPhysical[] = $total;
             } 
             else if ($question->value('question_category_id') == 2) 
             {
-                $lessonLevelDataPhysical[] = $total;
+                $lessonLevelDataOnline[] = $total;
             }
         }
 
