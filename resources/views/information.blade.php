@@ -38,9 +38,9 @@
 
                         @foreach ($academies as $academy)
                             @if ($academy == $academyChoice)
-                                <option value="{{ $academy->name }}" selected>{{ $academy->name }}</option>
+                                <option value="{{ $academy->name }}" selected>{{ $academy->abbreviation }} - {{ $academy->name }}</option>
                             @else
-                                <option value="{{ $academy->name }}">{{ $academy->name }}</option>
+                                <option value="{{ $academy->name }}">{{ $academy->abbreviation }} - {{ $academy->name }}</option>
                             @endif
                         @endforeach
                     </select>
