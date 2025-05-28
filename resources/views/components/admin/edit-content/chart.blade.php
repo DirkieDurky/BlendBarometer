@@ -3,12 +3,13 @@
     @method('PUT')
     <div class="d-flex pb-4">
         <div class="d-flex flex-column gap-5 w-100 px-3">
+            {{-- @dd($lessonLevelPhysicalSubcategories) --}}
             @foreach ($lessonLevelPhysicalSubcategories as $category)
                 <div>
                     <h3 class="h5">Grafiek fysiek - {{ $category->name }}</h3>
-                    <p>Uitleg</p>
-                    <input type="hidden" name="items[{{ $loop->index }}][id]" value="{{ $category->id }}">
-                    <textarea onclick="showButtons()" class="w-100 h-75 pb-5 border rounded p-2" name="items[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
+                    <p class="my-1">Uitleg</p>
+                    <input type="hidden" name="physical[{{ $loop->index }}][id]" value="{{ $category->id }}">
+                    <textarea onclick="showButtons()" class="w-100 h-75 pb-4 border rounded p-2" name="physical[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
                 </div>
             @endforeach
         </div>
@@ -16,9 +17,9 @@
             @foreach ($lessonLevelOnlineSubcategories as $category)
                 <div>
                     <h3 class="h5">Grafiek online - {{ $category->name }}</h3>
-                    <p>Uitleg</p>
-                    <input type="hidden" name="items[{{ $loop->index }}][id]" value="{{ $category->id }}">
-                    <textarea onclick="showButtons()" class="w-100 h-75 pb-5 border rounded p-2" name="items[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
+                    <p class="my-1">Uitleg</p>
+                    <input type="hidden" name="online[{{ $loop->index }}][id]" value="{{ $category->id }}">
+                    <textarea onclick="showButtons()" class="w-100 h-75 pb-4 border rounded p-2" name="online[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
                 </div>
             @endforeach
         </div>

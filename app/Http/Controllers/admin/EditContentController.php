@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Content;
 use App\Models\Sub_category;
 use App\Models\GraphDescription;
+use App\Models\Question_category;
 use Laravel\Pail\ValueObjects\Origin\Console;
 
 class EditContentController
@@ -15,7 +16,7 @@ class EditContentController
     {
         $home = Content::where('section_name', 'intro_description')->value('info');
 
-        $lessonLevelPhysicalSubcategories = Sub_category::select('graph_description.id', 'sub_category.name', 'graph_description.description')
+        $lessonLevelPhysicalSubcategories = Sub_category::select('sub_category.name',"sub_category.id", 'graph_description.description')
             ->leftJoin('graph_description', function($join) {
                 $join->on('sub_category.id', '=', 'graph_description.sub_category_id')
              ->where('graph_description.graph_type', '=', 'physical');
@@ -23,7 +24,7 @@ class EditContentController
         ->where('sub_category.question_category_id', 1)
         ->get();
 
-        $lessonLevelOnlineSubcategories = Sub_category::select('graph_description.id', 'sub_category.name', 'graph_description.description')
+        $lessonLevelOnlineSubcategories = Sub_category::select('sub_category.name',"sub_category.id", 'graph_description.description')
             ->leftJoin('graph_description', function($join) {
                 $join->on('sub_category.id', '=', 'graph_description.sub_category_id')
              ->where('graph_description.graph_type', '=', 'online');
@@ -50,11 +51,39 @@ class EditContentController
 
     public function updateChartContent(Request $request)
     {
-        $request->validate([
-            'content' => ['required'],
-        ]);
+        $descriptions = $request->input('physical');
+        foreach($descriptions as $description){
+            $this->UpdateChartDescription($description);
+        }
 
-        Content::where('section_name', 'intro_description')->update(['info' => $request->content]);
+        $descriptions = $request->input('online');
+        foreach($descriptions as $description){
+            $this->UpdateChartDescription($description);
+        }
         return redirect()->route('admin.edit-content');
+    }
+
+    private function UpdateChartDescription($description)
+    {
+        if (!isset($description['id']) || !isset($description['description'])) {
+                return; // skip if data is incomplete
+            }
+
+        // Try to find an existing row with this ID
+        $row = GraphDescription::where('sub_category_id', $description['id'])->first();
+
+        if ($row) {
+            // Update existing
+            $row->update(['description' => $description['description']]);
+        } else {
+            $category = Sub_category::find($description['id']);
+            if($category){
+                            GraphDescription::create([
+                'sub_category_id' => $description['id'],
+                'graph_type' => $category->question_category_id == 1 ? 'physical' : 'online',
+                'description' => $description['description'],
+            ]);
+            }
+        }
     }
 }
