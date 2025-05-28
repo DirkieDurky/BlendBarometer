@@ -12,6 +12,7 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ResultsController;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\Authenticate_admin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -46,17 +47,18 @@ Route::middleware([Authenticate::class])->group(function () {
 Route::get('/bevestiging', [ConfirmationController::class, 'view'])->name('confirmation');
 Route::post('/SaveChart', [ResultsController::class, 'saveChart']);
 
-// TODO: add middleware for admin role
-Route::name('admin.')->prefix('admin')->group(function () {
-    Route::get('/', [AdminAuthController::class, 'index'])->name('login');
+Route::get('/admin', [AdminAuthController::class, 'index'])->name('admin.login');
+Route::post('/admin', [AdminAuthController::class, 'submitLogin'])->name('admin.submit');
+
+Route::middleware([Authenticate_admin::class])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/uitloggen', [AdminAuthController::class, 'logout'])->name('logout');
 
     Route::get('/email-regels', function () {
-        return view('admin.email-rules'); // TODO: get view via controller
+        return view('email-rules'); // TODO: get view via controller
     })->name('email-rules');
 
     Route::get('/vragen-bewerken', function () {
-        return view('admin.edit-questions'); // TODO: get view via controller
+        return view('edit-questions'); // TODO: get view via controller
     })->name('edit-questions');
 
     Route::get('/content-bewerken', [EditContentController::class, 'index'])->name('edit-content');
