@@ -158,7 +158,7 @@ class ReportController extends Controller
         
         $infotable->addRow();
         $infotable->addCell($this->labelWidth)->addText('Academie', $this->labelStyle);
-        $infotable->addCell($this->valueWidth)->addText(session('academy'), $this->valueStyle);
+        $infotable->addCell($this->valueWidth)->addText(session('academy-abbreviation'), $this->valueStyle);
         $infotable->addCell($this->paddingWidth);
         $infotable->addCell($this->labelWidth)->addText('Docent', $this->labelStyle);
         $infotable->addCell($this->valueWidth)->addText(session('name'), $this->valueStyle);
@@ -192,7 +192,8 @@ class ReportController extends Controller
         ]);
         $table->addRow();
 
-        $text1 = preg_replace('/\s+/', ' ', Content::where('section_name', 'intro_description')->first()->info);
+        $plainText = strip_tags(html_entity_decode(Content::where('section_name', 'intro_description')->first()->info));
+        $text1 = preg_replace('/\s+/', ' ', $plainText);
 
         $table->addCell(6500)->addText($text1, [
             'color' => '888888',
@@ -528,7 +529,7 @@ class ReportController extends Controller
             'alignment' => Jc::START,
         ]);
 
-        $table->addCell(5500)->addText(session('course') . ' - ' . session('module'), array_merge($headerTextStyle, [
+        $table->addCell(5500)->addText(session('academy-abbreviation') . ' - ' . session('course') . ' - ' . session('module'), array_merge($headerTextStyle, [
             'color' => '888888',
             'bold' => true,
         ]), [
