@@ -7,16 +7,6 @@
     <h1>Overzicht en versturen</h1>
     <p>Je staat op het punt de resultaten van dit formulier definitief te versturen</p>
 
-    @error('email')
-    <div class="alert alert-danger" role="alert">
-        Er is een fout opgetreden bij het versturen van de resultaten.
-        <details class="small opacity-75 mt-2">
-            <summary>Details foutmelding</summary>
-            <p>{{ $message }}</p>
-        </details>
-    </div>
-    @enderror
-
     <form method="get" action="{{ route('send') }}">
         @csrf
 
