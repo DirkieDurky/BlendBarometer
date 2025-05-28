@@ -24,22 +24,26 @@
     <div class="d-flex flex-row gap-4">
         <div class="d-flex flex-column gap-3">
             <h2>Fysieke leeractiviteiten</h2>
+            {{ $i = 0 }}
             @foreach ($lessonLevelPhysicalSubcategories as $category)
                 <div class="card graph-card p-3">
                     <canvas id="physical-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
                     <strong>{{ $category->name }}</strong>
-                    <p class="mb-0">{{ $lessonLevelPhysicalDescriptions[$category->id]->description }}</p>
+                    <p class="mb-0">{{ $lessonLevelPhysicalDescriptions[$i]->description }}</p>
                 </div>
+                {{ $i++ }}
             @endforeach
         </div>
         <div class="d-flex flex-column gap-3">
             <h2>Online leeractiviteiten</h2>
+            {{ $i = 0 }}
             @foreach ($lessonLevelOnlineSubcategories as $category)
                 <div class="card graph-card p-3">
                     <canvas id="online-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
                     <strong>{{ $category->name }}</strong>
-                    <p class="mb-0">{{ $lessonLevelOnlineDescriptions[$category->id]->description }}</p>
+                    <p class="mb-0">{{ $lessonLevelOnlineDescriptions[$i]->description }}</p>
                 </div>
+            {{ $i++ }}
             @endforeach
         </div>
     </div>
