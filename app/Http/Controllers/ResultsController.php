@@ -39,7 +39,7 @@ class ResultsController extends Controller
         $lessonLevelDataOnline = [];
         $lessonLevelDataPhysical = [];
 
-        $subCategoryPhysicalIds = Sub_category::select('id')->where('question_category_id' == 1);
+        $subCategoryPhysicalIds = Sub_category::select('id')->where('question_category_id', 1)->pluck('id')->toArray();
 
         $answers = session()->get("lessonLevelData");
         foreach ($answers as $subCat => $answerPage) 
