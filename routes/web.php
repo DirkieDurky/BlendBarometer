@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AuthController as AdminAuthController;
 use App\Http\Controllers\admin\EditContentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\IntermediateController;
@@ -42,6 +43,7 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::get('/tussenpagina/{sectionName}', [IntermediateController::class, 'view'])->name('intermediate.view');
 });
 
+Route::get('/bevestiging', [ConfirmationController::class, 'view'])->name('confirmation');
 Route::post('/SaveChart', [ResultsController::class, 'saveChart']);
 
 // TODO: add middleware for admin role
