@@ -1,9 +1,8 @@
-<form action="{{ route('admin.edit-content.chart') }}" method="POST" class="form w-100" onreset="hideButtons()">
+<form action="{{ route('admin.edit-content.chart') }}" method="POST" class="form w-100 h-100" onreset="hideButtons()">
     @csrf
     @method('PUT')
-    <div class="d-flex pb-4">
+    <div class="d-flex pb-5">
         <div class="d-flex flex-column gap-5 w-100 px-3">
-            {{-- @dd($lessonLevelPhysicalSubcategories) --}}
             @foreach ($lessonLevelPhysicalSubcategories as $category)
                 <div>
                     <h3 class="h5">Grafiek fysiek - {{ $category->name }}</h3>
@@ -24,7 +23,21 @@
             @endforeach
         </div>
     </div>
-
+    
+    <div class="d-flex flex-column gap-3 w-100 ps-3">
+        <div class="h-100">
+            <h3 class="h5">Lesniveau algemeen</h3>
+            <p class="my-1">Uitleg</p>
+            <input type="hidden" name="general_lesson_level[id]" value="{{ $generalLessonLevelDescription->id }}">
+            <textarea onclick="showButtons()" style="height: 110px;" class="w-100 pb-4 border rounded p-2" name="general_lesson_level[description]">{{ $generalLessonLevelDescription->description }}</textarea>
+        </div>
+        <div class="h-100">
+            <h3 class="h5">Moduleniveau algemeen</h3>
+            <p class="my-1">Uitleg</p>
+            <input type="hidden" name="general_module[id]" value="{{ $generalModuleDescription->id }}">
+            <textarea onclick="showButtons()" style="height: 110px;" class="w-100 pb-4 border rounded p-2" name="general_module[description]">{{ $generalModuleDescription->description }}</textarea>
+        </div>
+    </div>
 
     <div class="d-flex flex-row justify-content-end mt-3" id="form-buttons">
         <button id="reset-button" type="reset" class="btn btn-outline-primary mb-5 me-2 d-none">Annuleren</button>

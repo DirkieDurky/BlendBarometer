@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Content;
 use App\Models\Sub_category;
 use App\Models\GraphDescription;
-use App\Models\Question_category;
-use Laravel\Pail\ValueObjects\Origin\Console;
 
 class EditContentController
 {
@@ -31,12 +29,17 @@ class EditContentController
         })
         ->where('sub_category.question_category_id', 2)
         ->get();
-        // dd($lessonLevelOnlineSubcategories);
+        
+        $generalLessonLevelDescription = GraphDescription::select('id','description')->where('graph_type','lesson-level-general')->first();
 
+        $generalModuleDescription = GraphDescription::select('id','description')->where('graph_type','module-level-general')->first();
 
         return view('admin.edit-content', ['home' => $home, 
             'lessonLevelPhysicalSubcategories' => $lessonLevelPhysicalSubcategories, 
-            'lessonLevelOnlineSubcategories' => $lessonLevelOnlineSubcategories,]);
+            'lessonLevelOnlineSubcategories' => $lessonLevelOnlineSubcategories,
+            'generalLessonLevelDescription' => $generalLessonLevelDescription,
+            'generalModuleDescription' => $generalModuleDescription,
+        ]);
     }
 
     public function updateHomeContent(Request $request)
@@ -60,6 +63,20 @@ class EditContentController
         foreach($descriptions as $description){
             $this->UpdateChartDescription($description);
         }
+
+        $generalLessonLevelDescription = $request->input('general_lesson_level');
+        $description = GraphDescription::find($generalLessonLevelDescription['id']);
+        if($description)
+        {
+            $description->update(['description' => $generalLessonLevelDescription['description']]);
+        }
+
+        $generalModuleDescription = $request->input('general_module');
+        $description = GraphDescription::find($generalModuleDescription['id']);
+        if($description)
+        {
+            $description->update(['description' => $generalModuleDescription['description']]);
+        }
         return redirect()->route('admin.edit-content');
     }
 
@@ -69,7 +86,6 @@ class EditContentController
                 return; // skip if data is incomplete
             }
 
-        // Try to find an existing row with this ID
         $row = GraphDescription::where('sub_category_id', $description['id'])->first();
 
         if ($row) {
