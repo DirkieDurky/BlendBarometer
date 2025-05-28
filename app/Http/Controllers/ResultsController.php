@@ -80,7 +80,9 @@ class ResultsController extends Controller
         });
 
         $intermediate = Content::where('section_name', 'intermediate_results')->firstOrFail();
-        $previous = $intermediate->show ? route('intermediate.view', 'resultaten') : route('module-level', 1);
+        $previous = $intermediate->show
+            ? route('intermediate.view', 'resultaten')
+            : route('module-level', Question_category::where('form_section_id', HomeController::MODULE_INDEX)->count());
 
         return view('results', [
             'lessonLevelPhysicalSubcategories' => $lessonLevelPhysicalSubcategories,

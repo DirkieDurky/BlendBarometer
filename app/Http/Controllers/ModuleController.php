@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Content;
 use App\Models\Module_level_answer;
 use App\Models\Question_category;
+use App\Models\Sub_category;
 use Illuminate\Http\Request;
 
 class ModuleController extends Controller
@@ -20,7 +21,7 @@ class ModuleController extends Controller
         $answers = session()->get('moduleLevelData', []);
 
         $intermediate = Content::where('section_name', 'intermediate_module')->firstOrFail();
-        $previous = ($currentStep > 1 || $intermediate->show) ? route('module-level.previous', $currentStep) : route('lesson-level', 1);
+        $previous = ($currentStep > 1 || $intermediate->show) ? route('module-level.previous', $currentStep) : route('lesson-level', Sub_category::count());
         return view('module-level', compact('category', 'answers', 'currentStep', 'totalSteps', 'descriptions', 'previous'));
     }
 
