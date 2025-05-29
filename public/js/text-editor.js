@@ -1,16 +1,15 @@
-
 const forms = document.querySelectorAll('.form');
 forms.forEach((form) => {
     const container = form.querySelector('.editor');
     form.insertAdjacentElement('beforebegin', container);
-    
+
     const quill = new Quill(container, {
         modules: {
             toolbar: [
-                [{ header: [1, 2, false] }],
+                [{header: [1, 2, false]}],
                 ['bold', 'italic', 'underline', 'strike'],
-                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                [{ 'color': [] }, { 'background': [] }],
+                [{'list': 'ordered'}, {'list': 'bullet'}],
+                [{'color': []}, {'background': []}],
                 ['link', 'image'],
             ],
         },
@@ -18,29 +17,34 @@ forms.forEach((form) => {
         theme: 'snow',
     });
 
-    let resetButton = document.createElement('button');
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'button-container mb-5 mt-2';
+    buttonContainer.style.display = 'none';
+
+    const resetButton = document.createElement('button');
     resetButton.type = 'reset';
-    resetButton.className = 'btn btn-outline-primary mb-5 me-2';
+    resetButton.className = 'btn btn-outline-primary me-2';
     resetButton.innerText = 'Annuleren';
-    resetButton.style.display = 'none';
-    let saveButton = document.createElement('button');
+
+    const saveButton = document.createElement('button');
     saveButton.type = 'submit';
-    saveButton.className = 'btn btn-primary mb-5 me-2';
+    saveButton.className = 'btn btn-primary';
     saveButton.innerText = 'Opslaan';
-    saveButton.style.display = 'none';
 
     resetButton.addEventListener('click', () => reloadPage());
 
+    form.addEventListener('change', () => {
+        showButtons();
+    });
     container.addEventListener('click', () => {
-        resetButton.style.display = 'block';
-        saveButton.style.display = 'block';
+        showButtons();
     });
     container.addEventListener('keydown', () => {
-        resetButton.style.display = 'block';
-        saveButton.style.display = 'block';
+        showButtons();
     });
 
-    form.append(resetButton, saveButton);
+    buttonContainer.append(resetButton, saveButton);
+    form.append(buttonContainer);
     form.addEventListener('submit', () => {
         let input = document.createElement('input');
         input.type = 'hidden';
@@ -55,10 +59,15 @@ toolbars.forEach((toolbar) => {
     toolbar.style.backgroundColor = 'white';
 });
 
-function reloadPage()
-{
-    if(confirm('Weet je zeker dat je de wijzigingen wilt annuleren?'))
-    {
+function reloadPage() {
+    if (confirm('Weet je zeker dat je de wijzigingen wilt annuleren?')) {
         window.location.reload();
     }
+}
+
+function showButtons() {
+    const buttonContainers = document.querySelectorAll('.button-container');
+    buttonContainers.forEach((container) => {
+        container.style.removeProperty('display');
+    });
 }

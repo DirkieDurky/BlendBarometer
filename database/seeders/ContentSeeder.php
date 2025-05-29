@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -21,6 +20,7 @@ class ContentSeeder extends Seeder
                 van&nbsp;de&nbsp;Blended&nbsp;module&nbsp;te&nbsp;meten.&nbsp;Hiermee&nbsp;is&nbsp;inzichtelijk&nbsp;wat&nbsp;de&nbsp;
                 huidige&nbsp;status&nbsp;is&nbsp;en&nbsp;wat&nbsp;er&nbsp;nog&nbsp;nodig&nbsp;is&nbsp;om&nbsp;uiteindelijk&nbsp;tot&nbsp;
                 een&nbsp;kwalitatieve&nbsp;en&nbsp;harmonieuze&nbsp;mix&nbsp;van&nbsp;leeractiviteiten&nbsp;te&nbsp;komen.</p>',
+                'show' => true,
             ],
             [
                 'section_name' => 'intermediate_information',
@@ -30,6 +30,7 @@ class ContentSeeder extends Seeder
                     <li>moduleniveau</li>
                 </ul>
                 Dit gebeurt door middel van inzichtelijke grafieken.',
+                'show' => true,
             ],
             [
                 'section_name' => 'intermediate_lesson',
@@ -50,6 +51,7 @@ class ContentSeeder extends Seeder
                     <li>af en toe</li>
                     <li>vaak</li>
                 </ul>',
+                'show' => true,
             ],
             [
                 'section_name' => 'intermediate_module',
@@ -60,10 +62,12 @@ class ContentSeeder extends Seeder
                     <li>Duidelijk plan</li>
                     <li>Verankerd</li>
                 </ul>',
+                'show' => true,
             ],
             [
                 'section_name' => 'intermediate_results',
                 'info' => '<strong>Let op:</strong> Op de volgende pagina worden de grafieken weergegeven die de resultaten van de ingevulde onderdelen visualiseren. Deze grafieken bieden een overzicht van de huidige status en helpen bij het bepalen van de vervolgstappen.',
+                'show' => true,
             ],
         ]);
     }
