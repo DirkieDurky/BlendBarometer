@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Content;
 use App\Models\GraphDescription;
 use App\Models\Question;
 use App\Models\Question_category;
 use App\Models\Sub_category;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ResultsController extends Controller
 {
     public function view()
     {
-        if ($this->hasInsufficientData()) 
-        {
+        if ($this->hasInsufficientData()) {
             return redirect(route('home'));
         }
 
@@ -42,15 +42,12 @@ class ResultsController extends Controller
         $subCategoryPhysicalIds = Sub_category::select('id')->where('question_category_id', 1)->pluck('id')->toArray();
 
         $answers = session()->get("lessonLevelData");
-        foreach ($answers as $subCat => $answerPage) 
-        {
+        foreach ($answers as $subCat => $answerPage) {
             $question = Question::where('id', key($answerPage))->select('question_category_id', 'sub_category_id');
             $total = 0;
 
-            foreach ($answerPage as $key => $answer) 
-            {
-                if(str_starts_with($key, "custom_question_"))
-                {
+            foreach ($answerPage as $key => $answer) {
+                if (str_starts_with($key, "custom_question_")) {
                     $parts = explode('_', $key);
                     $questionName = $parts[2];
                     if(in_array($subCat, $subCategoryPhysicalIds))
@@ -59,13 +56,11 @@ class ResultsController extends Controller
                             $subCat,
                             $lessonLevelPhysicalQuestions->get($subCat, collect())->push($questionName)
                         );
-                    }
-                    else
-                    {
+                    } else {
                         $lessonLevelOnlineQuestions = $lessonLevelOnlineQuestions->put(
                             $subCat,
                             $lessonLevelOnlineQuestions->get($subCat, collect())->push($questionName)
-                        );                    
+                        );
                     }
                 }
                 $total += $answer;
@@ -90,6 +85,11 @@ class ResultsController extends Controller
             return [$item['name'] => $item->text];
         });
 
+        $intermediate = Content::where('section_name', 'intermediate_results')->firstOrFail();
+        $previous = $intermediate->show
+            ? route('intermediate.view', 'resultaten')
+            : route('module-level', Question_category::where('form_section_id', HomeController::MODULE_INDEX)->count());
+
         return view('results', [
             'lessonLevelPhysicalSubcategories' => $lessonLevelPhysicalSubcategories,
             'lessonLevelOnlineSubcategories' => $lessonLevelOnlineSubcategories,
@@ -103,13 +103,13 @@ class ResultsController extends Controller
             'lessonLevelDataPhysical' => $lessonLevelDataPhysical,
             'lessonLevelDataAll' => $answers,
             'moduleLevelCategories' => $moduleLevelCategories,
+            'previous' => $previous
         ]);
     }
 
     public function overviewAndResultsInfoView()
     {
-        if ($this->hasInsufficientData()) 
-        {
+        if ($this->hasInsufficientData()) {
             return redirect(route('home'));
         }
 
@@ -119,8 +119,7 @@ class ResultsController extends Controller
 
     public function overviewAndSendView()
     {
-        if ($this->hasInsufficientData()) 
-        {
+        if ($this->hasInsufficientData()) {
             return redirect(route('home'));
         }
 
@@ -140,13 +139,13 @@ class ResultsController extends Controller
         // Retrieve the base64 image data from the incoming request
         $base64 = $request->input('image');
         $name = $request->input('name');
-        
+
         if ($base64) {
             $base64 = str_replace('data:image/png;base64,', '', $base64);
             $base64 = str_replace(' ', '+', $base64);  // Replace spaces with '+' as per the base64 standard
-            
+
             $imageData = base64_decode($base64);
-            
+
             // Check if base64 decoding succeeded
             if ($imageData === false) {
                 return response()->json(['error' => 'Base64 decoding failed'], 400);
@@ -154,7 +153,7 @@ class ResultsController extends Controller
 
             // Define the path where the image will be saved
             $imagePath = 'images/temp/' . $name . '.png';
-            
+
             $saved = Storage::disk('public')->put($imagePath, $imageData);
 
             if ($saved) {

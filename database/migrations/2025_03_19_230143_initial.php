@@ -70,6 +70,7 @@ return new class extends Migration
 
         Schema::create('academy', function (Blueprint $table) {
             $table->string('name')->primary();
+            $table->string('abbreviation');
         });
 
         Schema::create('receiver_of_academy', function (Blueprint $table) {

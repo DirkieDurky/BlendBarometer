@@ -1,13 +1,16 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<x-progress-step section="Resultaten" title="Resultaten" description="Het resultaat van de ingevulde vragen." current_step_name="results">
+<x-progress-step section="Resultaten" title="Resultaten" description="Het resultaat van de ingevulde vragen."
+                 current_step_name="results">
     <div class="alert alert-warning">
         Uw gegevens zijn nog niet verstuurd. Als u dit venster sluit gaan uw gegevens verloren.
     </div>
 
     <h1>Resultaten</h1>
     <p>
-        Bedankt voor het invullen. Op deze pagina zie je grafieken met de resultaten. We zullen deze resultaten in een gesprek bespreken en de grafieken dan toelichten. Klik op gelijk afronden om door te gaan, of bekijk de resultaten en klik onderaan op afronden.
+        Bedankt voor het invullen. Op deze pagina zie je grafieken met de resultaten. We zullen deze resultaten in een
+        gesprek bespreken en de grafieken dan toelichten. Klik op gelijk afronden om door te gaan, of bekijk de
+        resultaten en klik onderaan op afronden.
     </p>
     <div class="card graph-card p-3">
         <div class="row">
@@ -20,7 +23,7 @@
             </div>
         </div>
     </div>
-    <hr class="my-5" />
+    <hr class="my-5"/>
     <div class="d-flex flex-row gap-4">
         <div class="d-flex flex-column gap-3">
             <h2>Fysieke leeractiviteiten</h2>
@@ -43,12 +46,13 @@
             @endfor
         </div>
     </div>
-    <hr class="my-5" />
+    <hr class="my-5"/>
     <div class="card graph-card p-3">
         <div class="d-flex justify-content-center">
-            <img src="/images/barometer.png" alt="de barometer" width="60%" />
+            <img src="/images/barometer.png" alt="de barometer" width="60%"/>
             <canvas id="moduleLevelDataGraph" class="rounded mb-2 position-absolute"></canvas>
-            <canvas id="moduleLevelCategoriesGraph" class="rounded mb-2 position-absolute" style="pointer-events: none;"></canvas>
+            <canvas id="moduleLevelCategoriesGraph" class="rounded mb-2 position-absolute"
+                    style="pointer-events: none;"></canvas>
         </div>
         <strong>Moduleniveau</strong>
         <p class="mb-0">{{ $moduleLevelGeneralDescription[0]->description }}</p>
@@ -60,12 +64,13 @@
                     <div class="col-5">
                         <b>{{ $index }}.</b> {{ $description }}
                     </div>
-                    <?php $index++; ?>
+                        <?php $index++; ?>
                 @endforeach
             @endforeach
         </div>
     </div>
-    <x-navigation-buttons :previous="route('intermediate.view', 'resultaten')" :next="route('overview-and-send')" />
+    <x-navigation-buttons :previous="$previous ?? route('intermediate.view', 'resultaten')"
+                          :next="route('overview-and-send')"/>
 
 </x-progress-step>
 <script>
@@ -89,8 +94,10 @@
     const moduleLevelData = {!! json_encode(session()->get('moduleLevelData')) !!};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous"
-    referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"
+        integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
 <script src={{ URL::asset('js/custom-tooltip.js') }}></script>
 <script src={{ URL::asset('js/results-graphs.js') }}></script>
 

@@ -8,37 +8,43 @@
 
         <ul class="nav nav-underline tablist rounded shadow-sm" id="tabList" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+                <button class="nav-link {{ !(!isset($tab) || $tab === 'home') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#home-tab-pane"
                         type="button" role="tab" aria-selected="true">
                     Home pagina
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#explanation-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'information') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#information-tab-pane"
                         type="button" role="tab" aria-selected="true">
                     Uitleg pagina
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tp1-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'lesson') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#lesson-tab-pane"
                         type="button" role="tab" aria-selected="false">
-                    Tussenpagina deel 1
+                    Tussenpagina lesniveau
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tp2-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'module') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#module-tab-pane"
                         type="button" role="tab" aria-selected="false">
-                    Tussenpagina deel 2
+                    Tussenpagina moduleniveau
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tp3-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'results') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#results-tab-pane"
                         type="button" role="tab" aria-selected="false">
-                    Tussenpagina deel 3
+                    Tussenpagina resultaten
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#chart-tab-pane"
+                <button class="nav-link {{ !(isset($tab) && $tab === 'chart') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#chart-tab-pane"
                         type="button" role="tab" aria-selected="false">
                     Grafieken
                 </button>
@@ -46,27 +52,54 @@
         </ul>
 
         <div class="tab-content mt-4" id="tabContent">
-            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+            <div class="tab-pane fade {{ !(!isset($tab) || $tab === 'home') ?: 'show active' }}" id="home-tab-pane"
+                 role="tabpanel" aria-labelledby="home-tab"
                  tabindex="-1">
                 <x-admin.edit-content.home :home="$home"/>
             </div>
-            <div class="tab-pane fade" id="explanation-tab-pane" role="tabpanel" aria-labelledby="uitleg-tab"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'information') ?: 'show active' }}"
+                 id="information-tab-pane" role="tabpanel"
+                 aria-labelledby="uitleg-tab"
                  tabindex="-1">
-                <x-admin.edit-content.explanation/>
+                <x-admin.edit-content.intermediate
+                    content="{!! $intermediateContent['information']->info ?? null !!}"
+                    show="{{ $intermediateContent['information']->show }}"
+                    section="information"
+                />
             </div>
-            <div class="tab-pane fade" id="tp1-tab-pane" role="tabpanel" aria-labelledby="tussenpagina 1-tab"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'lesson') ?: 'show active' }}" id="lesson-tab-pane"
+                 role="tabpanel"
+                 aria-labelledby="tussenpagina 1-tab"
                  tabindex="-1">
-                <x-admin.edit-content.intermediate/>
+                <x-admin.edit-content.intermediate
+                    content="{!! $intermediateContent['lesson']->info ?? null !!}"
+                    show="{{ $intermediateContent['lesson']->show }}"
+                    section="lesson"
+                />
             </div>
-            <div class="tab-pane fade" id="tp2-tab-pane" role="tabpanel" aria-labelledby="tussenpagina 2-tab"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'module') ?: 'show active' }}" id="module-tab-pane"
+                 role="tabpanel"
+                 aria-labelledby="tussenpagina 2-tab"
                  tabindex="-1">
-                <x-admin.edit-content.intermediate/>
+                <x-admin.edit-content.intermediate
+                    content="{!! $intermediateContent['module']->info ?? null !!}"
+                    show="{{ $intermediateContent['module']->show }}"
+                    section="module"
+                />
             </div>
-            <div class="tab-pane fade" id="tp3-tab-pane" role="tabpanel" aria-labelledby="tussenpagina 3-tab"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'results') ?: 'show active' }}" id="results-tab-pane"
+                 role="tabpanel"
+                 aria-labelledby="tussenpagina 3-tab"
                  tabindex="-1">
-                <x-admin.edit-content.intermediate/>
+                <x-admin.edit-content.intermediate
+                    content="{!! $intermediateContent['results']->info ?? null !!}"
+                    show="{{ $intermediateContent['results']->show }}"
+                    section="results"
+                />
             </div>
-            <div class="tab-pane fade" id="chart-tab-pane" role="tabpanel" aria-labelledby="grafieken-tab"
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'chart') ?: 'show active' }}" id="chart-tab-pane"
+                 role="tabpanel"
+                 aria-labelledby="grafieken-tab"
                  tabindex="-1">
                 <x-admin.edit-content.chart :lessonLevelPhysicalSubcategories="$lessonLevelPhysicalSubcategories"
                     :lessonLevelOnlineSubcategories="$lessonLevelOnlineSubcategories" 
@@ -76,4 +109,14 @@
             </div>
         </div>
     </div>
+    <script>
+        document.querySelectorAll('#tabList button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.getAttribute('data-bs-target').replace('#', '').replace('-tab-pane', '').trim();
+                const url = new URL(window.location.href);
+                url.searchParams.set('tab', tab);
+                window.history.pushState({}, '', url);
+            });
+        });
+    </script>
 </x-admin.layout>

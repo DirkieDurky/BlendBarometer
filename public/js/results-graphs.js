@@ -1,3 +1,12 @@
+const physicalColor = {
+    borderColor: '#36A2EB',
+    backgroundColor: 'rgba(54,162,235,0.5)',
+};
+const onlineColor = {
+    borderColor: '#FF6384',
+    backgroundColor: 'rgba(255,99,132,0.5)',
+}
+
 const lessonLevelGraph = document.getElementById('lessonLevel');
 
 Chart.defaults.font.size = 16;
@@ -5,14 +14,19 @@ new Chart(lessonLevelGraph, {
     type: 'radar',
     data: {
         labels: lessonLevelSubcategories.map(c => c.name),
-        datasets: [{
-            label: 'Fysieke leeractiviteiten',
-            data: lessonLevelDataPhysical,
-        },
-        {
-            label: 'Online leeractiviteiten',
-            data: lessonLevelDataOnline,
-        }
+        datasets: [
+            {
+                label: 'Fysieke leeractiviteiten',
+                data: lessonLevelDataPhysical,
+                borderColor: physicalColor.borderColor,
+                backgroundColor: physicalColor.backgroundColor
+            },
+            {
+                label: 'Online leeractiviteiten',
+                data: lessonLevelDataOnline,
+                borderColor: onlineColor.borderColor,
+                backgroundColor: onlineColor.backgroundColor
+            }
         ]
     },
     options: {
@@ -35,7 +49,7 @@ new Chart(lessonLevelGraph, {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken,
                     },
-                    body: JSON.stringify({ image: base64Image, name: 'radar' })
+                    body: JSON.stringify({image: base64Image, name: 'radar'})
                 }).then(response => {
 
                 }).catch(error => {
@@ -103,10 +117,12 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
         type: 'bar',
         data: {
             labels: categoryLabels,
-            datasets: [{
-                label: 'Punten gescoord',
-                data: categoryData,
-            }
+            datasets: [
+                {
+                    label: 'Punten gescoord',
+                    data: categoryData,
+                    backgroundColor: physicalColor.backgroundColor
+                }
             ]
         },
         options: {
@@ -140,7 +156,7 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': csrfToken,
                         },
-                        body: JSON.stringify({ image: base64Image, name: 'physical' + category.name })
+                        body: JSON.stringify({image: base64Image, name: 'physical' + category.name})
                     }).then(response => {
 
                     }).catch(error => {
@@ -177,6 +193,7 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
             datasets: [{
                 label: 'Punten gescoord',
                 data: categoryData,
+                backgroundColor: onlineColor.backgroundColor
             }]
         },
         options: {
@@ -210,7 +227,7 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': csrfToken,
                         },
-                        body: JSON.stringify({ image: base64Image, name: 'online' + category.name })
+                        body: JSON.stringify({image: base64Image, name: 'online' + category.name})
                     }).then(response => {
 
                     }).catch(error => {
@@ -326,7 +343,7 @@ new Chart(moduleLevelCategoriesGraph, {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken,
                     },
-                    body: JSON.stringify({ image: base64Image, name: 'wheelOutside' })
+                    body: JSON.stringify({image: base64Image, name: 'wheelOutside'})
                 }).then(response => {
                 }).catch(error => {
                 });
@@ -383,7 +400,7 @@ new Chart(moduleLevelDataGraph, {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken,
                     },
-                    body: JSON.stringify({ image: base64Image, name: 'wheelInside' })
+                    body: JSON.stringify({image: base64Image, name: 'wheelInside'})
                 }).then(response => {
 
                 }).catch(error => {
