@@ -1,4 +1,4 @@
-<form action="{{ route('admin.edit-content.chart') }}" method="POST" class="form w-100 h-100" onreset="hideButtons()">
+<form action="{{ route('admin.edit-content.chart') }}" method="POST" class="form w-100 h-100" onchange="showButtons()" onreset="hideButtons()">
     @csrf
     @method('PUT')
     <div class="d-flex pb-5">

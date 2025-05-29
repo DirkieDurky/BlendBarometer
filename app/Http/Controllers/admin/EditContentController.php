@@ -35,12 +35,6 @@ class EditContentController
 
         $generalModuleDescription = GraphDescription::select('id','description')->where('graph_type','module-level-general')->first();
 
-        return view('admin.edit-content', ['home' => $home, 
-            'lessonLevelPhysicalSubcategories' => $lessonLevelPhysicalSubcategories, 
-            'lessonLevelOnlineSubcategories' => $lessonLevelOnlineSubcategories,
-            'generalLessonLevelDescription' => $generalLessonLevelDescription,
-            'generalModuleDescription' => $generalModuleDescription,
-        ]);
         $intermediateContent = [
             "information" => Content::where('section_name', 'intermediate_information')->select('info', 'show')->first(),
             "lesson" => Content::where('section_name', 'intermediate_lesson')->select('info', 'show')->first(),
@@ -59,6 +53,10 @@ class EditContentController
                 'tab' => $tab,
                 'home' => $home,
                 'intermediateContent' => $intermediateContent,
+                'lessonLevelPhysicalSubcategories' => $lessonLevelPhysicalSubcategories, 
+                'lessonLevelOnlineSubcategories' => $lessonLevelOnlineSubcategories,
+                'generalLessonLevelDescription' => $generalLessonLevelDescription,
+                'generalModuleDescription' => $generalModuleDescription,
             ]
         );
     }
@@ -98,7 +96,7 @@ class EditContentController
         {
             $description->update(['description' => $generalModuleDescription['description']]);
         }
-        return redirect()->route('admin.edit-content');
+        return redirect()->route('admin.edit-content', ['tab' => 'chart']);
     }
 
     private function UpdateChartDescription($description)
@@ -122,6 +120,7 @@ class EditContentController
             ]);
             }
         }
+    }   
     public function updateIntermediateContent(Request $request, string $sectionName): RedirectResponse
     {
         $request->validate([
