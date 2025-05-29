@@ -51,9 +51,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminAuthController::class, 'index'])->name('login');
     Route::get('/uitloggen', [AdminAuthController::class, 'logout'])->name('logout');
 
-    Route::get('/email-regels', function () {
-        return view('admin.email-rules'); // TODO: get view via controller
-    })->name('email-rules');
+    Route::controller(\App\Http\Controllers\admin\EmailRuleController::class)->group(function () {
+        Route::get   ('email-rules',        'index'  )->name('email-rules');
+        Route::post  ('email-rules',        'store'  )->name('email-rules.store');
+        Route::delete('email-rules/{rule}', 'destroy')->name('email-rules.destroy');
+    });
 
     Route::get('/vragen-bewerken', function () {
         return view('admin.edit-questions'); // TODO: get view via controller

@@ -74,16 +74,21 @@ return new class extends Migration
         });
 
         Schema::create('receiver_of_academy', function (Blueprint $table) {
-            $table->foreignId('receiver_email')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('restrict')
-                ->primary();
-            $table->foreignId('academy_name')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('restrict')
-                ->primary(['receiver_email', 'academy_name']);
+            $table->string('receiver_email');
+            $table->string('academy_name');
+
+            $table->foreign('receiver_email')
+                  ->references('email')->on('receiver')
+                  ->cascadeOnUpdate()
+                  ->restrictOnDelete();
+
+            $table->foreign('academy_name')
+                  ->references('name')->on('academy')
+                  ->cascadeOnUpdate()
+                  ->restrictOnDelete();
+
+            // composite primary key – **MUST** be last
+            $table->primary(['receiver_email', 'academy_name']);
         });
     }
 
