@@ -23,10 +23,10 @@ class InformationController extends Controller
         session()->put('name', request('name'));
         session()->put('course', request('course'));
         session()->put('academy', request('academy'));
+        session()->put('academy-abbreviation', Academy::where('name', request('academy'))->value('abbreviation'));
         session()->put('module', request('module'));
         session()->put('summary', request('summary'));
 
-        $academies = Academy::all();
         return redirect(route('intermediate.view', 'lesniveau'));
     }
 }

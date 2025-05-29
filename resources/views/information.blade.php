@@ -32,14 +32,16 @@
                         @php
                             $academyChoice = old('academy', session('academy'));
                         @endphp
-                        @if ($academyChoice)
-                            <option value="{{ $academyChoice }}">{{ $academyChoice }}</option>
-                        @else
+                        @if (!$academyChoice)
                             <option value="" disabled selected>Naam van de academie</option>
                         @endif
 
                         @foreach ($academies as $academy)
-                            <option value="{{ $academy->name }}">{{ $academy->name }}</option>
+                            @if ($academy == $academyChoice)
+                                <option value="{{ $academy->name }}" selected>{{ $academy->abbreviation }} - {{ $academy->name }}</option>
+                            @else
+                                <option value="{{ $academy->name }}">{{ $academy->abbreviation }} - {{ $academy->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
