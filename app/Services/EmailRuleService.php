@@ -10,7 +10,6 @@ use Illuminate\Validation\ValidationException;
 
 class EmailRuleService
 {
-    /** @return Collection<string> */
     public function getRecipientsFor(?string $academyName): Collection
     {
         $specific = EmailRule::query()
@@ -21,17 +20,12 @@ class EmailRuleService
             return $specific->unique()->values();
         }
 
-        // fall-back to defaults
         return EmailRule::query()
             ->whereNull('academy_name')
             ->pluck('email')
             ->unique()
             ->values();
     }
-
-    /**
-     * @throws ValidationException
-     */
     public function add(string $email, ?string $academyName): void
     {
         try {
@@ -40,7 +34,6 @@ class EmailRuleService
                 'email'        => $email,
             ]);
         } catch (QueryException $e) {
-            // unique constraint hit?
             throw ValidationException::withMessages([
                 'email' => 'Dit adres bestaat al voor deze academie.',
             ]);
