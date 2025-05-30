@@ -85,11 +85,9 @@
         if (!addBtn || !template) return;
 
         addBtn.addEventListener('click', () => {
-            // 1. kloon & plaats
             const frag = template.content.cloneNode(true);
             addBtn.parentNode.insertBefore(frag, addBtn);
 
-            // 2. net ingevoegde regel
             const rule       = addBtn.previousElementSibling;
             const select     = rule.querySelector('.academy-select');
             const emailInput = rule.querySelector('.email-input');
