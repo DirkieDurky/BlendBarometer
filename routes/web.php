@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AuthController as AdminAuthController;
 use App\Http\Controllers\admin\EditContentController;
+use App\Http\Controllers\admin\EmailRuleController; 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\HomeController;
@@ -51,11 +52,15 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminAuthController::class, 'index'])->name('login');
     Route::get('/uitloggen', [AdminAuthController::class, 'logout'])->name('logout');
 
-    Route::controller(\App\Http\Controllers\admin\EmailRuleController::class)->group(function () {
-        Route::get   ('email-rules',        'index'  )->name('email-rules');
-        Route::post  ('email-rules',        'store'  )->name('email-rules.store');
-        Route::delete('email-rules/{rule}', 'destroy')->name('email-rules.destroy');
-    });
+    Route::prefix('email-rules')
+         ->name('email-rules.')
+         ->controller(EmailRuleController::class)
+         ->group(function () {
+            Route::get('/',           'index'        )->name('index');
+            Route::post('/',          'store'        )->name('store');
+            Route::patch('/academy',  'changeAcademy')->name('change');
+            Route::delete('{rule}',   'destroy'      )->name('destroy');
+         });
 
     Route::get('/vragen-bewerken', function () {
         return view('admin.edit-questions'); // TODO: get view via controller

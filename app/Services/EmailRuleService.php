@@ -46,4 +46,21 @@ class EmailRuleService
             ]);
         }
     }
+
+    public function moveAcademy(?string $fromAcademy, string $toAcademy): void
+    {
+        // haal alle e-mails bij de 'oude' academie op
+        $emails = EmailRule::where('academy_name', $fromAcademy)->pluck('email');
+
+        // voeg ze toe aan de nieuwe (duplica­tion-safe)
+        foreach ($emails as $email) {
+            EmailRule::firstOrCreate([
+                'academy_name' => $toAcademy,
+                'email'        => $email,
+            ]);
+        }
+
+        // verwijder oude regels
+        EmailRule::where('academy_name', $fromAcademy)->delete();
+    }
 }

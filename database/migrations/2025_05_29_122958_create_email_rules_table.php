@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('email_rules', function (Blueprint $table) {
             $table->id();
-            $table->string('academy_name')->nullable();   // null ⇒ default rule
+            $table->string('academy_name')->nullable(); // null = default rule
             $table->string('email');
             $table->timestamps();
 

@@ -28,7 +28,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
                         <li class="nav-item fw-medium">
-                            <a class="nav-link" href="{{ route('admin.email-rules') }}">E-mail regels</a>
+                            <a class="nav-link" href="{{ route('admin.email-rules.index') }}">E-mail regels</a>
                         </li>
                         <li class="nav-item fw-medium">
                             <a class="nav-link" href="{{ route('admin.edit-questions') }}">Vragen bewerken</a>
