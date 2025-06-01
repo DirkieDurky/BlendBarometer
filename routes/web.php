@@ -57,6 +57,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
     })->name('email-rules');
 
     Route::get('/vragen-bewerken', [EditLessonQuestionController::class, 'index'])->name('edit-questions');
+    Route::put('/vragen-bewerken/opslaan', [EditLessonQuestionController::class, 'updateQuestion'])->name('edit-questions.update');
 
     Route::get('/content-bewerken', [EditContentController::class, 'index'])->name('edit-content');
     Route::put('/content-bewerken/homepagina-opslaan', [EditContentController::class, 'updateHomeContent'])->name('edit-content.home-update');

@@ -31,14 +31,20 @@ class EditLessonQuestionController
         );
     }
 
-    public function updateHomeContent(Request $request): RedirectResponse
+    public function updateQuestion(Request $request): RedirectResponse
     {
         $request->validate([
-            'content' => ['required'],
+            'text' => ['required'],
+            // 'label' => ['nullable'],
+            'description' => ['nullable'],
         ]);
 
-        Content::where('section_name', 'intro_description')->update(['info' => $request->input('content')]);
-        return redirect()->route('admin.edit-content');
+        Question::where('id', $request->question_id)->update([
+                'text' => $request->input('text'),
+                // 'label' => $request->input('label'),
+                'description' => $request->input('description'),
+         ]);
+        return redirect()->route('admin.edit-questions');
     }
 
     public function updateIntermediateContent(Request $request, string $sectionName): RedirectResponse

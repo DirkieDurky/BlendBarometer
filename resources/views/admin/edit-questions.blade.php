@@ -1,3 +1,4 @@
+<x-admin.edit-questions.edit-lesson-question-modal />
 <x-admin.edit-questions.sidebar
     :lessonCategories="$lessonCategories"
     :lessonSubCategories="$lessonSubCategories"
@@ -30,7 +31,14 @@
                             @endif
                         </div>
                         <div class="d-flex align-items-center">
-                            <a href="{{ route('admin.edit-questions') }}" class="btn btn-primary btn-sm me-3" style="padding: 0.4rem 1.1rem;">Bewerken</a>
+                            <a href="{{ route('admin.edit-questions') }}" class="btn btn-primary btn-sm me-3" style="padding: 0.4rem 1.1rem;"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editQuestionModal"
+                            data-question-id="{{ $question->id }}"
+                            data-question="{{ $question->text }}"
+                            data-label="{{ $question->label ?? $question->text }}"
+                            data-description="{{ $question->description }}"
+                            >Bewerken</a>
                             <span style="font-size: 1.5rem; cursor: pointer;">&#8226;&#8226;&#8226;</span>
                         </div>
                     </div>
