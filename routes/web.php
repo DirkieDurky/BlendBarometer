@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AuthController as AdminAuthController;
 use App\Http\Controllers\admin\EditContentController;
+use App\Http\Controllers\admin\EditLessonQuestionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\HomeController;
@@ -55,9 +56,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
         return view('admin.email-rules'); // TODO: get view via controller
     })->name('email-rules');
 
-    Route::get('/vragen-bewerken', function () {
-        return view('admin.edit-questions'); // TODO: get view via controller
-    })->name('edit-questions');
+    Route::get('/vragen-bewerken', [EditLessonQuestionController::class, 'index'])->name('edit-questions');
 
     Route::get('/content-bewerken', [EditContentController::class, 'index'])->name('edit-content');
     Route::put('/content-bewerken/homepagina-opslaan', [EditContentController::class, 'updateHomeContent'])->name('edit-content.home-update');

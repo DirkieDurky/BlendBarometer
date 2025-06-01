@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Http\Controllers\admin;
+
+use App\Models\Content;
+use App\Models\Question_category;
+use App\Models\Question;
+use App\Models\Sub_category;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+
+class EditLessonQuestionController
+{
+    public function index(): View
+    {
+        $lessonCategories = Question_category::where('form_section_id', 1)->get();
+        $lessonSubCategories = Sub_category::all();
+        $lessonQuestions = collect();
+
+        foreach ($lessonCategories as $cat){
+            $questions = Question::where("question_category_id", $cat->id)->get();
+            $lessonQuestions = $lessonQuestions->merge($questions);        
+        }
+        return view('admin.edit-questions', 
+            [
+                'lessonCategories' => $lessonCategories,
+                'lessonSubCategories' => $lessonSubCategories,
+                'lessonQuestions' => $lessonQuestions,
+            ]
+        );
+    }
+
+    public function updateHomeContent(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'content' => ['required'],
+        ]);
+
+        Content::where('section_name', 'intro_description')->update(['info' => $request->input('content')]);
+        return redirect()->route('admin.edit-content');
+    }
+
+    public function updateIntermediateContent(Request $request, string $sectionName): RedirectResponse
+    {
+        $request->validate([
+            'content' => ['required'],
+            'show' => ['required', 'string', 'in:true,false'],
+        ]);
+
+        Content::where('section_name', 'intermediate_' . $sectionName)
+            ->update([
+                'info' => $request->input('content'),
+                'show' => $request->input('show') === 'true',
+            ]);
+        return redirect()->route('admin.edit-content', ['tab' => $sectionName]);
+    }
+}
