@@ -1,10 +1,11 @@
 <x-admin.edit-questions.edit-lesson-question-modal />
+<x-admin.edit-questions.create-lesson-question-modal />
+
 <x-admin.edit-questions.sidebar
     :lessonCategories="$lessonCategories"
     :lessonSubCategories="$lessonSubCategories"
     :lessonQuestions="$lessonQuestions"
 >
-
 
 <h1 class="mb-3">Les niveau</h1>
 
@@ -47,7 +48,12 @@
                 @endforelse
 
                 <div class="mt-2">
-                    <a href="#" class="btn btn-sm btn-outline-primary border-2" style="padding: 0.4rem 1.1rem;">Vraag toevoegen</a>
+                    <a href="{{ route('admin.edit-questions') }}" class="btn btn-sm btn-outline-primary border-2" style="padding: 0.4rem 1.1rem;"
+                    data-bs-toggle="modal"
+                    data-bs-target="#createQuestionModal"
+                    data-category-id="{{ $cat->id }}"
+                    data-subcategory-id="{{ $subCat->id }}"
+                    >Vraag toevoegen</a>
                 </div>
             </section>
         @endforeach

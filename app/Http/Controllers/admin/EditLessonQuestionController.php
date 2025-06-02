@@ -47,18 +47,21 @@ class EditLessonQuestionController
         return redirect()->route('admin.edit-questions');
     }
 
-    public function updateIntermediateContent(Request $request, string $sectionName): RedirectResponse
+    public function createQuestion(Request $request): RedirectResponse
     {
         $request->validate([
-            'content' => ['required'],
-            'show' => ['required', 'string', 'in:true,false'],
+            'text' => ['required'],
+        // 'label' => ['nullable'],
+        'description' => ['nullable'],
         ]);
 
-        Content::where('section_name', 'intermediate_' . $sectionName)
-            ->update([
-                'info' => $request->input('content'),
-                'show' => $request->input('show') === 'true',
-            ]);
-        return redirect()->route('admin.edit-content', ['tab' => $sectionName]);
+        Question::create([
+                'text' => $request->input('text'),
+                // 'label' => $request->input('label'),
+                'description' => $request->input('description'),
+                'question_category_id' => $request->input('question_category_id'),
+                'sub_category_id' => $request->input('sub_category_id'),
+         ]);
+        return redirect()->route('admin.edit-questions');
     }
 }
