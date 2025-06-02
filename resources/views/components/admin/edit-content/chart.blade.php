@@ -1,4 +1,4 @@
-<form action="{{ route('admin.edit-content.chart') }}" method="POST" class="w-100 h-100" onchange="showButtons()" onreset="hideButtons()">
+<form action="{{ route('admin.edit-content.chart') }}" method="POST" class="w-100 h-100" onchange="showGraphButtons()" onreset="hideGraphButtons()">
     @csrf
     @method('PUT')
     <div class="d-flex pb-5">
@@ -8,7 +8,7 @@
                     <h3 class="h5">Grafiek fysiek - {{ $category->name }}</h3>
                     <p class="my-1">Uitleg</p>
                     <input type="hidden" name="physical[{{ $loop->index }}][id]" value="{{ $category->id }}">
-                    <textarea onclick="showButtons()" style="height: 110px;" class="form-control p-2 name="physical[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
+                    <textarea onclick="showGraphButtons()" style="height: 110px;" class="form-control p-2 name="physical[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
                 </div>
             @endforeach
         </div>
@@ -18,7 +18,7 @@
                     <h3 class="h5">Grafiek online - {{ $category->name }}</h3>
                     <p class="my-1">Uitleg</p>
                     <input type="hidden" name="online[{{ $loop->index }}][id]" value="{{ $category->id }}">
-                    <textarea onclick="showButtons()" style="height: 110px;" class="form-control p-2" name="online[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
+                    <textarea onclick="showGraphButtons()" style="height: 110px;" class="form-control p-2" name="online[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
                 </div>
             @endforeach
         </div>
@@ -29,13 +29,13 @@
             <h3 class="h5">Lesniveau algemeen</h3>
             <p class="my-1">Uitleg</p>
             <input type="hidden" name="general_lesson_level[id]" value="{{ $generalLessonLevelDescription->id }}">
-            <textarea onclick="showButtons()" style="height: 110px;" class="form-control p-2" name="general_lesson_level[description]">{{ $generalLessonLevelDescription->description }}</textarea>
+            <textarea onclick="showGraphButtons()" style="height: 110px;" class="form-control p-2" name="general_lesson_level[description]">{{ $generalLessonLevelDescription->description }}</textarea>
         </div>
         <div class="h-100">
             <h3 class="h5">Moduleniveau algemeen</h3>
             <p class="my-1">Uitleg</p>
             <input type="hidden" name="general_module[id]" value="{{ $generalModuleDescription->id }}">
-            <textarea onclick="showButtons()" style="height: 110px;" class="form-control p-2" name="general_module[description]">{{ $generalModuleDescription->description }}</textarea>
+            <textarea onclick="showGraphButtons()" style="height: 110px;" class="form-control p-2" name="general_module[description]">{{ $generalModuleDescription->description }}</textarea>
         </div>
     </div>
 
@@ -46,7 +46,7 @@
 </form>
 
 <script>
-    function showButtons() {
+    function showGraphButtons() {
         const resetButton = document.getElementById('reset-button');
         const saveButton = document.getElementById('save-button');
         
@@ -54,7 +54,7 @@
         saveButton.classList.remove('d-none');
     }
 
-    function hideButtons() {
+    function hideGraphButtons() {
         const resetButton = document.getElementById('reset-button');
         const saveButton = document.getElementById('save-button');
         
