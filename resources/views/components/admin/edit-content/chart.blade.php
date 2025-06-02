@@ -29,13 +29,13 @@
             <h3 class="h5">Lesniveau algemeen</h3>
             <p class="my-1">Uitleg</p>
             <input type="hidden" name="general_lesson_level[id]" value="{{ $generalLessonLevelDescription->id }}">
-            <textarea onclick="showButtons()" style="height: 110px;" class="w-100 pb-4 border rounded p-2" name="general_lesson_level[description]">{{ $generalLessonLevelDescription->description }}</textarea>
+            <textarea onclick="showButtons()" style="height: 110px;" class="form-control p-2" name="general_lesson_level[description]">{{ $generalLessonLevelDescription->description }}</textarea>
         </div>
         <div class="h-100">
             <h3 class="h5">Moduleniveau algemeen</h3>
             <p class="my-1">Uitleg</p>
             <input type="hidden" name="general_module[id]" value="{{ $generalModuleDescription->id }}">
-            <textarea onclick="showButtons()" style="height: 110px;" class="w-100 pb-4 border rounded p-2" name="general_module[description]">{{ $generalModuleDescription->description }}</textarea>
+            <textarea onclick="showButtons()" style="height: 110px;" class="form-control p-2" name="general_module[description]">{{ $generalModuleDescription->description }}</textarea>
         </div>
     </div>
 
