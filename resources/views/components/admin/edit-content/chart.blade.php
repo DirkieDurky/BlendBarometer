@@ -1,4 +1,4 @@
-<form action="{{ route('admin.edit-content.chart') }}" method="POST" class="form w-100 h-100" onchange="showButtons()" onreset="hideButtons()">
+<form action="{{ route('admin.edit-content.chart') }}" method="POST" class="w-100 h-100" onchange="showButtons()" onreset="hideButtons()">
     @csrf
     @method('PUT')
     <div class="d-flex pb-5">
@@ -8,7 +8,7 @@
                     <h3 class="h5">Grafiek fysiek - {{ $category->name }}</h3>
                     <p class="my-1">Uitleg</p>
                     <input type="hidden" name="physical[{{ $loop->index }}][id]" value="{{ $category->id }}">
-                    <textarea onclick="showButtons()" class="w-100 h-75 pb-4 border rounded p-2" name="physical[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
+                    <textarea onclick="showButtons()" style="height: 110px;" class="form-control p-2 name="physical[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
                 </div>
             @endforeach
         </div>
@@ -18,7 +18,7 @@
                     <h3 class="h5">Grafiek online - {{ $category->name }}</h3>
                     <p class="my-1">Uitleg</p>
                     <input type="hidden" name="online[{{ $loop->index }}][id]" value="{{ $category->id }}">
-                    <textarea onclick="showButtons()" class="w-100 h-75 pb-4 border rounded p-2" name="online[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
+                    <textarea onclick="showButtons()" style="height: 110px;" class="form-control p-2" name="online[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
                 </div>
             @endforeach
         </div>
