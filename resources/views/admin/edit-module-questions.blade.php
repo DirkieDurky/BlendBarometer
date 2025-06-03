@@ -60,15 +60,23 @@
         @endphp
         @forelse ($questions as $question)
             <div class="d-flex align-items-center justify-content-between border rounded px-3 py-2 mb-2 bg-white">
-                <div class="fw-semibold">
-                    {{ $question->label }}
-                    {{ $question->text }}
-                    @if ($question->description)
-                        <span data-bs-toggle="tooltip" data-bs-title="{{ $question->description }}" style="cursor: pointer;">
-                            <i class="bi bi-info-circle-fill"></i>
-                        </span>
+                <div>
+                    @if($question->label)
+                        
+                        <div style="font-size: 0.9rem;">
+                            {{ $question->label }}
+                        </div>
                     @endif
-                </div>
+                
+                    <div class="fw-semibold">
+                        {{ $question->text }}
+                        @if ($question->description)
+                            <span data-bs-toggle="tooltip" data-bs-title="{{ $question->description }}" style="cursor: pointer;">
+                                <i class="bi bi-info-circle-fill"></i>
+                            </span>
+                        @endif
+                    </div>
+                </div>  
                 <div class="d-flex align-items-center">
                     <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-primary btn-sm me-3" style="padding: 0.4rem 1.1rem;"
                     data-bs-toggle="modal"
