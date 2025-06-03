@@ -15,7 +15,7 @@
     <header>
         <nav class="navbar navbar-expand-lg shadow-sm bg-white mb-4">
             <div class="container">
-                <a href="{{ route('admin.edit-questions') }}" class="navbar-brand">
+                <a href="{{ route('admin.edit-content') }}" class="navbar-brand">
                     <img src="{{ asset('images/logo.svg') }}" alt="Logo" class="logo">
                 </a>
 
