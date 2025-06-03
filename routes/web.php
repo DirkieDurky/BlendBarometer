@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AuthController as AdminAuthController;
 use App\Http\Controllers\admin\EditContentController;
 use App\Http\Controllers\admin\EditLessonQuestionController;
+use App\Http\Controllers\admin\EditModuleQuestionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\HomeController;
@@ -64,6 +65,17 @@ Route::name('admin.')->prefix('admin')->group(function () {
     route::put('/vragen-bewerken/lesniveau/categorie-bewerken/{categorie}/update', [EditLessonQuestionController::class, 'updateCategory'])->name('edit-lesson-questions.edit-categorie.update');
     Route::post('/vragen-bewerken/lesniveau/categorie-bewerken/create', [EditLessonQuestionController::class, 'createCategory'])->name('edit-lesson-questions.edit-category.create');
     Route::delete('/vragen-bewerken/lesniveau/categorie-bewerken/{categorie}/verwijder', [EditLessonQuestionController::class, 'deleteCategory'])->name('edit-lesson-questions.edit-categorie.delete');
+
+    Route::get('/vragen-bewerken/moduleniveau', [EditModuleQuestionController::class, 'index'])->name('edit-module-questions');
+
+    Route::put('/vragen-bewerken/moduleniveau/{question}/update', [EditModuleQuestionController::class, 'updateQuestion'])->name('edit-lesson-questions.update');
+    Route::post('/vragen-bewerken/moduleniveau/create', [EditModuleQuestionController::class, 'createQuestion'])->name('edit-lesson-questions.create');
+    Route::delete('/vragen-bewerken/moduleniveau/{question}/verwijder', [EditModuleQuestionController::class, 'deleteQuestion'])->name('edit-lesson-questions.delete');
+
+    route::put('/vragen-bewerken/moduleniveau/categorie-bewerken/{categorie}/update', [EditModuleQuestionController::class, 'updateCategory'])->name('edit-lesson-questions.edit-categorie.update');
+    Route::post('/vragen-bewerken/moduleniveau/categorie-bewerken/create', [EditModuleQuestionController::class, 'createCategory'])->name('edit-lesson-questions.edit-category.create');
+    Route::delete('/vragen-bewerken/moduleniveau/categorie-bewerken/{categorie}/verwijder', [EditModuleQuestionController::class, 'deleteCategory'])->name('edit-lesson-questions.edit-categorie.delete');
+
 
 
     Route::get('/content-bewerken', [EditContentController::class, 'index'])->name('edit-content');

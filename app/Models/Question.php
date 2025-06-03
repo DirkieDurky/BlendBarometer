@@ -15,6 +15,7 @@ class Question extends Model
         'question_category_id',
         'sub_category_id',
         'text',
+        'label',
     ];
 
     public function questionCategory()

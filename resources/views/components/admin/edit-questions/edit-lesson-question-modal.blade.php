@@ -44,9 +44,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var question = button.getAttribute('data-question');
         var label = button.getAttribute('data-label');
         var description = button.getAttribute('data-description');
+        var action = button.getAttribute('data-action');
 
         var form = document.getElementById('editQuestionForm');
-        form.action = '/admin/vragen-bewerken/lesniveau/' + questionId + '/update';
+// '/admin/vragen-bewerken/lesniveau/' + questionId + '/update'
+        form.action = action;
 
         document.getElementById('questionId').value = questionId || '';
         document.getElementById('questionText').value = question || '';
