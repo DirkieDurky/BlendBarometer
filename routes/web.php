@@ -63,4 +63,5 @@ Route::middleware([Authenticate_admin::class])->name('admin.')->prefix('admin')-
 
     Route::get('/content-bewerken', [EditContentController::class, 'index'])->name('edit-content');
     Route::put('/content-bewerken/homepagina-opslaan', [EditContentController::class, 'updateHomeContent'])->name('edit-content.home-update');
+    Route::put('/content-bewerken/tussenpagina-opslaan/{section}', [EditContentController::class, 'updateIntermediateContent'])->name('edit-content.intermediate-update');
 });

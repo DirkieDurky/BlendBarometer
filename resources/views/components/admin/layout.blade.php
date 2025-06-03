@@ -1,6 +1,6 @@
 <x-layout>
     @section('styles')
-        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet"/>
         <style>
             body {
                 background-color: #F4F9F7;
