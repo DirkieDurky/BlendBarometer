@@ -14,15 +14,15 @@
                     @csrf
 
                     <div class="mb-3">
-                        <label for="email" class="form-label fw-semibold">Email</label>
-                        <input type="email" class="form-control" id="email"
+                        <label for="email">E-mail</label>
+                        <input type="email" class="form-control p-2" id="email"
                             name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
                             placeholder="Vul email in">
                     </div>
 
                     <div class="mb-3">
-                        <label for="password" class="form-label fw-semibold">Wachtwoord</label>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror"
+                        <label for="password">Wachtwoord</label>
+                        <input type="password" class="form-control p-2 @error('password') is-invalid @enderror"
                             id="password" name="password" required autocomplete="current-password"
                             placeholder="Vul wachtwoord in">
                     </div>
@@ -34,7 +34,7 @@
                     @endif
 
                     <div>
-                        <button type="submit" class="btn btn-primary mt-3 pl-5 pr-5">Log in</button>
+                        <button type="submit" class="btn btn-primary mt-2 pl-5 pr-5 w-100">Log in</button>
                     </div>
                 </form>
             </div>
