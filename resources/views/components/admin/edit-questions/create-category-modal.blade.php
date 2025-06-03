@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var category = button.getAttribute('data-category');
 
         var form = document.getElementById('createCategoryForm');
-        form.action = '/admin/vragen-bewerken/categorie-bewerken/create';
+        form.action = '/admin/vragen-bewerken/lesniveau/categorie-bewerken/create';
     });
 
     // Optional: Toggle textarea enabled/disabled based on switch

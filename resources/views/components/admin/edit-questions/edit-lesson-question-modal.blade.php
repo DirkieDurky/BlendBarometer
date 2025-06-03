@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var description = button.getAttribute('data-description');
 
         var form = document.getElementById('editQuestionForm');
-        form.action = '/admin/vragen-bewerken/' + questionId + '/update';
+        form.action = '/admin/vragen-bewerken/lesniveau/' + questionId + '/update';
 
         document.getElementById('questionId').value = questionId || '';
         document.getElementById('questionText').value = question || '';

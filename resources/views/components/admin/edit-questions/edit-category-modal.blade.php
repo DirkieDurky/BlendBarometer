@@ -39,14 +39,15 @@ document.addEventListener('DOMContentLoaded', function () {
     editModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
         var category = button.getAttribute('data-category');
-        // var formSectionId = JSON.parse(button.getAttribute('data-form-sections'));
+        var categoryId = button.getAttribute('data-category-id').value;
         var formSectionId = button.getAttribute('data-form-section-id');
 
-        var form = document.getElementById('editCategoryForm');
-        form.action = '/admin/vragen-bewerken/categorie-bewerken/' + categoryId + '/update';
         document.getElementById('formSectionSelect').value = formSectionId || 'test';        
         document.getElementById('categoryName').value = category || '';
         document.getElementById('categoryText').value = category || '';
+        var form = document.getElementById('editCategoryForm');
+        form.action = '/admin/vragen-bewerken/lesniveau/categorie-bewerken/' + categoryId + '/update';
+        
     });
 
     // Optional: Toggle textarea enabled/disabled based on switch

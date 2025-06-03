@@ -17,7 +17,7 @@
                         </button>
 
                         <div class="delete-menu position-absolute end-0 mt-2 p-2 bg-white shadow rounded d-none" style="z-index: 1000;">
-                            <a href="{{ route('admin.edit-questions') }}" class="btn btn-primary mb-2 w-100"style="border-radius: 0.5rem; padding: 0.4rem 1.1rem;"
+                            <a href="{{ route('admin.edit-lesson-questions') }}" class="btn btn-primary mb-2 w-100"style="border-radius: 0.5rem; padding: 0.4rem 1.1rem;"
                             data-bs-toggle="modal"
                             data-bs-target="#editCategoryModal"
                             data-category-id="{{ $subCat->id }}"
@@ -25,10 +25,10 @@
                             data-form-section-id="{{ 1 }}"
                             >Bewerken</a>
                             
-                            <a href="{{ route('admin.edit-questions') }}" class="btn btn-danger" style="border-radius: 0.5rem; padding: 0.4rem 1.1rem;"
+                            <a href="{{ route('admin.edit-lesson-questions') }}" class="btn btn-danger" style="border-radius: 0.5rem; padding: 0.4rem 1.1rem;"
                             data-bs-toggle="modal"
                             data-bs-target="#deleteConfirmationModal"
-                            data-action="/admin/vragen-bewerken/categorie-bewerken/{{ $subCat->id }}/verwijder"
+                            data-action="/admin/vragen-bewerken/lesniveau/categorie-bewerken/{{ $subCat->id }}/verwijder"
                             >Verwijder</a>
                         </div>
                     </div>                  
@@ -36,7 +36,7 @@
             @endforeach
 
             <div class="mt-2">
-                <a href="{{ route('admin.edit-questions') }}" class="btn btn-sm btn-outline-primary border-2 mb-2" style="padding: 0.4rem 1.1rem;"
+                <a href="{{ route('admin.edit-lesson-questions') }}" class="btn btn-sm btn-outline-primary border-2 mb-2" style="padding: 0.4rem 1.1rem;"
                     data-bs-toggle="modal"
                     data-bs-target="#createCategoryModal"
                 >Categorie toevoegen</a>

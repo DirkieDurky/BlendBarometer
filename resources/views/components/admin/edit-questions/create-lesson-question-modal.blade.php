@@ -12,7 +12,7 @@
 <div class="modal fade" id="createQuestionModal" tabindex="-1" aria-labelledby="createQuestionModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="{{ route('admin.edit-questions.create') }}" method="POST">
+      <form action="{{ route('admin.edit-lesson-questions.create') }}" method="POST">
       @csrf
       @method('POST')
         <input type="hidden" id="categoryId" name="question_category_id" value="">

@@ -22,7 +22,7 @@
 
         <nav class="{{ $navbarClasses }}">
             <div class="container">
-                <a href="{{ route('admin.edit-questions') }}" class="navbar-brand">
+                <a href="{{ route('admin.edit-lesson-questions') }}" class="navbar-brand">
                     <img src="{{ asset('images/logo.svg') }}" alt="Logo" class="logo">
                 </a>
 
@@ -38,7 +38,7 @@
                             <a class="nav-link" href="{{ route('admin.email-rules') }}">E-mail regels</a>
                         </li>
                         <li class="nav-item fw-medium">
-                            <a class="nav-link" href="{{ route('admin.edit-questions') }}">Vragen bewerken</a>
+                            <a class="nav-link" href="{{ route('admin.edit-lesson-questions') }}">Vragen bewerken</a>
                         </li>
                         <li class="nav-item fw-medium">
                             <a class="nav-link" href="{{ route('admin.edit-content') }}">Content bewerken</a>

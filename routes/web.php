@@ -56,14 +56,14 @@ Route::name('admin.')->prefix('admin')->group(function () {
         return view('admin.email-rules'); // TODO: get view via controller
     })->name('email-rules');
 
-    Route::get('/vragen-bewerken', [EditLessonQuestionController::class, 'index'])->name('edit-questions');
-    Route::put('/vragen-bewerken/{question}/update', [EditLessonQuestionController::class, 'updateQuestion'])->name('edit-questions.update');
-    Route::post('/vragen-bewerken/create', [EditLessonQuestionController::class, 'createQuestion'])->name('edit-questions.create');
-    Route::delete('/vragen-bewerken/{question}/verwijder', [EditLessonQuestionController::class, 'deleteQuestion'])->name('edit-questions.delete');
+    Route::get('/vragen-bewerken/lesniveau', [EditLessonQuestionController::class, 'index'])->name('edit-lesson-questions');
+    Route::put('/vragen-bewerken/lesniveau/{question}/update', [EditLessonQuestionController::class, 'updateQuestion'])->name('edit-lesson-questions.update');
+    Route::post('/vragen-bewerken/lesniveau/create', [EditLessonQuestionController::class, 'createQuestion'])->name('edit-lesson-questions.create');
+    Route::delete('/vragen-bewerken/lesniveau/{question}/verwijder', [EditLessonQuestionController::class, 'deleteQuestion'])->name('edit-lesson-questions.delete');
 
-    route::put('/vragen-bewerken/categorie-bewerken/{categorie}/update', [EditLessonQuestionController::class, 'updateCategory'])->name('edit-questions.edit-categorie.update');
-    Route::post('/vragen-bewerken/categorie-bewerken/create', [EditLessonQuestionController::class, 'createCategory'])->name('edit-questions.edit-category.create');
-    Route::delete('/vragen-bewerken/categorie-bewerken/{categorie}/verwijder', [EditLessonQuestionController::class, 'deleteCategory'])->name('edit-questions.edit-categorie.delete');
+    route::put('/vragen-bewerken/lesniveau/categorie-bewerken/{categorie}/update', [EditLessonQuestionController::class, 'updateCategory'])->name('edit-lesson-questions.edit-categorie.update');
+    Route::post('/vragen-bewerken/lesniveau/categorie-bewerken/create', [EditLessonQuestionController::class, 'createCategory'])->name('edit-lesson-questions.edit-category.create');
+    Route::delete('/vragen-bewerken/lesniveau/categorie-bewerken/{categorie}/verwijder', [EditLessonQuestionController::class, 'deleteCategory'])->name('edit-lesson-questions.edit-categorie.delete');
 
 
     Route::get('/content-bewerken', [EditContentController::class, 'index'])->name('edit-content');

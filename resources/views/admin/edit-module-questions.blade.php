@@ -51,7 +51,7 @@
                                     <a href="{{ route('admin.edit-questions') }}" class="btn btn-danger" style="border-radius: 0.5rem; padding: 0.4rem 1.1rem;"
                                     data-bs-toggle="modal"
                                     data-bs-target="#deleteConfirmationModal"
-                                    data-action="/admin/vragen-bewerken/{{ $question->id }}/verwijder"
+                                    data-action="/admin/vragen-bewerken/lesniveau{{ $question->id }}/verwijder"
                                     >Verwijder</a>
                                 </div>
                             </div>                        
