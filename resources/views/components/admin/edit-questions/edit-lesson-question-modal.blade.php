@@ -1,7 +1,7 @@
 <div class="modal fade" id="editQuestionModal" tabindex="-1" aria-labelledby="editQuestionModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="{{ route('admin.edit-questions.update') }}" method="POST">
+      <form id="editQuestionForm" method="POST">
       @csrf
       @method('PUT')
       <input type="hidden" id="questionId" name="question_id">
@@ -44,6 +44,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var question = button.getAttribute('data-question');
         var label = button.getAttribute('data-label');
         var description = button.getAttribute('data-description');
+
+        var form = document.getElementById('editQuestionForm');
+        form.action = '/admin/vragen-bewerken/' + questionId + '/update';
 
         document.getElementById('questionId').value = questionId || '';
         document.getElementById('questionText').value = question || '';

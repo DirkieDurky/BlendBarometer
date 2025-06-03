@@ -64,4 +64,9 @@ class EditLessonQuestionController
          ]);
         return redirect()->route('admin.edit-questions');
     }
+
+    public function deleteQuestion($id){
+        Question::where('id', $id)->delete();
+        return redirect()->route('admin.edit-questions');
+    }
 }

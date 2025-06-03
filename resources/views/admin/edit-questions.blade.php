@@ -1,5 +1,6 @@
 <x-admin.edit-questions.edit-lesson-question-modal />
 <x-admin.edit-questions.create-lesson-question-modal />
+<x-admin.edit-questions.delete-confirmation />
 
 <x-admin.edit-questions.sidebar
     :lessonCategories="$lessonCategories"
@@ -40,7 +41,19 @@
                             data-label="{{ $question->label ?? $question->text }}"
                             data-description="{{ $question->description }}"
                             >Bewerken</a>
-                            <span style="font-size: 1.5rem; cursor: pointer;">&#8226;&#8226;&#8226;</span>
+                            <div class="position-relative">
+                                <button class="btn btn-sm btn-link text-dark p-0 toggle-delete-menu text-decoration-none" type="button">
+                                    <span style="font-size: 1.5rem;">&#8226;&#8226;&#8226;</span>
+                                </button>
+
+                                <div class="delete-menu position-absolute end-0 mt-2 p-2 bg-white shadow rounded d-none" style="z-index: 1000;">
+                                    <a href="{{ route('admin.edit-questions') }}" class="btn btn-danger" style="border-radius: 0.5rem; padding: 0.4rem 1.1rem;"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteConfirmationModal"
+                                    data-question-id="{{ $question->id }}"
+                                    >Verwijder</a>
+                                </div>
+                            </div>                        
                         </div>
                     </div>
                 @empty
@@ -59,5 +72,23 @@
         @endforeach
     </section>
 @endforeach
+<script>
+    document.querySelectorAll('.toggle-delete-menu').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            const menu = this.nextElementSibling;
+            document.querySelectorAll('.delete-menu').forEach(m => {
+                if (m !== menu) m.classList.add('d-none');
+            });
+            menu.classList.toggle('d-none');
+            e.stopPropagation();
+        });
+    });
+
+    // Hide on click outside
+    document.addEventListener('click', function () {
+        document.querySelectorAll('.delete-menu').forEach(menu => menu.classList.add('d-none'));
+    });
+</script>
+
 
 </x-admin.edit-questions.sidebar>   
