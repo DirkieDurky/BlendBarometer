@@ -1,4 +1,4 @@
-@props(['lessonCategories', 'lessonSubCategories', 'lessonQuestions', 'formSections'])
+@props(['subCategories', 'formSections'])
 
 <x-admin.edit-questions.edit-category-modal :formSections="$formSections" />
 <x-admin.edit-questions.create-category-modal :formSections="$formSections" />
@@ -8,7 +8,7 @@
         <aside class="sidebar d-none d-xl-block p-4 bg-white shadow-sm">
             <a class="text-decoration-none text-dark" ><h4 class="mt-2">Les niveau</h4></a>
 
-            @foreach ($lessonSubCategories->where('question_category_id', 1) as $subCat)
+            @foreach ($subCategories->where('question_category_id', 1) as $subCat)
                 <div class="d-flex align-items-center justify-content-between">
                     <a href="#subcategory-{{ $subCat->id }}" class="d-flex align-items-center justify-content-between text-dark">{{ $subCat->name }}</a>
                     <div class="position-relative">

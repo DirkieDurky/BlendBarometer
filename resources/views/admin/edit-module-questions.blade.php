@@ -1,10 +1,9 @@
-<x-admin.edit-questions.edit-lesson-question-modal />
-<x-admin.edit-questions.create-lesson-question-modal />
+<x-admin.edit-questions.edit-question-modal />
+<x-admin.edit-questions.create-question-modal />
 <x-admin.edit-questions.delete-confirmation />
 
 <x-admin.edit-questions.module-sidebar
-    :lessonCategories="$lessonCategories"
-    :lessonQuestions="$lessonQuestions"
+    :Categories="$lessonCategories"
     :formSections="$formSections"
 >
 
