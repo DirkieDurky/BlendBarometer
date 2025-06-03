@@ -34,7 +34,7 @@ class AuthController
         }
 
         return back()->withErrors([
-            'password' => 'verkeerd wachtwoord',
+            'Incorrecte inloggegevens' => 'Inloggegevens onjuist',
         ])->onlyInput('email');
     }
 
