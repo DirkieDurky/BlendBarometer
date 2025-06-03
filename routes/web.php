@@ -61,6 +61,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::post('/vragen-bewerken/create', [EditLessonQuestionController::class, 'createQuestion'])->name('edit-questions.create');
     Route::delete('/vragen-bewerken/{question}/verwijder', [EditLessonQuestionController::class, 'deleteQuestion'])->name('edit-questions.delete');
 
+    route::put('/vragen-bewerken/categorie-bewerken/{categorie}/update', [EditLessonQuestionController::class, 'updateCategory'])->name('edit-questions.edit-categorie.update');
 
     Route::get('/content-bewerken', [EditContentController::class, 'index'])->name('edit-content');
     Route::put('/content-bewerken/homepagina-opslaan', [EditContentController::class, 'updateHomeContent'])->name('edit-content.home-update');

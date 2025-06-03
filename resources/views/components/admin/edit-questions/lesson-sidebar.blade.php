@@ -1,0 +1,45 @@
+@props(['lessonCategories', 'lessonSubCategories', 'lessonQuestions', 'formSections'])
+
+<x-admin.edit-questions.edit-category-modal :formSections="$formSections" />
+
+<x-admin.layout :noNavbarMargin="true">
+    <div class="d-flex">
+        <aside class="sidebar d-none d-xl-block p-4 bg-white shadow-sm">
+            <a class="text-decoration-none text-dark" ><h4 class="mt-2">Les niveau</h4></a>
+
+            @foreach ($lessonSubCategories->where('question_category_id', 1) as $subCat)
+                <div class="d-flex align-items-center justify-content-between">
+                    <a href="#subcategory-{{ $subCat->id }}" class="d-flex align-items-center justify-content-between text-dark">{{ $subCat->name }}</a>
+                    <div class="position-relative">
+                        <button class="btn btn-sm btn-link text-dark p-0 toggle-delete-menu text-decoration-none" type="button">
+                            <span style="font-size: 1.5rem;">&#8226;&#8226;&#8226;</span>
+                        </button>
+
+                        <div class="delete-menu position-absolute end-0 mt-2 p-2 bg-white shadow rounded d-none" style="z-index: 1000;">
+                            <a href="{{ route('admin.edit-questions') }}" class="btn btn-primary mb-2 w-100"style="border-radius: 0.5rem; padding: 0.4rem 1.1rem;"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editCategoryModal"
+                            data-category-id="{{ $subCat->id }}"
+                            data-category="{{ $subCat->name }}"
+                            data-form-section-id="{{ 1 }}"
+                            >Bewerken</a>
+                            
+                            <a href="{{ route('admin.edit-questions') }}" class="btn btn-danger" style="border-radius: 0.5rem; padding: 0.4rem 1.1rem;"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteConfirmationModal"
+                            data-form-sections='@json($formSections->map(fn($s) => ["id" => $s->id, "description" => $s->description])->values())'                            >Verwijder</a>
+                        </div>
+                    </div>                  
+                </div>
+            @endforeach
+
+            <div class="mt-2">
+                <a href="#" class="btn btn-sm btn-outline-primary border-2 mb-2" style="padding: 0.4rem 1.1rem;">Categorie toevoegen</a>
+            </div>
+        </aside>
+
+        <main class="content flex-grow-1 px-5 py-4 overflow-x-hidden">
+            {{ $slot }}
+        </main>
+    </div>
+</x-admin.layout>

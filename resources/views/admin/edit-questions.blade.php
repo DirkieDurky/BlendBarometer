@@ -2,10 +2,11 @@
 <x-admin.edit-questions.create-lesson-question-modal />
 <x-admin.edit-questions.delete-confirmation />
 
-<x-admin.edit-questions.sidebar
+<x-admin.edit-questions.lesson-sidebar
     :lessonCategories="$lessonCategories"
     :lessonSubCategories="$lessonSubCategories"
     :lessonQuestions="$lessonQuestions"
+    :formSections="$formSections"
 >
 
 <h1 class="mb-3">Les niveau</h1>

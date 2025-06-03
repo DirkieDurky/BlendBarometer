@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\Content;
+use App\Models\Form_section;
 use App\Models\Question_category;
 use App\Models\Question;
 use App\Models\Sub_category;
@@ -17,6 +18,7 @@ class EditLessonQuestionController
         $lessonCategories = Question_category::where('form_section_id', 1)->get();
         $lessonSubCategories = Sub_category::all();
         $lessonQuestions = collect();
+        $formSections = Form_section::all();
 
         foreach ($lessonCategories as $cat){
             $questions = Question::where("question_category_id", $cat->id)->get();
@@ -27,6 +29,7 @@ class EditLessonQuestionController
                 'lessonCategories' => $lessonCategories,
                 'lessonSubCategories' => $lessonSubCategories,
                 'lessonQuestions' => $lessonQuestions,
+                'formSections' => $formSections
             ]
         );
     }
@@ -65,8 +68,41 @@ class EditLessonQuestionController
         return redirect()->route('admin.edit-questions');
     }
 
-    public function deleteQuestion($id){
+    public function deleteQuestion($id) : RedirectResponse
+    {
         Question::where('id', $id)->delete();
+        return redirect()->route('admin.edit-questions');
+    }
+
+    public function updateCategory(Request $request) : RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required'],
+            'form_section_id' => ['required'],
+        ]);
+
+        $toUpdate = Sub_category::where('name', $request->input('category_name'))->get();
+
+        $firstCat = $toUpdate->first();
+        if ($firstCat && $request->input('form_section_id') != $firstCat->form_section_id) {
+
+            Question_category::create([
+                'form_section_id' => 2,
+                'name' => $request->input('name'),
+                'description' => null,
+            ]);
+
+            foreach ($toUpdate as $subCat){
+                Question::where('sub_category_id', $subCat->id)->delete();
+                $subCat->delete();
+            }
+        }
+        else{
+                Sub_category::where('name', $request->input('category_name'))->update([
+                    'name' => $request->input('name'),
+            ]);
+        }
+
         return redirect()->route('admin.edit-questions');
     }
 }
