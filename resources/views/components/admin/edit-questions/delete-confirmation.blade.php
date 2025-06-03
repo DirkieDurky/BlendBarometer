@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var deleteModal = document.getElementById('deleteConfirmationModal');
     deleteModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
-        var questionId = button.getAttribute('data-question-id');
+        var action = button.getAttribute('data-action');
         var form = document.getElementById('deleteConfirmationForm');
-        form.action = '/admin/vragen-bewerken/' + questionId + '/verwijder';
+        form.action = action;
     });
 });
 </script>

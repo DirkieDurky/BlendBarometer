@@ -27,7 +27,8 @@
                             <a href="{{ route('admin.edit-questions') }}" class="btn btn-danger" style="border-radius: 0.5rem; padding: 0.4rem 1.1rem;"
                             data-bs-toggle="modal"
                             data-bs-target="#deleteConfirmationModal"
-                            data-form-sections='@json($formSections->map(fn($s) => ["id" => $s->id, "description" => $s->description])->values())'                            >Verwijder</a>
+                            data-action="/admin/vragen-bewerken/categorie-bewerken/{{ $subCat->id }}/verwijder"
+                            >Verwijder</a>
                         </div>
                     </div>                  
                 </div>

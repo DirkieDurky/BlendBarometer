@@ -105,4 +105,19 @@ class EditLessonQuestionController
 
         return redirect()->route('admin.edit-questions');
     }
+    
+    public function deleteCategory($id) : RedirectResponse
+    {
+        $subCatName = Sub_category::find($id);
+
+        $toDelete = Sub_category::where('name', $subCatName->name)->get();
+
+        foreach ($toDelete as $subCat){
+            Question::where('sub_category_id', $subCat->id)->delete();
+            $subCat->delete();
+        }
+
+        return redirect()->route('admin.edit-questions');
+    }
+
 }
