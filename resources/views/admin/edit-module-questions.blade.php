@@ -14,10 +14,16 @@
     <div class="row g-2 mb-2">
         <div class="col-12 col-md-6">
             <div class="border rounded px-3 py-2 d-flex align-items-center justify-content-between bg-white h-100">
-                <span class="fw-bold" style="color: #e53935;">
+                <div>
+                    <span class="fw-bold" style="color: #e53935;">
                     {{ $moduleLevelAnswer->values()->get(0)->answer }}
-                    {{-- <i class="bi bi-info-circle" style="font-size: 1rem;"></i> --}}
-                </span>
+                    </span>
+                    @if ($moduleLevelAnswer->values()->get(0)->description)
+                        <span data-bs-toggle="tooltip" data-bs-title="{{ $moduleLevelAnswer->values()->get(0)->description }}" style="cursor: pointer;">
+                            <i class="bi bi-info-circle-fill"></i>
+                        </span>
+                    @endif                
+                </div>
                 <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-secondary fw-semibold" style="border-radius: 0.5rem;"
                     data-bs-toggle="modal"
                     data-bs-target="#editAnswerModal"
@@ -29,10 +35,16 @@
         </div>
         <div class="col-12 col-md-6">
             <div class="border rounded px-3 py-2 d-flex align-items-center justify-content-between bg-white h-100">
-                <span class="fw-bold" style="color: #f9a825;">
-                    {{ $moduleLevelAnswer->values()->get(1)->answer }} 
-                    {{-- <i class="bi bi-info-circle" style="font-size: 1rem;"></i> --}}
-                </span>
+                <div>
+                    <span class="fw-bold" style="color: #f9a825;">
+                    {{ $moduleLevelAnswer->values()->get(1)->answer }}
+                    </span>
+                    @if ($moduleLevelAnswer->values()->get(1)->description)
+                        <span data-bs-toggle="tooltip" data-bs-title="{{ $moduleLevelAnswer->values()->get(1)->description }}" style="cursor: pointer;">
+                            <i class="bi bi-info-circle-fill"></i>
+                        </span>
+                    @endif                
+                </div>
                 <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-secondary fw-semibold" style="border-radius: 0.5rem;"
                     data-bs-toggle="modal"
                     data-bs-target="#editAnswerModal"
@@ -46,10 +58,17 @@
     <div class="row g-2 mb-2">
         <div class="col-12 col-md-6">
             <div class="border rounded px-3 py-2 d-flex align-items-center justify-content-between bg-white h-100">
-                <span class="fw-bold" style="color: #fbc02d;">
+                <div>
+                    <span class="fw-bold" style="color: #fbc02d;">
                     {{ $moduleLevelAnswer->values()->get(2)->answer }}
-                    {{-- <i class="bi bi-info-circle" style="font-size: 1rem;"></i> --}}
-                </span>
+                    </span>
+                    @if ($moduleLevelAnswer->values()->get(2)->description)
+                        <span data-bs-toggle="tooltip" data-bs-title="{{ $moduleLevelAnswer->values()->get(2)->description }}" style="cursor: pointer;">
+                            <i class="bi bi-info-circle-fill"></i>
+                        </span>
+                    @endif                
+                </div>
+                
                 <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-secondary fw-semibold" style="border-radius: 0.5rem;"
                     data-bs-toggle="modal"
                     data-bs-target="#editAnswerModal"
@@ -61,10 +80,16 @@
         </div>
         <div class="col-12 col-md-6">
             <div class="border rounded px-3 py-2 d-flex align-items-center justify-content-between bg-white h-100">
-                <span class="fw-bold" style="color: #43a047;">
+                <div>
+                    <span class="fw-bold" style="color: #43a047;">
                     {{ $moduleLevelAnswer->values()->get(3)->answer }}
-                    {{-- <i class="bi bi-info-circle" style="font-size: 1rem;"></i> --}}
-                </span>
+                    </span>
+                    @if ($moduleLevelAnswer->values()->get(3)->description)
+                        <span data-bs-toggle="tooltip" data-bs-title="{{ $moduleLevelAnswer->values()->get(3)->description }}" style="cursor: pointer;">
+                            <i class="bi bi-info-circle-fill"></i>
+                        </span>
+                    @endif                
+                </div>               
                 <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-secondary fw-semibold" style="border-radius: 0.5rem;"
                     data-bs-toggle="modal"
                     data-bs-target="#editAnswerModal"
