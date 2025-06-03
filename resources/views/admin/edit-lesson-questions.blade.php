@@ -39,8 +39,9 @@
                             data-bs-target="#editQuestionModal"
                             data-question-id="{{ $question->id }}"
                             data-question="{{ $question->text }}"
-                            data-label="{{ $question->label ?? $question->text }}"
+                            data-has-label="0"
                             data-description="{{ $question->description }}"
+                            data-action='/admin/vragen-bewerken/lesniveau/{{ $question->id }}/update'
                             >Bewerken</a>
                             <div class="position-relative">
                                 <button class="btn btn-sm btn-link text-dark p-0 toggle-delete-menu text-decoration-none" type="button">

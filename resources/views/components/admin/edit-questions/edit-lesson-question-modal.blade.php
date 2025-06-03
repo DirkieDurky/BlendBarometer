@@ -14,7 +14,7 @@
             <label for="questionText" class="form-label">Vraag</label>
             <input type="text" class="form-control" id="questionText" name="text">
           </div>
-          <div class="mb-3">
+          <div class="mb-3" id="labelInputWrapper">
             <label for="questionLabel" class="form-label">Label</label>
             <input type="text" class="form-control" id="questionLabel" name="label">
           </div>
@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var label = button.getAttribute('data-label');
         var description = button.getAttribute('data-description');
         var action = button.getAttribute('data-action');
+        var hasLabel = button.getAttribute('data-has-label');
 
         var form = document.getElementById('editQuestionForm');
 // '/admin/vragen-bewerken/lesniveau/' + questionId + '/update'
@@ -55,6 +56,13 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('questionLabel').value = label || '';
         document.getElementById('extraInfoText').value = description || '';
         document.getElementById('extraInfoSwitch').checked = !!description;
+
+        var labelWrapper = document.getElementById('labelInputWrapper');
+        if (hasLabel === "0") {
+            labelWrapper.style.display = "none";
+        } else {
+            labelWrapper.style.display = "";
+        }
     });
 
     // Optional: Toggle textarea enabled/disabled based on switch
