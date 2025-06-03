@@ -105,6 +105,37 @@ class EditLessonQuestionController
 
         return redirect()->route('admin.edit-questions');
     }
+
+    public function createCategory(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required'],
+            'form_section_id' => ['required'],
+        ]);
+
+
+        if ($request->input('form_section_id') == 1){
+            Sub_category::create([
+                'question_category_id' => 1,
+                'name' => $request->input('name'),
+            ]);
+            Sub_category::create([
+                'question_category_id' => 2,
+                'name' => $request->input('name'),
+            ]);
+        }
+
+        else if ($request->input('form_section_id') == 2){
+            Question_category::create([
+                'form_section_id' => 2,
+                'name' => $request->input('name'),
+                'description' => null,
+         ]);
+        }
+        
+
+        return redirect()->route('admin.edit-questions');
+    }
     
     public function deleteCategory($id) : RedirectResponse
     {

@@ -62,6 +62,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::delete('/vragen-bewerken/{question}/verwijder', [EditLessonQuestionController::class, 'deleteQuestion'])->name('edit-questions.delete');
 
     route::put('/vragen-bewerken/categorie-bewerken/{categorie}/update', [EditLessonQuestionController::class, 'updateCategory'])->name('edit-questions.edit-categorie.update');
+    Route::post('/vragen-bewerken/categorie-bewerken/create', [EditLessonQuestionController::class, 'createCategory'])->name('edit-questions.edit-category.create');
     Route::delete('/vragen-bewerken/categorie-bewerken/{categorie}/verwijder', [EditLessonQuestionController::class, 'deleteCategory'])->name('edit-questions.edit-categorie.delete');
 
 

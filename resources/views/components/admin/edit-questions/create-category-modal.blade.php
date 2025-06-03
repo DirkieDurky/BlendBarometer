@@ -1,12 +1,12 @@
-<div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+<div class="modal fade" id="createCategoryModal" tabindex="-1" aria-labelledby="createCategoryModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form id="editCategoryForm" method="POST">
+      <form id="createCategoryForm" method="POST">
       @csrf
-      @method('PUT')
+      @method('POST')
       <input type="hidden" id="categoryName" name="category_name">
         <div class="modal-header">
-          <h5 class="modal-title" id="editCategoryModalLabel">Categorie bewerken</h5>
+          <h5 class="modal-title" id="createCategoryModalLabel">Categorie aanmaken</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
         </div>
         <div class="modal-body">
@@ -35,18 +35,13 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    var editModal = document.getElementById('editCategoryModal');
-    editModal.addEventListener('show.bs.modal', function (event) {
+    var createModal = document.getElementById('createCategoryModal');
+    createModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
         var category = button.getAttribute('data-category');
-        // var formSectionId = JSON.parse(button.getAttribute('data-form-sections'));
-        var formSectionId = button.getAttribute('data-form-section-id');
 
-        var form = document.getElementById('editCategoryForm');
-        form.action = '/admin/vragen-bewerken/categorie-bewerken/' + categoryId + '/update';
-        document.getElementById('formSectionSelect').value = formSectionId || 'test';        
-        document.getElementById('categoryName').value = category || '';
-        document.getElementById('categoryText').value = category || '';
+        var form = document.getElementById('createCategoryForm');
+        form.action = '/admin/vragen-bewerken/categorie-bewerken/create';
     });
 
     // Optional: Toggle textarea enabled/disabled based on switch

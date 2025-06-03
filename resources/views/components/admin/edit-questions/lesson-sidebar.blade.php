@@ -1,6 +1,7 @@
 @props(['lessonCategories', 'lessonSubCategories', 'lessonQuestions', 'formSections'])
 
 <x-admin.edit-questions.edit-category-modal :formSections="$formSections" />
+<x-admin.edit-questions.create-category-modal :formSections="$formSections" />
 
 <x-admin.layout :noNavbarMargin="true">
     <div class="d-flex">
@@ -35,7 +36,10 @@
             @endforeach
 
             <div class="mt-2">
-                <a href="#" class="btn btn-sm btn-outline-primary border-2 mb-2" style="padding: 0.4rem 1.1rem;">Categorie toevoegen</a>
+                <a href="{{ route('admin.edit-questions') }}" class="btn btn-sm btn-outline-primary border-2 mb-2" style="padding: 0.4rem 1.1rem;"
+                    data-bs-toggle="modal"
+                    data-bs-target="#createCategoryModal"
+                >Categorie toevoegen</a>
             </div>
         </aside>
 
