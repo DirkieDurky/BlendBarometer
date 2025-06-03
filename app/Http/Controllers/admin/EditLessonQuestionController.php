@@ -38,13 +38,11 @@ class EditLessonQuestionController
     {
         $request->validate([
             'text' => ['required'],
-            // 'label' => ['nullable'],
             'description' => ['nullable'],
         ]);
 
         Question::where('id', $request->question_id)->update([
                 'text' => $request->input('text'),
-                // 'label' => $request->input('label'),
                 'description' => $request->input('description'),
          ]);
         return redirect()->route('admin.edit-lesson-questions');
@@ -54,13 +52,11 @@ class EditLessonQuestionController
     {
         $request->validate([
             'text' => ['required'],
-        // 'label' => ['nullable'],
         'description' => ['nullable'],
         ]);
 
         Question::create([
                 'text' => $request->input('text'),
-                // 'label' => $request->input('label'),
                 'description' => $request->input('description'),
                 'question_category_id' => $request->input('question_category_id'),
                 'sub_category_id' => $request->input('sub_category_id'),
@@ -83,7 +79,7 @@ class EditLessonQuestionController
         $toUpdate = Sub_category::where('name', $request->input('category_name'))->get();
         $firstSubCat = $toUpdate->first();
         
-        $cat = Question_category::find($firstSubCat->id);
+        $cat = Question_category::find($firstSubCat->question_category_id);
 
         if ($firstSubCat && (string)$request->input('form_section_id') !== (string)$cat->form_section_id)
         {

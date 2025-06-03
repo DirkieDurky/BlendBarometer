@@ -1,10 +1,11 @@
 <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form id="editCategoryForm" method="POST">
+      <form id="editCategoryForm" method="POST" data-category-id="">
       @csrf
       @method('PUT')
       <input type="hidden" id="categoryName" name="category_name">
+      {{-- <input type="hidden" id="categoryId" name="category_id"> --}}
         <div class="modal-header">
           <h5 class="modal-title" id="editCategoryModalLabel">Categorie bewerken</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
@@ -36,23 +37,33 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var editModal = document.getElementById('editCategoryModal');
+    var form = document.getElementById('editCategoryForm');
     editModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
         var category = button.getAttribute('data-category');
-        var categoryId = button.getAttribute('data-category-id').value;
+        var categoryId = button.getAttribute('data-category-id');
         var formSectionId = button.getAttribute('data-form-section-id');
+        var action = button.getAttribute('data-action');
 
         document.getElementById('formSectionSelect').value = formSectionId || 'test';        
         document.getElementById('categoryName').value = category || '';
         document.getElementById('categoryText').value = category || '';
-        var form = document.getElementById('editCategoryForm');
-        form.action = '/admin/vragen-bewerken/lesniveau/categorie-bewerken/' + categoryId + '/update';
-        
+        form.setAttribute('data-category-id', categoryId);
+        form.action = action;
     });
 
-    // Optional: Toggle textarea enabled/disabled based on switch
-    document.getElementById('extraInfoSwitch').addEventListener('change', function () {
-        document.getElementById('extraInfoText').disabled = !this.checked;
+    form.addEventListener('submit', function (e) {
+        // Verwijder oude hidden input als die bestaat
+        var oldInput = form.querySelector('input[name="category_id"]');
+        if (oldInput) oldInput.remove();
+
+        // Voeg nieuwe toe
+        var categoryId = form.getAttribute('data-category-id');
+        var hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'category_id';
+        hiddenInput.value = categoryId;
+        form.appendChild(hiddenInput);
     });
 });
 </script>

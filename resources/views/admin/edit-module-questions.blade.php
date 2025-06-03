@@ -1,9 +1,10 @@
 <x-admin.edit-questions.edit-question-modal />
 <x-admin.edit-questions.create-question-modal />
 <x-admin.edit-questions.delete-confirmation />
+<x-admin.edit-questions.edit-answer-modal />
 
 <x-admin.edit-questions.module-sidebar
-    :Categories="$lessonCategories"
+    :categories="$categories"
     :formSections="$formSections"
 >
 
@@ -17,7 +18,13 @@
                     {{ $moduleLevelAnswer->values()->get(0)->answer }}
                     {{-- <i class="bi bi-info-circle" style="font-size: 1rem;"></i> --}}
                 </span>
-                <button class="btn btn-secondary fw-semibold" style="border-radius: 0.5rem;">Bewerken</button>
+                <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-secondary fw-semibold" style="border-radius: 0.5rem;"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editAnswerModal"
+                    data-answer="{{ $moduleLevelAnswer->values()->get(0)->answer }}"
+                    data-description="{{ $moduleLevelAnswer->values()->get(0)->description }}"
+                    data-action='/admin/vragen-bewerken/moduleniveau/antwoord-bewerken/1/update'
+                >Bewerken</a>
             </div>
         </div>
         <div class="col-12 col-md-6">
@@ -26,7 +33,13 @@
                     {{ $moduleLevelAnswer->values()->get(1)->answer }} 
                     {{-- <i class="bi bi-info-circle" style="font-size: 1rem;"></i> --}}
                 </span>
-                <button class="btn btn-secondary fw-semibold" style="border-radius: 0.5rem;">Bewerken</button>
+                <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-secondary fw-semibold" style="border-radius: 0.5rem;"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editAnswerModal"
+                    data-answer="{{ $moduleLevelAnswer->values()->get(1)->answer }}"
+                    data-description="{{ $moduleLevelAnswer->values()->get(1)->description }}"
+                    data-action='/admin/vragen-bewerken/moduleniveau/antwoord-bewerken/2/update'
+                >Bewerken</a>            
             </div>
         </div>
     </div>
@@ -37,7 +50,13 @@
                     {{ $moduleLevelAnswer->values()->get(2)->answer }}
                     {{-- <i class="bi bi-info-circle" style="font-size: 1rem;"></i> --}}
                 </span>
-                <button class="btn btn-secondary fw-semibold" style="border-radius: 0.5rem;">Bewerken</button>
+                <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-secondary fw-semibold" style="border-radius: 0.5rem;"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editAnswerModal"
+                    data-answer="{{ $moduleLevelAnswer->values()->get(2)->answer }}"
+                    data-description="{{ $moduleLevelAnswer->values()->get(2)->description }}"
+                    data-action='/admin/vragen-bewerken/moduleniveau/antwoord-bewerken/3/update'
+                >Bewerken</a>            
             </div>
         </div>
         <div class="col-12 col-md-6">
@@ -46,18 +65,24 @@
                     {{ $moduleLevelAnswer->values()->get(3)->answer }}
                     {{-- <i class="bi bi-info-circle" style="font-size: 1rem;"></i> --}}
                 </span>
-                <button class="btn btn-secondary fw-semibold" style="border-radius: 0.5rem;">Bewerken</button>
+                <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-secondary fw-semibold" style="border-radius: 0.5rem;"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editAnswerModal"
+                    data-answer="{{ $moduleLevelAnswer->values()->get(3)->answer }}"
+                    data-description="{{ $moduleLevelAnswer->values()->get(3)->description }}"
+                    data-action='/admin/vragen-bewerken/moduleniveau/antwoord-bewerken/4/update'
+                >Bewerken</a>           
             </div>
         </div>
     </div>
 </div>
-@foreach ($lessonCategories as $cat)
+@foreach ($categories as $cat)
     <section id="category-{{ $cat->id }}">
         <h4 class="mt-4">{{ $cat->name }}</h4>
         @php
-            $questions = $lessonQuestions->where('question_category_id', $cat->id);
+            $categoryQuestions = $questions->where('question_category_id', $cat->id);
         @endphp
-        @forelse ($questions as $question)
+        @forelse ($categoryQuestions as $question)
             <div class="d-flex align-items-center justify-content-between border rounded px-3 py-2 mb-2 bg-white">
                 <div>
                     @if($question->label)
@@ -111,6 +136,7 @@
             data-bs-toggle="modal"
             data-bs-target="#createQuestionModal"
             data-category-id="{{ $cat->id }}"
+            data-action="/admin/vragen-bewerken/moduleniveau/create"
             >Vraag toevoegen</a>
         </div>
     </section>

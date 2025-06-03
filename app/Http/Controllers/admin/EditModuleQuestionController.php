@@ -16,21 +16,19 @@ class EditModuleQuestionController
 {
     public function index(): View
     {
-        $lessonCategories = Question_category::where('form_section_id', 2)->get();
-        $lessonSubCategories = Sub_category::all();
-        $lessonQuestions = collect();
+        $categories = Question_category::where('form_section_id', 2)->get();
+        $questions = collect();
         $formSections = Form_section::all();
         $moduleLevelAnswer = Module_level_answer::all();
 
-        foreach ($lessonCategories as $cat){
-            $questions = Question::where("question_category_id", $cat->id)->get();
-            $lessonQuestions = $lessonQuestions->merge($questions);        
+        foreach ($categories as $cat){
+            $categorieQuestions = Question::where("question_category_id", $cat->id)->get();
+            $questions = $questions->merge($categorieQuestions);        
         }
         return view('admin.edit-module-questions', 
             [
-                'lessonCategories' => $lessonCategories,
-                'lessonSubCategories' => $lessonSubCategories,
-                'lessonQuestions' => $lessonQuestions,
+                'categories' => $categories,
+                'questions' => $questions,
                 'formSections' => $formSections,
                 'moduleLevelAnswer' => $moduleLevelAnswer
 
@@ -78,36 +76,34 @@ class EditModuleQuestionController
 
     public function updateCategory(Request $request) : RedirectResponse
     {
-        // TODO
         $request->validate([
             'name' => ['required'],
             'form_section_id' => ['required'],
         ]);
-        $toUpdate = Sub_category::where('name', $request->input('category_name'))->get();
-        $firstSubCat = $toUpdate->first();
+
+        $toUpdate = Question_category::find($request->input('category_id'));
         
-        $cat = Question_category::find($firstSubCat->id);
-
-        if ($firstSubCat && (string)$request->input('form_section_id') !== (string)$cat->form_section_id)
+        if ((string)$request->input('form_section_id') == (string)$toUpdate->form_section_id)
         {
-            Question_category::create([
-                'form_section_id' => 2,
+            $toUpdate->update([
                 'name' => $request->input('name'),
-                'description' => null,
             ]);
-
-            foreach ($toUpdate as $subCat){
-                Question::where('sub_category_id', $subCat->id)->delete();
-                $subCat->delete();
-            }
         }
         else{
-                Sub_category::where('name', $request->input('category_name'))->update([
-                    'name' => $request->input('name'),
+            Question::where('question_category_id', $toUpdate->id)->delete();
+            $toUpdate->delete();
+
+            Sub_category::create([
+                'question_category_id' => 1,
+                'name' => $request->input('name'),
+            ]);
+            Sub_category::create([
+                'question_category_id' => 2,
+                'name' => $request->input('name'),
             ]);
         }
 
-        return redirect()->route('admin.edit-lesson-questions');
+        return redirect()->route('admin.edit-module-questions');
     }
 
     public function createCategory(Request $request): RedirectResponse
@@ -135,8 +131,7 @@ class EditModuleQuestionController
                 'name' => $request->input('name'),
                 'description' => null,
          ]);
-        }
-        
+        }  
 
         return redirect()->route('admin.edit-module-questions');
     }
@@ -150,6 +145,18 @@ class EditModuleQuestionController
         return redirect()->route('admin.edit-module-questions');
     }
 
-    // public fun
+    public function updateAnswer(Request $request) : RedirectResponse
+    {
+        $request->validate([
+            'text' => ['required'],
+            'description' => ['nullable'],
+        ]);
 
+        Module_level_answer::where('answer', $request->input('old_answer'))->update([
+            'answer' => $request->input('text'),
+            'description' => $request->input('description')
+        ]);
+
+        return redirect()->route('admin.edit-module-questions');
+    }
 }

@@ -1,4 +1,4 @@
-@props(['Categories', 'formSections'])
+@props(['categories', 'formSections'])
 
 <x-admin.edit-questions.edit-category-modal :formSections="$formSections" />
 <x-admin.edit-questions.create-category-modal :formSections="$formSections" />
@@ -8,7 +8,7 @@
         <aside class="sidebar d-none d-xl-block p-4 bg-white shadow-sm">
             <a class="text-decoration-none text-dark" ><h4 class="mt-2">Module niveau</h4></a>
 
-            @foreach ($Categories->where('form_section_id', 2) as $cat)
+            @foreach ($categories->where('form_section_id', 2) as $cat)
                 <div class="d-flex align-items-center justify-content-between">
                     <a href="#category-{{ $cat->id }}" class="d-flex align-items-center justify-content-between text-dark">{{ $cat->name }}</a>
                     <div class="position-relative">
@@ -22,7 +22,8 @@
                             data-bs-target="#editCategoryModal"
                             data-category-id="{{ $cat->id }}"
                             data-category="{{ $cat->name }}"
-                            data-form-section-id="{{ 2 }}"
+                            data-form-section-id="2"
+                            data-action= '/admin/vragen-bewerken/moduleniveau/categorie-bewerken/{{ $cat->id }}/update';
                             >Bewerken</a>
                             
                             <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-danger" style="border-radius: 0.5rem; padding: 0.4rem 1.1rem;"
@@ -39,6 +40,7 @@
                 <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-sm btn-outline-primary border-2 mb-2" style="padding: 0.4rem 1.1rem;"
                     data-bs-toggle="modal"
                     data-bs-target="#createCategoryModal"
+                    data-action="/admin/vragen-bewerken/moduleniveau/categorie-bewerken/create"
                 >Categorie toevoegen</a>
             </div>
         </aside>

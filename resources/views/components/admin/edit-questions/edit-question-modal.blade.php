@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var hasLabel = button.getAttribute('data-has-label');
 
         var form = document.getElementById('editQuestionForm');
-// '/admin/vragen-bewerken/lesniveau/' + questionId + '/update'
         form.action = action;
 
         document.getElementById('questionId').value = questionId || '';

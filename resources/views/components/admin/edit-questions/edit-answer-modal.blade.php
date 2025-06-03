@@ -1,34 +1,18 @@
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-
-<div class="modal fade" id="createQuestionModal" tabindex="-1" aria-labelledby="createQuestionModalLabel" aria-hidden="true">
+<div class="modal fade" id="editAnswerModal" tabindex="-1" aria-labelledby="editAnswerModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form id="createQuestionForm" method="POST">
+      <form id="editAnswerForm" method="POST">
       @csrf
-      @method('POST')
-        <input type="hidden" id="categoryId" name="question_category_id" value="">
-        <input type="hidden" id="subCategoryId" name="sub_category_id" value="">
+      @method('PUT')
+      <input type="hidden" id="oldAnswer" name="old_answer">
         <div class="modal-header">
-          <h5 class="modal-title" id="CreateQuestionModalLabel">Vraag toevoegen</h5>
+          <h5 class="modal-title" id="editAnswerModalLabel">Antwoord bewerken</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label for="questionText" class="form-label">Vraag</label>
-            <input type="text" class="form-control" id="questionText" name="text">
-          </div>
-          <div class="mb-3">
-            <label for="questionLabel" class="form-label">Label</label>
-            <input type="text" class="form-control" id="questionLabel" name="label">
+            <label for="answerText" class="form-label">Antwoord</label>
+            <input type="text" class="form-control" id="answerText" name="text">
           </div>
           <div class="mb-3 form-check form-switch">
             <input class="form-check-input" type="checkbox" id="extraInfoSwitch">
@@ -49,18 +33,20 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    var editModal = document.getElementById('createQuestionModal');
-    var form = document.getElementById('createQuestionForm');
-
+    var editModal = document.getElementById('editAnswerModal');
     editModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
+        var answer = button.getAttribute('data-answer');
+        var description = button.getAttribute('data-description');
+        var action = button.getAttribute('data-action');
 
-        var action = button.getAttribute('data-action')
-        var catId = button.getAttribute('data-category-id');
-        var subCatId = button.getAttribute('data-subcategory-id');
-        document.getElementById('categoryId').value = catId || '';
-        document.getElementById('subCategoryId').value = subCatId || '';
+        var form = document.getElementById('editAnswerForm');
         form.action = action;
+
+        document.getElementById('oldAnswer').value = answer || '';
+        document.getElementById('answerText').value = answer || '';
+        document.getElementById('extraInfoText').value = description || '';
+        document.getElementById('extraInfoSwitch').checked = !!description;
     });
 
     // Optional: Toggle textarea enabled/disabled based on switch

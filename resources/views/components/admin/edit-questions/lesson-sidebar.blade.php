@@ -22,7 +22,8 @@
                             data-bs-target="#editCategoryModal"
                             data-category-id="{{ $subCat->id }}"
                             data-category="{{ $subCat->name }}"
-                            data-form-section-id="{{ 1 }}"
+                            data-form-section-id="1"
+                            data-action= '/admin/vragen-bewerken/lesniveau/categorie-bewerken/{{ $subCat->id }}/update';
                             >Bewerken</a>
                             
                             <a href="{{ route('admin.edit-lesson-questions') }}" class="btn btn-danger" style="border-radius: 0.5rem; padding: 0.4rem 1.1rem;"
@@ -39,6 +40,7 @@
                 <a href="{{ route('admin.edit-lesson-questions') }}" class="btn btn-sm btn-outline-primary border-2 mb-2" style="padding: 0.4rem 1.1rem;"
                     data-bs-toggle="modal"
                     data-bs-target="#createCategoryModal"
+                    data-action="/admin/vragen-bewerken/lesniveau/categorie-bewerken/create"
                 >Categorie toevoegen</a>
             </div>
         </aside>
