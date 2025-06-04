@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ReceiverSeeder::class);
         $this->call(GraphDescriptionSeeder::class);
         $this->call(EmailRuleSeeder::class);
+        $this->call(RoleSeeder::class);
 
         Schema::enableForeignKeyConstraints();
     }

@@ -9,9 +9,12 @@
     <h1>Resultaten</h1>
     <p>
         Bedankt voor het invullen. Op deze pagina zie je grafieken met de resultaten. We zullen deze resultaten in een
-        gesprek bespreken en de grafieken dan toelichten. Klik op gelijk afronden om door te gaan, of bekijk de
+        gesprek bespreken en de grafieken dan toelichten. Klik op direct afronden om door te gaan, of bekijk de
         resultaten en klik onderaan op afronden.
     </p>
+    <x-navigation-buttons :previous="$previous ?? route('intermediate.view', 'resultaten')"
+                          :next="route('overview-and-send')" nextLabel='Direct Afronden'/>
+    <hr class="my-5">
     <div class="card graph-card p-3">
         <div class="row">
             <div class="col">
