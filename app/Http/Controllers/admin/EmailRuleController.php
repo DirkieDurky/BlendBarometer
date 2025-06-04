@@ -7,18 +7,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEmailRuleRequest;
 use App\Models\Academy;
 use App\Models\EmailRule;
-use App\Services\EmailRuleService;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class EmailRuleController extends Controller
 {
-    public function __construct(private readonly EmailRuleService $service) {}
-
     public function index(): View
     {
-        // gegroepeerde e-mailregels
+        // grouped e-mailrules
         $rules = EmailRule::query()
             ->orderBy('academy_name')
             ->orderBy('email')
@@ -26,33 +25,42 @@ class EmailRuleController extends Controller
             ->groupBy(fn (EmailRule $r) => $r->academy_name ?? '_default')
             ->toBase();
 
-        // alle academies
+        // all academies
         $allAcademies = Academy::query()
             ->orderBy('abbreviation')
             ->get(['name', 'abbreviation']);
 
-        // welke academies hebben al een regel?
+        // which academies already have a rule?
         $usedNames = $rules->keys()->filter(fn ($k) => $k !== '_default');
 
-        // beschikbare academies
+        // available academies
         $availableAcademies = $allAcademies->whereNotIn('name', $usedNames->all());
 
         return view('admin.email-rules', [
-            'rules'               => $rules,
-            'allAcademies'        => $allAcademies,
-            'usedNames'           => $usedNames,
-            'availableAcademies'  => $availableAcademies,
-            'success'             => session('success'),
+            'rules' => $rules,
+            'allAcademies' => $allAcademies,
+            'usedNames' => $usedNames,
+            'availableAcademies' => $availableAcademies,
+            'success' => session('success'),
         ]);
     }
 
     public function store(StoreEmailRuleRequest $request): RedirectResponse
     {
-        // voeg een e-mailadres toe aan de gekozen academie
-        $this->service->add(
-            $request->validated('email'),
-            $request->validated('academy_name')
-        );
+        $email = $request->validated('email');
+        $academyName = $request->validated('academy_name');
+
+        // Equivalent to EmailRuleService::add(...)
+        try {
+            EmailRule::create([
+                'academy_name' => $academyName,
+                'email' => $email,
+            ]);
+        } catch (QueryException $e) {
+            throw ValidationException::withMessages([
+                'email' => 'Dit adres bestaat al voor deze academie.',
+            ]);
+        }
 
         return back()->with('success', 'E-mailadres toegevoegd.');
     }
@@ -64,17 +72,30 @@ class EmailRuleController extends Controller
             'academy_name' => ['required', 'string', 'different:old_academy'],
         ]);
 
-        // voorkom dubbele regels
+        // prevent double rules
         if (EmailRule::where('academy_name', $data['academy_name'])->exists()) {
             return back()->withErrors([
                 'academy_name' => 'Er bestaat al een regel voor deze academie.',
             ]);
         }
 
-        $this->service->moveAcademy(
-            $data['old_academy'],
-            $data['academy_name']
-        );
+        // Equivalent to EmailRuleService::moveAcademy(...)
+        $fromAcademy = $data['old_academy']; // can be null
+        $toAcademy = $data['academy_name'];
+
+        // retrieve all 'old' academy emails
+        $emails = EmailRule::where('academy_name', $fromAcademy)->pluck('email');
+
+        // add to new academy (duplica­tion-safe)
+        foreach ($emails as $email) {
+            EmailRule::firstOrCreate([
+                'academy_name' => $toAcademy,
+                'email' => $email,
+            ]);
+        }
+
+        // delete old rules
+        EmailRule::where('academy_name', $fromAcademy)->delete();
 
         return back()->with('success', 'Academie aangepast.');
     }

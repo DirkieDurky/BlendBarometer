@@ -16,7 +16,7 @@ class StoreEmailRuleRequest extends FormRequest
     {
         return [
             'academy_name' => ['nullable', 'string', 'exists:academy,name'],
-            'email'        => ['required', 'email'],
+            'email' => ['required', 'email'],
         ];
     }
 }

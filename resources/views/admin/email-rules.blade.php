@@ -3,7 +3,7 @@
         <div class="col-lg-8 mx-auto">
             <h1>E-mail regels</h1>
             <p class="text-muted mb-5">
-                Beslis welke rapport naar welke e-mail verstuurd moet worden.
+                Beslis welk rapport naar welke e-mail verstuurd moet worden.
                 Alleen academies met een regel staan hieronder. Met
                 <em>"Nieuwe regel toevoegen"</em> maak je een regel voor een academie zonder regel.
             </p>
@@ -23,8 +23,6 @@
                     :academies="$allAcademies"
                     :usedNames="$usedNames" />
             @endforeach
-
-            <hr class="my-5">
 
             <button id="add-rule-btn"
                     class="btn btn-outline-primary btn-lg w-100 mb-4">

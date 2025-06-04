@@ -8,7 +8,7 @@ use App\Models\Question_category;
 use App\Models\Receiver;
 use App\Models\Receiver_of_academy;
 use App\Models\Sub_category;
-use App\Services\EmailRuleService;
+use App\Models\EmailRule;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -24,8 +24,6 @@ use PhpOffice\PhpWord\Style\Image;
 class ReportController extends Controller
 {
 
-    public function __construct(private readonly EmailRuleService $emailRuleService) {}
-
     private int $pageNumber = 0;
 
     private $labelStyle = ['color' => '888888'];
@@ -38,7 +36,7 @@ class ReportController extends Controller
     const MAIL_HOST = 'smtp.gmail.com';
     const MAIL_PORT = 587;
 
-    public function sendReport(EmailRuleService $rules)
+    public function sendReport()
     {
         $phpWord = new PhpWord();
         $phpWord->addTitleStyle(1, ['bold' => true, 'size' => 20, 'name' => 'Arial']);
@@ -52,12 +50,25 @@ class ReportController extends Controller
         $this->addResults($phpWord);
         $this->addFillableNotes($phpWord);
 
-        $writer   = IOFactory::createWriter($phpWord, 'Word2007');
+        $writer = IOFactory::createWriter($phpWord, 'Word2007');
         $tempFile = tempnam(sys_get_temp_dir(), $fileName);
         $writer->save($tempFile);
 
-        $academy    = session('academy');
-        $recipients = $rules->getRecipientsFor($academy);
+        $academy = session('academy');
+
+        $specific = EmailRule::query()
+            ->where('academy_name', $academy)
+            ->pluck('email');
+
+        if ($specific->isNotEmpty()) {
+            $recipients = $specific->unique()->values();
+        } else {
+            $recipients = EmailRule::query()
+                ->whereNull('academy_name')
+                ->pluck('email')
+                ->unique()
+                ->values();
+        }
 
         if ($recipients->isEmpty()) {
             throw ValidationException::withMessages([
@@ -68,27 +79,32 @@ class ReportController extends Controller
         try {
             $mail = new PHPMailer(true);
             $mail->isSMTP();
-            $mail->SMTPAuth   = true;
-            $mail->Host       = self::MAIL_HOST;
+            $mail->SMTPAuth = true;
+            $mail->Host = self::MAIL_HOST;
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port       = self::MAIL_PORT;
-            $mail->Username   = env('MAIL_USERNAME');
-            $mail->Password   = env('MAIL_PASSWORD');
-            $mail->CharSet    = 'UTF-8';
+            $mail->Port = self::MAIL_PORT;
+            $mail->Username = env('MAIL_USERNAME');
+            $mail->Password = env('MAIL_PASSWORD');
+            $mail->CharSet = 'UTF-8';
             $mail->isHTML(true);
-            $mail->Subject    = 'Tussenrapport';
+            $mail->Subject = 'Tussenrapport';
+            $name = session('name');
+            $academy = session('academy');
+            $module = session('module');
+            $date = now()->format('d-m-Y');
+            $course = session('course');
 
             foreach ($recipients as $address) {
                 $mail->addAddress($address);
             }
 
             $html = View::make('intermediate-report-email', [
-                'name'            => session('name'),
-                'emailParticipant'=> session('email'),
-                'academy'         => $academy,
-                'module'          => session('module'),
-                'date'            => now()->format('d-m-Y'),
-                'summary'         => session('summary'),
+                'name' => session('name'),
+                'emailParticipant' => session('email'),
+                'academy' => $academy,
+                'module' => session('module'),
+                'date' => now()->format('d-m-Y'),
+                'summary' => session('summary'),
             ])->render();
 
             $mail->Body = $html;
@@ -112,11 +128,11 @@ class ReportController extends Controller
 
         return redirect()->route('confirmation')->with('success', [
             'ictoCoach' => $recipients->implode(', '),
-            'academy'   => $academy,
-            'course'    => session('course'),
-            'module'    => session('module'),
-            'teacher'   => session('name'),
-            'date'      => now()->format('d-m-Y'),
+            'academy' => $academy,
+            'course' => $course,
+            'module' => $module,
+            'teacher' => $name,
+            'date' => $date,
         ]);
     }
 
