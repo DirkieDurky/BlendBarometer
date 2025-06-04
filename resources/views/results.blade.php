@@ -28,25 +28,25 @@
     </div>
     <hr class="my-5"/>
     <div class="d-flex flex-row gap-4">
-        <div class="d-flex flex-column gap-3">
+        <div class="d-flex flex-column gap-3 w-50">
             <h2>Fysieke leeractiviteiten</h2>
-            @for($i = 0; $i < sizeOf($lessonLevelPhysicalSubcategories); $i ++)
+            @foreach ($lessonLevelPhysicalSubcategories as $i=>$category)
                 <div class="card graph-card p-3">
-                    <canvas id="physical-{{ $lessonLevelPhysicalSubcategories[$i]->id }}" class="bg-white rounded mb-2" role="img"></canvas>
-                    <strong>{{ $lessonLevelPhysicalSubcategories[$i]->name }}</strong>
+                    <canvas id="physical-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
+                    <strong>{{ $category->name }}</strong>
                     <p class="mb-0">{{ $lessonLevelPhysicalDescriptions[$i]->description }}</p>
                 </div>
-            @endfor
+            @endforeach
         </div>
-        <div class="d-flex flex-column gap-3">
+        <div class="d-flex flex-column gap-3 w-50">
             <h2>Online leeractiviteiten</h2>
-            @for($i = 0; $i < sizeOf($lessonLevelOnlineSubcategories); $i ++)
+            @foreach ($lessonLevelOnlineSubcategories as $i=>$category)
                 <div class="card graph-card p-3">
-                    <canvas id="online-{{ $lessonLevelOnlineSubcategories[$i]->id }}" class="bg-white rounded mb-2" role="img"></canvas>
-                    <strong>{{ $lessonLevelOnlineSubcategories[$i]->name }}</strong>
+                    <canvas id="online-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
+                    <strong>{{ $category->name }}</strong>
                     <p class="mb-0">{{ $lessonLevelOnlineDescriptions[$i]->description }}</p>
                 </div>
-            @endfor
+            @endforeach
         </div>
     </div>
     <hr class="my-5"/>

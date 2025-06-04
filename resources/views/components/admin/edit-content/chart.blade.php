@@ -1,4 +1,4 @@
-<form action="{{ route('admin.edit-content.chart') }}" method="POST" class="w-100 h-100" onchange="showGraphButtons()" onreset="hideGraphButtons()">
+<form action="{{ route('admin.edit-content.chart-update') }}" method="POST" class="w-100 h-100" oninput="showGraphButtons()" onreset="hideGraphButtons()">
     @csrf
     @method('PUT')
     <div class="d-flex pb-5">
@@ -8,7 +8,7 @@
                     <h3 class="h5">Grafiek fysiek - {{ $category->name }}</h3>
                     <p class="my-1">Uitleg</p>
                     <input type="hidden" name="physical[{{ $loop->index }}][id]" value="{{ $category->id }}">
-                    <textarea onclick="showGraphButtons()" style="height: 110px;" class="form-control p-2 name="physical[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
+                    <textarea onclick="showGraphButtons()" style="height: 110px;" class="form-control p-2" name="physical[{{ $loop->index }}][description]">{{ $category->description }}</textarea>
                 </div>
             @endforeach
         </div>

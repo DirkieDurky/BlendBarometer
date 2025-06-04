@@ -8,6 +8,7 @@ use App\Models\GraphDescription;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Laravel\Pail\ValueObjects\Origin\Console;
 
 class EditContentController
 {
@@ -87,28 +88,26 @@ class EditContentController
         $description = GraphDescription::find($generalLessonLevelDescription['id']);
         if($description)
         {
-            $description->update(['description' => $generalLessonLevelDescription['description']]);
+            $description->update(['description' => $generalLessonLevelDescription['description'] ?? '']);
         }
 
         $generalModuleDescription = $request->input('general_module');
         $description = GraphDescription::find($generalModuleDescription['id']);
         if($description)
         {
-            $description->update(['description' => $generalModuleDescription['description']]);
+            $description->update(['description' => $generalModuleDescription['description']?? '']);
         }
         return redirect()->route('admin.edit-content', ['tab' => 'chart']);
     }
 
     private function UpdateChartDescription($description)
     {
-        if (!isset($description['id']) || !isset($description['description'])) {
-                return; // skip if data is incomplete
-            }
-
+        if(!isset($description['description'])){
+            $description['description'] = '';
+        }
         $row = GraphDescription::where('sub_category_id', $description['id'])->first();
 
         if ($row) {
-            // Update existing
             $row->update(['description' => $description['description']]);
         } else {
             $category = Sub_category::find($description['id']);
