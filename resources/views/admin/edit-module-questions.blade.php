@@ -1,10 +1,8 @@
-<x-admin.edit-questions.edit-module-question-modal />
-<x-admin.edit-questions.create-module-question-modal />
-<x-admin.edit-questions.delete-confirmation />
-<x-admin.edit-questions.edit-answer-modal />
-
 <x-admin.edit-questions.module-sidebar :categories="$categories" :formSections="$formSections">
-
+    <x-admin.edit-questions.edit-module-question-modal />
+    <x-admin.edit-questions.create-module-question-modal />
+    <x-admin.edit-questions.delete-confirmation />
+    <x-admin.edit-questions.edit-answer-modal />
     <h1 class="mb-3">Module niveau</h1>
 
     <div class="container px-0">

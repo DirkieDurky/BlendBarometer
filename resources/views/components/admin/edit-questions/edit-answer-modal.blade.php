@@ -49,12 +49,8 @@
             document.getElementById('extraInfoSwitch').checked = !!description;
         });
 
-        // Optional: Toggle textarea enabled/disabled based on switch
         document.getElementById('extraInfoSwitch').addEventListener('change', function() {
             document.getElementById('extraInfoText').disabled = !this.checked;
-        });
-
-        document.getElementById('editAnswerForm').addEventListener('submit', function() {
             document.getElementById('extraInfoText').disabled = false;
         });
     });

@@ -1,8 +1,7 @@
-<x-admin.edit-questions.edit-lesson-question-modal />
-<x-admin.edit-questions.create-lesson-question-modal />
-<x-admin.edit-questions.delete-confirmation />
-
 <x-admin.edit-questions.lesson-sidebar :subCategories="$lessonSubCategories" :formSections="$formSections">
+    <x-admin.edit-questions.edit-lesson-question-modal />
+    <x-admin.edit-questions.create-lesson-question-modal />
+    <x-admin.edit-questions.delete-confirmation />
 
     <h1 class="mb-3">Les niveau</h1>
 
