@@ -21,11 +21,12 @@ class EditModuleQuestionController
         $formSections = Form_section::all();
         $moduleLevelAnswer = Module_level_answer::all();
 
-        foreach ($categories as $cat){
+        foreach ($categories as $cat) {
             $categorieQuestions = Question::where("question_category_id", $cat->id)->get();
-            $questions = $questions->merge($categorieQuestions);        
+            $questions = $questions->merge($categorieQuestions);
         }
-        return view('admin.edit-module-questions', 
+        return view(
+            'admin.edit-module-questions',
             [
                 'categories' => $categories,
                 'questions' => $questions,
@@ -33,7 +34,8 @@ class EditModuleQuestionController
                 'moduleLevelAnswer' => $moduleLevelAnswer
 
             ]
-        );    }
+        );
+    }
 
     public function updateQuestion(Request $request): RedirectResponse
     {
@@ -44,10 +46,10 @@ class EditModuleQuestionController
         ]);
 
         Question::where('id', $request->question_id)->update([
-                'text' => $request->input('text'),
-                'label' => $request->input('label'),
-                'description' => $request->input('description'),
-         ]);
+            'text' => $request->input('text'),
+            'label' => $request->input('label'),
+            'description' => $request->input('description'),
+        ]);
         return redirect()->route('admin.edit-module-questions');
     }
 
@@ -59,24 +61,22 @@ class EditModuleQuestionController
             'description' => ['nullable'],
         ]);
 
-        $questions = [
-                'question_category_id' => $request->input('question_category_id'),
-                'text' => $request->input('text'),
-                'description' => $request->input('description'),
-                'label' => $request->input('label'),
-        ];
-
-        Question::insert($questions);
+        Question::insert([
+            'question_category_id' => $request->input('question_category_id'),
+            'text' => $request->input('text'),
+            'description' => $request->input('description'),
+            'label' => $request->input('label')
+        ]);
         return redirect()->route('admin.edit-module-questions');
     }
 
-    public function deleteQuestion($id) : RedirectResponse
+    public function deleteQuestion($id): RedirectResponse
     {
         Question::where('id', $id)->delete();
         return redirect()->route('admin.edit-module-questions');
     }
 
-    public function updateCategory(Request $request) : RedirectResponse
+    public function updateCategory(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required'],
@@ -84,14 +84,12 @@ class EditModuleQuestionController
         ]);
 
         $toUpdate = Question_category::find($request->input('category_id'));
-        
-        if ((string)$request->input('form_section_id') == (string)$toUpdate->form_section_id)
-        {
+
+        if ((string)$request->input('form_section_id') == (string)$toUpdate->form_section_id) {
             $toUpdate->update([
                 'name' => $request->input('name'),
             ]);
-        }
-        else{
+        } else {
             Question::where('question_category_id', $toUpdate->id)->delete();
             $toUpdate->delete();
 
@@ -116,7 +114,7 @@ class EditModuleQuestionController
         ]);
 
 
-        if ($request->input('form_section_id') == 1){
+        if ($request->input('form_section_id') == 1) {
             Sub_category::create([
                 'question_category_id' => 1,
                 'name' => $request->input('name'),
@@ -125,20 +123,18 @@ class EditModuleQuestionController
                 'question_category_id' => 2,
                 'name' => $request->input('name'),
             ]);
-        }
-
-        else if ($request->input('form_section_id') == 2){
+        } else if ($request->input('form_section_id') == 2) {
             Question_category::create([
                 'form_section_id' => 2,
                 'name' => $request->input('name'),
                 'description' => null,
-         ]);
-        }  
+            ]);
+        }
 
         return redirect()->route('admin.edit-module-questions');
     }
-    
-    public function deleteCategory($id) : RedirectResponse
+
+    public function deleteCategory($id): RedirectResponse
     {
         Question::where('question_category_id', $id)->delete();
         $category = Question_category::find($id);
@@ -147,7 +143,7 @@ class EditModuleQuestionController
         return redirect()->route('admin.edit-module-questions');
     }
 
-    public function updateAnswer(Request $request) : RedirectResponse
+    public function updateAnswer(Request $request): RedirectResponse
     {
         $request->validate([
             'text' => ['required'],

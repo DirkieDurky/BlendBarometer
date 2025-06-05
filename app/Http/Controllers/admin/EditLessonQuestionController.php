@@ -20,11 +20,12 @@ class EditLessonQuestionController
         $lessonQuestions = collect();
         $formSections = Form_section::all();
 
-        foreach ($lessonCategories as $cat){
+        foreach ($lessonCategories as $cat) {
             $questions = Question::where("question_category_id", $cat->id)->get();
-            $lessonQuestions = $lessonQuestions->merge($questions);        
+            $lessonQuestions = $lessonQuestions->merge($questions);
         }
-        return view('admin.edit-lesson-questions', 
+        return view(
+            'admin.edit-lesson-questions',
             [
                 'lessonCategories' => $lessonCategories,
                 'lessonSubCategories' => $lessonSubCategories,
@@ -42,9 +43,9 @@ class EditLessonQuestionController
         ]);
 
         Question::where('id', $request->question_id)->update([
-                'text' => $request->input('text'),
-                'description' => $request->input('description'),
-         ]);
+            'text' => $request->input('text'),
+            'description' => $request->input('description'),
+        ]);
         return redirect()->route('admin.edit-lesson-questions');
     }
 
@@ -55,33 +56,22 @@ class EditLessonQuestionController
             'description' => ['nullable'],
         ]);
 
-        // dd($request->input('description'));
-
-        $questions = [
-                'question_category_id' => $request->input('question_category_id'),
-                'sub_category_id' => $request->input('sub_category_id'),
-                'text' => $request->input('text'),
-                'description' => $request->input('description'),
-        ];
-
-        // Question::create([
-        //         'text' => $request->input('text'),
-        //         'description' => $request->input('description'),
-        //         'question_category_id' => $request->input('question_category_id'),
-        //         'sub_category_id' => $request->input('sub_category_id'),
-        //  ]);
-
-         Question::insert($questions);
+        Question::insert([
+            'question_category_id' => $request->input('question_category_id'),
+            'sub_category_id' => $request->input('sub_category_id'),
+            'text' => $request->input('text'),
+            'description' => $request->input('description'),
+        ]);
         return redirect()->route('admin.edit-lesson-questions');
     }
 
-    public function deleteQuestion($id) : RedirectResponse
+    public function deleteQuestion($id): RedirectResponse
     {
         Question::where('id', $id)->delete();
         return redirect()->route('admin.edit-lesson-questions');
     }
 
-    public function updateCategory(Request $request) : RedirectResponse
+    public function updateCategory(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required'],
@@ -89,25 +79,23 @@ class EditLessonQuestionController
         ]);
         $toUpdate = Sub_category::where('name', $request->input('category_name'))->get();
         $firstSubCat = $toUpdate->first();
-        
+
         $cat = Question_category::find($firstSubCat->question_category_id);
 
-        if ($firstSubCat && (string)$request->input('form_section_id') !== (string)$cat->form_section_id)
-        {
+        if ($firstSubCat && (string)$request->input('form_section_id') !== (string)$cat->form_section_id) {
             Question_category::create([
                 'form_section_id' => 2,
                 'name' => $request->input('name'),
                 'description' => null,
             ]);
 
-            foreach ($toUpdate as $subCat){
+            foreach ($toUpdate as $subCat) {
                 Question::where('sub_category_id', $subCat->id)->delete();
                 $subCat->delete();
             }
-        }
-        else{
-                Sub_category::where('name', $request->input('category_name'))->update([
-                    'name' => $request->input('name'),
+        } else {
+            Sub_category::where('name', $request->input('category_name'))->update([
+                'name' => $request->input('name'),
             ]);
         }
 
@@ -122,7 +110,7 @@ class EditLessonQuestionController
         ]);
 
 
-        if ($request->input('form_section_id') == 1){
+        if ($request->input('form_section_id') == 1) {
             Sub_category::create([
                 'question_category_id' => 1,
                 'name' => $request->input('name'),
@@ -131,32 +119,29 @@ class EditLessonQuestionController
                 'question_category_id' => 2,
                 'name' => $request->input('name'),
             ]);
-        }
-
-        else if ($request->input('form_section_id') == 2){
+        } else if ($request->input('form_section_id') == 2) {
             Question_category::create([
                 'form_section_id' => 2,
                 'name' => $request->input('name'),
                 'description' => null,
-         ]);
+            ]);
         }
-        
+
 
         return redirect()->route('admin.edit-lesson-questions');
     }
-    
-    public function deleteCategory($id) : RedirectResponse
+
+    public function deleteCategory($id): RedirectResponse
     {
         $subCatName = Sub_category::find($id);
 
         $toDelete = Sub_category::where('name', $subCatName->name)->get();
 
-        foreach ($toDelete as $subCat){
+        foreach ($toDelete as $subCat) {
             Question::where('sub_category_id', $subCat->id)->delete();
             $subCat->delete();
         }
 
         return redirect()->route('admin.edit-lesson-questions');
     }
-
 }
