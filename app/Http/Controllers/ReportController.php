@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Content;
 use App\Models\GraphDescription;
 use App\Models\Question_category;
-use App\Models\Receiver;
-use App\Models\Receiver_of_academy;
 use App\Models\Sub_category;
 use App\Models\EmailRule;
 use Carbon\Carbon;

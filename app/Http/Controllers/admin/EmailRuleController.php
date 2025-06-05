@@ -50,7 +50,6 @@ class EmailRuleController extends Controller
         $email = $request->validated('email');
         $academyName = $request->validated('academy_name');
 
-        // Equivalent to EmailRuleService::add(...)
         try {
             EmailRule::create([
                 'academy_name' => $academyName,
@@ -68,7 +67,7 @@ class EmailRuleController extends Controller
     public function changeAcademy(Request $request): RedirectResponse
     {
         $data = $request->validate([
-            'old_academy'  => ['nullable', 'string'],
+            'old_academy' => ['nullable', 'string'],
             'academy_name' => ['required', 'string', 'different:old_academy'],
         ]);
 
@@ -79,7 +78,6 @@ class EmailRuleController extends Controller
             ]);
         }
 
-        // Equivalent to EmailRuleService::moveAcademy(...)
         $fromAcademy = $data['old_academy']; // can be null
         $toAcademy = $data['academy_name'];
 

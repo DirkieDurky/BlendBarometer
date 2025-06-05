@@ -20,52 +20,44 @@ return new class extends Migration
         Schema::create('form_section', function (Blueprint $table) {
             $table->id();
             $table->foreignId('content_id')
-                ->constrained('content')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
-            $table->mediumText('description')
-                ->nullable();
+                  ->constrained('content')
+                  ->onUpdate('cascade')
+                  ->onDelete('restrict');
+            $table->mediumText('description')->nullable();
         });
 
         Schema::create('question_category', function (Blueprint $table) {
             $table->id();
             $table->foreignId('form_section_id')
-                ->constrained('form_section')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
+                  ->constrained('form_section')
+                  ->onUpdate('cascade')
+                  ->onDelete('restrict');
             $table->string('name');
-            $table->mediumText('description')
-                ->nullable();
-        });
-
-        Schema::create('question', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('question_category_id')
-                ->constrained('question_category')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
-            $table->foreignId('sub_category_id')
-                ->nullable()
-                ->constrained('sub_category')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
-            $table->string('text');
-            $table->mediumText('description')
-                ->nullable();
+            $table->mediumText('description')->nullable();
         });
 
         Schema::create('sub_category', function (Blueprint $table) {
             $table->id();
             $table->foreignId('question_category_id')
-                ->constrained('question_category')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
+                  ->constrained('question_category')
+                  ->onUpdate('cascade')
+                  ->onDelete('restrict');
             $table->string('name');
         });
 
-        Schema::create('receiver', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->boolean('is_default');
+        Schema::create('question', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('question_category_id')
+                  ->constrained('question_category')
+                  ->onUpdate('cascade')
+                  ->onDelete('restrict');
+            $table->foreignId('sub_category_id')
+                  ->nullable()
+                  ->constrained('sub_category')
+                  ->onUpdate('cascade')
+                  ->onDelete('restrict');
+            $table->string('text');
+            $table->mediumText('description')->nullable();
         });
 
         Schema::create('academy', function (Blueprint $table) {
@@ -73,23 +65,6 @@ return new class extends Migration
             $table->string('abbreviation');
         });
 
-        Schema::create('receiver_of_academy', function (Blueprint $table) {
-            $table->string('receiver_email');
-            $table->string('academy_name');
-
-            $table->foreign('receiver_email')
-                  ->references('email')->on('receiver')
-                  ->cascadeOnUpdate()
-                  ->restrictOnDelete();
-
-            $table->foreign('academy_name')
-                  ->references('name')->on('academy')
-                  ->cascadeOnUpdate()
-                  ->restrictOnDelete();
-
-            // composite primary key – **MUST** be last
-            $table->primary(['receiver_email', 'academy_name']);
-        });
     }
 
     /**
@@ -97,13 +72,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('content');
-        Schema::dropIfExists('form_section');
-        Schema::dropIfExists('question_category');
         Schema::dropIfExists('question');
         Schema::dropIfExists('sub_category');
-        Schema::dropIfExists('receiver');
+        Schema::dropIfExists('question_category');
+        Schema::dropIfExists('form_section');
+        Schema::dropIfExists('content');
         Schema::dropIfExists('academy');
-        Schema::dropIfExists('receiver_of_academy');
     }
 };
