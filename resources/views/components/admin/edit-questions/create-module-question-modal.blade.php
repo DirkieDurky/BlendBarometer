@@ -15,7 +15,6 @@
         <div class="modal-content">
             <form id="createQuestionForm" method="POST">
                 @csrf
-                @method('POST')
                 <input type="hidden" id="categoryId" name="question_category_id" value="">
                 <div class="modal-header">
                     <h5 class="modal-title" id="CreateQuestionModalLabel">Vraag toevoegen</h5>
