@@ -33,14 +33,14 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var editModal = document.getElementById('editAnswerModal');
+        let editModal = document.getElementById('editAnswerModal');
         editModal.addEventListener('show.bs.modal', function(event) {
-            var button = event.relatedTarget;
-            var answer = button.getAttribute('data-answer');
-            var description = button.getAttribute('data-description');
-            var action = button.getAttribute('data-action');
+            let button = event.relatedTarget;
+            let answer = button.getAttribute('data-answer');
+            let description = button.getAttribute('data-description');
+            let action = button.getAttribute('data-action');
 
-            var form = document.getElementById('editAnswerForm');
+            let form = document.getElementById('editAnswerForm');
             form.action = action;
 
             document.getElementById('oldAnswer').value = answer || '';

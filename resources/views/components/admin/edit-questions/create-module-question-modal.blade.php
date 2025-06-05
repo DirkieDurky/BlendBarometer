@@ -48,17 +48,17 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var createModal = document.getElementById('createQuestionModal');
-        var form = document.getElementById('createQuestionForm');
+        let createModal = document.getElementById('createQuestionModal');
+        let form = document.getElementById('createQuestionForm');
 
         createModal.addEventListener('show.bs.modal', function(event) {
-            var button = event.relatedTarget;
+            let button = event.relatedTarget;
 
-            var action = button.getAttribute('data-action')
-            var catId = button.getAttribute('data-category-id');
+            let action = button.getAttribute('data-action')
+            let catId = button.getAttribute('data-category-id');
 
             document.getElementById('categoryId').value = catId || '';
-            var description = null;
+            let description = null;
             document.getElementById('extraInfoSwitch').checked = !!description;
             form.action = action;
         });

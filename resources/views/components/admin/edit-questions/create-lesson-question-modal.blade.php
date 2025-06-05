@@ -45,14 +45,14 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var createModal = document.getElementById('createQuestionModal');
+        let createModal = document.getElementById('createQuestionModal');
         createModal.addEventListener('show.bs.modal', function(event) {
-            var button = event.relatedTarget;
-            var action = button.getAttribute('data-action')
-            var catId = button.getAttribute('data-category-id');
-            var subCatId = button.getAttribute('data-subcategory-id');
-            var checked = button.getAttribute('data-description');
-            var form = document.getElementById('createQuestionForm');
+            let button = event.relatedTarget;
+            let action = button.getAttribute('data-action')
+            let catId = button.getAttribute('data-category-id');
+            let subCatId = button.getAttribute('data-subcategory-id');
+            let checked = button.getAttribute('data-description');
+            let form = document.getElementById('createQuestionForm');
             form.action = action;
 
             document.getElementById('categoryId').value = catId || '';
