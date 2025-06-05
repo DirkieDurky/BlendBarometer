@@ -18,7 +18,7 @@
                         if (isset($lessonQuestions)) {
                             $questions = $lessonQuestions->where('sub_category_id', $subCat->id);
                         } else {
-                            $questions->collect();
+                            $questions = collect();
                         }
                     @endphp
 

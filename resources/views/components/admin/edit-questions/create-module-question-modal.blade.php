@@ -59,9 +59,14 @@
             var catId = button.getAttribute('data-category-id');
 
             document.getElementById('categoryId').value = catId || '';
+            var description = null;
+            document.getElementById('extraInfoSwitch').checked = !!description;
             form.action = action;
         });
 
-        document.getElementById('extraInfoText').disabled = false;
+        document.getElementById('extraInfoSwitch').addEventListener('change', function() {
+            document.getElementById('extraInfoText').disabled = !this.checked;
+            document.getElementById('extraInfoText').value = null;
+        });
     });
 </script>

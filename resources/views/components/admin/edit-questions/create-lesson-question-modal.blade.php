@@ -29,7 +29,7 @@
                     </div>
                     <div class="mb-3 form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="extraInfoSwitch">
-                        <label class="form-check-label" for="extraInfoSwitch">Extra informatie</label>
+                        <label class="form-label" for="extraInfoSwitch">Extra informatie</label>
                     </div>
                     <div class="mb-3">
                         <textarea class="form-control" id="extraInfoText" name="description" placeholder="Voeg hier extra informatie toe"></textarea>
@@ -47,20 +47,22 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var createModal = document.getElementById('createQuestionModal');
-        var form = document.getElementById('createQuestionForm');
-
         createModal.addEventListener('show.bs.modal', function(event) {
             var button = event.relatedTarget;
-
             var action = button.getAttribute('data-action')
             var catId = button.getAttribute('data-category-id');
             var subCatId = button.getAttribute('data-subcategory-id');
 
+            var form = document.getElementById('createQuestionForm');
+            form.action = action;
+
             document.getElementById('categoryId').value = catId || '';
             document.getElementById('subCategoryId').value = subCatId || '';
-            form.action = action;
         });
 
-        document.getElementById('extraInfoText').disabled = false;
+        document.getElementById('extraInfoSwitch').addEventListener('change', function() {
+            document.getElementById('extraInfoText').disabled = !this.checked;
+            document.getElementById('extraInfoText').value = null;
+        });
     });
 </script>
