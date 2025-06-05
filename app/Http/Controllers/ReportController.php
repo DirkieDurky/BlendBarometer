@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Content;
 use App\Models\GraphDescription;
 use App\Models\Question_category;
-use App\Models\Receiver;
-use App\Models\Receiver_of_academy;
 use App\Models\Sub_category;
+use App\Models\EmailRule;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -22,6 +21,7 @@ use PhpOffice\PhpWord\Style\Image;
 
 class ReportController extends Controller
 {
+
     private int $pageNumber = 0;
 
     private $labelStyle = ['color' => '888888'];
@@ -37,79 +37,95 @@ class ReportController extends Controller
     public function sendReport()
     {
         $phpWord = new PhpWord();
-        $phpWord->addTitleStyle(
-            1,
-            ['bold' => true, 'size' => 20, 'name' => 'Arial'],
-        );
-        $phpWord->addTitleStyle(
-            2,
-            ['bold' => true, 'size' => 15, 'name' => 'Arial'],
-        );
+        $phpWord->addTitleStyle(1, ['bold' => true, 'size' => 20, 'name' => 'Arial']);
+        $phpWord->addTitleStyle(2, ['bold' => true, 'size' => 15, 'name' => 'Arial']);
 
         $fileName = 'BlendBarometer rapport ' . session('module') . ' ' . now()->format('d-m-Y') . '.docx';
 
         $this->addFrontPage($phpWord);
-
         $this->addInformationPage($phpWord);
         $this->addTableOfContents($phpWord);
         $this->addResults($phpWord);
         $this->addFillableNotes($phpWord);
 
         $writer = IOFactory::createWriter($phpWord, 'Word2007');
-
         $tempFile = tempnam(sys_get_temp_dir(), $fileName);
         $writer->save($tempFile);
+
+        $academy = session('academy');
+
+        $specific = EmailRule::query()
+            ->where('academy_name', $academy)
+            ->pluck('email');
+
+        if ($specific->isNotEmpty()) {
+            $recipients = $specific->unique()->values();
+        } else {
+            $recipients = EmailRule::query()
+                ->whereNull('academy_name')
+                ->pluck('email')
+                ->unique()
+                ->values();
+        }
+
+        if ($recipients->isEmpty()) {
+            throw ValidationException::withMessages([
+                'email' => 'Er is geen e-mailregel gevonden om het rapport naartoe te sturen.',
+            ]);
+        }
 
         try {
             $mail = new PHPMailer(true);
             $mail->isSMTP();
             $mail->SMTPAuth = true;
-
             $mail->Host = self::MAIL_HOST;
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = self::MAIL_PORT;
-
             $mail->Username = env('MAIL_USERNAME');
             $mail->Password = env('MAIL_PASSWORD');
-
+            $mail->CharSet = 'UTF-8';
+            $mail->isHTML(true);
+            $mail->Subject = 'Tussenrapport';
             $name = session('name');
-            $emailParticipant = session('email');
             $academy = session('academy');
             $module = session('module');
             $date = now()->format('d-m-Y');
-            $summary = session('summary');
             $course = session('course');
 
-            $html = View::make('intermediate-report-email', compact('name', 'emailParticipant', 'academy', 'module', 'date', 'summary'))->render();
-
-            $receiver = Receiver_of_academy::where('academy_name', session('academy'))->first();
-
-            if ($receiver) {
-                $email = $receiver->receiver_email;
-            } else {
-                $email = Receiver::where('is_default', true)->value('email');
+            foreach ($recipients as $address) {
+                $mail->addAddress($address);
             }
 
-            $mail->addAddress($email);
-            $mail->isHTML(true);
-            $mail->Subject = 'Tussenrapport';
-
-            $mail->CharSet = 'UTF-8';
-            $mail->addAttachment($tempFile, $fileName);
-            $mail->AddEmbeddedImage(public_path('images/blendbarometer-icon.png'), 'logoCID', 'logo.png');
+            $html = View::make('intermediate-report-email', [
+                'name' => session('name'),
+                'emailParticipant' => session('email'),
+                'academy' => $academy,
+                'module' => session('module'),
+                'date' => now()->format('d-m-Y'),
+                'summary' => session('summary'),
+            ])->render();
 
             $mail->Body = $html;
 
+            $mail->addAttachment($tempFile, $fileName);
+            $mail->AddEmbeddedImage(
+                public_path('images/blendbarometer-icon.png'),
+                'logoCID',
+                'logo.png'
+            );
+
             $mail->send();
         } catch (Exception $e) {
-            return redirect()->route('confirmation')->withErrors('error', 'Er is een fout opgetreden bij het verzenden van de e-mail: ' . $e->getMessage());
+            return redirect()
+                ->route('confirmation')
+                ->withErrors('error', 'Fout bij het verzenden van de e-mail: ' . $e->getMessage());
         }
 
-        session::flush();
+        session()->flush();
         $this->unlinkImages();
 
         return redirect()->route('confirmation')->with('success', [
-            'ictoCoach' => $email,
+            'ictoCoach' => $recipients->implode(', '),
             'academy' => $academy,
             'course' => $course,
             'module' => $module,

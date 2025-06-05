@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AuthController as AdminAuthController;
 use App\Http\Controllers\admin\EditContentController;
+use App\Http\Controllers\admin\EmailRuleController; 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\HomeController;
@@ -53,9 +54,15 @@ Route::post('/admin', [AdminAuthController::class, 'submitLogin'])->name('admin.
 Route::middleware([Authenticate_admin::class])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/uitloggen', [AdminAuthController::class, 'logout'])->name('logout');
 
-    Route::get('/email-regels', function () {
-        return view('email-rules'); // TODO: get view via controller
-    })->name('email-rules');
+    Route::prefix('email-rules')
+         ->name('email-rules.')
+         ->controller(EmailRuleController::class)
+         ->group(function () {
+            Route::get('/',           'index'        )->name('index');
+            Route::post('/',          'store'        )->name('store');
+            Route::patch('/academy',  'changeAcademy')->name('change');
+            Route::delete('{rule}',   'destroy'      )->name('destroy');
+         });
 
     Route::get('/vragen-bewerken', function () {
         return view('edit-questions'); // TODO: get view via controller
