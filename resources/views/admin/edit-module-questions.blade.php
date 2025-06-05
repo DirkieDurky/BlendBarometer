@@ -106,7 +106,7 @@
                 if (isset($questions)) {
                     $categoryQuestions = $questions->where('question_category_id', $cat->id);
                 } else {
-                    $categoryQuestions->collect();
+                    $categoryQuestions = collect();
                 }
             @endphp
 
