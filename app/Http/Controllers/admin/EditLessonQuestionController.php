@@ -52,7 +52,7 @@ class EditLessonQuestionController
     {
         $request->validate([
             'text' => ['required'],
-        'description' => ['nullable'],
+            'description' => ['nullable'],
         ]);
 
         Question::create([

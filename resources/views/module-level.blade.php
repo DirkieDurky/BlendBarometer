@@ -31,38 +31,16 @@
             <div class="module-level-form mb-5">
                 <div class="row flex-nowrap gap-4 mx-0" role="group">
                     <div class="col-4"></div>
-                    <div class="col d-flex flex-row gap-2">
-                        <p class="fw-semibold">Verkennen</p>
-                        @if (isset($descriptions['explore']))
-                            <span data-bs-toggle="tooltip" data-bs-title="{{ $descriptions['explore'] }}">
+                    @foreach ($moduleAnswers as $answer)
+                        <div class="col d-flex flex-row gap-2">
+                        <p class="fw-semibold">{{$answer->answer}}</p>
+                        @if (isset($answer->description))
+                            <span data-bs-toggle="tooltip" data-bs-title="{{ $answer->description }}">
                                 <i class="bi bi-info-circle-fill"></i>
                             </span>
                         @endif
-                    </div>
-                    <div class="col d-flex flex-row gap-2">
-                        <p class="fw-semibold">Toepassen</p>
-                        @if (isset($descriptions['apply']))
-                            <span data-bs-toggle="tooltip" data-bs-title="{{ $descriptions['apply'] }}">
-                                <i class="bi bi-info-circle-fill"></i>
-                            </span>
-                        @endif
-                    </div>
-                    <div class="col d-flex flex-row gap-2">
-                        <p class="fw-semibold">Duidelijk plan</p>
-                        @if (isset($descriptions['plan']))
-                            <span data-bs-toggle="tooltip" data-bs-title="{{ $descriptions['plan'] }}">
-                                <i class="bi bi-info-circle-fill"></i>
-                            </span>
-                        @endif
-                    </div>
-                    <div class="col d-flex flex-row gap-2">
-                        <p class="fw-semibold">Verankerd</p>
-                        @if (isset($descriptions['anchored']))
-                            <span data-bs-toggle="tooltip" data-bs-title="{{ $descriptions['anchored'] }}">
-                                <i class="bi bi-info-circle-fill"></i>
-                            </span>
-                        @endif
-                    </div>
+                        </div>
+                    @endforeach
                 </div>
 
                 @foreach ($category->questions as $question)

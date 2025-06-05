@@ -26,7 +26,7 @@
             <label for="questionText" class="form-label">Vraag</label>
             <input type="text" class="form-control" id="questionText" name="text">
           </div>
-          <div class="mb-3">
+          <div class="mb-3" id="labelInputWrapper">
             <label for="questionLabel" class="form-label">Label</label>
             <input type="text" class="form-control" id="questionLabel" name="label">
           </div>
@@ -49,23 +49,29 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    var editModal = document.getElementById('createQuestionModal');
+    var createModal = document.getElementById('createQuestionModal');
     var form = document.getElementById('createQuestionForm');
 
-    editModal.addEventListener('show.bs.modal', function (event) {
+    createModal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget;
 
         var action = button.getAttribute('data-action')
         var catId = button.getAttribute('data-category-id');
         var subCatId = button.getAttribute('data-subcategory-id');
+        var hasLabel = button.getAttribute('data-has-label');
+
         document.getElementById('categoryId').value = catId || '';
         document.getElementById('subCategoryId').value = subCatId || '';
         form.action = action;
+
+        var labelWrapper = document.getElementById('labelInputWrapper');
+        if (hasLabel === "0") {
+            labelWrapper.style.display = "none";
+        } else {
+            labelWrapper.style.display = "";
+        }
     });
 
-    // Optional: Toggle textarea enabled/disabled based on switch
-    document.getElementById('extraInfoSwitch').addEventListener('change', function () {
-        document.getElementById('extraInfoText').disabled = !this.checked;
-    });
+        document.getElementById('extraInfoText').disabled = false;
 });
 </script>

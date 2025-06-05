@@ -139,7 +139,7 @@
                     >Bewerken</a>
                     <div class="position-relative">
                         <button class="btn btn-sm btn-link text-dark p-0 toggle-delete-menu text-decoration-none" type="button">
-                            <span style="font-size: 1.5rem;">&#8226;&#8226;&#8226;</span>
+                            <span style="font-size: 1.2rem;">&#8226;&#8226;&#8226;</span>
                         </button>
 
                         <div class="delete-menu position-absolute end-0 mt-2 p-2 bg-white shadow rounded d-none" style="z-index: 1000;">
@@ -162,11 +162,15 @@
             data-bs-target="#createQuestionModal"
             data-category-id="{{ $cat->id }}"
             data-action="/admin/vragen-bewerken/moduleniveau/create"
+            data-has-label="1"
             >Vraag toevoegen</a>
         </div>
     </section>
 @endforeach
 <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    
     document.querySelectorAll('.toggle-delete-menu').forEach(btn => {
         btn.addEventListener('click', function (e) {
             const menu = this.nextElementSibling;

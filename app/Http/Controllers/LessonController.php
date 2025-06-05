@@ -11,15 +11,17 @@ class LessonController extends Controller
     public function view($id)
     {
         $totalSteps = Sub_category::count();
-        $currentStep = $id;
+        $subCategories = Sub_category::orderBy('id')->get();
+        $currentStep = $subCategories->search(fn($sub) => $sub->id == $id) +1;
 
+        $lastStep = Sub_category::max('id');
         if ($currentStep < 1) {
             return redirect(route('intermediate.view', 'lesniveau'));
-        } else if ($currentStep > $totalSteps) {
+        } else if ($currentStep > $lastStep) {
             return redirect(route('intermediate.view', 'moduleniveau'));
         }
+        $subCategory = Sub_category::findOrFail($id);
 
-        $subCategory = Sub_category::with('questionCategory')->findOrFail($id);
         $questions = $subCategory->questions;
 
         $answers = session()->get('lessonLevelData', []);
@@ -40,12 +42,28 @@ class LessonController extends Controller
 
     public function next($subCategoryId)
     {
-        return redirect(route('lesson-level', $subCategoryId + 1));
+        $subCategoryId++;
+        while(true){
+            $subCategory = Sub_category::find($subCategoryId);
+            if($subCategory){
+                break;
+            }
+            $subCategoryId++;
+        }
+        return redirect(route('lesson-level', $subCategoryId));
     }
 
     public function previous($subCategoryId)
     {
-        return redirect(route('lesson-level', $subCategoryId - 1));
+        $subCategoryId--;
+        while(true){
+            $subCategory = Sub_category::find($subCategoryId);
+            if($subCategory){
+                break;
+            }
+            $subCategoryId--;
+        }
+        return redirect(route('lesson-level', $subCategoryId));
     }
 
     public function submit(Request $request, $subCategoryId)

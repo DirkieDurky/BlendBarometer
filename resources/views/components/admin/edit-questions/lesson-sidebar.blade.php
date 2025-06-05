@@ -13,7 +13,7 @@
                     <a href="#subcategory-{{ $subCat->id }}" class="d-flex align-items-center justify-content-between text-dark">{{ $subCat->name }}</a>
                     <div class="position-relative">
                         <button class="btn btn-sm btn-link text-dark p-0 toggle-delete-menu text-decoration-none" type="button">
-                            <span style="font-size: 1.5rem;">&#8226;&#8226;&#8226;</span>
+                            <span style="font-size: 1.2rem;">&#8226;&#8226;&#8226;</span>
                         </button>
 
                         <div class="delete-menu position-absolute end-0 mt-2 p-2 bg-white shadow rounded d-none" style="z-index: 1000;">

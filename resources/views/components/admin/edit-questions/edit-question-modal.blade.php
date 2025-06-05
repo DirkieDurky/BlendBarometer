@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Optional: Toggle textarea enabled/disabled based on switch
     document.getElementById('extraInfoSwitch').addEventListener('change', function () {
         document.getElementById('extraInfoText').disabled = !this.checked;
     });

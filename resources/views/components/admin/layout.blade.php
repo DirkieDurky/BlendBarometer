@@ -38,7 +38,10 @@
                             <a class="nav-link" href="{{ route('admin.email-rules') }}">E-mail regels</a>
                         </li>
                         <li class="nav-item fw-medium">
-                            <a class="nav-link" href="{{ route('admin.edit-lesson-questions') }}">Vragen bewerken</a>
+                            <a class="nav-link" href="{{ route('admin.edit-lesson-questions') }}">Lesniveau</a>
+                        </li>
+                        <li class="nav-item fw-medium">
+                            <a class="nav-link" href="{{ route('admin.edit-module-questions') }}">Moduleniveau</a>
                         </li>
                         <li class="nav-item fw-medium">
                             <a class="nav-link" href="{{ route('admin.edit-content') }}">Content bewerken</a>
