@@ -51,7 +51,7 @@
             var action = button.getAttribute('data-action')
             var catId = button.getAttribute('data-category-id');
             var subCatId = button.getAttribute('data-subcategory-id');
-
+            var checked = button.getAttribute('data-description');
             var form = document.getElementById('createQuestionForm');
             form.action = action;
 

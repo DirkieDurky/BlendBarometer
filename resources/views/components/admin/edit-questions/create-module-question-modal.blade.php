@@ -31,7 +31,7 @@
                     </div>
                     <div class="mb-3 form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="extraInfoSwitch">
-                        <label class="form-check-label" for="extraInfoSwitch">Extra informatie</label>
+                        <label class="form-label" for="extraInfoSwitch">Extra informatie</label>
                     </div>
                     <div class="mb-3">
                         <textarea class="form-control" id="extraInfoText" name="description" placeholder="Voeg hier extra informatie toe"></textarea>
