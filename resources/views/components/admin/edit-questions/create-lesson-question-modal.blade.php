@@ -26,11 +26,12 @@
                         <label for="questionText" class="form-label">Vraag</label>
                         <input type="text" class="form-control" id="questionText" name="text">
                     </div>
-                    <div class="mb-3 form-check form-switch">
+                    <!-- <div class="mb-3 form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="extraInfoSwitch">
                         <label class="form-label" for="extraInfoSwitch">Extra informatie</label>
-                    </div>
+                    </div> -->
                     <div class="mb-3">
+                        <label class="form-label" for="description">Extra informatie</label>
                         <textarea class="form-control" id="extraInfoText" name="description" placeholder="Voeg hier extra informatie toe"></textarea>
                     </div>
                 </div>
@@ -59,9 +60,9 @@
             document.getElementById('subCategoryId').value = subCatId || '';
         });
 
-        document.getElementById('extraInfoSwitch').addEventListener('change', function() {
-            document.getElementById('extraInfoText').disabled = !this.checked;
-            document.getElementById('extraInfoText').value = null;
-        });
+        // doclument.getElementById('extraInfoSwitch').addEventListener('change', function() {
+        //     document.getElementById('description').disabled = !this.checked;
+        //     document.getElementById('description').value = null;
+        // });
     });
 </script>

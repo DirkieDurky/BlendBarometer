@@ -59,12 +59,14 @@ class EditModuleQuestionController
             'description' => ['nullable'],
         ]);
 
-        Question::create([
-                'text' => $request->input('text'),
-                'label' => $request->input('label'),
-                'description' => $request->input('description'),
+        $questions = [
                 'question_category_id' => $request->input('question_category_id'),
-         ]);
+                'text' => $request->input('text'),
+                'description' => $request->input('description'),
+                'label' => $request->input('label'),
+        ];
+
+        Question::insert($questions);
         return redirect()->route('admin.edit-module-questions');
     }
 

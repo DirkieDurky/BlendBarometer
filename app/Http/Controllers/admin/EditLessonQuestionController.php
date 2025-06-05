@@ -55,12 +55,23 @@ class EditLessonQuestionController
             'description' => ['nullable'],
         ]);
 
-        Question::create([
-                'text' => $request->input('text'),
-                'description' => $request->input('description'),
+        // dd($request->input('description'));
+
+        $questions = [
                 'question_category_id' => $request->input('question_category_id'),
                 'sub_category_id' => $request->input('sub_category_id'),
-         ]);
+                'text' => $request->input('text'),
+                'description' => $request->input('description'),
+        ];
+
+        // Question::create([
+        //         'text' => $request->input('text'),
+        //         'description' => $request->input('description'),
+        //         'question_category_id' => $request->input('question_category_id'),
+        //         'sub_category_id' => $request->input('sub_category_id'),
+        //  ]);
+
+         Question::insert($questions);
         return redirect()->route('admin.edit-lesson-questions');
     }
 
