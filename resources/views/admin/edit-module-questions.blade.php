@@ -117,11 +117,11 @@
                             </div>
                         @endif
 
-                        <div class="fw-semibold" data-bs-toggle="tooltip" data-bs-title="{{ $question->description }}"
-                            style="cursor: pointer;">
+                        <div class="fw-semibold">
                             {{ $question->text }}
                             @if ($question->description)
-                                <span>
+                                <span data-bs-toggle="tooltip" data-bs-title="{{ $question->description }}"
+                                    style="cursor: pointer;">
                                     <i class="bi bi-info-circle-fill"></i>
                                 </span>
                             @endif
