@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AuthController as AdminAuthController;
 use App\Http\Controllers\admin\EditContentController;
 use App\Http\Controllers\admin\EditLessonQuestionController;
 use App\Http\Controllers\admin\EditModuleQuestionController;
+use App\Http\Controllers\admin\EmailRuleController; 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\HomeController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ResultsController;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\Authenticate_admin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -48,14 +50,21 @@ Route::middleware([Authenticate::class])->group(function () {
 Route::get('/bevestiging', [ConfirmationController::class, 'view'])->name('confirmation');
 Route::post('/SaveChart', [ResultsController::class, 'saveChart']);
 
-// TODO: add middleware for admin role
-Route::name('admin.')->prefix('admin')->group(function () {
-    Route::get('/', [AdminAuthController::class, 'index'])->name('login');
+Route::get('/admin', [AdminAuthController::class, 'index'])->name('admin.login');
+Route::post('/admin', [AdminAuthController::class, 'submitLogin'])->name('admin.submit');
+
+Route::middleware([Authenticate_admin::class])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/uitloggen', [AdminAuthController::class, 'logout'])->name('logout');
 
-    Route::get('/email-regels', function () {
-        return view('admin.email-rules'); // TODO: get view via controller
-    })->name('email-rules');
+    Route::prefix('email-rules')
+         ->name('email-rules.')
+         ->controller(EmailRuleController::class)
+         ->group(function () {
+            Route::get('/',           'index'        )->name('index');
+            Route::post('/',          'store'        )->name('store');
+            Route::patch('/academy',  'changeAcademy')->name('change');
+            Route::delete('{rule}',   'destroy'      )->name('destroy');
+         });
 
     Route::get('/vragen-bewerken/lesniveau', [EditLessonQuestionController::class, 'index'])->name('edit-lesson-questions');
     Route::put('/vragen-bewerken/lesniveau/{question}/update', [EditLessonQuestionController::class, 'updateQuestion'])->name('edit-lesson-questions.update');
@@ -78,6 +87,9 @@ Route::name('admin.')->prefix('admin')->group(function () {
     route::put('/vragen-bewerken/moduleniveau/antwoord-bewerken/{antwoord}/update', [EditModuleQuestionController::class, 'updateAnswer'])->name('edit-module-questions.edit-answer.update');
 
     Route::get('/content-bewerken', [EditContentController::class, 'index'])->name('edit-content');
+    
     Route::put('/content-bewerken/homepagina-opslaan', [EditContentController::class, 'updateHomeContent'])->name('edit-content.home-update');
+
+    Route::put('/content-bewerken/grafiekomschrijving-opslaan', [EditContentController::class, 'updateChartContent'])->name('edit-content.chart-update');
     Route::put('/content-bewerken/tussenpagina-opslaan/{section}', [EditContentController::class, 'updateIntermediateContent'])->name('edit-content.intermediate-update');
 });

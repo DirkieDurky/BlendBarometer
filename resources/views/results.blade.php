@@ -9,9 +9,12 @@
     <h1>Resultaten</h1>
     <p>
         Bedankt voor het invullen. Op deze pagina zie je grafieken met de resultaten. We zullen deze resultaten in een
-        gesprek bespreken en de grafieken dan toelichten. Klik op gelijk afronden om door te gaan, of bekijk de
+        gesprek bespreken en de grafieken dan toelichten. Klik op direct afronden om door te gaan, of bekijk de
         resultaten en klik onderaan op afronden.
     </p>
+    <x-navigation-buttons :previous="$previous ?? route('intermediate.view', 'resultaten')"
+                          :next="route('overview-and-send')" nextLabel='Direct Afronden'/>
+    <hr class="my-5">
     <div class="card graph-card p-3">
         <div class="row">
             <div class="col">
@@ -25,23 +28,23 @@
     </div>
     <hr class="my-5"/>
     <div class="d-flex flex-row gap-4">
-        <div class="d-flex flex-column gap-3">
+        <div class="d-flex flex-column gap-3 w-50">
             <h2>Fysieke leeractiviteiten</h2>
-            @foreach ($lessonLevelPhysicalSubcategories as $category)
+            @foreach ($lessonLevelPhysicalSubcategories as $i=>$category)
                 <div class="card graph-card p-3">
                     <canvas id="physical-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
                     <strong>{{ $category->name }}</strong>
-                    <p class="mb-0">{{ $lessonLevelPhysicalDescriptions[$category->id]->description }}</p>
+                    <p class="mb-0">{{ $lessonLevelPhysicalDescriptions[$i]->description }}</p>
                 </div>
             @endforeach
         </div>
-        <div class="d-flex flex-column gap-3">
+        <div class="d-flex flex-column gap-3 w-50">
             <h2>Online leeractiviteiten</h2>
-            @foreach ($lessonLevelOnlineSubcategories as $category)
+            @foreach ($lessonLevelOnlineSubcategories as $i=>$category)
                 <div class="card graph-card p-3">
                     <canvas id="online-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
                     <strong>{{ $category->name }}</strong>
-                    <p class="mb-0">{{ $lessonLevelOnlineDescriptions[$category->id]->description }}</p>
+                    <p class="mb-0">{{ $lessonLevelOnlineDescriptions[$i]->description }}</p>
                 </div>
             @endforeach
         </div>

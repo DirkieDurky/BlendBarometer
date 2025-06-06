@@ -32,12 +32,14 @@ class ResultsController extends Controller
         });
 
         $lessonLevelGeneralDescription = GraphDescription::select('description')->where('graph_type', 'lesson-level-general')->get();
-        $lessonLevelPhysicalDescriptions = GraphDescription::select('sub_category_id', 'description')->where('graph_type', 'physical')->get()->keyBy('sub_category_id');
-        $lessonLevelOnlineDescriptions = GraphDescription::select('sub_category_id', 'description')->where('graph_type', 'physical')->get()->keyBy('sub_category_id');
+        $lessonLevelPhysicalDescriptions = GraphDescription::select('sub_category_id', 'description')->where('graph_type', 'physical')->get();
+        $lessonLevelOnlineDescriptions = GraphDescription::select('sub_category_id', 'description')->where('graph_type', 'online')->get();
         $moduleLevelGeneralDescription = GraphDescription::select('description')->where('graph_type', 'module-level-general')->get();
 
         $lessonLevelDataOnline = [];
         $lessonLevelDataPhysical = [];
+
+        $subCategoryPhysicalIds = Sub_category::select('id')->where('question_category_id', 1)->pluck('id')->toArray();
 
         $answers = session()->get("lessonLevelData");
         foreach ($answers as $subCat => $answerPage) {
@@ -48,7 +50,8 @@ class ResultsController extends Controller
                 if (str_starts_with($key, "custom_question_")) {
                     $parts = explode('_', $key);
                     $questionName = $parts[2];
-                    if ($subCat <= 6) {
+                    if(in_array($subCat, $subCategoryPhysicalIds))
+                    {
                         $lessonLevelPhysicalQuestions = $lessonLevelPhysicalQuestions->put(
                             $subCat,
                             $lessonLevelPhysicalQuestions->get($subCat, collect())->push($questionName)
@@ -63,10 +66,13 @@ class ResultsController extends Controller
                 $total += $answer;
             }
 
-            if ($question->value('question_category_id') == 1) {
-                $lessonLevelDataOnline[] = $total;
-            } else if ($question->value('question_category_id') == 2) {
+            if ($question->value('question_category_id') == 1) 
+            {
                 $lessonLevelDataPhysical[] = $total;
+            } 
+            else if ($question->value('question_category_id') == 2) 
+            {
+                $lessonLevelDataOnline[] = $total;
             }
         }
 
