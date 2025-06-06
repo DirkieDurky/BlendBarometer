@@ -14,12 +14,9 @@
                         <label for="answerText" class="form-label">Antwoord</label>
                         <input type="text" class="form-control" id="answerText" name="text">
                     </div>
-                    <div class="mb-3 form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="extraInfoSwitch">
-                        <label class="form-label" for="extraInfoSwitch">Extra informatie</label>
-                    </div>
                     <div class="mb-3">
-                        <textarea class="form-control" id="extraInfoText" name="description" placeholder="Voeg hier extra informatie toe"></textarea>
+                        <label class="form-label" for="extraInfoSwitch">Extra informatie</label>
+                        <textarea class="form-control" id="extraInfoAnswerText" name="description" placeholder="Voeg hier extra informatie toe"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -38,6 +35,7 @@
             let button = event.relatedTarget;
             let answer = button.getAttribute('data-answer');
             let description = button.getAttribute('data-description');
+            console.log('description:', description);
             let action = button.getAttribute('data-action');
 
             let form = document.getElementById('editAnswerForm');
@@ -45,13 +43,7 @@
 
             document.getElementById('oldAnswer').value = answer || '';
             document.getElementById('answerText').value = answer || '';
-            document.getElementById('extraInfoText').value = description || '';
-            document.getElementById('extraInfoSwitch').checked = !!description;
-        });
-
-        document.getElementById('extraInfoSwitch').addEventListener('change', function() {
-            document.getElementById('extraInfoText').disabled = !this.checked;
-            document.getElementById('extraInfoText').disabled = false;
+            document.getElementById('extraInfoAnswerText').value = description || '';
         });
     });
 </script>
