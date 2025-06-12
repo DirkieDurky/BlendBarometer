@@ -49,7 +49,7 @@ new Chart(lessonLevelGraph, {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken,
                     },
-                    body: JSON.stringify({image: base64Image, name: 'radar'})
+                    body: JSON.stringify({ image: base64Image, name: 'radar' })
                 }).then(response => {
 
                 }).catch(error => {
@@ -156,7 +156,7 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': csrfToken,
                         },
-                        body: JSON.stringify({image: base64Image, name: 'physical' + category.name})
+                        body: JSON.stringify({ image: base64Image, name: 'physical' + category.name })
                     }).then(response => {
 
                     }).catch(error => {
@@ -227,7 +227,7 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': csrfToken,
                         },
-                        body: JSON.stringify({image: base64Image, name: 'online' + category.name})
+                        body: JSON.stringify({ image: base64Image, name: 'online' + category.name })
                     }).then(response => {
 
                     }).catch(error => {
@@ -271,7 +271,7 @@ const moduleLevelDataGraph = document.getElementById('moduleLevelDataGraph');
 
 innerLabels = [];
 for (let i = 0; i < moduleLevelDataArray.length; i++) {
-    innerLabels.push(i + 1);
+    innerLabels.push(i + 1 + ". " + moduleLevelLabels[i]);
 }
 innerData = [];
 innerColors = [];
@@ -343,7 +343,7 @@ new Chart(moduleLevelCategoriesGraph, {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken,
                     },
-                    body: JSON.stringify({image: base64Image, name: 'wheelOutside'})
+                    body: JSON.stringify({ image: base64Image, name: 'wheelOutside' })
                 }).then(response => {
                 }).catch(error => {
                 });
@@ -400,7 +400,7 @@ new Chart(moduleLevelDataGraph, {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken,
                     },
-                    body: JSON.stringify({image: base64Image, name: 'wheelInside'})
+                    body: JSON.stringify({ image: base64Image, name: 'wheelInside' })
                 }).then(response => {
 
                 }).catch(error => {
