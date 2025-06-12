@@ -71,13 +71,21 @@ class ResultsController extends Controller
         }
 
         $moduleLevelCategories = Question_category::join('question', 'question_category.id', '=', 'question.question_category_id')
-            ->select('question_category.name', 'question.text')
+            ->select('question_category.name', 'question.text', 'question.label')
             ->where('form_section_id', 2)
             ->get();
 
         $moduleLevelCategories = $moduleLevelCategories->mapToGroups(function ($item, $key) {
             return [$item['name'] => $item->text];
         });
+
+        // Get question labels for module level
+        $moduleLevelLabels = Question::select('label')
+            ->where('question_category_id', '>', 2)
+            ->orderBy('question_category_id')
+            ->orderBy('id')
+            ->pluck('label')
+            ->toArray();
 
         $intermediate = Content::where('section_name', 'intermediate_results')->firstOrFail();
         $previous = $intermediate->show
@@ -97,6 +105,7 @@ class ResultsController extends Controller
             'lessonLevelDataPhysical' => $lessonLevelDataPhysical,
             'lessonLevelDataAll' => $answers,
             'moduleLevelCategories' => $moduleLevelCategories,
+            'moduleLevelLabels' => $moduleLevelLabels,
             'previous' => $previous
         ]);
     }
