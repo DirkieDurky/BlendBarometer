@@ -1,5 +1,5 @@
 const customQuestionForm = document.getElementById('custom_input');
-// TODO element van de knop toevoegen
+const customQuestionBtn = document.getElementById('addCustomQuestionBtn');
 const form = document.querySelector('form');
 
 function addQuestion() {
@@ -106,13 +106,20 @@ function addQuestion() {
 document.getElementById('addCustomQuestionBtn').addEventListener('click', addQuestion);
 
 let customInputSelected = false;
-// TODO ook bij knop focus aanzetten
+
+customQuestionBtn.addEventListener("focus", () => {
+    customInputSelected = true;
+});
+customQuestionBtn.addEventListener("blur", () => {
+    customInputSelected = false;
+});
+
 customQuestionForm.addEventListener("focus", () => {
     customInputSelected = true;
-})
+});
 customQuestionForm.addEventListener("blur", () => {
     customInputSelected = false;
-})
+});
 
 addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
@@ -123,4 +130,4 @@ addEventListener("keydown", (e) => {
             form.submit();
         }
     }
-})
+});
