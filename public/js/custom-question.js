@@ -1,4 +1,5 @@
 const customQuestionForm = document.getElementById('custom_input');
+// TODO element van de knop toevoegen
 const form = document.querySelector('form');
 
 function addQuestion() {
@@ -11,12 +12,30 @@ function addQuestion() {
     const wrapper = document.createElement('div');
     wrapper.classList.add('mb-5');
 
+    const headerGroup = document.createElement('div');
+    headerGroup.className = 'mb-2';
+    wrapper.appendChild(headerGroup);
+
     // question title
     const label = document.createElement('label');
     label.htmlFor = idBase;
     label.className = 'fw-semibold';
     label.textContent = txt;
-    wrapper.appendChild(label);
+    headerGroup.appendChild(label);
+    
+    // delete knop
+    const button = document.createElement('button');
+    button.className = 'btn btn-sm btn-danger ms-3';
+    button.addEventListener('click', function() {
+        wrapper.remove();
+    });
+
+    // visuele prullenbak
+    const trashBin = document.createElement('i');
+    trashBin.className = 'bi bi-trash';
+    button.appendChild(trashBin);
+    headerGroup.appendChild(button);
+    
 
     // options container
     const row = document.createElement('div');
@@ -87,6 +106,7 @@ function addQuestion() {
 document.getElementById('addCustomQuestionBtn').addEventListener('click', addQuestion);
 
 let customInputSelected = false;
+// TODO ook bij knop focus aanzetten
 customQuestionForm.addEventListener("focus", () => {
     customInputSelected = true;
 })
