@@ -28,7 +28,7 @@ body.dyslexia-mode {
     --bs-body-font-family: OpenDyslexic, sans-serif;
 }
 
-.font-dyslexia {
+body.dyslexia-mode .tooltip, .font-dyslexia {
     font-family: 'OpenDyslexic', sans-serif !important;
 }
 
