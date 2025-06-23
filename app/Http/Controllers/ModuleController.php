@@ -36,8 +36,6 @@ class ModuleController extends Controller
             }
         }
 
-        // dd($answers);
-
         session()->put('moduleLevelData', $answers);
 
         return redirect(route('module-level.next', $currentStep));
