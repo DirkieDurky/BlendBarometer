@@ -24,7 +24,7 @@ body {
     --bs-body-font-family: Poppins, sans-serif;
 }
 
-body.dyslexia {
+body.dyslexia-mode {
     --bs-body-font-family: OpenDyslexic, sans-serif;
 }
 
