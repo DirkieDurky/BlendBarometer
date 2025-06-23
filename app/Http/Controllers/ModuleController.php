@@ -36,12 +36,14 @@ class ModuleController extends Controller
             }
         }
 
+        // dd($answers);
+
         session()->put('moduleLevelData', $answers);
 
         return redirect(route('module-level.next', $currentStep));
     }
 
-    public function next(Request $request, $currentStep)
+    public function next($currentStep)
     {
         $totalSteps = Question_category::where('form_section_id', 2)->count();
 
