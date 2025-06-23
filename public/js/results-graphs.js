@@ -261,9 +261,12 @@ for (const [key, value] of Object.entries(moduleLevelCategories)) {
 }
 
 const moduleLevelDataArray = [];
+console.log(moduleLevelData);
 for (const [_, item] of Object.entries(moduleLevelData)) {
     for (const [_, item2] of Object.entries(item)) {
-        moduleLevelDataArray.push(parseInt(item2));
+        if (item2 !== "0") {
+            moduleLevelDataArray.push(parseInt(item2));
+        }
     }
 }
 
@@ -279,17 +282,20 @@ for (let i = 0; i < moduleLevelDataArray.length; i++) {
     innerData.push(1);
     let color;
     switch (moduleLevelDataArray[i]) {
-        case 0:
+        case 1:
             color = 'rgb(252, 34, 0)';
             break;
-        case 1:
+        case 2:
             color = 'rgb(248, 143, 0)';
             break;
-        case 2:
+        case 3:
             color = 'rgb(245, 208, 0)';
             break;
-        case 3:
+        case 4:
             color = 'rgb(56, 167, 114)';
+            break;
+        default:
+            color = 'rgb(0, 0, 0)';
             break;
     }
     innerColors.push(color);

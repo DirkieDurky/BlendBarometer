@@ -7,10 +7,27 @@
             </span>
         @endif
     </div>
+
+    @php
+        $desMap = [
+            'N.v.t.' => 0,
+            'Verkennen' => 1,
+            'Toepassen' => 2,
+            'Duidelijk plan' => 3,
+            'Verankerd' => 4,
+        ];
+    @endphp
+
     @foreach ($descriptions as $des => $answer)
         <div class="col py-4 d-flex flex-column justify-content-center align-items-center ms-4 me-5">
-            <input type="radio" class="module-input visually-hidden" name="{{ $fieldName }}" id="{{ $fieldName }}_{{ $answer }}" value="{{ Str::slug($des) }}" autocomplete="off" {{ $selectedAnswer === Str::slug($des) ? 'checked' : '' }} required aria-label="{{ $answer }} - {{ $question->text }}">
-            <label class="module-label border-2 border rounded-circle shadow-sm col py-4 d-flex flex-column justify-content-center align-items-center" for="{{ $fieldName }}_{{ $answer }}" style="width:50px; height:50px; max-height:50px"></label>
+            <input type="radio" class="module-input visually-hidden" name="{{ $fieldName }}"
+                id="{{ $fieldName }}_{{ $answer }}" value="{{ $desMap[$des] }}" autocomplete="off"
+                {{ !is_null($selectedAnswer) && (int) $selectedAnswer === (int) $desMap[$des] ? 'checked' : '' }} required
+                aria-label="{{ $answer }} - {{ $question->text }}">
+            <label
+                class="module-label border-2 border rounded-circle shadow-sm col py-4 d-flex flex-column justify-content-center align-items-center"
+                for="{{ $fieldName }}_{{ $answer }}" style="width:50px; height:50px; max-height:50px">
+            </label>
         </div>
     @endforeach
 </div>
