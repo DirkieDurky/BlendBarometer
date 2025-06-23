@@ -233,10 +233,7 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
 
                     if (!tooltipActive) {
                         const base64Image = this.toBase64Image();
-
                         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                        // Send the image to the backend with the CSRF token
                         fetch('/SaveChart', {
                             method: 'POST',
                             headers: {
@@ -288,7 +285,7 @@ const moduleLevelDataGraph = document.getElementById('moduleLevelDataGraph');
 
 innerLabels = [];
 for (let i = 0; i < moduleLevelDataArray.length; i++) {
-    innerLabels.push(i + 1);
+    innerLabels.push(i + 1 + ". " + moduleLevelLabels[i]);
 }
 innerData = [];
 innerColors = [];
@@ -337,6 +334,14 @@ new Chart(moduleLevelCategoriesGraph, {
                         }
                     },
                 },
+                anchor: "center", //start, center, end
+                rotation: function (ctx) {
+                    const valuesBefore = ctx.dataset.data.slice(0, ctx.dataIndex).reduce((a, b) => a + b, 0);
+                    const sum = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                    const rotation = (valuesBefore + ctx.dataset.data[ctx.dataIndex] / 2) / sum * 360;
+                    const pureDegrees = (rotation + 360) % 360;
+                    return (pureDegrees >= 90 && pureDegrees < 270) ? pureDegrees + 180 : pureDegrees;
+                },
                 formatter: function (value, context) {
                     return context.chart.data.labels[context.dataIndex];
                 }
@@ -354,24 +359,21 @@ new Chart(moduleLevelCategoriesGraph, {
 
                 if (!tooltipActive) {
                     const base64Image = this.toBase64Image();
-
                     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                    // Send the image to the backend with the CSRF token
                     fetch('/SaveChart', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': csrfToken,
                         },
-                        body: JSON.stringify({image: base64Image, name: 'wheelOutside'})
+                        body: JSON.stringify({ image: base64Image, name: 'wheelOutside' })
                     }).then(response => {
                     }).catch(error => {
                     });
                 }
             }
-        }
-    },
+        },
+    }
 });
 
 new Chart(moduleLevelDataGraph, {
@@ -398,6 +400,13 @@ new Chart(moduleLevelDataGraph, {
                         }
                     },
                 },
+                anchor: "center", //start, center, end
+                rotation: function (ctx) {
+                    const valuesBefore = ctx.dataset.data.slice(0, ctx.dataIndex).reduce((a, b) => a + b, 0);
+                    const sum = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                    const rotation = (valuesBefore + ctx.dataset.data[ctx.dataIndex] / 2) / sum * 360;
+                    return rotation < 180 ? rotation - 90 : rotation + 90;
+                },
                 formatter: function (value, context) {
                     return context.chart.data.labels[context.dataIndex];
                 }
@@ -418,7 +427,6 @@ new Chart(moduleLevelDataGraph, {
                     const base64Image = this.toBase64Image();
 
                     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
                     // Send the image to the backend with the CSRF token
                     fetch('/SaveChart', {
                         method: 'POST',
