@@ -49,7 +49,7 @@ class ReportController extends Controller
         $this->addFillableNotes($phpWord);
         $this->addEndPage($phpWord);
 
-        $writer = IOFactory::createWriter($phpWord, 'Word2007');
+        $writer = IOFactory::createWriter($phpWord);
         $tempFile = tempnam(sys_get_temp_dir(), $fileName);
         $writer->save($tempFile);
 
@@ -311,6 +311,7 @@ class ReportController extends Controller
 
         $page->addTitle('Resultaten', 1, $this->pageNumber);
 
+        $page->addTextBox(['alignment' => Jc::CENTER, 'width' => 470, 'height' => 80]);
         $imageRelativePathRadar = 'images/temp/radar.png';
         $imagePathRadar = Storage::disk('public')->path($imageRelativePathRadar);
 
@@ -343,6 +344,7 @@ class ReportController extends Controller
                     $table->addCell(6000)->addText('Fysieke leeractiviteiten', ['alignment' => Jc::START, 'bold' => true, 'size' => 15]);
                     $table->addCell(6000)->addText('Online leeractiviteiten', ['alignment' => Jc::END, 'bold' => true, 'size' => 15]);
                 }
+                $page->addTextBreak(2);
             }
             $name1 = null;
             $name2 = null;
@@ -498,12 +500,10 @@ class ReportController extends Controller
         $cell1 = $table->addCell(6000);
         $cell2 = $table->addCell(6000);
         if ($name1Here) {
-            $cell1->addText('Notities: .........................................................', ['alignment' => Jc::START]);
-            $cell1->addTextBreak(3);
+            $cell1->addTextBox(['alignment' => Jc::START, 'width' => 230, 'height' => 70])->addText('Notities: .........................................................');
         }
         if ($name2 != null) {
-            $cell2->addText('Notities: .........................................................', ['alignment' => Jc::END]);
-            $cell2->addTextBreak(3);
+            $cell2->addTextBox(['alignment' => Jc::START, 'width' => 230, 'height' => 70])->addText('Notities: .........................................................');
         }
     }
 
