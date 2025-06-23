@@ -85,7 +85,7 @@ class ReportController extends Controller
             $mail->Password = env('MAIL_PASSWORD');
             $mail->CharSet = 'UTF-8';
             $mail->isHTML(true);
-            $mail->Subject = 'Tussenrapport';
+            $mail->Subject = 'Resultaten BlendBarometer';
             $name = session('name');
             $academy = session('academy');
             $module = session('module');
