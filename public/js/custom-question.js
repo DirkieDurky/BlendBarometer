@@ -16,16 +16,9 @@ function addQuestion() {
     headerGroup.className = 'mb-2';
     wrapper.appendChild(headerGroup);
 
-    // question title
-    const label = document.createElement('label');
-    label.htmlFor = idBase;
-    label.className = 'fw-semibold';
-    label.textContent = txt;
-    headerGroup.appendChild(label);
-    
     // delete knop
     const button = document.createElement('button');
-    button.className = 'btn btn-sm btn-danger ms-3';
+    button.className = 'btn btn-sm btn-danger me-2';
     button.addEventListener('click', function() {
         wrapper.remove();
     });
@@ -35,8 +28,14 @@ function addQuestion() {
     trashBin.className = 'bi bi-trash';
     button.appendChild(trashBin);
     headerGroup.appendChild(button);
-    
 
+    // question title
+    const label = document.createElement('label');
+    label.htmlFor = idBase;
+    label.className = 'fw-semibold';
+    label.textContent = txt;
+    headerGroup.appendChild(label);
+    
     // options container
     const row = document.createElement('div');
     row.className = 'row gap-4 mx-0';

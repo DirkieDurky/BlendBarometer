@@ -1,12 +1,11 @@
 <div class="mb-5">
     <div class="mb-2">
+        <a class="btn btn-sm btn-danger me-2" href="{{ route('lesson-level.delete', [$currentStep, $fieldName]) }}">
+            <i class="bi bi-trash"></i>
+        </a>
         <label for="{{ $fieldName }}" class="fw-semibold">
             {{ $question->text }}
         </label>
-
-        <a class="btn btn-sm btn-danger ms-3" href="{{ route('lesson-level.delete', [$currentStep, $fieldName]) }}">
-            <i class="bi bi-trash"></i>
-        </a>
     </div>
 
     <div class="row gap-4 mx-0" role="group">
