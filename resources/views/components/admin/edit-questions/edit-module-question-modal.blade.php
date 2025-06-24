@@ -50,12 +50,6 @@
             document.getElementById('questionText').value = question || '';
             document.getElementById('questionLabel').value = label || '';
             document.getElementById('extraInfoText').value = description || '';
-            document.getElementById('extraInfoSwitch').checked = !!description;
-        });
-
-        document.getElementById('extraInfoSwitch').addEventListener('change', function() {
-            document.getElementById('extraInfoText').disabled = !this.checked;
-            document.getElementById('extraInfoText').value = null;
         });
     });
 </script>

@@ -55,14 +55,7 @@
             let catId = button.getAttribute('data-category-id');
 
             document.getElementById('categoryId').value = catId || '';
-            let description = null;
-            document.getElementById('extraInfoSwitch').checked = !!description;
             form.action = action;
-        });
-
-        document.getElementById('extraInfoSwitch').addEventListener('change', function() {
-            document.getElementById('extraInfoText').disabled = !this.checked;
-            document.getElementById('extraInfoText').value = null;
         });
     });
 </script>
