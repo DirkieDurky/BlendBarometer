@@ -277,8 +277,8 @@ innerData = [];
 innerColors = [];
 for (let i = 0; i < moduleLevelDataArray.length; i++) {
     innerData.push(1);
-    let colorObj = legendColors[moduleLevelDataArray[i]];
-    innerColors.push(colorObj.color);
+    let color = legendColors[moduleLevelDataArray[i]];
+    innerColors.push(color);
 }
 
 new Chart(moduleLevelCategoriesGraph, {

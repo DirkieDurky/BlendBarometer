@@ -51,8 +51,7 @@ class ResultsController extends Controller
                 if (str_starts_with($key, "custom_question_")) {
                     $parts = explode('_', $key);
                     $questionName = $parts[2];
-                    if(in_array($subCat, $subCategoryPhysicalIds))
-                    {
+                    if (in_array($subCat, $subCategoryPhysicalIds)) {
                         $lessonLevelPhysicalQuestions = $lessonLevelPhysicalQuestions->put(
                             $subCat,
                             $lessonLevelPhysicalQuestions->get($subCat, collect())->push($questionName)
@@ -67,12 +66,9 @@ class ResultsController extends Controller
                 $total += $answer;
             }
 
-            if ($question->value('question_category_id') == 1) 
-            {
+            if ($question->value('question_category_id') == 1) {
                 $lessonLevelDataPhysical[] = $total;
-            } 
-            else if ($question->value('question_category_id') == 2) 
-            {
+            } else if ($question->value('question_category_id') == 2) {
                 $lessonLevelDataOnline[] = $total;
             }
         }
@@ -94,7 +90,7 @@ class ResultsController extends Controller
             ->pluck('label')
             ->toArray();
 
-        $legendColors = Graph_legenda::select('color')->get();
+        $legends = Graph_legenda::get();
         $intermediate = Content::where('section_name', 'intermediate_results')->firstOrFail();
         $previous = $intermediate->show
             ? route('intermediate.view', 'resultaten')
@@ -114,7 +110,7 @@ class ResultsController extends Controller
             'lessonLevelDataAll' => $answers,
             'moduleLevelCategories' => $moduleLevelCategories,
             'moduleLevelLabels' => $moduleLevelLabels,
-            'legendColors' => $legendColors,
+            'legends' => $legends,
             'previous' => $previous
         ]);
     }

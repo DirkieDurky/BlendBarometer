@@ -11,8 +11,7 @@
         gesprek bespreken en de grafieken dan toelichten. Klik op direct afronden om door te gaan, of bekijk de
         resultaten en klik onderaan op afronden.
     </p>
-    <x-navigation-buttons :previous="$previous ?? route('intermediate.view', 'resultaten')"
-                          :next="route('overview-and-send')" nextLabel='Direct Afronden'/>
+    <x-navigation-buttons :previous="$previous ?? route('intermediate.view', 'resultaten')" :next="route('overview-and-send')" nextLabel='Direct Afronden' />
     <hr class="my-5">
     <div class="card graph-card p-3">
         <div class="row">
@@ -29,7 +28,7 @@
     <div class="d-flex flex-row gap-4">
         <div class="d-flex flex-column gap-3 w-50">
             <h2>Fysieke leeractiviteiten</h2>
-            @foreach ($lessonLevelPhysicalSubcategories as $i=>$category)
+            @foreach ($lessonLevelPhysicalSubcategories as $i => $category)
                 <div class="card graph-card p-3">
                     <canvas id="physical-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
                     <strong>{{ $category->name }}</strong>
@@ -39,7 +38,7 @@
         </div>
         <div class="d-flex flex-column gap-3 w-50">
             <h2>Online leeractiviteiten</h2>
-            @foreach ($lessonLevelOnlineSubcategories as $i=>$category)
+            @foreach ($lessonLevelOnlineSubcategories as $i => $category)
                 <div class="card graph-card p-3">
                     <canvas id="online-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
                     <strong>{{ $category->name }}</strong>
@@ -55,10 +54,18 @@
             <canvas id="moduleLevelDataGraph" class="rounded mb-2 position-absolute"></canvas>
             <canvas id="moduleLevelCategoriesGraph" class="rounded mb-2 position-absolute" style="pointer-events: none;"></canvas>
         </div>
+        <div class="align-self-end" style="width: fit-content">
+            @foreach ($legends as $legend)
+                <div class="mb-1 d-flex align-items-center" style="width: fit-content">
+                    <span class="p-3 border border-solid me-2" style="background-color: {{ $legend->color }};"></span>
+                    {{-- <span>{{ $legend->name }}</span> --}}
+                    <span class="" style="">{{ $legend->description }}</span>
+                </div>
+            @endforeach
+        </div>
         <strong>Moduleniveau</strong>
         <p class="mb-0">{{ $moduleLevelGeneralDescription[0]->description }}</p>
         <div class="d-flex justify-content-center row">
-            <b class="mt-3 mb-1">Legenda</b>
             <?php $index = 1; ?>
             @foreach ($moduleLevelCategories as $category => $descriptionArray)
                 @foreach ($descriptionArray as $description)
@@ -74,7 +81,10 @@
 
 </x-progress-step>
 <script>
-    const legendColors = @json($legendColors);
+    const legendColors = @json(
+        $legends->map(function ($legend) {
+            return $legend->color;
+        }));
     const lessonLevelSubcategories = {!! json_encode($lessonLevelPhysicalSubcategories) !!};
 
     const lessonLevelPhysicalQuestions = {!! json_encode($lessonLevelPhysicalQuestions) !!};
