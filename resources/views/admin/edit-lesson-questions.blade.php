@@ -7,7 +7,7 @@
 
     @foreach ($lessonCategories as $cat)
         <section id="category-{{ $cat->id }}">
-            <h2>{{ $cat->description }}</h2>
+            <h3 class="mt-4">{{ $cat->name }}</h3>
 
             @foreach ($lessonSubCategories->where('question_category_id', $cat->id) as $subCat)
                 <section id="subcategory-{{ $subCat->id }}" class="mt-4">
