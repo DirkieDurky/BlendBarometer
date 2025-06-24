@@ -301,7 +301,7 @@ for (let i = 0; i < moduleLevelDataArray.length; i++) {
             color = 'rgb(56, 167, 114)';
             break;
         default:
-            color = 'rgb(0, 0, 0)';
+            color = 'rgb(120, 120, 120)';
             break;
     }
     innerColors.push(color);
