@@ -1,14 +1,14 @@
 @if ($paginator->hasPages())
 <nav aria-label="Pagination">
   <ul class="pagination pagination-sm justify-content-end mb-0">
-    {{-- Vorige --}}
+    {{-- Previous --}}
     <li class="page-item {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
         <a class="page-link" href="{{ $paginator->previousPageUrl() ?? '#' }}">
             <i class="bi bi-chevron-left"></i>
         </a>
     </li>
 
-    {{-- Genummerde pagina’s --}}
+    {{-- Numbered pages --}}
     @foreach ($elements as $element)
         @if (is_string($element))
             <li class="page-item disabled"><span class="page-link">{{ $element }}</span></li>
@@ -21,7 +21,7 @@
         @endif
     @endforeach
 
-    {{-- Volgende --}}
+    {{-- Next --}}
     <li class="page-item {{ $paginator->hasMorePages() ? '' : 'disabled' }}">
         <a class="page-link" href="{{ $paginator->nextPageUrl() ?? '#' }}">
             <i class="bi bi-chevron-right"></i>

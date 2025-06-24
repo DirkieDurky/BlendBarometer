@@ -12,7 +12,7 @@ use Illuminate\Http\RedirectResponse;
 
 class AcademyController extends Controller
 {
-    /** Lijst + zoeken + paginering */
+    /** List + search + paging */
     public function index(Request $request): View
     {
         $query = Academy::query()
