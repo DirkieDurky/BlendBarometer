@@ -41,8 +41,8 @@
                         $selectedAnswer = $answers[$currentStep][$key] ?? null;
                         $questionText = ucfirst(str_replace('_', ' ', preg_replace('/_\\d+$/', '', str_replace('custom_question_', '', $key))));
                     @endphp
-                    <x-lesson-question-component :question="(object) ['id' => $key, 'text' => $questionText]"
-                                                 :selectedAnswer="$selectedAnswer" :fieldName="$fieldName"/>
+                    <x-lesson-custom-question-component :question="(object) ['id' => $key, 'text' => $questionText]"
+                                                 :selectedAnswer="$selectedAnswer" :fieldName="$fieldName" :currentStep="$currentStep"/>
                 @endforeach
             @endif
         </div>
