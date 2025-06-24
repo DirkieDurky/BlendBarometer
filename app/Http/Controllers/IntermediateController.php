@@ -42,7 +42,7 @@ class IntermediateController extends Controller
                 'title' => 'Wat is de volgende stap?',
                 'section' => 'Les niveau',
                 'description' => '',
-                'currentStepName' => 'lessonLevel',
+                'currentStepName' => 'lessonLevelPhysical',
                 'content' => $content,
                 'previous' => route('information'),
                 'next' => route('lesson-level', 1),
