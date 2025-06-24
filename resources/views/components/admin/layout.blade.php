@@ -48,7 +48,17 @@
 
     </header>
 
-    <main>
+    <main class="d-none d-lg-block">
         {{ $slot }}
     </main>
+
+    <div class="d-flex d-lg-none align-items-center justify-content-center p-4">
+        <div class="alert alert-warning" role="alert">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-exclamation-triangle-fill fs-2"></i>
+                <h5 class="alert-heading m-0">De admin-omgeving werkt niet op mobiel of kleine schermen</h5>
+            </div>
+            Gebruik een desktop of laptop om in de admin-omgeving te werken.
+        </div>
+    </div>
 </x-layout>
