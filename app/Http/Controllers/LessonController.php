@@ -11,7 +11,7 @@ class LessonController extends Controller
     public function view($currentStep)
     {
         $totalSteps = Sub_category::count();
-        $subCategory = Sub_category::orderBy('id')->get()[$currentStep - 1];
+        $subCategory = Sub_category::orderBy('question_category_id')->orderBy('id')->get()[$currentStep - 1];
         $questions = $subCategory->questions;
 
         $answers = session()->get('lessonLevelData', []);
