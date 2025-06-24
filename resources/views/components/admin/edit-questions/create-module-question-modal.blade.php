@@ -13,7 +13,7 @@
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="createQuestionForm" method="POST">
+            <form id="createQuestionForm" action="{{ route('admin.edit-module-questions.create') }}" method="POST">
                 @csrf
                 <input type="hidden" id="categoryId" name="question_category_id" value="">
                 <div class="modal-header">
@@ -55,14 +55,7 @@
             let catId = button.getAttribute('data-category-id');
 
             document.getElementById('categoryId').value = catId || '';
-            let description = null;
-            document.getElementById('extraInfoSwitch').checked = !!description;
             form.action = action;
-        });
-
-        document.getElementById('extraInfoSwitch').addEventListener('change', function() {
-            document.getElementById('extraInfoText').disabled = !this.checked;
-            document.getElementById('extraInfoText').value = null;
         });
     });
 </script>
