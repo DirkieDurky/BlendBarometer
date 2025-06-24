@@ -379,6 +379,18 @@ class ReportController extends Controller
                 'height' => 350,
                 'alignment' => Jc::CENTER,
             ]);
+
+            // Add color legend from graph_legenda table
+            $legendItems = \App\Models\Graph_legenda::all();
+            if ($legendItems->count() > 0) {
+                $colorLegend = $page->addTable();
+                foreach ($legendItems as $item) {
+                    $colorLegend->addRow();
+                    $colorLegend->addCell(2000)->addText($item->name, ['bgColor' => ltrim($item->color, '#')]);
+                    $colorLegend->addCell(4000)->addText($item->description, $this->valueStyle);
+                }
+            }
+
             $page->addText('Moduleniveau', ['alignment' => Jc::START, 'bold' => true, 'size' => 13]);
             $page->addText($moduleLevelGeneralDescription[0]);
 
@@ -592,5 +604,4 @@ class ReportController extends Controller
             $cell->addText('Grafiek niet gevonden.');
         }
     }
-
 }
