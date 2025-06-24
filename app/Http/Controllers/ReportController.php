@@ -26,6 +26,7 @@ class ReportController extends Controller
 
     private $labelStyle = ['color' => '888888'];
     private $valueStyle = ['bold' => true];
+    private $NotesTextBoxColor = '#BFBFBF';
 
     private $labelWidth = 1500;
     private $valueWidth = 3000;
@@ -311,7 +312,8 @@ class ReportController extends Controller
 
         $page->addTitle('Resultaten', 1, $this->pageNumber);
 
-        $page->addTextBox(['alignment' => Jc::CENTER, 'width' => 470, 'height' => 80]);
+        $page->addTextBox(['alignment' => Jc::CENTER, 'width' => 470, 'height' => 80, 'borderColor' => $this->NotesTextBoxColor])
+        ->addText('Notities: ..................................................................................................................');
         $imageRelativePathRadar = 'images/temp/radar.png';
         $imagePathRadar = Storage::disk('public')->path($imageRelativePathRadar);
 
@@ -500,10 +502,12 @@ class ReportController extends Controller
         $cell1 = $table->addCell(6000);
         $cell2 = $table->addCell(6000);
         if ($name1Here) {
-            $cell1->addTextBox(['alignment' => Jc::START, 'width' => 230, 'height' => 70])->addText('Notities: .........................................................');
+            $cell1->addTextBox(['alignment' => Jc::START, 'width' => 230, 'height' => 70, 'borderColor' => $this->NotesTextBoxColor])
+            ->addText('Notities: .........................................................');
         }
         if ($name2 != null) {
-            $cell2->addTextBox(['alignment' => Jc::START, 'width' => 230, 'height' => 70])->addText('Notities: .........................................................');
+            $cell2->addTextBox(['alignment' => Jc::START, 'width' => 230, 'height' => 70, 'borderColor' => $this->NotesTextBoxColor])
+            ->addText('Notities: .........................................................');
         }
     }
 
