@@ -260,13 +260,20 @@ for (const [key, value] of Object.entries(moduleLevelCategories)) {
     outerData.push(value.length);
 }
 
+let removeCount = 0;
+
 const moduleLevelDataArray = [];
-for (const [_, item] of Object.entries(moduleLevelData)) {
+for (const [i, [_, item]] of Object.entries(moduleLevelData).entries()) {
+    removeCount = 0;
+
     for (const [_, item2] of Object.entries(item)) {
         if (item2 !== "0") {
             moduleLevelDataArray.push(parseInt(item2));
+        } else {
+            removeCount++;
         }
     }
+    outerData[i] -= removeCount;
 }
 
 const moduleLevelDataGraph = document.getElementById('moduleLevelDataGraph');
