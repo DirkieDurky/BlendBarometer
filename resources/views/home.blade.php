@@ -4,8 +4,6 @@
     @endsection
     <main class="container">
         <section class="intro px-4 min-vh-100">
-            <img src="{{ asset('images/logo.svg') }}" alt="BlendBarometer" class="my-5"/>
-        <section class="intro min-vh-100">
             <div class="d-flex align-items-center justify-content-between py-5">
                 <img src="{{ asset('images/logo.svg') }}" alt="BlendBarometer"/>
                 <button class="btn btn-outline-secondary font-dyslexia"
