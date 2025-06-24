@@ -19,10 +19,21 @@
 }
 
 .description h1, h2 {
-    margin: 0;
+    margin: 0 0 .5rem;
 }
 
 .description {
     width: 50vw;
     overflow-wrap: break-word;
+}
+
+@media screen and (max-width: 1200px) {
+    .intro::after {
+        background-image: url(../images/introduction_image.png);
+        opacity: .15;
+    }
+
+    .description {
+        width: 100% !important;
+    }
 }
