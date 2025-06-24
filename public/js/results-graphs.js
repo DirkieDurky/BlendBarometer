@@ -1,3 +1,5 @@
+let hasSavedImages = false;
+
 const physicalColor = {
     borderColor: '#36A2EB',
     backgroundColor: 'rgba(54,162,235,0.5)',
@@ -38,23 +40,28 @@ new Chart(lessonLevelGraph, {
         },
         animation: {
             onComplete: function () {
-                const base64Image = this.toBase64Image();
+                const tooltip = this.tooltip;
+                const tooltipActive = tooltip && tooltip.opacity !== 0;
 
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                if (!tooltipActive) {
+                    const base64Image = this.toBase64Image();
 
-                // Send the image to the backend with the CSRF token
-                fetch('/SaveChart', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken,
-                    },
-                    body: JSON.stringify({ image: base64Image, name: 'radar' })
-                }).then(response => {
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                }).catch(error => {
+                    // Send the image to the backend with the CSRF token
+                    fetch('/SaveChart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify({image: base64Image, name: 'radar'})
+                    }).then(response => {
 
-                });
+                    }).catch(error => {
+
+                    });
+                }
             }
         },
         scales: {
@@ -145,23 +152,28 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
             },
             animation: {
                 onComplete: function () {
-                    const base64Image = this.toBase64Image();
+                    const tooltip = this.tooltip;
+                    const tooltipActive = tooltip && tooltip.opacity !== 0;
 
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    if (!tooltipActive) {
+                        const base64Image = this.toBase64Image();
 
-                    // Send the image to the backend with the CSRF token
-                    fetch('/SaveChart', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken,
-                        },
-                        body: JSON.stringify({ image: base64Image, name: 'physical' + category.name })
-                    }).then(response => {
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                    }).catch(error => {
+                        // Send the image to the backend with the CSRF token
+                        fetch('/SaveChart', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken,
+                            },
+                            body: JSON.stringify({image: base64Image, name: 'physical' + category.name})
+                        }).then(response => {
 
-                    });
+                        }).catch(error => {
+
+                        });              
+                    }
                 }
             }
         }
@@ -216,23 +228,25 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
             },
             animation: {
                 onComplete: function () {
-                    const base64Image = this.toBase64Image();
+                    const tooltip = this.tooltip;
+                    const tooltipActive = tooltip && tooltip.opacity !== 0;
 
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    if (!tooltipActive) {
+                        const base64Image = this.toBase64Image();
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                        fetch('/SaveChart', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken,
+                            },
+                            body: JSON.stringify({image: base64Image, name: 'online' + category.name})
+                        }).then(response => {
 
-                    // Send the image to the backend with the CSRF token
-                    fetch('/SaveChart', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken,
-                        },
-                        body: JSON.stringify({ image: base64Image, name: 'online' + category.name })
-                    }).then(response => {
+                        }).catch(error => {
 
-                    }).catch(error => {
-
-                    });
+                        });
+                    }
                 }
             }
         }
@@ -340,24 +354,26 @@ new Chart(moduleLevelCategoriesGraph, {
         radius: '76%',
         animation: {
             onComplete: function () {
-                const base64Image = this.toBase64Image();
+                const tooltip = this.tooltip;
+                const tooltipActive = tooltip && tooltip.opacity !== 0;
 
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                // Send the image to the backend with the CSRF token
-                fetch('/SaveChart', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken,
-                    },
-                    body: JSON.stringify({ image: base64Image, name: 'wheelOutside' })
-                }).then(response => {
-                }).catch(error => {
-                });
+                if (!tooltipActive) {
+                    const base64Image = this.toBase64Image();
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    fetch('/SaveChart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify({ image: base64Image, name: 'wheelOutside' })
+                    }).then(response => {
+                    }).catch(error => {
+                    });
+                }
             }
-        }
-    },
+        },
+    }
 });
 
 new Chart(moduleLevelDataGraph, {
@@ -404,25 +420,31 @@ new Chart(moduleLevelDataGraph, {
         radius: '60%',
         animation: {
             onComplete: function () {
-                const base64Image = this.toBase64Image();
+                const tooltip = this.tooltip;
+                const tooltipActive = tooltip && tooltip.opacity !== 0;
 
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                if (!tooltipActive) {
+                    const base64Image = this.toBase64Image();
 
-                // Send the image to the backend with the CSRF token
-                fetch('/SaveChart', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken,
-                    },
-                    body: JSON.stringify({ image: base64Image, name: 'wheelInside' })
-                }).then(response => {
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    // Send the image to the backend with the CSRF token
+                    fetch('/SaveChart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify({image: base64Image, name: 'wheelInside'})
+                    }).then(response => {
 
-                }).catch(error => {
+                    }).catch(error => {
 
-                });
+                    });
+                }
             }
         }
     },
     plugins: [ChartDataLabels],
 });
+
+hasSavedImages = true;
