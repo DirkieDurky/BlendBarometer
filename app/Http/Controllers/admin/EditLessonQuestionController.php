@@ -7,6 +7,7 @@ use App\Models\Form_section;
 use App\Models\Question_category;
 use App\Models\Question;
 use App\Models\Sub_category;
+use App\Models\GraphDescription;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -111,13 +112,24 @@ class EditLessonQuestionController
 
 
         if ($request->input('form_section_id') == 1) {
-            Sub_category::create([
+            $sub1 = Sub_category::create([
                 'question_category_id' => 1,
                 'name' => $request->input('name'),
             ]);
-            Sub_category::create([
+            $sub2 = Sub_category::create([
                 'question_category_id' => 2,
                 'name' => $request->input('name'),
+            ]);
+
+            GraphDescription::create([
+                'graph_type' => 'physical', 
+                'sub_category_id' => $sub1->id,
+                'description' => 'Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua.',
+            ]);
+            GraphDescription::create([
+                'graph_type' => 'online',
+                'sub_category_id' => $sub2->id,
+                'description' => 'Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua.',
             ]);
         } else if ($request->input('form_section_id') == 2) {
             Question_category::create([

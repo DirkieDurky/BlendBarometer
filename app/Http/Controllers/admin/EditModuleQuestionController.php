@@ -8,6 +8,7 @@ use App\Models\Question_category;
 use App\Models\Form_section;
 use App\Models\Module_level_answer;
 use App\Models\Question;
+use App\Models\GraphDescription;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -93,13 +94,24 @@ class EditModuleQuestionController
             Question::where('question_category_id', $toUpdate->id)->delete();
             $toUpdate->delete();
 
-            Sub_category::create([
+            $sub1 = Sub_category::create([
                 'question_category_id' => 1,
                 'name' => $request->input('name'),
             ]);
-            Sub_category::create([
+            $sub2 = Sub_category::create([
                 'question_category_id' => 2,
                 'name' => $request->input('name'),
+            ]);
+
+            GraphDescription::create([
+                'graph_type' => 'physical', 
+                'sub_category_id' => $sub1->id,
+                'description' => 'Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua.',
+            ]);
+            GraphDescription::create([
+                'graph_type' => 'online',
+                'sub_category_id' => $sub2->id,
+                'description' => 'Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua.',
             ]);
         }
 
@@ -115,13 +127,24 @@ class EditModuleQuestionController
 
 
         if ($request->input('form_section_id') == 1) {
-            Sub_category::create([
+            $sub1 = Sub_category::create([
                 'question_category_id' => 1,
                 'name' => $request->input('name'),
             ]);
-            Sub_category::create([
+            $sub2 = Sub_category::create([
                 'question_category_id' => 2,
                 'name' => $request->input('name'),
+            ]);
+
+            GraphDescription::create([
+                'graph_type' => 'physical', 
+                'sub_category_id' => $sub1->id,
+                'description' => 'Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua.',
+            ]);
+            GraphDescription::create([
+                'graph_type' => 'online',
+                'sub_category_id' => $sub2->id,
+                'description' => 'Lorem ipsum dolor sit amet, consecte adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua.',
             ]);
         } else if ($request->input('form_section_id') == 2) {
             Question_category::create([
