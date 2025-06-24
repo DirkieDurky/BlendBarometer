@@ -261,7 +261,6 @@ for (const [key, value] of Object.entries(moduleLevelCategories)) {
 }
 
 const moduleLevelDataArray = [];
-console.log(moduleLevelData);
 for (const [_, item] of Object.entries(moduleLevelData)) {
     for (const [_, item2] of Object.entries(item)) {
         if (item2 !== "0") {
