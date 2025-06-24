@@ -44,10 +44,5 @@
             var action = button.getAttribute('data-action');
             form.action = action;
         });
-
-        // Optional: Toggle textarea enabled/disabled based on switch
-        document.getElementById('extraInfoSwitch').addEventListener('change', function() {
-            document.getElementById('extraInfoText').disabled = !this.checked;
-        });
     });
 </script>
