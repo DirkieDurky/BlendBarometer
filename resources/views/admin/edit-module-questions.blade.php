@@ -5,95 +5,38 @@
     <x-admin.edit-questions.edit-answer-modal />
     <h1 class="mb-3">Module niveau</h1>
 
-    <div class="container px-0">
-        <div class="row g-2 mb-2">
-            <div class="col-12 col-md-6">
-                <div class="border rounded px-3 py-2 d-flex align-items-center justify-content-between bg-white h-100">
-                    <div>
-                        <span class="fw-bold" style="color: #e53935;">
-                            {{ $moduleLevelAnswer->values()->get(0)->answer }}
-                        </span>
-                        @if ($moduleLevelAnswer->values()->get(0)->description)
-                            <span data-bs-toggle="tooltip"
-                                data-bs-title="{{ $moduleLevelAnswer->values()->get(0)->description }}"
-                                style="cursor: pointer;">
-                                <i class="bi bi-info-circle-fill"></i>
-                            </span>
-                        @endif
-                    </div>
-                    <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-secondary fw-semibold"
-                        style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editAnswerModal"
-                        data-answer="{{ $moduleLevelAnswer->values()->get(0)->answer }}"
-                        data-description="{{ $moduleLevelAnswer->values()->get(0)->description }}"
-                        data-action='/admin/vragen-bewerken/moduleniveau/antwoord-bewerken/1/update'>Bewerken</a>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="border rounded px-3 py-2 d-flex align-items-center justify-content-between bg-white h-100">
-                    <div>
-                        <span class="fw-bold" style="color: #f9a825;">
-                            {{ $moduleLevelAnswer->values()->get(1)->answer }}
-                        </span>
-                        @if ($moduleLevelAnswer->values()->get(1)->description)
-                            <span data-bs-toggle="tooltip"
-                                data-bs-title="{{ $moduleLevelAnswer->values()->get(1)->description }}"
-                                style="cursor: pointer;">
-                                <i class="bi bi-info-circle-fill"></i>
-                            </span>
-                        @endif
-                    </div>
-                    <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-secondary fw-semibold"
-                        style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editAnswerModal"
-                        data-answer="{{ $moduleLevelAnswer->values()->get(1)->answer }}"
-                        data-description="{{ $moduleLevelAnswer->values()->get(1)->description }}"
-                        data-action='/admin/vragen-bewerken/moduleniveau/antwoord-bewerken/2/update'>Bewerken</a>
-                </div>
-            </div>
-        </div>
-        <div class="row g-2 mb-2">
-            <div class="col-12 col-md-6">
-                <div class="border rounded px-3 py-2 d-flex align-items-center justify-content-between bg-white h-100">
-                    <div>
-                        <span class="fw-bold" style="color: #fbc02d;">
-                            {{ $moduleLevelAnswer->values()->get(2)->answer }}
-                        </span>
-                        @if ($moduleLevelAnswer->values()->get(2)->description)
-                            <span data-bs-toggle="tooltip"
-                                data-bs-title="{{ $moduleLevelAnswer->values()->get(2)->description }}"
-                                style="cursor: pointer;">
-                                <i class="bi bi-info-circle-fill"></i>
-                            </span>
-                        @endif
-                    </div>
+    @php
+        $colorMap = [
+            0 => '#FF0000',
+            1 => '#F89000',
+            2 => '#FFC500',
+            3 => '#3AA873',
+        ];
+    @endphp
 
-                    <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-secondary fw-semibold"
-                        style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editAnswerModal"
-                        data-answer="{{ $moduleLevelAnswer->values()->get(2)->answer }}"
-                        data-description="{{ $moduleLevelAnswer->values()->get(2)->description }}"
-                        data-action='/admin/vragen-bewerken/moduleniveau/antwoord-bewerken/3/update'>Bewerken</a>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="border rounded px-3 py-2 d-flex align-items-center justify-content-between bg-white h-100">
-                    <div>
-                        <span class="fw-bold" style="color: #43a047;">
-                            {{ $moduleLevelAnswer->values()->get(3)->answer }}
-                        </span>
-                        @if ($moduleLevelAnswer->values()->get(3)->description)
-                            <span data-bs-toggle="tooltip"
-                                data-bs-title="{{ $moduleLevelAnswer->values()->get(3)->description }}"
-                                style="cursor: pointer;">
-                                <i class="bi bi-info-circle-fill"></i>
+    <div class="px-0">
+        <div class="row g-2 mb-2">
+            @foreach ($moduleLevelAnswer as $key => $value)
+                <div class="col-12 col-md-6">
+                    <div class="border rounded px-3 py-2 d-flex align-items-center justify-content-between bg-white h-100">
+                        <div>
+                            <span class="fw-bold" style="color: {{ $colorMap[$key] ?? '#000000' }};">
+                                {{ $value->answer }}
                             </span>
-                        @endif
+                            @if ($value->description)
+                                <span data-bs-toggle="tooltip" data-bs-title="{{ $value->description }}"
+                                    style="cursor: pointer;">
+                                    <i class="bi bi-info-circle-fill"></i>
+                                </span>
+                            @endif
+                        </div>
+                        <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-secondary fw-semibold"
+                            style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editAnswerModal"
+                            data-answer="{{ $value->answer }}" data-description="{{ $value->description }}"
+                            data-action='/admin/vragen-bewerken/moduleniveau/antwoord-bewerken/{{ $key }}/update'>Bewerken</a>
                     </div>
-                    <a href="{{ route('admin.edit-module-questions') }}" class="btn btn-secondary fw-semibold"
-                        style="border-radius: 0.5rem;" data-bs-toggle="modal" data-bs-target="#editAnswerModal"
-                        data-answer="{{ $moduleLevelAnswer->values()->get(3)->answer }}"
-                        data-description="{{ $moduleLevelAnswer->values()->get(3)->description }}"
-                        data-action='/admin/vragen-bewerken/moduleniveau/antwoord-bewerken/4/update'>Bewerken</a>
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
     @foreach ($categories as $cat)
