@@ -27,6 +27,7 @@ Vul daarna de app-key in\
 6. Update de fout in php.ini\
 Run ```php --ini``` om het pad te krijgen naar je php.ini bestand.
 Ctrl+F daar naar "variables_order". Die heeft een waarde "EGPCS". Verander die naar "GPCS" zonder de 'E'.
-7. Start de server\
+Uncomment daarna `;extension=gd` door de regel te veranderen naar `extension=gd`
+8. Start de server\
 ```composer run dev```
-8. De website zou nu te zien moeten zijn op `http://localhost:8000/`!
+9. De website zou nu te zien moeten zijn op `http://localhost:8000/`!

@@ -58,14 +58,16 @@
                         <div class="step-vertical-icon">
                             @if ($status == 'active')
                                 <div class="bg-white">
-                                    <img src="{{ asset('images/doing-step.svg') }}" alt="Huidige stap" />
+                                    <img src="{{ asset('images/doing-step.svg') }}" alt="Huidige stap"/>
                                 </div>
                             @elseif ($status == 'complete')
-                                <span class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center">
+                                <span
+                                    class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi bi-check2 fs-4 lh-1"></i>
                                 </span>
                             @else
-                                <span class="bg-light border border-2 border-secondary rounded-circle d-flex align-items-center justify-content-center p-2">
+                                <span
+                                    class="bg-light border border-2 border-secondary rounded-circle d-flex align-items-center justify-content-center p-2">
                                     <span class="bg-secondary rounded-circle p-2"></span>
                                 </span>
                             @endif
@@ -95,8 +97,18 @@
             </div>
         </aside>
 
-        <main class="content flex-grow-1 px-5 py-4 overflow-x-hidden">
+        <main class="content min-vh-100 flex-grow-1 px-5 py-4 overflow-x-hidden d-none d-lg-block">
             {{ $slot }}
         </main>
+
+        <div class="w-100 min-vh-100 d-flex d-lg-none align-items-center justify-content-center p-4">
+            <div class="alert alert-warning" role="alert">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-exclamation-triangle-fill fs-2"></i>
+                    <h5 class="alert-heading m-0">De BlendBarometer werkt niet op mobiel of kleine schermen</h5>
+                </div>
+                Gebruik een desktop of laptop om de BlendBarometer te in te vullen.
+            </div>
+        </div>
     </div>
 </x-layout>

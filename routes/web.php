@@ -38,6 +38,7 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::post('/lesniveau/{id}/versturen', [LessonController::class, 'submit'])->name('lesson-level.submit');
     Route::get('/lesniveau/volgende/{id}', [LessonController::class, 'next'])->name('lesson-level.next');
     Route::get('/lesniveau/vorige/{id}', [LessonController::class, 'previous'])->name('lesson-level.previous');
+    Route::get('/lesniveau/{id}/delete/{questionId}', [LessonController::class, 'delete'])->name('lesson-level.delete');
 
     Route::get('/uitleg-overzicht-en-resultaten', [ResultsController::class, 'overviewAndResultsInfoView'])->name('overview-and-results-info');
     Route::get('/resultaten', [ResultsController::class, 'view'])->name('results');
