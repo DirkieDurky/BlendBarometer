@@ -276,6 +276,27 @@ for (const [i, [_, item]] of Object.entries(moduleLevelData).entries()) {
     outerData[i] -= removeCount;
 }
 
+let outerDataX = [];
+for (i = 0; i < outerData.length; i++) {
+    if (outerData[i] == 0) {
+        outerLabels.splice(i, 1);
+    } else {
+        outerDataX.push(outerData[i]);
+    }
+}
+outerData = outerDataX;
+
+if (!outerData.length) {
+    const noDataMessage = document.createElement('p');
+    noDataMessage.innerText = 'Geen onderdelen van toepassing.';
+    noDataMessage.className = 'me-auto';
+
+    const graphImage = document.querySelector('#moduleLevelGraphImage');
+    graphImage.className = 'd-none';
+
+    graphImage.parentElement.append(noDataMessage);
+}
+
 const moduleLevelDataGraph = document.getElementById('moduleLevelDataGraph');
 
 innerLabels = [];
