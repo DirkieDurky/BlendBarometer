@@ -1,5 +1,3 @@
-{{-- {{ dd(session()->all()) }} --}}
-
 <x-progress-step section="Les niveau" title="Vragen op les niveau" description="" current_step_name="lessonLevel">
 
     <div class="mb-3">
@@ -21,14 +19,14 @@
         </button>
     </div>
 
-    <form method="POST" action="{{ route('lesson-level.submit', $subCategory->id) }}">
+    <form method="POST" action="{{ route('lesson-level.submit', $currentStep) }}">
         <p class="text-muted">Hoe vaak gebruik je ...</p>
         @csrf
 
         @foreach ($questions as $question)
             @php
                 $fieldName = 'question_' . $question->id;
-                $selectedAnswer = $answers[$subCategory->id][$question->id] ?? null;
+                $selectedAnswer = $answers[$currentStep][$question->id] ?? null;
                 $description = $question->description ?? null;
             @endphp
             <x-lesson-question-component :question="$question" :selectedAnswer="$selectedAnswer" :fieldName="$fieldName" :description="$description" />
@@ -66,7 +64,7 @@
             </div>
         </div>
 
-        <x-navigation-buttons-with-submit :previous="$previous ?? route('lesson-level.previous', $subCategory->id)" />
+        <x-navigation-buttons-with-submit :previous="$previous ?? route('lesson-level.previous', $currentStep)" />
     </form>
     <script src="{{ asset('js/custom-question.js') }}"></script>
     <script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
