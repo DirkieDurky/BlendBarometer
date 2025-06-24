@@ -277,22 +277,8 @@ innerData = [];
 innerColors = [];
 for (let i = 0; i < moduleLevelDataArray.length; i++) {
     innerData.push(1);
-    let color;
-    switch (moduleLevelDataArray[i]) {
-        case 0:
-            color = 'rgb(252, 34, 0)';
-            break;
-        case 1:
-            color = 'rgb(248, 143, 0)';
-            break;
-        case 2:
-            color = 'rgb(245, 208, 0)';
-            break;
-        case 3:
-            color = 'rgb(56, 167, 114)';
-            break;
-    }
-    innerColors.push(color);
+    let colorObj = legendColors[moduleLevelDataArray[i]];
+    innerColors.push(colorObj.color);
 }
 
 new Chart(moduleLevelCategoriesGraph, {

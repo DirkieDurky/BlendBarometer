@@ -7,6 +7,7 @@ use App\Models\GraphDescription;
 use App\Models\Question;
 use App\Models\Question_category;
 use App\Models\Sub_category;
+use App\Models\Graph_legenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -93,6 +94,7 @@ class ResultsController extends Controller
             ->pluck('label')
             ->toArray();
 
+        $legendColors = Graph_legenda::select('color')->get();
         $intermediate = Content::where('section_name', 'intermediate_results')->firstOrFail();
         $previous = $intermediate->show
             ? route('intermediate.view', 'resultaten')
@@ -112,6 +114,7 @@ class ResultsController extends Controller
             'lessonLevelDataAll' => $answers,
             'moduleLevelCategories' => $moduleLevelCategories,
             'moduleLevelLabels' => $moduleLevelLabels,
+            'legendColors' => $legendColors,
             'previous' => $previous
         ]);
     }

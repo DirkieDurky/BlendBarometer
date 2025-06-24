@@ -74,6 +74,7 @@
 
 </x-progress-step>
 <script>
+    const legendColors = @json($legendColors);
     const lessonLevelSubcategories = {!! json_encode($lessonLevelPhysicalSubcategories) !!};
 
     const lessonLevelPhysicalQuestions = {!! json_encode($lessonLevelPhysicalQuestions) !!};
