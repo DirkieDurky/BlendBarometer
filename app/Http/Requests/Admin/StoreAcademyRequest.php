@@ -11,8 +11,19 @@ class StoreAcademyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:academy,name'],
-            'abbreviation' => ['required', 'string', 'max:10',  'unique:academy,abbreviation'],
+            'name'         => ['required','string','max:255','unique:academy,name'],
+            'abbreviation' => [
+                'required','string','max:10',
+                function ($attribute, $value, $fail) {
+                    $exists = \App\Models\Academy::query()
+                        ->whereRaw('lower(abbreviation) = ?', [mb_strtolower($value, 'UTF8')])
+                        ->exists();
+    
+                    if ($exists) {
+                        $fail('Deze afkorting bestaat al (hoofdletterongevoelig).');
+                    }
+                },
+            ],
         ];
     }
 }

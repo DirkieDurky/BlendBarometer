@@ -11,15 +11,30 @@ class UpdateAcademyRequest extends FormRequest
 
     public function rules(): array
     {
+        $current = mb_strtolower($this->academy->abbreviation, 'UTF8');
+    
         return [
             'name' => [
                 'required', 'string', 'max:255',
-                Rule::unique('academy', 'name')->ignore($this->academy)
+                Rule::unique('academy', 'name')->ignore($this->academy->name,'name'),
             ],
             'abbreviation' => [
-                'required', 'string', 'max:10',
-                Rule::unique('academy', 'abbreviation')->ignore($this->academy)
+                'required','string','max:10',
+                function ($attribute, $value, $fail) use ($current) {
+                    $valueLower = mb_strtolower($value, 'UTF8');
+    
+                    if ($valueLower !== $current) {
+                        $exists = \App\Models\Academy::query()
+                            ->whereRaw('lower(abbreviation) = ?', [$valueLower])
+                            ->exists();
+    
+                        if ($exists) {
+                            $fail('Deze afkorting bestaat al (hoofdletterongevoelig).');
+                        }
+                    }
+                },
             ],
         ];
     }
+    
 }
