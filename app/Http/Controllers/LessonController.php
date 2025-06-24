@@ -33,7 +33,8 @@ class LessonController extends Controller
         $intermediate = Content::where('section_name', 'intermediate_lesson')->firstOrFail();
         $previous = ($currentStep > 1 || $intermediate->show) ? route('lesson-level.previous', $currentStep) : route('information');
 
-        return view('lesson-level',
+        return view(
+            'lesson-level',
             compact('subCategory', 'questions', 'totalSteps', 'currentStep', 'answers', 'customQuestions', 'previous')
         );
     }
@@ -66,5 +67,15 @@ class LessonController extends Controller
         session()->put('lessonLevelData', $answers);
 
         return redirect(route('lesson-level.next', $subCategoryId));
+    }
+
+    public function delete($id, $customQuestionId)
+    {
+        $answers = session()->get('lessonLevelData', []);
+        if (isset($answers[$id]) && isset($answers[$id][$customQuestionId])) {
+            unset($answers[$id][$customQuestionId]);
+            session()->put('lessonLevelData', $answers);
+        }
+        return redirect()->back();
     }
 }

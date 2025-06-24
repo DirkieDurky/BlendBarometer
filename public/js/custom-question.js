@@ -1,4 +1,5 @@
 const customQuestionForm = document.getElementById('custom_input');
+const customQuestionBtn = document.getElementById('addCustomQuestionBtn');
 const form = document.querySelector('form');
 
 function addQuestion() {
@@ -11,13 +12,30 @@ function addQuestion() {
     const wrapper = document.createElement('div');
     wrapper.classList.add('mb-5');
 
+    const headerGroup = document.createElement('div');
+    headerGroup.className = 'mb-2';
+    wrapper.appendChild(headerGroup);
+
+    // delete knop
+    const button = document.createElement('button');
+    button.className = 'btn btn-sm btn-danger me-2';
+    button.addEventListener('click', function() {
+        wrapper.remove();
+    });
+
+    // visuele prullenbak
+    const trashBin = document.createElement('i');
+    trashBin.className = 'bi bi-trash';
+    button.appendChild(trashBin);
+    headerGroup.appendChild(button);
+
     // question title
     const label = document.createElement('label');
     label.htmlFor = idBase;
     label.className = 'fw-semibold';
     label.textContent = txt;
-    wrapper.appendChild(label);
-
+    headerGroup.appendChild(label);
+    
     // options container
     const row = document.createElement('div');
     row.className = 'row gap-4 mx-0';
@@ -87,12 +105,20 @@ function addQuestion() {
 document.getElementById('addCustomQuestionBtn').addEventListener('click', addQuestion);
 
 let customInputSelected = false;
+
+customQuestionBtn.addEventListener("focus", () => {
+    customInputSelected = true;
+});
+customQuestionBtn.addEventListener("blur", () => {
+    customInputSelected = false;
+});
+
 customQuestionForm.addEventListener("focus", () => {
     customInputSelected = true;
-})
+});
 customQuestionForm.addEventListener("blur", () => {
     customInputSelected = false;
-})
+});
 
 addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
@@ -103,4 +129,4 @@ addEventListener("keydown", (e) => {
             form.submit();
         }
     }
-})
+});

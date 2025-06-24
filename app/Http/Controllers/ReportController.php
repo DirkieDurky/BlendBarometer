@@ -26,6 +26,7 @@ class ReportController extends Controller
 
     private $labelStyle = ['color' => '888888'];
     private $valueStyle = ['bold' => true];
+    private $NotesTextBoxColor = '#BFBFBF';
 
     private $labelWidth = 1500;
     private $valueWidth = 3000;
@@ -43,12 +44,13 @@ class ReportController extends Controller
         $fileName = 'BlendBarometer rapport ' . session('module') . ' ' . now()->format('d-m-Y') . '.docx';
 
         $this->addFrontPage($phpWord);
-        $this->addInformationPage($phpWord);
         $this->addTableOfContents($phpWord);
+        $this->addInformationPage($phpWord);
         $this->addResults($phpWord);
         $this->addFillableNotes($phpWord);
+        $this->addEndPage($phpWord);
 
-        $writer = IOFactory::createWriter($phpWord, 'Word2007');
+        $writer = IOFactory::createWriter($phpWord);
         $tempFile = tempnam(sys_get_temp_dir(), $fileName);
         $writer->save($tempFile);
 
@@ -205,6 +207,42 @@ class ReportController extends Controller
         $infotable->addCell($this->valueWidth)->addText(now()->format('d-m-Y'), $this->valueStyle);
     }
 
+    private function addEndPage($phpWord)
+    {
+        $section = $phpWord->addSection([
+            'marginTop' => 500,
+            'marginBottom' => 0,
+            'marginLeft' => 600,
+            'marginRight' => 600,
+        ]);
+
+        $section->addImage(public_path('images/report-background.png'), [
+            'width' => 1000,
+            'height' => 600,
+            'positioning' => 'absolute',
+            'posHorizontalRel' => 'page',
+            'posHorizontal' => Image::POSITION_HORIZONTAL_LEFT,
+            'posVerticalRel' => 'page',
+            'posVertical' => Image::POSITION_VERTICAL_TOP,
+            'wrappingStyle' => 'behind',
+        ]);
+
+
+        $imgtable = $section->addTable();
+        $imgtable->addRow();
+
+        $imgtable->addCell(20000)->addImage(public_path('images/logo-avans-white.png'), ['align' => Jc::START, 'width' => 100, 'height' => 30]);
+        $imgtable->addCell(20000)->addImage(public_path('images/report-logo.png'), ['align' => Jc::END, 'width' => 140, 'height' => 25]);
+
+        $section->addTextBreak(3);
+
+        $section->addImage(public_path('images/introduction_image.png'), [
+            'alignment' => Jc::CENTER,
+            'width' => 460,
+            'height' => 460,
+        ]);
+    }
+
     private function addInformationPage($phpWord)
     {
         $page = $this->createpage($phpWord);
@@ -274,6 +312,8 @@ class ReportController extends Controller
 
         $page->addTitle('Resultaten', 1, $this->pageNumber);
 
+        $page->addTextBox(['alignment' => Jc::CENTER, 'width' => 470, 'height' => 80, 'borderColor' => $this->NotesTextBoxColor])
+        ->addText('Notities: ..................................................................................................................');
         $imageRelativePathRadar = 'images/temp/radar.png';
         $imagePathRadar = Storage::disk('public')->path($imageRelativePathRadar);
 
@@ -306,6 +346,7 @@ class ReportController extends Controller
                     $table->addCell(6000)->addText('Fysieke leeractiviteiten', ['alignment' => Jc::START, 'bold' => true, 'size' => 15]);
                     $table->addCell(6000)->addText('Online leeractiviteiten', ['alignment' => Jc::END, 'bold' => true, 'size' => 15]);
                 }
+                $page->addTextBreak(2);
             }
             $name1 = null;
             $name2 = null;
@@ -461,12 +502,12 @@ class ReportController extends Controller
         $cell1 = $table->addCell(6000);
         $cell2 = $table->addCell(6000);
         if ($name1Here) {
-            $cell1->addText('Notities: .........................................................', ['alignment' => Jc::START]);
-            $cell1->addTextBreak(3);
+            $cell1->addTextBox(['alignment' => Jc::START, 'width' => 230, 'height' => 70, 'borderColor' => $this->NotesTextBoxColor])
+            ->addText('Notities: .........................................................');
         }
         if ($name2 != null) {
-            $cell2->addText('Notities: .........................................................', ['alignment' => Jc::END]);
-            $cell2->addTextBreak(3);
+            $cell2->addTextBox(['alignment' => Jc::START, 'width' => 230, 'height' => 70, 'borderColor' => $this->NotesTextBoxColor])
+            ->addText('Notities: .........................................................');
         }
     }
 
