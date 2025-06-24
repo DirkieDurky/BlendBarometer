@@ -276,15 +276,20 @@ for (const [i, [_, item]] of Object.entries(moduleLevelData).entries()) {
     outerData[i] -= removeCount;
 }
 
-let outerDataX = [];
+let outerLabelsToRemove = [];
+let outerDataToKeep = [];
 for (i = 0; i < outerData.length; i++) {
     if (outerData[i] == 0) {
-        outerLabels.splice(i, 1);
+        outerLabelsToRemove.push(outerLabels[i]);
     } else {
-        outerDataX.push(outerData[i]);
+        outerDataToKeep.push(outerData[i]);
     }
 }
-outerData = outerDataX;
+outerData = outerDataToKeep;
+
+for (label of outerLabelsToRemove) {
+    outerLabels.splice(outerLabels.indexOf(label), 1);
+}
 
 if (!outerData.length) {
     const noDataMessage = document.createElement('p');
