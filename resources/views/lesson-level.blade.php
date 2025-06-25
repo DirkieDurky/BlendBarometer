@@ -11,7 +11,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="fs-2 fw-bold text-muted mb-1">{{ $subCategory->id }} van {{ $totalSteps }}
+            <h1 class="fs-2 fw-bold text-muted mb-1">{{ $currentStep }} van {{ $totalSteps }}
                 - {{ $subCategory->QuestionCategory->name }}</h1>
             <h2 class="fs-3 fw-bold mb-1">{{ $subCategory->name }}</h2>
         </div>
@@ -20,14 +20,15 @@
         </button>
     </div>
 
-    <form method="POST" action="{{ route('lesson-level.submit', $currentStep) }}">
+    <form method="POST" action="{{ route('lesson-level.submit', $subCategory->id) }}">
+        <input type="hidden" name="current_step" value="{{ $currentStep }}">
         <p class="text-muted">Hoe vaak gebruik je ...</p>
         @csrf
 
         @foreach ($questions as $question)
             @php
                 $fieldName = 'question_' . $question->id;
-                $selectedAnswer = $answers[$currentStep][$question->id] ?? null;
+                $selectedAnswer = $answers[$subCategory->id][$question->id] ?? null;
                 $description = $question->description ?? null;
             @endphp
             <x-lesson-question-component :question="$question" :selectedAnswer="$selectedAnswer" :fieldName="$fieldName" :description="$description" />
@@ -38,7 +39,11 @@
                 @foreach ($customQuestions as $key => $customQuestion)
                     @php
                         $fieldName = $key;
+<<<<<<< HEAD
                         $selectedAnswer = $answers[$currentStep][$key] ?? null;
+=======
+                        $selectedAnswer = $answers[$subCategory->id][$key] ?? null;
+>>>>>>> 891a63777501839b4636d9a3a5ac1176d4e0af2d
                         $questionText = ucfirst(
                             str_replace(
                                 '_',
@@ -69,9 +74,5 @@
         <x-navigation-buttons-with-submit :previous="$previous ?? route('lesson-level.previous', $currentStep)" />
     </form>
     <script src="{{ asset('js/custom-question.js') }}"></script>
-    <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-    </script>
     <script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
 </x-progress-step>

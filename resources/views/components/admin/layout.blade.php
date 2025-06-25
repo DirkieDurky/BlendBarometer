@@ -13,7 +13,14 @@
         <script src="{{ asset('js/text-editor.js') }}" defer></script>
     @endsection
     <header>
-        <nav class="navbar navbar-expand-lg shadow-sm bg-white mb-4">
+        @php
+            $navbarClasses = 'navbar navbar-expand-lg shadow-sm bg-white';
+            if (!isset($noNavbarMargin)) {
+                $navbarClasses .= ' mb-4';
+            }
+        @endphp
+
+        <nav class="{{ $navbarClasses }}">
             <div class="container">
                 <a href="{{ route('admin.edit-content') }}" class="navbar-brand">
                     <img src="{{ asset('images/logo.svg') }}" alt="Logo" class="logo">
@@ -28,10 +35,16 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
                         <li class="nav-item fw-medium">
+                            <a class="nav-link" href="{{ route('admin.academies.index') }}">Academies</a>
+                        </li>
+                        <li class="nav-item fw-medium">
                             <a class="nav-link" href="{{ route('admin.email-rules.index') }}">E-mail regels</a>
                         </li>
                         <li class="nav-item fw-medium">
-                            <a class="nav-link" href="{{ route('admin.edit-questions') }}">Vragen bewerken</a>
+                            <a class="nav-link" href="{{ route('admin.edit-lesson-questions') }}">Lesniveau</a>
+                        </li>
+                        <li class="nav-item fw-medium">
+                            <a class="nav-link" href="{{ route('admin.edit-module-questions') }}">Moduleniveau</a>
                         </li>
                         <li class="nav-item fw-medium">
                             <a class="nav-link" href="{{ route('admin.edit-content') }}">Content bewerken</a>
