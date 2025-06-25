@@ -195,7 +195,6 @@ for (const category of lessonLevelSubcategories) {
 }
 
 for (const category of lessonLevelOnlineSubcategories) {
-    console.log(lessonLevelOnlineSubcategories);
     const subCatId = category.id;
     const graph = document.getElementById('online-' + subCatId);
 
