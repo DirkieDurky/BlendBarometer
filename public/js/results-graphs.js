@@ -284,17 +284,11 @@ let removeCount = 0;
 let j = 0;
 const moduleLevelDataArray = {};
 for (const [i, [_, item]] of Object.entries(moduleLevelData).entries()) {
-    removeCount = 0;
 
     for (const [_, item2] of Object.entries(item)) {
-        if (item2 !== "0") {
             moduleLevelDataArray[j] = parseInt(item2);
-        } else {
-            removeCount++;
-        }
         j++;
     }
-    outerData[i] -= removeCount;
 }
 
 let outerLabelsToRemove = [];
@@ -336,22 +330,22 @@ for ([key, value] of Object.entries(moduleLevelDataArray)) {
     innerData.push(1);
     let color;
     switch (value) {
-        case 1:
-            color = 'rgb(252, 34, 0)';
-            break;
-        case 2:
-            color = 'rgb(248, 143, 0)';
-            break;
-        case 3:
-            color = 'rgb(245, 208, 0)';
-            break;
-        case 4:
-            color = 'rgb(56, 167, 114)';
-            break;
-        default:
-            color = 'rgb(120, 120, 120)';
-            break;
-    }
+    case 1:
+        color = legendColors[0];
+        break;
+    case 2:
+        color = legendColors[1];
+        break;
+    case 3:
+        color = legendColors[2];
+        break;
+    case 4:
+        color = legendColors[3];
+        break;
+    case 0:
+        color = legendColors[4];
+        break;
+}
     innerColors.push(color);
 }
 

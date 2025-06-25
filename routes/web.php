@@ -105,4 +105,6 @@ Route::middleware([Authenticate_admin::class])->name('admin.')->prefix('admin')-
 
     Route::put('/content-bewerken/grafiekomschrijving-opslaan', [EditContentController::class, 'updateChartContent'])->name('edit-content.chart-update');
     Route::put('/content-bewerken/tussenpagina-opslaan/{section}', [EditContentController::class, 'updateIntermediateContent'])->name('edit-content.intermediate-update');
+
+    Route::put('/content-bewerken/legenda-opslaan', [EditContentController::class, 'updateLegenda'])->name('edit-content.legenda-update');
 });

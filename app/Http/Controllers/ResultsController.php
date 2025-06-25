@@ -7,6 +7,7 @@ use App\Models\GraphDescription;
 use App\Models\Question;
 use App\Models\Question_category;
 use App\Models\Sub_category;
+use App\Models\Graph_legenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -44,8 +45,7 @@ class ResultsController extends Controller
                 if (str_starts_with($key, "custom_question_")) {
                     $parts = explode('_', $key);
                     $questionName = $parts[2];
-                    if(in_array($subCat, $subCategoryPhysicalIds))
-                    {
+                    if (in_array($subCat, $subCategoryPhysicalIds)) {
                         $lessonLevelPhysicalQuestions = $lessonLevelPhysicalQuestions->put(
                             $subCat,
                             $lessonLevelPhysicalQuestions->get($subCat, collect())->push($questionName)
@@ -101,6 +101,7 @@ class ResultsController extends Controller
             ->pluck('label')
             ->toArray();
 
+        $legends = Graph_legenda::get();
         $intermediate = Content::where('section_name', 'intermediate_results')->firstOrFail();
         $previous = $intermediate->show
             ? route('intermediate.view', 'resultaten')
@@ -120,6 +121,7 @@ class ResultsController extends Controller
             'lessonLevelDataAll' => $answers,
             'moduleLevelCategories' => $moduleLevelCategories,
             'moduleLevelLabels' => $moduleLevelLabels,
+            'legends' => $legends,
             'previous' => $previous
         ]);
     }
