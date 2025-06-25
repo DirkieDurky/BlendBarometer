@@ -43,7 +43,7 @@ class ModuleController extends Controller
         return redirect(route('module-level.next', $currentStep));
     }
 
-    public function next(Request $request, $currentStep)
+    public function next($currentStep)
     {
         $totalSteps = Question_category::where('form_section_id', 2)->count();
 

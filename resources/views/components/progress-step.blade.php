@@ -23,9 +23,15 @@
                         'sessionName' => 'name',
                     ],
                     [
-                        'label' => 'Les niveau',
-                        'name' => 'lessonLevel',
+                        'label' => 'Les niveau - Fysiek',
+                        'name' => 'lessonLevelPhysical',
                         'route' => route('lesson-level', ['id' => 1]),
+                        'sessionName' => 'lessonLevelData',
+                    ],
+                    [
+                        'label' => 'Les niveau - Online',
+                        'name' => 'lessonLevelOnline',
+                        'route' => route('lesson-level', ['id' => 7]),
                         'sessionName' => 'lessonLevelData',
                     ],
                     [

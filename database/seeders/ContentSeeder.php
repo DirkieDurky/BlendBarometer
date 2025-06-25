@@ -24,12 +24,54 @@ class ContentSeeder extends Seeder
             ],
             [
                 'section_name' => 'intermediate_information',
-                'info' => 'De <strong>BlendBarometer</strong> geeft aan de hand van onderstaande onderdelen een indicatie van de kwaliteit van de Blended module:<br><br>
-                <ul>
-                    <li>lesniveau</li>
-                    <li>moduleniveau</li>
-                </ul>
-                Dit gebeurt door middel van inzichtelijke grafieken.',
+                'info' => '
+                    <main class="d-flex flex-column">
+                        <p class="fw-bold">
+                            De BlendBarometer is een meetinstrument om de kwaliteit van een Blended module te meten.<br>
+                            Hiermee is inzichtelijk wat de huidige status is en wat er nog nodig is om uiteindelijk tot een<br>
+                            kwalitatieve en harmonieuze mix van leeractiviteiten te komen.
+                        </p>
+                        <article>
+                            <h6 class="fw-normal"><u>Deel 1: Lesniveau</u></h6>
+                            <p>
+                                Inventariseer welke online tools en welke fysieke werkvormen je gebruikt in je<br>
+                                onderwijsmodule op het gebied van: samenwerken, onderzoeken, informatie verwerven,<br>
+                                discussiëren, oefenen en produceren. Dit zijn de 6 leertypes uit het ABC learning Design Model.<br>
+                                Deze inventarisatie geeft een beeld van de kwantiteit van je Blend. Er is geen goed of fout.<br>
+                                Werkwijze: Geef per leeractiviteit aan of je dit niet gebruikt, af en toe (docentafhankelijk) of<br>
+                                vaak (ingericht voor alle docenten). De grafieken verschijnen op het volgende tabblad.
+                            </p>
+                        </article>
+                        <article>
+                            <h6 class="fw-normal"><u>Deel 2: Moduleniveau</u></h6>
+                            <p>
+                                Hier worden vragen gesteld over de verhoudingen binnen je huidige Blended Learning<br>
+                                leerarrangement, op module niveau. Er is een onderverdeling gemaakt met vragen vanuit drie<br>
+                                verschillende invalshoeken: de samenhang, de organiseerbaarheid en de didactische uitvoering.<br>
+                                Werkwijze: Beoordeel de blokken met groen (ja dit doen we), oranje (dit kan beter) of rood (dit doen<br>
+                                we niet tot weinig) door op het vak naast de tekst te klikken en te kiezen uit het drop-down menu.
+                            </p>
+                        </article>
+                        <article>
+                            <h6 class="fw-normal"><u>Deel 3: Inhoudsrijk gesprek</u></h6>
+                            <p>
+                                Tijdens het inhoudsrijke gesprek gaan we bespreken wat de status is van de huidige Blend.<br>
+                                Waarom zijn er bepaalde keuzes gemaakt? Welke kansen zie je die je kunt oppakken?<br>
+                                Wat vind je dat er goed gaat en waar zie je mogelijkheden tot verbetering?<br>
+                                De uitkomst met de bijbehorende actiepunten wordenvormgegeven in een adviesrapportage.
+                            </p>
+                        </article>
+                        <article>
+                            <h6 class="fw-normal"><u>Deel 4: Adviesrapportage</u></h6>
+                            <p>
+                                In dit adviesrapport staat beschreven wat de huidige status is van de kwaliteit van de Blend,<br>
+                                zowel tekstueel als visueel zodat in 1 oogopslag duidelijk is wat de uitkomst is van de meting.<br>
+                                Tevens worden er adviespunten meegegeven om tot een optimale Blend te komen die aansluit<br>
+                                bij de leeruitkomsten.
+                            </p>
+                        </article>
+                    </main>
+                ',
                 'show' => true,
             ],
             [

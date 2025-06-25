@@ -15,6 +15,10 @@ class ModuleLevelAnswerSeeder extends Seeder
         Module_level_answer::query()->delete();
         $categories = [
             [
+                'answer' => "N.v.t.",
+                'description' => "Niet van toepassing.",
+            ],
+            [
                 'answer' => "Verkennen",
                 'description' => "De techniek wordt nog onderzocht of overwogen. Er is interesse, maar er is nog geen structurele toepassing.",
             ],
