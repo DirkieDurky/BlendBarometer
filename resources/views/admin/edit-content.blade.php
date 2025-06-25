@@ -119,6 +119,7 @@
                  aria-labelledby="legenda-tab"
                  tabindex="-1">
                 <x-admin.edit-content.legenda :legenda="$legenda"
+                    :moduleLevelAnswers="$moduleLevelAnswers"
                     />
             </div>
         </div>

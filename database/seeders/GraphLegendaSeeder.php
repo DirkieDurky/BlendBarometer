@@ -17,26 +17,31 @@ class GraphLegendaSeeder extends Seeder
                 'color' => '#FC2200',
                 'name' => 'Rood',
                 'description' => 'slechte score, aandacht vereist',
+                'module_level_answer_id' => '2',
             ],
             [
                 'color' => '#F88F00',
                 'name' => 'Oranje',
                 'description' => 'matige score, verbetering aanbevolen',
+                'module_level_answer_id' => '3',
             ],
             [
                 'color' => '#F5D000',
                 'name' => 'Geel',
                 'description' => 'goede score, ruimte voor verbetering',
+                'module_level_answer_id' => '4',
             ],
             [
                 'color' => '#38A772',
                 'name' => 'Groen',
                 'description' => 'Sterke score, presteert goed',
+                'module_level_answer_id' => '5',
             ],
             [
                 'color' => '#E1D9D1',
                 'name' => 'Wit',
                 'description' => 'niet van toepassing',
+                'module_level_answer_id' => '1',
             ],
         ]);
     }

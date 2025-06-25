@@ -16,6 +16,11 @@ return new class extends Migration
             $table->string('color');
             $table->string('name');
             $table->text('description')->nullable();
+            $table->unsignedBigInteger('module_level_answer_id')->nullable();
+            $table->foreign('module_level_answer_id')
+                ->references('id')
+                ->on('module_level_answer')
+                ->nullOnDelete();
         });
     }
 

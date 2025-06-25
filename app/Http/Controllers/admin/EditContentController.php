@@ -6,6 +6,7 @@ use App\Models\Content;
 use App\Models\Sub_category;
 use App\Models\GraphDescription;
 use App\Models\Graph_legenda;
+use App\Models\Module_level_answer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -45,6 +46,7 @@ class EditContentController
         ];
 
         $legenda = Graph_legenda::all();
+        $moduleLevelAnswers = Module_level_answer::all();
 
         try {
             $tab = request()->get('tab', 'home');
@@ -62,6 +64,7 @@ class EditContentController
                 'generalLessonLevelDescription' => $generalLessonLevelDescription,
                 'generalModuleDescription' => $generalModuleDescription,
                 'legenda' => $legenda,
+                'moduleLevelAnswers' => $moduleLevelAnswers,
             ]
         );
     }

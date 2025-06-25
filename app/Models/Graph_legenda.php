@@ -15,4 +15,9 @@ class Graph_legenda extends Model
     ];
 
     public $timestamps = false;
+
+    public function moduleLevelAnswer()
+    {
+        return $this->belongsTo(ModuleLevelAnswer::class, 'module_level_answer_id');
+    }
 }

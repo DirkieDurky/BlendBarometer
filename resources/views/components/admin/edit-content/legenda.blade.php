@@ -4,6 +4,10 @@
     <div class="d-flex flex-column gap-4 w-100 px-3">
         @foreach ($legenda as $row)
             <div class="border rounded p-3">
+                @php
+                    $mla = $moduleLevelAnswers->firstWhere('id', $row->module_level_answer_id);
+                @endphp
+                <h4>{{ $mla?->answer}}</h3>                
                 <div class="mb-2">
                     <label class="form-label">Kleur</label>
                     <input oninput="showLegendaButtons()" type="color" name="legenda[{{ $row->id }}][color]" value="{{ $row->color }}" class="form-control form-control-color" style="width: 60px; height: 40px;" required>
