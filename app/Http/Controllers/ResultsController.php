@@ -20,7 +20,7 @@ class ResultsController extends Controller
         }
 
         $lessonLevelPhysicalSubcategories = Sub_category::select('id', 'name')->where('question_category_id', 1)->get();
-        $lessonLevelOnlineSubcategories = Sub_category::select('id', 'name')->where('question_category_id', 1)->get();
+        $lessonLevelOnlineSubcategories = Sub_category::select('id', 'name')->where('question_category_id', 2)->get();
 
         $lessonLevelPhysicalQuestions = Question::select('sub_category_id', 'text')->where('question_category_id', 1)->get();
         $lessonLevelPhysicalQuestions = $lessonLevelPhysicalQuestions->mapToGroups(function ($item, $key) {
@@ -37,16 +37,10 @@ class ResultsController extends Controller
         $lessonLevelOnlineDescriptions = GraphDescription::select('sub_category_id', 'description')->where('graph_type', 'online')->get();
         $moduleLevelGeneralDescription = GraphDescription::select('description')->where('graph_type', 'module-level-general')->get();
 
-        $lessonLevelDataOnline = [];
-        $lessonLevelDataPhysical = [];
-
         $subCategoryPhysicalIds = Sub_category::select('id')->where('question_category_id', 1)->pluck('id')->toArray();
 
         $answers = session()->get("lessonLevelData");
         foreach ($answers as $subCat => $answerPage) {
-            $question = Question::where('id', key($answerPage))->select('question_category_id', 'sub_category_id');
-            $total = 0;
-
             foreach ($answerPage as $key => $answer) {
                 if (str_starts_with($key, "custom_question_")) {
                     $parts = explode('_', $key);
@@ -63,14 +57,31 @@ class ResultsController extends Controller
                         );
                     }
                 }
-                $total += $answer;
             }
+        }
 
-            if ($question->value('question_category_id') == 1) {
-                $lessonLevelDataPhysical[] = $total;
-            } else if ($question->value('question_category_id') == 2) {
-                $lessonLevelDataOnline[] = $total;
+        $lessonLevelDataPhysical = [];
+        foreach ($lessonLevelPhysicalSubcategories as $subCat) {
+            $subCatId = $subCat->id;
+            $total = 0;
+            if (isset($answers[$subCatId])) {
+                foreach ($answers[$subCatId] as $key => $answer) {
+                    $total += (is_numeric($answer) ? $answer : 0);
+                }
             }
+            $lessonLevelDataPhysical[] = $total;
+        }
+        $lessonLevelOnlineSubcats = Sub_category::select('id', 'name')->where('question_category_id', 2)->get();
+        $lessonLevelDataOnline = [];
+        foreach ($lessonLevelOnlineSubcats as $subCat) {
+            $subCatId = $subCat->id;
+            $total = 0;
+            if (isset($answers[$subCatId])) {
+                foreach ($answers[$subCatId] as $key => $answer) {
+                    $total += (is_numeric($answer) ? $answer : 0);
+                }
+            }
+            $lessonLevelDataOnline[] = $total;
         }
 
         $moduleLevelCategories = Question_category::join('question', 'question_category.id', '=', 'question.question_category_id')
