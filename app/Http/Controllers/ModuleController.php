@@ -20,9 +20,11 @@ class ModuleController extends Controller
 
         $answers = session()->get('moduleLevelData', []);
 
+        $moduleAnswers = Module_level_answer::all();
+
         $intermediate = Content::where('section_name', 'intermediate_module')->firstOrFail();
         $previous = ($currentStep > 1 || $intermediate->show) ? route('module-level.previous', $currentStep) : route('lesson-level', Sub_category::count());
-        return view('module-level', compact('category', 'answers', 'currentStep', 'totalSteps', 'descriptions', 'previous'));
+        return view('module-level', compact('category', 'answers', 'currentStep', 'totalSteps', 'descriptions', 'previous', 'moduleAnswers'));
     }
 
     public function submit(Request $request, $currentStep)

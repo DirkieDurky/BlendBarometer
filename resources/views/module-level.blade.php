@@ -19,7 +19,7 @@
             <h2 class="fs-3 fw-bold mb-1">{{ $category->name }}</h2>
         </div>
         <button class="btn btn-secondary"
-            onclick="window.location.href='{{ route('intermediate.view', 'moduleniveau') }}'">Hulp nodig?
+                onclick="window.location.href='{{ route('intermediate.view', 'moduleniveau') }}'">Terug naar de uitleg
         </button>
     </div>
 
@@ -28,7 +28,7 @@
     <form method="POST" action="{{ route('module-level.submit', $currentStep) }}">
         @csrf
         <div class="d-flex flex-column justify-content-center align-items-center">
-            <div class="module-level-form mb-5">
+            <div class="module-level-form mb-5 w-100">
                 <div class="row flex-nowrap gap-4 mx-0" role="group">
                     <div class="col-4"></div>
                     @foreach ($descriptions as $answer => $description)
@@ -58,12 +58,9 @@
         <x-navigation-buttons-with-submit :previous="$previous ?? route('module-level.previous', $currentStep)" />
     </form>
     <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-
         document.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
-                form = document.querySelector('form');
+                const form = document.querySelector('form');
 
                 if (form.reportValidity()) {
                     form.submit();

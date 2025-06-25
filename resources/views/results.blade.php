@@ -75,6 +75,7 @@
 </x-progress-step>
 <script>
     const lessonLevelSubcategories = {!! json_encode($lessonLevelPhysicalSubcategories) !!};
+    const lessonLevelOnlineSubcategories = {!! json_encode($lessonLevelOnlineSubcategories) !!};
 
     const lessonLevelPhysicalQuestions = {!! json_encode($lessonLevelPhysicalQuestions) !!};
     const lessonLevelOnlineQuestions = {!! json_encode($lessonLevelOnlineQuestions) !!};
