@@ -15,6 +15,7 @@
                         <input type="text" class="form-control" id="answerText" name="text" required>
                     </div>
                     <div class="mb-3">
+                        <label class="form-label" for="extraInfoAnswerText">Extra informatie</label>
                         <textarea class="form-control" id="extraInfoAnswerText" name="description" placeholder="Voeg hier extra informatie toe"></textarea>
                     </div>
                 </div>
