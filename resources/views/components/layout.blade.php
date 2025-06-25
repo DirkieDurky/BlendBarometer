@@ -22,14 +22,11 @@
     @yield('scripts')
 </head>
 <body>
-
-    {{ $slot }}
-    <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-    </script>
-
+{{ $slot }}
 <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
     function toggleDyslexiaMode() {
         const enabled = localStorage.getItem('dyslexiaMode') === 'enabled';
         localStorage.setItem('dyslexiaMode', enabled ? 'disabled' : 'enabled');
