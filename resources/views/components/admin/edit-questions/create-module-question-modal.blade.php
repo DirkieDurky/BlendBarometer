@@ -27,7 +27,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="questionLabel" class="form-label">Label</label>
-                        <input type="text" class="form-control" id="questionLabel" name="label">
+                        <input type="text" class="form-control" id="questionLabel" name="label" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="description">Extra informatie</label>

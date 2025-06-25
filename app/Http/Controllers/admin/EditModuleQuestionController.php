@@ -42,7 +42,7 @@ class EditModuleQuestionController
     {
         $request->validate([
             'text' => ['required'],
-            'label' => ['nullable'],
+            'label' => ['required'],
             'description' => ['nullable'],
         ]);
 
@@ -58,7 +58,7 @@ class EditModuleQuestionController
     {
         $request->validate([
             'text' => ['required'],
-            'label' => ['nullable'],
+            'label' => ['required'],
             'description' => ['nullable'],
         ]);
 
