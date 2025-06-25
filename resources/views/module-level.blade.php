@@ -19,7 +19,7 @@
             <h2 class="fs-3 fw-bold mb-1">{{ $category->name }}</h2>
         </div>
         <button class="btn btn-secondary"
-                onclick="window.location.href='{{ route('intermediate.view', 'moduleniveau') }}'">Hulp nodig?
+                onclick="window.location.href='{{ route('intermediate.view', 'moduleniveau') }}'">Terug naar de uitleg
         </button>
     </div>
 

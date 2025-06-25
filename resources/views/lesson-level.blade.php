@@ -1,4 +1,5 @@
-<x-progress-step section="Les niveau" title="Vragen op les niveau" description="" current_step_name="lessonLevel">
+<x-progress-step section="Les niveau" title="Vragen op les niveau" description=""
+    current_step_name="{{ $subCategory->QuestionCategory->name == 'Fysieke leeractiviteiten' ? 'lessonLevelPhysical' : 'lessonLevelOnline' }}">
 
     <div class="mb-3">
         <div class="progress" style="height: 10px;">
@@ -15,7 +16,7 @@
             <h2 class="fs-3 fw-bold mb-1">{{ $subCategory->name }}</h2>
         </div>
         <button class="btn btn-secondary"
-            onclick="window.location.href='{{ route('intermediate.view', 'lesniveau') }}'">Hulp nodig?
+            onclick="window.location.href='{{ route('intermediate.view', 'lesniveau') }}'">Terug naar de uitleg
         </button>
     </div>
 
