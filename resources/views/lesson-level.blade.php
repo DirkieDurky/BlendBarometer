@@ -19,14 +19,15 @@
         </button>
     </div>
 
-    <form method="POST" action="{{ route('lesson-level.submit', $currentStep) }}">
+    <form method="POST" action="{{ route('lesson-level.submit', $subCategory->id) }}">
+        <input type="hidden" name="current_step" value="{{ $currentStep }}">
         <p class="text-muted">Hoe vaak gebruik je ...</p>
         @csrf
 
         @foreach ($questions as $question)
             @php
                 $fieldName = 'question_' . $question->id;
-                $selectedAnswer = $answers[$currentStep][$question->id] ?? null;
+                $selectedAnswer = $answers[$subCategory->id][$question->id] ?? null;
                 $description = $question->description ?? null;
             @endphp
             <x-lesson-question-component :question="$question" :selectedAnswer="$selectedAnswer" :fieldName="$fieldName" :description="$description" />
@@ -37,7 +38,7 @@
                 @foreach ($customQuestions as $key => $customQuestion)
                     @php
                         $fieldName = $key;
-                        $selectedAnswer = $answers[$currentStep][$key] ?? null;
+                        $selectedAnswer = $answers[$subCategory->id][$key] ?? null;
                         $questionText = ucfirst(
                             str_replace(
                                 '_',

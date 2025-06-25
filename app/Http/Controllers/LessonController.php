@@ -69,8 +69,9 @@ class LessonController extends Controller
         }
 
         session()->put('lessonLevelData', $answers);
+        $currentStep = $request->input('current_step');
 
-        return redirect(route('lesson-level.next', $subCategoryId));
+        return redirect(route('lesson-level.next', $currentStep));
     }
 
     public function delete($id, $customQuestionId)

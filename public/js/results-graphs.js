@@ -113,12 +113,15 @@ for (const [_, item] of Object.entries(lessonLevelDataAll)) {
     lessonLevelDataAllArray.push(section);
 }
 
-for (let i = 0; i < lessonLevelSubcategories.length; i++) {
-    const category = lessonLevelSubcategories[i];
-    const categoryLabels = Object.values(lessonLevelPhysicalQuestions)[i];
-    const categoryData = lessonLevelDataAllArray[i];
+for (const category of lessonLevelSubcategories) {
+    const subCatId = category.id;
+    const graph = document.getElementById('physical-' + subCatId);
+    const categoryLabels = lessonLevelPhysicalQuestions[subCatId] ? lessonLevelPhysicalQuestions[subCatId] : [];
 
-    const graph = document.getElementById('physical-' + category.id);
+    let categoryData = [];
+    if (lessonLevelDataAll && lessonLevelDataAll[subCatId]) {
+        categoryData = Object.values(lessonLevelDataAll[subCatId]).map(Number);
+    }
 
     new Chart(graph, {
         type: 'bar',
@@ -191,12 +194,16 @@ for (let i = 0; i < lessonLevelSubcategories.length; i++) {
     graph.ariaLabel = graphAriaLabel;
 }
 
-for (let i = 0; i < lessonLevelSubcategories.length; i++) {
-    const category = lessonLevelSubcategories[i];
-    const categoryLabels = Object.values(lessonLevelOnlineQuestions)[i];
-    const categoryData = lessonLevelDataAllArray[lessonLevelSubcategories.length + i];
+for (const category of lessonLevelOnlineSubcategories) {
+    console.log(lessonLevelOnlineSubcategories);
+    const subCatId = category.id;
+    const graph = document.getElementById('online-' + subCatId);
 
-    const graph = document.getElementById('online-' + category.id);
+    const categoryLabels = lessonLevelOnlineQuestions[subCatId] ? lessonLevelOnlineQuestions[subCatId] : [];
+    let categoryData = [];
+    if (lessonLevelDataAll && lessonLevelDataAll[subCatId]) {
+        categoryData = Object.values(lessonLevelDataAll[subCatId]).map(Number);
+    }
 
     new Chart(graph, {
         type: 'bar',
