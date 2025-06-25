@@ -259,19 +259,20 @@ for (const [key, value] of Object.entries(moduleLevelCategories)) {
     outerLabels.push(key);
     outerData.push(value.length);
 }
-
 let removeCount = 0;
 
-const moduleLevelDataArray = [];
+let j = 0;
+const moduleLevelDataArray = {};
 for (const [i, [_, item]] of Object.entries(moduleLevelData).entries()) {
     removeCount = 0;
 
     for (const [_, item2] of Object.entries(item)) {
         if (item2 !== "0") {
-            moduleLevelDataArray.push(parseInt(item2));
+            moduleLevelDataArray[j] = parseInt(item2);
         } else {
             removeCount++;
         }
+        j++;
     }
     outerData[i] -= removeCount;
 }
@@ -305,15 +306,16 @@ if (!outerData.length) {
 const moduleLevelDataGraph = document.getElementById('moduleLevelDataGraph');
 
 innerLabels = [];
-for (let i = 0; i < moduleLevelDataArray.length; i++) {
-    innerLabels.push(i + 1 + ". " + moduleLevelLabels[i]);
+for ([key, value] of Object.entries(moduleLevelDataArray)) {
+    innerLabels.push(parseInt(key) + 1 + ". " + moduleLevelLabels[key]);
 }
+
 innerData = [];
 innerColors = [];
-for (let i = 0; i < moduleLevelDataArray.length; i++) {
+for ([key, value] of Object.entries(moduleLevelDataArray)) {
     innerData.push(1);
     let color;
-    switch (moduleLevelDataArray[i]) {
+    switch (value) {
         case 1:
             color = 'rgb(252, 34, 0)';
             break;
