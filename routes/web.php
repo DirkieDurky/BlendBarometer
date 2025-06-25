@@ -36,6 +36,7 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::post('/lesniveau/{id}/versturen', [LessonController::class, 'submit'])->name('lesson-level.submit');
     Route::get('/lesniveau/volgende/{id}', [LessonController::class, 'next'])->name('lesson-level.next');
     Route::get('/lesniveau/vorige/{id}', [LessonController::class, 'previous'])->name('lesson-level.previous');
+    Route::get('/lesniveau/{id}/delete/{questionId}', [LessonController::class, 'delete'])->name('lesson-level.delete');
 
     Route::get('/uitleg-overzicht-en-resultaten', [ResultsController::class, 'overviewAndResultsInfoView'])->name('overview-and-results-info');
     Route::get('/resultaten', [ResultsController::class, 'view'])->name('results');
@@ -53,6 +54,18 @@ Route::post('/admin', [AdminAuthController::class, 'submitLogin'])->name('admin.
 
 Route::middleware([Authenticate_admin::class])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/uitloggen', [AdminAuthController::class, 'logout'])->name('logout');
+
+    Route::prefix('academies')
+        ->name('academies.')
+        ->controller(\App\Http\Controllers\admin\AcademyController::class)
+        ->group(function () {
+            Route::get('/',        'index' )->name('index');
+            Route::get('create',   'create')->name('create');
+            Route::post('/',       'store' )->name('store');
+            Route::get('{academy}/edit', 'edit'  )->name('edit');
+            Route::put('{academy}',       'update')->name('update');
+            Route::delete('{academy}',    'destroy')->name('destroy');
+        });
 
     Route::prefix('email-rules')
          ->name('email-rules.')

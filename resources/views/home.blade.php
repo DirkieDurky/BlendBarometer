@@ -4,7 +4,14 @@
     @endsection
     <main class="container">
         <section class="intro px-4 min-vh-100">
-            <img src="{{ asset('images/logo.svg') }}" alt="BlendBarometer" class="my-5"/>
+            <div class="d-flex align-items-center justify-content-between py-5">
+                <img src="{{ asset('images/logo.svg') }}" alt="BlendBarometer"/>
+                <button class="btn btn-outline-secondary font-dyslexia"
+                        onclick="toggleDyslexiaMode()">
+                    <i class="bi bi-type me-0 me-md-2"></i>
+                    <span class="d-none d-md-inline" style="font-size: 14px;">Dyslexie modus</span>
+                </button>
+            </div>
             <div class="description w-50">
                 {!! str_replace('&nbsp;', ' ', $intro_description) !!}
             </div>
