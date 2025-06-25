@@ -39,11 +39,7 @@
                 @foreach ($customQuestions as $key => $customQuestion)
                     @php
                         $fieldName = $key;
-<<<<<<< HEAD
-                        $selectedAnswer = $answers[$currentStep][$key] ?? null;
-=======
                         $selectedAnswer = $answers[$subCategory->id][$key] ?? null;
->>>>>>> 891a63777501839b4636d9a3a5ac1176d4e0af2d
                         $questionText = ucfirst(
                             str_replace(
                                 '_',
