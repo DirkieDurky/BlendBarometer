@@ -64,7 +64,7 @@
             @endforeach
         </div>
         <strong>Moduleniveau</strong>
-        <p class="mb-0">{{ $moduleLevelGeneralDescription[0]->description }}</p>
+        <p class="mb-2">{{ $moduleLevelGeneralDescription[0]->description }}</p>
         <div class="d-flex justify-content-center row">
             <?php $index = 1; ?>
             @foreach ($moduleLevelCategories as $category => $descriptionArray)
