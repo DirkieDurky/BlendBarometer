@@ -1,9 +1,6 @@
-@if (!Session::isStarted())
-    Session::start();
-@endif
+@if (!Session::isStarted()) Session::start(); @endif
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,13 +21,24 @@
     @yield('styles')
     @yield('scripts')
 </head>
-
 <body>
+
     {{ $slot }}
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     </script>
-</body>
 
+<script>
+    function toggleDyslexiaMode() {
+        const enabled = localStorage.getItem('dyslexiaMode') === 'enabled';
+        localStorage.setItem('dyslexiaMode', enabled ? 'disabled' : 'enabled');
+        document.body.classList.toggle('dyslexia-mode', !enabled);
+    }
+
+    if (localStorage.getItem('dyslexiaMode') === 'enabled') {
+        document.body.classList.add('dyslexia-mode');
+    }
+</script>
+</body>
 </html>

@@ -57,6 +57,18 @@ Route::post('/admin', [AdminAuthController::class, 'submitLogin'])->name('admin.
 Route::middleware([Authenticate_admin::class])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/uitloggen', [AdminAuthController::class, 'logout'])->name('logout');
 
+    Route::prefix('academies')
+        ->name('academies.')
+        ->controller(\App\Http\Controllers\admin\AcademyController::class)
+        ->group(function () {
+            Route::get('/',        'index' )->name('index');
+            Route::get('create',   'create')->name('create');
+            Route::post('/',       'store' )->name('store');
+            Route::get('{academy}/edit', 'edit'  )->name('edit');
+            Route::put('{academy}',       'update')->name('update');
+            Route::delete('{academy}',    'destroy')->name('destroy');
+        });
+
     Route::prefix('email-rules')
          ->name('email-rules.')
          ->controller(EmailRuleController::class)
