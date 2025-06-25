@@ -34,7 +34,7 @@ class GraphLegendaSeeder extends Seeder
                 'description' => 'Sterke score, presteert goed',
             ],
             [
-                'color' => '#FFFFFF',
+                'color' => '#E1D9D1',
                 'name' => 'Wit',
                 'description' => 'niet van toepassing',
             ],
