@@ -421,7 +421,6 @@ class ReportController extends Controller
                 'alignment' => Jc::CENTER,
             ]);
 
-            // Add color legend from graph_legenda table
             $legendItems = \App\Models\Graph_legenda::all();
             if ($legendItems->count() > 0) {
                 $colorLegend = $page->addTable();
