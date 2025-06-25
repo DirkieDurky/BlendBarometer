@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Content;
 use App\Models\Sub_category;
 use App\Models\GraphDescription;
+use App\Models\Graph_legenda;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -43,6 +44,8 @@ class EditContentController
             "results" => Content::where('section_name', 'intermediate_results')->select('info', 'show')->first(),
         ];
 
+        $legenda = Graph_legenda::all();
+
         try {
             $tab = request()->get('tab', 'home');
         } catch (\Exception $e) {
@@ -58,6 +61,7 @@ class EditContentController
                 'lessonLevelOnlineSubcategories' => $lessonLevelOnlineSubcategories,
                 'generalLessonLevelDescription' => $generalLessonLevelDescription,
                 'generalModuleDescription' => $generalModuleDescription,
+                'legenda' => $legenda,
             ]
         );
     }
@@ -130,5 +134,17 @@ class EditContentController
                 'show' => $request->input('show') === 'true',
             ]);
         return redirect()->route('admin.edit-content', ['tab' => $sectionName]);
+    }
+
+    public function updateLegenda(Request $request)
+    {
+        foreach ($request->input('legenda', []) as $id => $row) {
+            Graph_legenda::where('id', $id)->update([
+                'color' => $row['color'],
+                'name' => $row['name'],
+                'description' => $row['description'],
+            ]);
+        }
+        return redirect()->route('admin.edit-content', ['tab' => 'legenda']);
     }
 }

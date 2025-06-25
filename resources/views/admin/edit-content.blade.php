@@ -49,6 +49,13 @@
                     Grafieken
                 </button>
             </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link {{ !(isset($tab) && $tab === 'legenda') ?: 'active' }}" data-bs-toggle="tab"
+                        data-bs-target="#legenda-tab-pane"
+                        type="button" role="tab" aria-selected="false">
+                    Legenda
+                </button>
+            </li>
         </ul>
 
         <div class="tab-content mt-4" id="tabContent">
@@ -105,6 +112,13 @@
                     :lessonLevelOnlineSubcategories="$lessonLevelOnlineSubcategories" 
                     :generalLessonLevelDescription="$generalLessonLevelDescription"
                     :generalModuleDescription="$generalModuleDescription"
+                    />
+            </div>
+            <div class="tab-pane fade {{ !(isset($tab) && $tab === 'legenda') ?: 'show active' }}" id="legenda-tab-pane"
+                 role="tabpanel"
+                 aria-labelledby="legenda-tab"
+                 tabindex="-1">
+                <x-admin.edit-content.legenda :legenda="$legenda"
                     />
             </div>
         </div>
