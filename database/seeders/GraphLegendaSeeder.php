@@ -16,17 +16,17 @@ class GraphLegendaSeeder extends Seeder
             [
                 'color' => '#FC2200',
                 'name' => 'Rood',
-                'description' => 'Kritieke score, onmiddellijke aandacht vereist',
+                'description' => 'slechte score, aandacht vereist',
             ],
             [
                 'color' => '#F88F00',
                 'name' => 'Oranje',
-                'description' => 'Zwakke score, verbetering dringend aanbevolen',
+                'description' => 'matige score, verbetering aanbevolen',
             ],
             [
                 'color' => '#F5D000',
                 'name' => 'Geel',
-                'description' => 'Matige score, ruimte voor verbetering',
+                'description' => 'goede score, ruimte voor verbetering',
             ],
             [
                 'color' => '#38A772',

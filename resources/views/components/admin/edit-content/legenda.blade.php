@@ -6,15 +6,15 @@
             <div class="border rounded p-3">
                 <div class="mb-2">
                     <label class="form-label">Kleur</label>
-                    <input oninput="showLegendaButtons()" type="color" name="legenda[{{ $row->id }}][color]" value="{{ $row->color }}" class="form-control form-control-color" style="width: 60px; height: 40px;">
+                    <input oninput="showLegendaButtons()" type="color" name="legenda[{{ $row->id }}][color]" value="{{ $row->color }}" class="form-control form-control-color" style="width: 60px; height: 40px;" required>
                 </div>
                 <div class="mb-2">
                     <label class="form-label">Naam</label>
-                    <input oninput="showLegendaButtons()" type="text" name="legenda[{{ $row->id }}][name]" value="{{ $row->name }}" class="form-control">
+                    <input oninput="showLegendaButtons()" type="text" name="legenda[{{ $row->id }}][name]" value="{{ $row->name }}" class="form-control" required>
                 </div>
                 <div class="mb-2">
                     <label class="form-label">Beschrijving</label>
-                    <textarea oninput="showLegendaButtons()" name="legenda[{{ $row->id }}][description]" class="form-control" rows="2">{{ $row->description }}</textarea>
+                    <textarea oninput="showLegendaButtons()" name="legenda[{{ $row->id }}][description]" class="form-control" rows="2" required>{{ $row->description }}</textarea>
                 </div>
             </div>
         @endforeach

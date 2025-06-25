@@ -138,6 +138,11 @@ class EditContentController
 
     public function updateLegenda(Request $request)
     {
+        $request->validate([
+            'legenda.*.color' => ['required'],
+            'legenda.*.name' => ['required'],
+            'legenda.*.description' => ['required'],
+        ]);
         foreach ($request->input('legenda', []) as $id => $row) {
             Graph_legenda::where('id', $id)->update([
                 'color' => $row['color'],
