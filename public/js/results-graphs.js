@@ -279,37 +279,77 @@ for (const [key, value] of Object.entries(moduleLevelCategories)) {
     outerLabels.push(key);
     outerData.push(value.length);
 }
+let removeCount = 0;
 
-const moduleLevelDataArray = [];
-for (const [_, item] of Object.entries(moduleLevelData)) {
+let j = 0;
+const moduleLevelDataArray = {};
+for (const [i, [_, item]] of Object.entries(moduleLevelData).entries()) {
+    removeCount = 0;
+
     for (const [_, item2] of Object.entries(item)) {
-        moduleLevelDataArray.push(parseInt(item2));
+        if (item2 !== "0") {
+            moduleLevelDataArray[j] = parseInt(item2);
+        } else {
+            removeCount++;
+        }
+        j++;
     }
+    outerData[i] -= removeCount;
+}
+
+let outerLabelsToRemove = [];
+let outerDataToKeep = [];
+for (i = 0; i < outerData.length; i++) {
+    if (outerData[i] == 0) {
+        outerLabelsToRemove.push(outerLabels[i]);
+    } else {
+        outerDataToKeep.push(outerData[i]);
+    }
+}
+outerData = outerDataToKeep;
+
+for (label of outerLabelsToRemove) {
+    outerLabels.splice(outerLabels.indexOf(label), 1);
+}
+
+if (!outerData.length) {
+    const noDataMessage = document.createElement('p');
+    noDataMessage.innerText = 'Geen onderdelen van toepassing.';
+    noDataMessage.className = 'me-auto';
+
+    const graphImage = document.querySelector('#moduleLevelGraphImage');
+    graphImage.className = 'd-none';
+
+    graphImage.parentElement.append(noDataMessage);
 }
 
 const moduleLevelDataGraph = document.getElementById('moduleLevelDataGraph');
 
 innerLabels = [];
-for (let i = 0; i < moduleLevelDataArray.length; i++) {
-    innerLabels.push(i + 1 + ". " + moduleLevelLabels[i]);
+for ([key, value] of Object.entries(moduleLevelDataArray)) {
+    innerLabels.push(parseInt(key) + 1 + ". " + moduleLevelLabels[key]);
 }
+
 innerData = [];
 innerColors = [];
-for (let i = 0; i < moduleLevelDataArray.length; i++) {
+for ([key, value] of Object.entries(moduleLevelDataArray)) {
     innerData.push(1);
     let color;
-    switch (moduleLevelDataArray[i]) {
-        case 0:
+    switch (value) {
+        case 1:
             color = 'rgb(252, 34, 0)';
             break;
-        case 1:
+        case 2:
             color = 'rgb(248, 143, 0)';
             break;
-        case 2:
+        case 3:
             color = 'rgb(245, 208, 0)';
             break;
-        case 3:
+        case 4:
             color = 'rgb(56, 167, 114)';
+            break;
+        default:
+            color = 'rgb(120, 120, 120)';
             break;
     }
     innerColors.push(color);

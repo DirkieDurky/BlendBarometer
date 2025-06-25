@@ -51,7 +51,7 @@
     <hr class="my-5" />
     <div class="card graph-card p-3">
         <div class="d-flex justify-content-center">
-            <img src="/images/barometer.png" alt="de barometer" width="60%" />
+            <img id="moduleLevelGraphImage" src="/images/barometer.png" alt="de barometer" width="60%" />
             <canvas id="moduleLevelDataGraph" class="rounded mb-2 position-absolute"></canvas>
             <canvas id="moduleLevelCategoriesGraph" class="rounded mb-2 position-absolute" style="pointer-events: none;"></canvas>
         </div>

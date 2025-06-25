@@ -7,8 +7,8 @@
     <div class="mb-3">
         <div class="progress" style="height: 10px;">
             <div class="progress-bar bg-success" style="width: {{ 100 * ($currentStep / $totalSteps) }}%"
-                 aria-valuenow="{{ $currentStep }}" aria-valuemin="0" aria-valuemax="{{ $totalSteps }}"
-                 role="progressbar"></div>
+                aria-valuenow="{{ $currentStep }}" aria-valuemin="0" aria-valuemax="{{ $totalSteps }}"
+                role="progressbar"></div>
         </div>
     </div>
 
@@ -23,7 +23,7 @@
         </button>
     </div>
 
-    <hr/>
+    <hr />
 
     <form method="POST" action="{{ route('module-level.submit', $currentStep) }}">
         @csrf
@@ -31,11 +31,11 @@
             <div class="module-level-form mb-5 w-100">
                 <div class="row flex-nowrap gap-4 mx-0" role="group">
                     <div class="col-4"></div>
-                    @foreach ($moduleAnswers as $answer)
-                        <div class="col d-flex justify-content-center gap-2" style="margin-right: -16px;">
-                            <p class="fw-semibold">{{ $answer->answer }}</p>
-                            @if (isset($answer->description))
-                                <span data-bs-toggle="tooltip" data-bs-title="{{ $answer->description }}">
+                    @foreach ($descriptions as $answer => $description)
+                        <div class="col d-flex flex-row gap-2">
+                            <p class="fw-semibold">{{ $answer }}</p>
+                            @if (isset($description))
+                                <span data-bs-toggle="tooltip" data-bs-title="{{ $description }}">
                                     <i class="bi bi-info-circle-fill"></i>
                                 </span>
                             @endif
@@ -49,14 +49,13 @@
                         $selectedAnswer = $answers[$currentStep][$question->id] ?? null;
                         $description = $question->description ?? null;
                     @endphp
-                    <x-module-question-component :question="$question" :selectedAnswer="$selectedAnswer"
-                                                 :fieldName="$fieldName"
-                                                 :description="$description"/>
+                    <x-module-question-component :question="$question" :selectedAnswer="$selectedAnswer" :fieldName="$fieldName" :description="$description"
+                        :descriptions="$descriptions" />
                 @endforeach
             </div>
         </div>
 
-        <x-navigation-buttons-with-submit :previous="$previous ?? route('module-level.previous', $currentStep)"/>
+        <x-navigation-buttons-with-submit :previous="$previous ?? route('module-level.previous', $currentStep)" />
     </form>
     <script>
         document.addEventListener("keydown", (e) => {
