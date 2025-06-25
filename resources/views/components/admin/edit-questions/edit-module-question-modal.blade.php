@@ -12,7 +12,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="questionText" class="form-label">Vraag</label>
-                        <input type="text" class="form-control" id="questionText" name="text">
+                        <input type="text" class="form-control" id="questionText" name="text" required>
                     </div>
                     <div class="mb-3" id="labelInputWrapper">
                         <label for="questionLabel" class="form-label">Label</label>

@@ -13,7 +13,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="categoryText" class="form-label">Categorienaam</label>
-            <input type="text" class="form-control" id="categoryText" name="name">
+            <input type="text" class="form-control" id="categoryText" name="name" required>
           </div>
           <div class="mb-3">
                 <label for="formSectionSelect" class="form-label">Formuliersectie</label>
