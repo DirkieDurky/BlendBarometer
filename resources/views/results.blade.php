@@ -30,7 +30,7 @@
     <div class="d-flex flex-row gap-4">
         <div class="d-flex flex-column gap-3 w-50">
             <h2>Fysieke leeractiviteiten</h2>
-            @foreach ($lessonLevelPhysicalSubcategories as $i=>$category)
+            @foreach ($lessonLevelPhysicalSubcategories as $i => $category)
                 <div class="card graph-card p-3">
                     <canvas id="physical-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
                     <strong>{{ $category->name }}</strong>
@@ -40,7 +40,7 @@
         </div>
         <div class="d-flex flex-column gap-3 w-50">
             <h2>Online leeractiviteiten</h2>
-            @foreach ($lessonLevelOnlineSubcategories as $i=>$category)
+            @foreach ($lessonLevelOnlineSubcategories as $i => $category)
                 <div class="card graph-card p-3">
                     <canvas id="online-{{ $category->id }}" class="bg-white rounded mb-2" role="img"></canvas>
                     <strong>{{ $category->name }}</strong>
@@ -52,15 +52,22 @@
     <hr class="my-5"/>
     <div class="card graph-card p-3">
         <div class="d-flex justify-content-center">
-            <img src="/images/barometer.png" alt="de barometer" width="60%"/>
+            <img id="moduleLevelGraphImage" src="/images/barometer.png" alt="de barometer" width="60%"/>
             <canvas id="moduleLevelDataGraph" class="rounded mb-2 position-absolute"></canvas>
             <canvas id="moduleLevelCategoriesGraph" class="rounded mb-2 position-absolute"
                     style="pointer-events: none;"></canvas>
         </div>
+        <div class="align-self-end" style="width: fit-content">
+            @foreach ($legends as $legend)
+                <div class="mb-1 d-flex align-items-center" style="width: fit-content">
+                    <span class="p-3 border border-solid me-2" style="background-color: {{ $legend->color }};"></span>
+                    <span>{{ $legend->description }}</span>
+                </div>
+            @endforeach
+        </div>
         <strong>Moduleniveau</strong>
-        <p class="mb-0">{{ $moduleLevelGeneralDescription[0]->description }}</p>
+        <p class="mb-2">{{ $moduleLevelGeneralDescription[0]->description }}</p>
         <div class="d-flex justify-content-center row">
-            <b class="mt-3 mb-1">Legenda</b>
             <?php $index = 1; ?>
             @foreach ($moduleLevelCategories as $category => $descriptionArray)
                 @foreach ($descriptionArray as $description)
@@ -77,7 +84,12 @@
 
 </x-progress-step>
 <script>
+    const legendColors = @json(
+        $legends->map(function ($legend) {
+            return $legend->color;
+        }));
     const lessonLevelSubcategories = {!! json_encode($lessonLevelPhysicalSubcategories) !!};
+    const lessonLevelOnlineSubcategories = {!! json_encode($lessonLevelOnlineSubcategories) !!};
 
     const lessonLevelPhysicalQuestions = {!! json_encode($lessonLevelPhysicalQuestions) !!};
     const lessonLevelOnlineQuestions = {!! json_encode($lessonLevelOnlineQuestions) !!};
@@ -95,6 +107,7 @@
     const lessonLevelDataPhysical = {!! json_encode($lessonLevelDataPhysical) !!};
     const lessonLevelDataAll = {!! json_encode($lessonLevelDataAll) !!};
     const moduleLevelData = {!! json_encode(session()->get('moduleLevelData')) !!};
+    const moduleLevelLabels = {!! json_encode($moduleLevelLabels) !!};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"
