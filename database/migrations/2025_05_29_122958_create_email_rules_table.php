@@ -16,9 +16,9 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('academy_name')
-                  ->references('name')->on('academy')
-                  ->cascadeOnUpdate()
-                  ->restrictOnDelete();
+                ->references('name')->on('academy')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
 
             $table->unique(['academy_name', 'email']);
         });
